@@ -5,26 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import ArcTernLogo from "../../../public/images/arctern-logo.svg";
-import {
-  BarChart3,
-  Users,
-  Settings,
-  Package,
-  FileText,
-  ShoppingCart,
-  MessageSquare,
-  LayoutDashboard,
-  ChevronDown,
-  ChevronRight,
-  Building2,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -40,13 +27,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
@@ -73,7 +53,7 @@ const navigationItems = [
   },
   {
     title: "Customer",
-    href: "/dashboard/analytics",
+    href: "/customer",
     icon: (props: any) => (
       <Icon icon="raphael:customer" width="32" height="32" {...props} />
     ),
@@ -101,64 +81,6 @@ const navigationItems = [
   //     },
   //   ],
   // },
-  {
-    title: "Departments",
-    href: "/dashboard/orders",
-    icon: (props: any) => (
-      <Icon icon="tabler:user-filled" width="24" height="24" {...props} />
-    ),
-    roles: ["admin", "manager", "user"],
-  },
-  {
-    title: "Shipments",
-    href: "/dashboard/reports",
-    icon: (props: any) => (
-      <Icon
-        icon="fluent:vehicle-ship-20-filled"
-        width="20"
-        height="20"
-        {...props}
-      />
-    ),
-    roles: ["admin", "manager"],
-  },
-  {
-    title: "Account",
-    href: "/dashboard/messages",
-    icon: (props: any) => (
-      <Icon icon="streamline:payment-10" width="14" height="14" {...props} />
-    ),
-    roles: ["admin", "manager", "user"],
-  },
-  {
-    title: "Report",
-    href: "/dashboard/settings",
-    icon: (props: any) => (
-      <Icon
-        icon="streamline-plump:file-report"
-        width="48"
-        height="48"
-        {...props}
-      />
-    ),
-    roles: ["admin", "manager", "user"],
-  },
-  {
-    title: "Activities",
-    href: "/dashboard/settings",
-    icon: (props: any) => (
-      <Icon icon="carbon:user-activity" width="32" height="32" {...props} />
-    ),
-    roles: ["admin", "manager", "user"],
-  },
-  {
-    title: "Setting",
-    href: "/dashboard/settings",
-    icon: (props: any) => (
-      <Icon icon="lets-icons:setting-fill" width="24" height="24" {...props} />
-    ),
-    roles: ["admin", "manager", "user"],
-  },
 ];
 
 interface DashboardSidebarProps {
@@ -193,14 +115,7 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
       className="overflow-hidden [&>[data-sidebar=sidebar]]:flex-row"
     >
       {/* This is the main sidebar */}
-      <div className="flex h-full w-full flex-col overflow-hidden bg-white">
-        {/* <SidebarHeader className="gap-3 p-4">
-          <div className="px-12">
-            <div className="w-[7rem] h-[4rem] overflow-hidden relative">
-              <Image src={ArcTernLogo} alt="logo" fill />
-            </div>
-          </div>
-        </SidebarHeader> */}
+      <div className="flex h-full  flex-col overflow-hidden bg-white w-full">
         <SidebarHeader
           className={cn(
             "gap-3 p-4 transition-all duration-200",
@@ -214,7 +129,6 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
             )}
           >
             {isCollapsed ? (
-              // Small logo for collapsed state
               <div className="w-8 h-8 overflow-hidden relative flex items-center justify-center">
                 <Image
                   src={ArcTernLogo}
@@ -225,7 +139,6 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
                 />
               </div>
             ) : (
-              // Full logo for expanded state
               <div className="w-[7rem] h-[4rem] overflow-hidden relative">
                 <Image
                   src={ArcTernLogo}
@@ -238,10 +151,10 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
           </div>
         </SidebarHeader>
 
-        <SidebarContent className="overflow-x-hidden m-auto">
+        <SidebarContent className="overflow-x-hidden">
           <SidebarGroup>
             <SidebarGroupContent>
-              <SidebarMenu className="gap-3">
+              <SidebarMenu className="">
                 {filteredNavigation.map((item: any) => {
                   const isActive = Boolean(item.href && pathname === item.href);
 
@@ -308,16 +221,26 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
 
                   // Regular item without subitems
                   return (
-                    <SidebarMenuItem key={item.title}>
+                    <SidebarMenuItem
+                      key={item.title}
+                      className={`relative py-1 flex items-center font-medium ${
+                        isActive
+                          ? "text-primary font-semibold"
+                          : "text-[#B1B1B1]"
+                      }`}
+                    >
+                      {isActive && (
+                        <div className="absolute -left-2 w-[6px] h-full bg-primary rounded-r-2xl"></div>
+                      )}
                       <SidebarMenuButton
                         asChild
-                        isActive={isActive}
+                        // isActive={isActive}
                         tooltip={item.title}
-                        className="font-secondary text-muted text-base font-[300]"
+                        className=""
                       >
                         <Link
                           href={item.href || "#"}
-                          className="flex gap-4 items-center"
+                          className="flex gap-4 items-center py-1"
                         >
                           <item.icon className="size-6" />
                           <span>{item.title}</span>
@@ -331,35 +254,44 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
           </SidebarGroup>
         </SidebarContent>
 
-        <SidebarFooter className="border-t border-muted-light p-2">
-          <div className="flex items-center justify-center gap-4">
-            <Icon
-              icon="streamline:logout-1-solid"
-              width="14"
-              height="14"
-              className="text-muted"
-            />
-            <p className="text-base font-secondary text-muted">Logout</p>
-          </div>
-          <div className="flex items-center gap-2 justify-center">
-            {LINKS?.map((link, idx) => (
+        {!isCollapsed && (
+          <SidebarFooter className="border-t border-muted-light p-2">
+            <div className="flex items-center justify-center gap-4">
+              <Icon
+                icon="streamline:logout-1-solid"
+                width="14"
+                height="14"
+                className="text-muted"
+              />
+              <p className="text-base font-secondary text-muted">Logout</p>
+            </div>
+            <div className="flex items-center gap-2 justify-center">
+              {LINKS?.map((link, idx) => (
+                <a
+                  href={link?.href}
+                  key={idx}
+                  className="font-secondary text-muted font-[300] text-xs"
+                >
+                  {link?.title}
+                </a>
+              ))}
+            </div>
+            <div>
+              <p className="text-xs font-secondary text-muted font-[200] text-center">
+                Copyright @Arctern 2025
+              </p>
+            </div>
+            <div className="text-center pt-2 font-secondary leading-2 -space-y-1 flex flex-col">
+              <p className="font-semibold text-sm">Contact Support:</p>
               <a
-                href={link?.href}
-                key={idx}
-                className="font-secondary text-muted font-[300] text-xs"
+                href="mailto:support@arcternexpress.com"
+                className="text-xs text-secondary"
               >
-                {link?.title}
+                support@arcternexpress.com
               </a>
-            ))}
-          </div>
-          <div>
-            <p className="text-xs font-secondary text-muted font-[200] text-center">Copyright @Arctern 2025</p>
-          </div>
-          <div className="text-center pt-2 font-secondary leading-2 -space-y-1 flex flex-col">
-            <p className="font-semibold text-sm">Contact Support:</p>
-            <a href="mailto:support@arcternexpress.com" className="text-xs text-secondary">support@arcternexpress.com</a>
-          </div>
-        </SidebarFooter>
+            </div>
+          </SidebarFooter>
+        )}
       </div>
       <SidebarRail />
     </Sidebar>

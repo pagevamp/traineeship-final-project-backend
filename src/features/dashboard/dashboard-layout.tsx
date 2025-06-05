@@ -9,25 +9,19 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { UserNav } from "./UserNav";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [userRole, setUserRole] = useState<string>("admin");
   const pathname = usePathname();
-
+  console.log(pathname, "pa");
   // Get current page title from pathname
   const getCurrentPageTitle = () => {
     const segments = pathname.split("/").filter(Boolean);
-    if (segments.length <= 1) return "Dashboard";
+    console.log(segments, "s");
+    if (segments.length <= 1) return segments;
     return segments[segments.length - 1]
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -38,12 +32,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider defaultOpen={true}>
       <DashboardSidebar userRole={userRole} />
       <SidebarInset>
-        <header className="flex h-20 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="flex min-h-16 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
-              <BreadcrumbPage className="text-primary font-primary">
+              <BreadcrumbPage className="text-primary font-primary capitalize">
                 {getCurrentPageTitle()}
               </BreadcrumbPage>
             </Breadcrumb>
