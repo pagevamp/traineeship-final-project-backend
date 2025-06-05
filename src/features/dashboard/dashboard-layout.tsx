@@ -1,0 +1,61 @@
+"use client";
+
+import type React from "react";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { DashboardSidebar } from "./dashboard-sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { UserNav } from "./UserNav";
+
+export function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const [userRole, setUserRole] = useState<string>("admin");
+  const pathname = usePathname();
+
+  // Get current page title from pathname
+  const getCurrentPageTitle = () => {
+    const segments = pathname.split("/").filter(Boolean);
+    if (segments.length <= 1) return "Dashboard";
+    return segments[segments.length - 1]
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
+  return (
+    <SidebarProvider defaultOpen={true}>
+      <DashboardSidebar userRole={userRole} />
+      <SidebarInset>
+        <header className="flex h-20 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="flex items-center gap-2 px-4">
+            <SidebarTrigger className="-ml-1" />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbPage className="text-primary font-primary">
+                {getCurrentPageTitle()}
+              </BreadcrumbPage>
+            </Breadcrumb>
+          </div>
+          <div className="ml-auto flex items-center gap-2 px-4">
+            <UserNav />
+          </div>
+        </header>
+        <main className="flex flex-1 flex-col gap-4 p-5 pt-0 bg-sidebar-background">
+          {children}
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
+}

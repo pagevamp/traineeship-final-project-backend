@@ -1,8 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Alatsi, Lexend_Deca } from "next/font/google";
 import "./globals.css";
+import QueryWrapper from "@/providers/queryWrapper";
+import { ConfirmationDialogProvider } from "@/providers/ConfirmationDialogProvider";
+import { ModalProvider } from "@/providers/modal-context";
+import { Toaster } from "sonner";
+import { Modal } from "@/components/modal/modal";
 
-const inter = Inter({ subsets: ["latin"] });
+const primary = Alatsi({
+  subsets: ["latin"],
+  variable: "--font-primary",
+  weight: ["400"],
+});
+
+const secondary = Lexend_Deca({
+  subsets: ["latin"],
+  variable: "--font-secondary",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +31,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${primary.variable} ${secondary.variable}`}>
+        <QueryWrapper>
+          <ConfirmationDialogProvider>
+            <ModalProvider>
+              <Toaster
+                richColors
+                duration={3000}
+                position="top-right"
+                className="toast-sonner-position"
+                closeButton={true}
+                style={{ zIndex: 1000000 }}
+              />
+              {children}
+              <Modal />
+            </ModalProvider>
+          </ConfirmationDialogProvider>
+        </QueryWrapper>
+      </body>
     </html>
   );
 }
