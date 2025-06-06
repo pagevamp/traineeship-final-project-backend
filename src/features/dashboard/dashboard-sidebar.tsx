@@ -52,10 +52,15 @@ const navigationItems = [
     roles: ["admin", "manager", "user"],
   },
   {
-    title: "Customer",
-    href: "/customer",
+    title: "Sales",
+    href: "/sales",
     icon: (props: any) => (
-      <Icon icon="raphael:customer" width="32" height="32" {...props} />
+      <Icon
+        icon="icon-park-solid:sales-report"
+        width="48"
+        height="48"
+        {...props}
+      />
     ),
     roles: ["admin", "manager"],
   },
@@ -92,7 +97,6 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
   const { state } = useSidebar();
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
     "User Management": true,
-    Products: false,
   });
 
   // Filter navigation items based on user role
@@ -223,10 +227,8 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
                   return (
                     <SidebarMenuItem
                       key={item.title}
-                      className={`relative py-1 flex items-center font-medium ${
-                        isActive
-                          ? "text-primary font-semibold"
-                          : "text-[#B1B1B1]"
+                      className={`relative py-1 flex items-center font-[400] ${
+                        isActive ? "text-primary font-medium" : "text-[#B1B1B1]"
                       }`}
                     >
                       {isActive && (
@@ -240,10 +242,10 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
                       >
                         <Link
                           href={item.href || "#"}
-                          className="flex gap-4 items-center py-1"
+                          className="flex gap-4 items-center py-1 font-secondary tracking-wide"
                         >
-                          <item.icon className="size-6" />
-                          <span>{item.title}</span>
+                          <item.icon className="size-[18px]" />
+                          <span className="text-sm">{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>

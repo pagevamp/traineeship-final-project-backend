@@ -32,12 +32,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     <SidebarProvider defaultOpen={true}>
       <DashboardSidebar userRole={userRole} />
       <SidebarInset>
-        <header className="flex min-h-16 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="flex min-h-16 py-5 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
-              <BreadcrumbPage className="text-primary font-primary capitalize">
+              <BreadcrumbPage className="text-primary font-primary capitalize text-lg">
                 {getCurrentPageTitle()}
               </BreadcrumbPage>
             </Breadcrumb>
