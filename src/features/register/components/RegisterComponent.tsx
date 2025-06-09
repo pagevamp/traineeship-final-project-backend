@@ -220,16 +220,16 @@ const ChangeStep = ({
 
 const RegisterStep1 = () => {
   return (
-    <div className="text-[16px] w-full max-w-[600px] px-4 sm:px-6 md:px-8 lg:px-0 mx-auto flex flex-col gap-[21px]">
+    <div className="text-[16px] w-full max-w-[600px] px-4 sm:px-6 md:px-8 lg:px-0 mx-auto flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <Label
           htmlFor="company-name"
-          className="text-[16px] font-primary text-[#26203B]"
+          className="text-[14px] font-primary text-[#26203B]"
         >
           Company Name
         </Label>
         <Input
-          className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-name"
           name="company-name"
           placeholder="Enter your company name"
@@ -241,12 +241,12 @@ const RegisterStep1 = () => {
       <div className="flex flex-col gap-2">
         <Label
           htmlFor="company-mail"
-          className="text-[16px] font-primary text-[#26203B]"
+          className="text-[14px] font-primary text-[#26203B]"
         >
           Company Mail
         </Label>
         <Input
-          className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-mail"
           name="company-mail"
           placeholder="Enter your company mail"
@@ -258,16 +258,16 @@ const RegisterStep1 = () => {
       <div className="flex flex-col gap-2">
         <Label
           htmlFor="company-type"
-          className="text-[16px] font-primary text-[#26203B]"
+          className="text-[14px] font-primary text-[#26203B]"
         >
           Company Type
         </Label>
         <Select>
           <SelectTrigger
             id="company-type"
-            className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] placeholder:font-[300] h-12"
           >
-            <SelectValue placeholder="Select your company type" />
+            <SelectValue placeholder="Select your company type" className="placeholder:font-[300]" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -285,12 +285,12 @@ const RegisterStep1 = () => {
       <div className="flex flex-col gap-2">
         <Label
           htmlFor="years-incorporated"
-          className="text-[16px] font-primary text-[#26203B]"
+          className="text-[14px] font-primary text-[#26203B]"
         >
           Years Since Incorporated
         </Label>
         <Input
-          className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="years-incorporated"
           name="years-incorporated"
           placeholder="Enter date"
@@ -302,12 +302,12 @@ const RegisterStep1 = () => {
       <div className="flex flex-col gap-2">
         <Label
           htmlFor="employee-size"
-          className="text-[16px] font-primary text-[#26203B]"
+          className="text-[14px] font-primary text-[#26203B]"
         >
           Employer Size
         </Label>
         <Input
-          className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="employee-size"
           name="employee-size"
           placeholder="Enter your company size"
