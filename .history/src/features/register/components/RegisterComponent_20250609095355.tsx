@@ -222,6 +222,15 @@ const RegisterStep1 = () => {
   return (
     <div className="text-[16px] w-full max-w-[600px] px-4 sm:px-6 md:px-8 lg:px-0 mx-auto flex flex-col gap-4">
       <div className="flex flex-col gap-2">
+<<<<<<< HEAD
+=======
+        <Label
+          htmlFor="company-name"
+          className="text-[14px] font-primary text-[#26203B]"
+        >
+          Company Name
+        </Label>
+>>>>>>> 91f3c7f0f82f0c14ac7cbf4d0be5db5aac376c79
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-name"
@@ -234,6 +243,15 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+<<<<<<< HEAD
+=======
+        <Label
+          htmlFor="company-mail"
+          className="text-[14px] font-primary text-[#26203B]"
+        >
+          Company Mail
+        </Label>
+>>>>>>> 91f3c7f0f82f0c14ac7cbf4d0be5db5aac376c79
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-mail"
@@ -257,10 +275,7 @@ const RegisterStep1 = () => {
             id="company-type"
             className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] placeholder:font-[300] h-12"
           >
-            <SelectValue
-              placeholder="Select your company type"
-              className="placeholder:font-[300]"
-            />
+            <SelectValue placeholder="Select your company type" className="placeholder:font-[300]" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -276,6 +291,7 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="years-incorporated"
@@ -288,6 +304,15 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+<<<<<<< HEAD
+=======
+        <Label
+          htmlFor="employee-size"
+          className="text-[14px] font-primary text-[#26203B]"
+        >
+          Employer Size
+        </Label>
+>>>>>>> 91f3c7f0f82f0c14ac7cbf4d0be5db5aac376c79
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="employee-size"

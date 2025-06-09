@@ -14,23 +14,23 @@ const CustomerComponent = () => {
         <InfoBox />
       </div>
 
-      <motion.div
+      {/* <motion.div
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="w-full z-50"
-      >
-        <SearchBar
-          placeholder="Search for user"
-          className="w-full"
-          firstCircleContent={
-            <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
-          }
-          secondCircleContent={
-            <Image src="/Download.svg" alt="Download" width={20} height={18} />
-          }
-        />
-      </motion.div>
+      > */}
+      <SearchBar
+        placeholder="Search for user"
+        className="w-full"
+        firstCircleContent={
+          <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
+        }
+        secondCircleContent={
+          <Image src="/Download.svg" alt="Download" width={20} height={18} />
+        }
+      />
+      {/* </motion.div> */}
 
       <div className="mt-6">
         <CustomerStatus />

@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 
 const InfoBox = () => {
   return (
-    <div className="flex flex-wrap justify-center lg:justify-between items-center gap-6 w-full px-4 md:px-0">
+    <div className="grid grid-cols-4 flex-wrap justify-center lg:justify-between items-center gap-6 w-full px-4 md:px-0">
       {infoData.map((item, index) => (
         <motion.div
           key={index}
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-          className="w-full sm:w-[48%] lg:w-auto"
+          // className="w-full sm:w-[48%] lg:w-auto"
         >
           <Box imgSrc={item.imgSrc} title={item.title} number={item.number} />
         </motion.div>

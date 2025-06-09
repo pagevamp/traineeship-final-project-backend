@@ -24,7 +24,7 @@ const DepartmentComponent = () => {
           <div className="relative my-[30px]">
             <button
               onClick={props.closeModal}
-              className="absolute top-1 right-2 text-2xl text-[#E06518] font-bold bg-transparent border-none cursor-pointer"
+              className="absolute top-1 right-2 bg-white w-[45px] h-[45px] border rounded-full text-2xl text-[#E06518] font-bold bg-transparent border-primary cursor-pointer"
               aria-label="Close modal"
             >
               &times;
@@ -42,30 +42,30 @@ const DepartmentComponent = () => {
   return (
     <>
       <div>
-        <motion.div
+        {/* <motion.div
           initial={{ scale: 1 }}
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="w-full z-50"
-        >
-          <SearchBar
-            placeholder="Search for Department"
-            className="w-[97%] mt-[41px] mb-[26px] gap-[45px] "
-            firstCircleContent={
-              <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
-            }
-            secondCircleContent={
-              <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[2px] rounded-[37px] w-fit h-fit">
-                <button
-                  onClick={handleCreateClick}
-                  className="flex items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white rounded-[37px] text-sm font-medium"
-                >
-                  Create <PlusCircleIcon size={24} />
-                </button>
-              </div>
-            }
-          />
-        </motion.div>
+        > */}
+        <SearchBar
+          placeholder="Search for Department"
+          className="w-[97%] mb-[26px] gap-[45px] "
+          firstCircleContent={
+            <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
+          }
+          secondCircleContent={
+            <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[2px] rounded-[37px] w-fit h-fit">
+              <button
+                onClick={handleCreateClick}
+                className="flex items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white rounded-[37px] text-sm font-medium"
+              >
+                Create <PlusCircleIcon size={24} />
+              </button>
+            </div>
+          }
+        />
+        {/* </motion.div> */}
       </div>
 
       <motion.div

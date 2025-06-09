@@ -52,10 +52,10 @@ const UserComponent = () => {
 
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex justify-center items-center">
-            <div className="bg-white rounded-lg p-6 relative">
+            <div className="bg-white rounded-[39px] p-6 relative w-[669px]">
               <button
                 onClick={handleCloseModal}
-                className="absolute top-1 right-2 text-2xl text-[#E06518] font-bold bg-transparent border-none cursor-pointer"
+                className="absolute -top-2 -right-2 bg-white w-[45px] h-[45px] rounded-full text-2xl text-[#E06518] font-bold bg-transparent border-primary border cursor-pointer"
                 aria-label="Close modal"
               >
                 &times;

@@ -234,6 +234,7 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        9
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-mail"

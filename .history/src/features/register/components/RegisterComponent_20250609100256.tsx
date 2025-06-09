@@ -222,6 +222,12 @@ const RegisterStep1 = () => {
   return (
     <div className="text-[16px] w-full max-w-[600px] px-4 sm:px-6 md:px-8 lg:px-0 mx-auto flex flex-col gap-4">
       <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="company-name"
+          className="text-[16px] font-primary text-[#26203B]"
+        >
+          Company Name
+        </Label>
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-name"
@@ -276,6 +282,12 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="years-incorporated"
+          className="text-[16px] font-primary text-[#26203B]"
+        >
+          Years Since Incorporated
+        </Label>
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="years-incorporated"
@@ -288,6 +300,12 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="employee-size"
+          className="text-[16px] font-primary text-[#26203B]"
+        >
+          Employer Size
+        </Label>
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="employee-size"

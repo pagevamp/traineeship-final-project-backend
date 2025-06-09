@@ -23,7 +23,7 @@ const Box = ({ imgSrc, title, number }: BoxProps) => {
           <span className="text-[16px] font-primary text-[#510688]">
             {title}
           </span>
-          <span className="text-[18px] font-[Inter] font-semibold text-[#000000]">
+          <span className="text-[18px] font-secondary font-semibold text-[#000000]">
             {number}
           </span>
         </div>

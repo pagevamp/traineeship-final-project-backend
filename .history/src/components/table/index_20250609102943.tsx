@@ -43,7 +43,7 @@ const TableComponent: React.FC<Props> = ({
 }) => {
   const getData = (row: any, key: string, type?: string) => {
     if (type == "status") {
-      return <div className="">Pending</div>;
+      return <div className="bg-sidebar-foreground">Pending</div>;
     }
     return get(row, key) ?? "N/A";
   };

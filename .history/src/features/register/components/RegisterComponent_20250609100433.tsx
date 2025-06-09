@@ -382,7 +382,7 @@ const RegisterStep2 = () => {
       </div>
 
       <div className="flex flex-col gap-y-[22px]">
-        <h3 className="text-center font-primary text-xl">
+        <h3 className="text-left font-primary text-xl">
           Finance Manager Information
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px]">

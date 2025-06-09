@@ -234,6 +234,12 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="company-mail"
+          className="text-[16px] font-primary text-[#26203B]"
+        >
+          Company Mail
+        </Label>
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="company-mail"
@@ -276,6 +282,12 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="years-incorporated"
+          className="text-[16px] font-primary text-[#26203B]"
+        >
+          Years Since Incorporated
+        </Label>
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="years-incorporated"
@@ -288,6 +300,12 @@ const RegisterStep1 = () => {
       </div>
 
       <div className="flex flex-col gap-2">
+        <Label
+          htmlFor="employee-size"
+          className="text-[16px] font-primary text-[#26203B]"
+        >
+          Employer Size
+        </Label>
         <Input
           className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
           id="employee-size"

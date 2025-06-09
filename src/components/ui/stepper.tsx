@@ -38,7 +38,7 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
               "text-[16px]",
               isCompleted || isActive
                 ? "font-normal inline-block bg-gradient-to-r from-[#CF5406] to-[#F87B18] bg-clip-text text-transparent"
-                : "text-muted-foreground font-medium text-[#DFDFDF]"
+                : "text-muted-foreground text-[#DFDFDF]"
             )}
           >
             {title}

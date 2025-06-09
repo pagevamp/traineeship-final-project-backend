@@ -43,7 +43,7 @@ export const USER_COLUMN = [
   { key: "name", label: "User Name" },
   { key: "phone", label: "Phone" },
   { key: "email", label: "Email" },
-  { key: "status", label: "Status", type:'status' },
+  { key: "status", label: "Status" },
 ];
 
 export const UserData = [

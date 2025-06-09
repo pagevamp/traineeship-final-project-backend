@@ -1,5 +1,5 @@
-import DepartmentComponent from "@/features/department/component/DepartmentComponent";
 import React from "react";
+import DepartmentComponent from "@/features/department/component/DepartmentComponent";
 
 const Department = () => {
   return (
