@@ -27,14 +27,14 @@ const commissionsData = [
 export default function SalesCommissionsCard() {
   return (
     <AnimatedCard delay={400}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+      <CardHeader className="flex flex-row flex-wrap items-center gap-2 justify-between space-y-0 pb-4">
         <CardTitle className="flex items-center gap-2 text-base font-secondary font-semibold">
           <div className="p-2 bg-purple-100 rounded-lg">
             <DollarSign className="h-5 w-5 text-purple-600" />
           </div>
           Sales Commissions
         </CardTitle>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center flex-wrap gap-2">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input placeholder="Search" className="pl-9 w-48 h-[30px] text-muted-foreground" />

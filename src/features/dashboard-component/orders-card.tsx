@@ -19,7 +19,7 @@ export default function OrdersCard() {
 
   return (
     <AnimatedCard delay={200}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+      <CardHeader className="flex flex-row flex-wrap items-center gap-2 justify-between space-y-0 pb-4">
         <CardTitle className="flex items-center gap-2 text-base font-secondary font-semibold">
           <div className="p-2 bg-orange-100 rounded-lg">
             <ShoppingCart className="h-5 w-5 text-orange-600" />

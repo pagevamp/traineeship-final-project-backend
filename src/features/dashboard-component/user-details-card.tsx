@@ -25,7 +25,7 @@ export default function UserDetailsCard() {
         </Button>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center flex-wrap gap-4">
           <div>
             <div className="text-sm text-gray-500 mb-1">Total Users</div>
             <div ref={elementRef} className="text-3xl font-bold text-primary">
@@ -34,7 +34,7 @@ export default function UserDetailsCard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4">
           {userRoles.map((role, index) => (
             <div key={role.label} className="flex justify-between items-center">
               <span className="text-sm text-gray-600">{role.label}</span>

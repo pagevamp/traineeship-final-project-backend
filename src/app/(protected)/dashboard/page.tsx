@@ -12,22 +12,24 @@ const Index = () => {
       <div className="mx-auto space-y-4">
         {/* Top Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div className="col-span-2">
+          <div className="lg:col-span-2">
             <UserDetailsCard />
           </div>
-          <SalesCard />
+          <div>
+            <SalesCard />
+          </div>
         </div>
 
         {/* Bottom Row */}
         <div className="grid grid-cols-1 lg:grid-cols-8 gap-4">
-          <div className="col-span-2">
+          <div className="lg:col-span-2">
             <OrdersCard />
           </div>
 
-          <div className="col-span-2">
+          <div className="lg:col-span-2">
             <TopSellingCard />
           </div>
-          <div className="col-span-4">
+          <div className="lg:col-span-4">
             <SalesCommissionsCard />
           </div>
         </div>

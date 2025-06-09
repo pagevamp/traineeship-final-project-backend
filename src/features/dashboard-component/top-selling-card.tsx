@@ -16,7 +16,7 @@ import AnimatedCard from "@/components/animated-card";
 export default function TopSellingCard() {
   return (
     <AnimatedCard delay={300}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+      <CardHeader className="flex flex-row flex-wrap items-center gap-2 justify-between space-y-0 pb-4">
         <CardTitle className="flex items-center gap-2 text-base font-secondary font-semibold">
           <div className="p-2 bg-green-100 rounded-lg">
             <Package className="h-5 w-5 text-green-600" />
