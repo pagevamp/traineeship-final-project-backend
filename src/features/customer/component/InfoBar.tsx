@@ -1,3 +1,4 @@
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +11,7 @@ import BankDetails from "./BankDetails";
 import Documents from "./Document";
 import FinanceManager from "./FinanceManger";
 import Referral from "./referral";
+import { motion } from "framer-motion";
 
 const accordionData = [
   {
@@ -41,26 +43,42 @@ const accordionData = [
 
 const InfoBar = () => {
   return (
-    <div className="flex flex-col justify-center items-center w-full lg:max-w-none max-w-[750px] mx-0">
+    <div
+      className="
+        flex flex-col justify-center items-center
+        w-full
+        max-w-full
+        sm:max-w-[750px]
+        lg:max-w-none
+        mx-0
+      "
+    >
       {accordionData.map((item, index) => (
-        <Accordion
+        <motion.div
           key={index}
-          type="single"
-          collapsible
-          className={cn(
-            "bg-white rounded-[20px] w-full",
-            index !== 0 ? "mt-4" : ""
-          )}
+          className="w-full"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: index * 0.3, ease: "easeOut" }}
         >
-          <AccordionItem value={`item-${index}`} className="w-full">
-            <AccordionTrigger className="w-full font-primary text-[14px] sm:text-[16px] text-[#232323] p-4">
-              {item.title}
-            </AccordionTrigger>
-            <AccordionContent className="w-full text-[#232323] px-4 pt-2 pb-4 text-[12px] sm:text-[14px]">
-              {item.content}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+          <Accordion
+            type="single"
+            collapsible
+            className={cn(
+              "bg-white rounded-[20px] w-full",
+              index !== 0 ? "mt-4" : ""
+            )}
+          >
+            <AccordionItem value={`item-${index}`} className="w-full">
+              <AccordionTrigger className="w-full font-primary text-[14px] sm:text-[16px] text-[#232323] p-4">
+                {item.title}
+              </AccordionTrigger>
+              <AccordionContent className="w-full text-[#232323] px-4 pt-2 pb-4 text-[12px] sm:text-[14px]">
+                {item.content}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </motion.div>
       ))}
     </div>
   );

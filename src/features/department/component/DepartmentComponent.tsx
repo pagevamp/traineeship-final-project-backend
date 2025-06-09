@@ -16,9 +16,9 @@ const DepartmentComponent = () => {
     openModal({
       component: (props: any) => (
         <motion.div
-          initial={{ x: 300, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          initial={{ opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           className="relative"
         >
           <div className="relative my-[30px]">
@@ -43,7 +43,7 @@ const DepartmentComponent = () => {
     <>
       <div>
         <motion.div
-          initial={{ y: -50, opacity: 0 }}
+          initial={{ opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
         >

@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 
-const Modaldata = () => {
+const ModalData = () => {
   return (
     <div className="p-8">
       <span className="font-primary text-[20px] text-[#111D35] block">
@@ -10,22 +10,18 @@ const Modaldata = () => {
 
       <div className="flex gap-[26px] mt-[28px]">
         <div className="flex flex-col flex-1">
-          <label className="mb-1 text-[14px] font-medium text-[#111D35]">
-            Full Name
-          </label>
           <Input
             type="text"
-            placeholder="Enter Full Name"
+            labelName="Department Name"
+            placeholder="Enter Department Name"
             className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
           />
         </div>
         <div className="flex flex-col flex-1">
-          <label className="mb-1 text-[14px] font-medium text-[#111D35]">
-            Employee ID
-          </label>
           <Input
             type="text"
-            placeholder="Enter Employee ID"
+            labelName="Contact Person"
+            placeholder="Enter Contact Person Name"
             className="w-full h-[40px] px-3 text-muted-foreground rounded border border-[#ccc] text-[14px] bg-white"
           />
         </div>
@@ -54,52 +50,6 @@ const Modaldata = () => {
         </div>
       </div>
 
-      <div className="flex gap-[26px] mt-[20px]">
-        <div className="flex flex-col flex-1">
-          <label className="mb-1 text-[14px] font-medium text-[#111D35]">
-            Department
-          </label>
-          <select className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] text-[#555] bg-white appearance-none">
-            <option>Select Department</option>
-            <option>HR</option>
-            <option>Engineering</option>
-          </select>
-        </div>
-        <div className="flex flex-col flex-1">
-          <label className="mb-1 text-[14px] font-medium text-[#111D35]">
-            Designation
-          </label>
-          <select className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] text-[#555] bg-white appearance-none">
-            <option>Select Designation</option>
-            <option>Manager</option>
-            <option>Developer</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="flex gap-[26px] mt-[20px]">
-        <div className="flex flex-col flex-1">
-          <label className="mb-1 text-[14px] font-medium text-[#111D35]">
-            Password
-          </label>
-          <Input
-            type="text"
-            placeholder="Enter New Password"
-            className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
-          />
-        </div>
-        <div className="flex flex-col flex-1">
-          <label className="mb-1 text-[14px] font-medium text-[#111D35]">
-            Confirm Password
-          </label>
-          <Input
-            type="text"
-            placeholder="Re-enter Password"
-            className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
-          />
-        </div>
-      </div>
-
       <div className="flex justify-center mt-[28px]">
         <button
           className="w-[191px] h-[40px] rounded text-white font-medium text-[14px]"
@@ -114,4 +64,4 @@ const Modaldata = () => {
   );
 };
 
-export default Modaldata;
+export default ModalData;

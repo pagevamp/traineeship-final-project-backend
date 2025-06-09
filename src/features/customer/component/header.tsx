@@ -3,8 +3,11 @@
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { headerDetails } from "./constant";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const Header = () => {
+  const [flip, setFlip] = useState(true);
   return (
     <div className="flex flex-col gap-6 px-4 md:px-0 w-full mx-auto">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
@@ -24,16 +27,14 @@ const Header = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row gap-10 sm:gap-[24px]">
-        <div className="flex-shrink-0 mx-auto sm:mx-0">
-          <Image
-            src="/Ellipse 67.svg"
-            alt="Company Avatar"
-            width={165}
-            height={165}
-            className="rounded-full object-cover"
-            priority
-          />
-        </div>
+        <Image
+          src="/Ellipse 67.svg"
+          alt="Company Avatar"
+          width={165}
+          height={165}
+          className="rounded-full object-cover"
+          priority
+        />
 
         <div className="w-full sm:max-w-[823px] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
           {headerDetails.map((detail, index) => (

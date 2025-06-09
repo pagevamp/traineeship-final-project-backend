@@ -30,21 +30,22 @@ export const customerStatus = [
     name: "John Doe",
     phone: "9876543212",
     email: "test@gmail.com",
+    status: "Pending",
   },
   {
     name: "John Doe",
     phone: "9876543212",
     email: "test@gmail.com",
+    status: "Approved",
   },
 ];
 
-type StatusType = "Approved" | "Pending" | "Rejected" | "Department";
+type StatusType = "Approved" | "Pending" | "Rejected";
 
 export const statusColors: Record<StatusType, string> = {
   Approved: "text-[#007a6d] bg-[#b2f0e7]",
   Pending: "text-[#9a1a14] bg-[#f8d5d2]",
   Rejected: "text-[#3e1a99] bg-[#d7c7f7]",
-  Department: "text-[#664600] bg-[#fff0cc]",
 };
 
 export const actions = [

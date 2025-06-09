@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { ChevronDown } from "lucide-react";
@@ -69,20 +69,25 @@ const CustomerStatus = () => {
         </div>
       </div>
 
-      <motion.div
-        className="bg-[#ffffff] w-full rounded-[25px] pl-[15px] pr-[15px] md:pl-[30px] md:pr-[57px] pt-[25px] overflow-auto"
-        initial={{ x: 150, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        <TableComponent
-          currentPage={state.pagination.page}
-          columns={USER_COLUMN}
-          data={UserData}
-          isLoading={false}
-        />
-      </motion.div>
+      <div className="bg-[#ffffff] w-full rounded-[25px] pl-[15px] pr-[15px] md:pl-[30px] md:pr-[57px] pt-[25px] overflow-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="min-w-[600px]"
+          >
+            <TableComponent
+              currentPage={state.pagination.page}
+              columns={USER_COLUMN}
+              data={UserData}
+              isLoading={false}
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 };

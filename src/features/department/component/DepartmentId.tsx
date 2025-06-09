@@ -4,6 +4,7 @@ import Image from "next/image";
 import SearchComponent from "@/components/SearchComponent/SearchComponent";
 import DepartmentStatus from "./DepartmentStatus";
 import DepartmentInfoCard from "./DepartmentInfoCard";
+import { motion } from "framer-motion";
 
 const DepartmentId = () => {
   const [state, setState] = useState({
@@ -16,17 +17,28 @@ const DepartmentId = () => {
 
   return (
     <>
-      <div className="mb-[43px]">
+      <motion.div
+        className="mb-[43px]"
+        initial={{ y:-50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+      >
         <DepartmentInfoCard />
-      </div>
+      </motion.div>
       <div>
-        <div className="flex items-center gap-4">
+        <motion.div
+          className="flex items-center gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        >
           <SearchComponent
             state={state}
             setState={setState}
             placeholder="Search for user"
             className="w-[80%]"
           />
+
           <div>
             <div className="bg-white gradient-border w-10 h-10 m-auto flex items-center justify-center rounded-full p-2 cursor-pointer">
               <Image
@@ -37,7 +49,7 @@ const DepartmentId = () => {
               />
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
       <div className="mt-[25px]">
         <DepartmentStatus />

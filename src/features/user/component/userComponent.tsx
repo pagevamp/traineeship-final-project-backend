@@ -20,9 +20,9 @@ const UserComponent = () => {
       </div>
 
       <motion.div
-        initial={{ y: -50, opacity: 0 }}
+        initial={{ opacity: 0.1 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       >
         <div className="w-full flex flex-row items-center gap-[5px] mt-[41px] mb-[26px]">
           <SearchBar
@@ -53,9 +53,14 @@ const UserComponent = () => {
         </div>
       </motion.div>
 
-      <div>
+      <motion.div
+        initial={{ x: 150, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
         <UserStatus />
-      </div>
+      </motion.div>
     </div>
   );
 };
