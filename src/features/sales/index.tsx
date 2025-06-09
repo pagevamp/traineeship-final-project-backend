@@ -55,7 +55,7 @@ const Index = () => {
         />
         <div>
           <div
-            className={`bg-white gradient-border w-10 h-10 m-auto flex items-center justify-center rounded-full p-2 cursor-pointer`}
+            className={`bg-white hover:bg-primary-light gradient-border w-10 h-10 m-auto flex items-center justify-center rounded-full p-3 cursor-pointer`}
           >
             <Image
               src={DownloadIcon}
