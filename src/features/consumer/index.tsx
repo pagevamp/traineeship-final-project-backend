@@ -4,9 +4,10 @@ import SearchComponent from "@/components/SearchComponent/SearchComponent";
 import Image from "next/image";
 import DownloadIcon from "../../../public/images/download-icon.svg";
 import TableComponent from "@/components/table";
-import { SALES_COLUMN, SalesData } from "./constant";
+import { CONSUMER_COLUMN, ConsumerData } from "./constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
+import Button from "@/components/Button/Button";
 
 const Index = () => {
   const router = useRouter();
@@ -30,18 +31,7 @@ const Index = () => {
         />
       ),
       onClick: (row: any) => router.push(`/sales/${row.id}`),
-    },
-    // {
-    //   label: (
-    //     <Icon
-    //       icon="solar:trash-bin-minimalistic-2-bold"
-    //       width="22"
-    //       height="22"
-    //       color="#FF5C0B"
-    //     />
-    //   ),
-    //   onClick: (row: any) => {},
-    // },
+    }
   ];
 
   return (
@@ -51,7 +41,7 @@ const Index = () => {
           state={state}
           setState={setState}
           placeholder="Search for user"
-          className="w-[80%]"
+          className="w-[60%]"
         />
         <div>
           <div
@@ -65,13 +55,14 @@ const Index = () => {
             />
           </div>
         </div>
+        <Button label="Add Customer" className="w-fit h-[38px] px-4 text-sm" />
       </div>
 
       <div className="pt-4">
         <TableComponent
           currentPage={state.pagination.page}
-          columns={SALES_COLUMN}
-          data={SalesData}
+          columns={CONSUMER_COLUMN}
+          data={ConsumerData}
           isLoading={false}
           actions={actions}
         />

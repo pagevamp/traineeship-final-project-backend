@@ -28,65 +28,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import Image from "next/image";
-import { Icon } from "@iconify/react/dist/iconify.js";
-
-const LINKS = [
-  {
-    title: "Terms & Conditions",
-    href: "/termsandconditions",
-  },
-  {
-    title: "Privacy Policy",
-    href: "/privacypolicy",
-  },
-];
-
-// Define navigation items with role-based access
-const navigationItems = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: (props: any) => (
-      <Icon icon="garden:home-fill-16" width="12" height="12" {...props} />
-    ),
-    roles: ["admin", "manager", "user"],
-  },
-  {
-    title: "Sales",
-    href: "/sales",
-    icon: (props: any) => (
-      <Icon
-        icon="icon-park-solid:sales-report"
-        width="48"
-        height="48"
-        {...props}
-      />
-    ),
-    roles: ["admin", "manager"],
-  },
-  // {
-  //   title: "User Management",
-  //   icon: Users,
-  //   roles: ["admin"],
-  //   subItems: [
-  //     {
-  //       title: "All Users",
-  //       href: "/dashboard/users",
-  //       roles: ["admin"],
-  //     },
-  //     {
-  //       title: "Roles",
-  //       href: "/dashboard/users/roles",
-  //       roles: ["admin"],
-  //     },
-  //     {
-  //       title: "Permissions",
-  //       href: "/dashboard/users/permissions",
-  //       roles: ["admin"],
-  //     },
-  //   ],
-  // },
-];
+import { LINKS, navigationItems } from "./constant";
 
 interface DashboardSidebarProps {
   userRole: string;
@@ -257,16 +199,7 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
         </SidebarContent>
 
         {!isCollapsed && (
-          <SidebarFooter className="border-t border-muted-light p-2">
-            <div className="flex items-center justify-center gap-4">
-              <Icon
-                icon="streamline:logout-1-solid"
-                width="14"
-                height="14"
-                className="text-muted"
-              />
-              <p className="text-base font-secondary text-muted">Logout</p>
-            </div>
+          <SidebarFooter className="p-2">
             <div className="flex items-center gap-2 justify-center">
               {LINKS?.map((link, idx) => (
                 <a

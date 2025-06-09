@@ -6,6 +6,7 @@ import { ConfirmationDialogProvider } from "@/providers/ConfirmationDialogProvid
 import { ModalProvider } from "@/providers/modal-context";
 import { Toaster } from "sonner";
 import { Modal } from "@/components/modal/modal";
+import ScrollProgress from "@/components/scroll-progress";
 
 const primary = Alatsi({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
                 style={{ zIndex: 1000000 }}
               />
               {children}
+              <ScrollProgress />
               <Modal />
             </ModalProvider>
           </ConfirmationDialogProvider>

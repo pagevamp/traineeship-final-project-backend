@@ -1,15 +1,15 @@
 import React from "react";
-import SalesComponent from "@/features/sales";
+import InventoryComponent from "@/features/inventory";
 
 export async function generateMetadata() {
   return {
-    title: "Sales | Arctern Express",
+    title: "Inventory | Arctern Express",
   };
 }
 const Index = () => {
   return (
     <div className="py-4">
-      <SalesComponent />
+      <InventoryComponent />
     </div>
   );
 };
