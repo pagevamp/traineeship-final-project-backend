@@ -1,85 +1,37 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { fields } from "../constant";
+import { useModal } from "@/hooks/useModal";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import Modaldata from "./Modaldata";
 
-export default function DepartmentForm({
-  closeModal,
-}: {
-  closeModal?: () => void;
-}) {
-  const router = useRouter();
-
-  const handleCreate = () => {
-    router.push(`/department/${1}`);
-
-    if (closeModal) closeModal();
-  };
+const DepartmentForm = () => {
+  const { closeModal } = useModal();
+  const [activeSlide, setActiveSlide] = useState(0);
 
   return (
-    <div className="max-w-[650px] my-[auto]">
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 256px)",
-          gap: "26px",
-          justifyContent: "center",
-          marginBottom: 24,
-        }}
-      >
-        {fields.map(({ name, label, type, placeholder }) => (
-          <div key={name} style={{ width: 256 }}>
-            <label
-              htmlFor={name}
-              style={{
-                display: "block",
-                marginBottom: 6,
-                marginRight: 8,
-                fontWeight: 500,
-              }}
-            >
-              {label}
-            </label>
-            <Input
-              id={name}
-              name={name}
-              type={type}
-              placeholder={placeholder}
-              style={{
-                height: 40,
-                backgroundColor: "#FFFFFF",
-                border: "1px solid #EBEBEB",
-                borderRadius: 4,
-                padding: "0 12px",
-                fontSize: 16,
-                boxSizing: "border-box",
-              }}
-            />
-          </div>
-        ))}
+    <div className="relative w-full">
+      <div>
+        <Modaldata />
       </div>
 
-      <button
-        onClick={handleCreate}
-        style={{
-          width: 500,
-          height: 40,
-          background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
-          border: "none",
-          borderRadius: 4,
-          color: "white",
-          fontWeight: "600",
-          fontSize: 16,
-          cursor: "pointer",
-          display: "block",
-          margin: "0 auto",
-          userSelect: "none",
-        }}
-      >
-        Create
-      </button>
+      <div className="flex justify-center gap-2 pb-6">
+        {[0, 1].map((idx) => (
+          <button
+            key={idx}
+            onClick={() => setActiveSlide(idx)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              activeSlide === idx ? "bg-[#E06518]" : "bg-gray-300"
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+export default DepartmentForm;

@@ -739,7 +739,7 @@ const RegisterStep5 = () => {
               height={20}
             />
             <span className="text-sm font-medium text-[#1E1E1E]">
-              Company Name
+              Trade license
             </span>
           </div>
         </div>
@@ -756,7 +756,7 @@ const RegisterStep5 = () => {
               height={20}
             />
             <span className="text-sm font-medium text-[#1E1E1E]">
-              Company Name
+              Vat certificate
             </span>
           </div>
         </div>
@@ -773,7 +773,7 @@ const RegisterStep5 = () => {
               height={20}
             />
             <span className="text-sm font-medium text-[#1E1E1E]">
-              Company Name
+              Passport copy
             </span>
           </div>
         </div>
@@ -790,15 +790,15 @@ const RegisterStep5 = () => {
               height={20}
             />
             <span className="text-sm font-medium text-[#1E1E1E]">
-              Company Name
+              Emirates ID
             </span>
           </div>
         </div>
 
-        <div className="hidden md:block w-[1px] h-[62px]" />
+        <div className="hidden md:block bg-[#DFDFDF] w-[1px] h-[62px]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+          <div className="w-[209px] h-[48px] border-1 border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
             <Image
               src="/Upload.svg"
               alt="Company Logo"
@@ -806,9 +806,7 @@ const RegisterStep5 = () => {
               width={20}
               height={20}
             />
-            <span className="text-sm font-medium text-[#1E1E1E]">
-              Company Name
-            </span>
+            <span className="text-sm font-medium text-[#1E1E1E]">Contract</span>
           </div>
         </div>
       </div>
