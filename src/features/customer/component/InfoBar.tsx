@@ -41,22 +41,22 @@ const accordionData = [
 
 const InfoBar = () => {
   return (
-    <div className="flex flex-col justify-center items-center px-4 sm:px-0">
+    <div className="flex flex-col justify-center items-center w-full lg:max-w-none max-w-[750px] mx-0">
       {accordionData.map((item, index) => (
         <Accordion
           key={index}
           type="single"
           collapsible
           className={cn(
-            "bg-white rounded-[20px] lg:min-w-full sm:min-w-[600px] md:max-w-[800px] ",
+            "bg-white rounded-[20px] w-full",
             index !== 0 ? "mt-4" : ""
           )}
         >
-          <AccordionItem value={`item-${index}`}>
-            <AccordionTrigger className="font-primary text-[14px] sm:text-[16px] text-[#232323] p-4">
+          <AccordionItem value={`item-${index}`} className="w-full">
+            <AccordionTrigger className="w-full font-primary text-[14px] sm:text-[16px] text-[#232323] p-4">
               {item.title}
             </AccordionTrigger>
-            <AccordionContent className="text-[#232323] px-4 pt-2 pb-4 text-[12px] sm:text-[11px]">
+            <AccordionContent className="w-full text-[#232323] px-4 pt-2 pb-4 text-[12px] sm:text-[14px]">
               {item.content}
             </AccordionContent>
           </AccordionItem>

@@ -12,7 +12,7 @@ const InfoBox = () => {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-          // className="w-full sm:w-[48%] lg:w-auto"
+          
         >
           <Box imgSrc={item.imgSrc} title={item.title} number={item.number} />
         </motion.div>

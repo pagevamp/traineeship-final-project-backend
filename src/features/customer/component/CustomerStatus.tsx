@@ -1,47 +1,59 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { EyeIcon, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { customerStatus, statusColors } from "./constant";
+import { Icon } from "@iconify/react";
+import { ChevronDown } from "lucide-react";
 
-type StatusType = "Approved" | "Pending" | "Rejected" | "Department";
+import TableComponent from "@/components/table";
+import { customerStatus, USER_COLUMN, statusColors } from "./constant";
+
+type StatusType = "Approved" | "Pending" | "Rejected";
 
 const CustomerStatus = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<StatusType>("Pending");
 
-  const tabs = ["Pending", "Rejected", "Approved"] as const;
+  const tabs: StatusType[] = ["Pending", "Rejected", "Approved"];
 
-  const filteredData = customerStatus.filter(
-    (item) => item.status === activeTab
-  );
+  const [state, setState] = useState({
+    pagination: {
+      page: 1,
+      recordsPerPage: 10,
+    },
+    search: "",
+  });
+
+  const actions = [
+    {
+      label: (
+        <Icon
+          icon="heroicons:eye-16-solid"
+          width="22"
+          height="22"
+          color="#FF811A"
+        />
+      ),
+      onClick: (row: any) => router.push(`/customer/${row.id}`),
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-[15px]">
       <div className="flex items-end justify-between w-full flex-wrap md:flex-nowrap">
         <div className="flex flex-col w-full md:w-auto">
-          <div className="flex gap-[24px] w-full md:w-fit border-b border-[#E5D5EF] overflow-x-auto no-scrollbar">
+          <div className="flex gap-[24px] w-full md:w-fit border-b-[2px] border-[#E5D5EF] overflow-x-auto no-scrollbar">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-2 transition-all duration-300 ${
-                  activeTab === tab
-                    ? "border-b-2 border-[#540F86]"
-                    : "border-b-2 border-transparent"
-                }`}
+                className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
               >
-                {tab}
+                <span className="relative z-10">{tab}</span>
+
+                {activeTab === tab && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[4px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
+                )}
               </button>
             ))}
           </div>
@@ -60,91 +72,15 @@ const CustomerStatus = () => {
         initial={{ x: 150, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        style={{ WebkitOverflowScrolling: "touch" }} // smooth scrolling on iOS
+        style={{ WebkitOverflowScrolling: "touch" }}
       >
-        <Table className="min-w-[600px] md:min-w-full">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                SN
-              </TableHead>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                Date
-              </TableHead>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                Company Name
-              </TableHead>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                Email
-              </TableHead>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                Phone
-              </TableHead>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                Status
-              </TableHead>
-              <TableHead className="text-[#0B0704] text-[14px] md:text-[16px] font-primary">
-                Action
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-
-          <TableBody>
-            {filteredData.length > 0 ? (
-              filteredData.map((item) => (
-                <TableRow
-                  key={item.id}
-                  className="text-[#0B0704] text-[12px] md:text-[13px] font-secondary"
-                >
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    {item.id}
-                  </TableCell>
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    {item.date}
-                  </TableCell>
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    {item.companyName}
-                  </TableCell>
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    {item.email}
-                  </TableCell>
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    {item.phone}
-                  </TableCell>
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    <div
-                      className={`w-[93px] h-[27px] flex items-center justify-center rounded-[4.5px] text-[12px] font-medium ${
-                        statusColors[item.status]
-                      }`}
-                    >
-                      {item.status}
-                    </div>
-                  </TableCell>
-                  <TableCell className="py-[12px] md:py-[19px]">
-                    <div
-                      className="h-[26px] w-[28px] cursor-pointer flex items-center justify-center"
-                      role="button"
-                      aria-label={`View details for ${item.companyName}`}
-                      onClick={() => router.push(`/customer/${item.id}`)}
-                    >
-                      <EyeIcon
-                        size={23}
-                        className="text-[#ffffff]"
-                        fill="#FF811A"
-                      />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} className="text-center py-5 text-[#999]">
-                  No {activeTab.toLowerCase()} customers found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+        <TableComponent
+          currentPage={state.pagination.page}
+          columns={USER_COLUMN}
+          data={customerStatus}
+          isLoading={false}
+          actions={actions}
+        />
       </motion.div>
     </div>
   );

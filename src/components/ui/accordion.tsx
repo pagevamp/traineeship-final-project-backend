@@ -37,9 +37,14 @@ const AccordionTrigger = React.forwardRef<
     >
       <span>{children}</span>
 
-      <div className="flex items-center gap-[10px]">
-        <span className="text-[#540F86] text-sm">Tap to view details</span>
-        <ChevronDown className="w-[25px] h-[25px] shrink-0 rounded-full bg-[#FF811A] text-white transition-transform duration-200" />
+      <div className="flex items-center gap-[8px] cursor-pointer">
+        <span className="text-[#540F86] text-[11px] lg:text-[12px] sm:text-[10px]">
+          Tap to view details
+        </span>
+        <ChevronDown
+          className="w-[20px] h-[20px] lg:w-[25px] lg:h-[25px] sm:w-[15px] sm:h-[15px] shrink-0 rounded-full bg-[#FF811A] text-white transition-transform duration-200 ${
+           "
+        />
       </div>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>

@@ -42,19 +42,20 @@ const DepartmentComponent = () => {
   return (
     <>
       <div>
-        {/* <motion.div
-          initial={{ scale: 1 }}
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full z-50"
-        > */}
-        <SearchBar
-          placeholder="Search for Department"
-          className="w-[97%] mb-[26px] gap-[45px] "
-          firstCircleContent={
-            <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
-          }
-          secondCircleContent={
+        <motion.div
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        >
+          <div className="w-full flex flex-row items-center gap-[10px] mt-[41px] mb-[26px]">
+            <SearchBar
+              placeholder="Search for Department"
+              className="w-[97%]  gap-[7px]"
+              firstCircleContent={
+                <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
+              }
+              secondCircleContent={""}
+            />
             <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[2px] rounded-[37px] w-fit h-fit">
               <button
                 onClick={handleCreateClick}
@@ -63,9 +64,8 @@ const DepartmentComponent = () => {
                 Create <PlusCircleIcon size={24} />
               </button>
             </div>
-          }
-        />
-        {/* </motion.div> */}
+          </div>
+        </motion.div>
       </div>
 
       <motion.div

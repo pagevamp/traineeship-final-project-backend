@@ -1,14 +1,11 @@
 import { useState } from "react";
 
-type StatusType = "Approved" | "Pending" | "Rejected" | "Department";
-
 type UserStatusItem = {
   id: number;
   name: string;
   email: string;
   phone: string;
   status: StatusType;
-  Action: string;
 };
 
 export const user: UserStatusItem[] = [
@@ -18,7 +15,6 @@ export const user: UserStatusItem[] = [
     email: "rahul@gmail.com",
     phone: "9824356541",
     status: "Approved",
-    Action: "",
   },
   {
     id: 2,
@@ -26,9 +22,10 @@ export const user: UserStatusItem[] = [
     email: "San@gmail.com",
     phone: "8197765113",
     status: "Pending",
-    Action: "",
   },
 ];
+
+type StatusType = "Approved" | "Pending" | "Rejected" | "Department";
 
 export const statusColors: Record<StatusType, string> = {
   Approved: "text-[#007a6d] bg-[#b2f0e7]",
@@ -43,18 +40,18 @@ export const USER_COLUMN = [
   { key: "name", label: "User Name" },
   { key: "phone", label: "Phone" },
   { key: "email", label: "Email" },
-  { key: "status", label: "Status", type:'status' },
+  { key: "status", label: "Status", type: "status" },
 ];
 
 export const UserData = [
   {
     name: "John Doe",
-    mobileNo: "9876543212",
+    phone: "9876543212",
     email: "test@gmail.com",
   },
   {
     name: "John Doe",
-    mobileNo: "9876543212",
+    phone: "9876543212",
     email: "test@gmail.com",
   },
 ];

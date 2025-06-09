@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 const Operations = () => {
   return (
@@ -69,16 +70,16 @@ const Operations = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 items-center w-full justify-center max-w-[920px]">
-          <div
-            className="relative w-full sm:w-[377px] h-[48px] rounded"
-            style={{
-              background: "linear-gradient(to right, #FF6502, #FF953D)",
-            }}
-          >
-            <button className="w-full h-full rounded text-white lg:text-[20px] md:text-[10px] font-medium flex items-center justify-center sm:justify-start pl-[98px]">
+          <div className="relative max-w-[250px] min-w-[160px] rounded-[7px] sm:w-[377px] h-[48px] bg-linear-to-r from-[#FF6502] to to-[#FF953D]">
+            <Button
+              className="h-full w-full rounded-[10px] text-white font-medium flex items-center justify-center px-3
+  text-[12px] sm:text-[10px] md:text-[16px] lg:text-[20px] 
+  hover:bg-[#FF6502] transition-colors duration-200"
+            >
               Generate SOP
-            </button>
-            <div className="absolute right-3 top-1 w-[64px] h-[34px] bg-[#FFAE7A] rounded flex items-center justify-center">
+            </Button>
+
+            <div className="absolute right-3 top-2 w-[30px] h-[30px] sm:w-[40px] sm:h-[34px] bg-[#FFAE7A] rounded flex items-center justify-center sm:mx-[2px]">
               <Image src="/navigation.svg" alt="icon" width={20} height={12} />
             </div>
           </div>
@@ -87,7 +88,13 @@ const Operations = () => {
             <Image src="/Archive.svg" alt="icon" width={18} height={18} />
           </div>
 
-          <Image src="/Pdf.svg" alt="pdf" width={163} height={27} />
+          <Image
+            src="/Pdf.svg"
+            alt="pdf"
+            width={100}
+            height={10}
+            className="item-center"
+          />
         </div>
       </div>
     </div>

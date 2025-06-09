@@ -1,22 +1,21 @@
 "use client";
 import { useRouter } from "next/navigation";
-
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { EyeIcon } from "lucide-react";
+import { motion } from "framer-motion";
 import { useState } from "react";
+import { Icon } from "@iconify/react";
 import { ChevronDown } from "lucide-react";
-import TableComponent from "@/components/table";
-import { tabs, USER_COLUMN, UserData } from "../../../features/user/constant";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
-const UserStatus = () => {
+import TableComponent from "@/components/table";
+import { USER_COLUMN, UserData, statusColors } from "../constant";
+
+type StatusType = "Approved" | "Pending" | "Rejected";
+
+const CustomerStatus = () => {
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<StatusType>("Pending");
+
+  const tabs: StatusType[] = ["Pending", "Rejected", "Approved"];
+
   const [state, setState] = useState({
     pagination: {
       page: 1,
@@ -24,10 +23,6 @@ const UserStatus = () => {
     },
     search: "",
   });
-  const router = useRouter();
-  const [activeTab, setActiveTab] = useState<
-    "Pending" | "Rejected" | "Approved"
-  >("Pending");
 
   const actions = [
     {
@@ -43,22 +38,24 @@ const UserStatus = () => {
     },
   ];
 
+  // const filteredData = customerStatus.filter((item) => item.status === activeTab);
+
   return (
-    <div className="w-full flex flex-col gap-[15px]">
+    <div className="flex flex-col gap-[15px]">
       <div className="flex items-end justify-between w-full flex-wrap md:flex-nowrap">
         <div className="flex flex-col w-full md:w-auto">
-          <div className="flex gap-[24px] w-full md:w-fit border-b border-[#E5D5EF] overflow-x-auto no-scrollbar">
+          <div className="flex gap-[24px] w-full md:w-fit border-b-[3px] border-[#E5D5EF] overflow-x-auto no-scrollbar">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-2 transition-all duration-300 ${
-                  activeTab === tab
-                    ? "border-b-2 border-[#540F86]"
-                    : "border-b-2 border-transparent"
-                }`}
+                className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
               >
-                {tab}
+                <span className="relative z-10">{tab}</span>
+
+                {activeTab === tab && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[4px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
+                )}
               </button>
             ))}
           </div>
@@ -72,17 +69,22 @@ const UserStatus = () => {
         </div>
       </div>
 
-      <div className="bg-[#ffffff] w-full pl-[30px] pr-[57px] pt-[25px] rounded-[25px]">
+      <motion.div
+        className="bg-[#ffffff] w-full rounded-[25px] pl-[15px] pr-[15px] md:pl-[30px] md:pr-[57px] pt-[25px] overflow-auto"
+        initial={{ x: 150, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
         <TableComponent
           currentPage={state.pagination.page}
           columns={USER_COLUMN}
           data={UserData}
           isLoading={false}
-          actions={actions}
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
 
-export default UserStatus;
+export default CustomerStatus;

@@ -12,7 +12,7 @@ import { directorDetails } from "./constant";
 const Director = () => {
   return (
     <div className="bg-white rounded-[25px] px-4 md:px-6 lg:px-10 pb-6 md:pb-8 w-full mx-auto">
-      <h2 className="text-[14px] md:text-[11px] font-bold text-[#1A1A1A] mb-4">
+      <h2 className="text-[12px] md:text-[11px] font-semibold text-[#1A1A1A] mb-4">
         Directors
       </h2>
 

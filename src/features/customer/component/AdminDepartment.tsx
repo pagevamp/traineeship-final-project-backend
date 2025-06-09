@@ -5,7 +5,7 @@ import { actions } from "./constant";
 const Admin = () => {
   return (
     <div className="w-full bg-white rounded-[25px] px-4 md:px-[49px] py-6 md:h-[126px] flex flex-col items-center justify-center">
-      <h2 className="text-[16px] md:text-[18px] font-primary text-center text-[#0B0704] mb-4">
+      <h2 className="font-primary text-[16px] text-[#1C2B38] text-center mb-4">
         Admin Department
       </h2>
 

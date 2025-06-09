@@ -23,56 +23,22 @@ export const bankDetails = [
   { label: "VAT/TRN Number", value: "09876544321234" },
 ];
 
-type StatusType = "Approved" | "Pending" | "Rejected" | "Department";
+export const tabs = ["Pending", "Rejected", "Approved"] as const;
 
-type StatusItem = {
-  id: number;
-  date: string;
-  companyName: string;
-  email: string;
-  phone: string;
-  status: StatusType;
-  Action: string;
-};
-
-export const customerStatus: StatusItem[] = [
+export const customerStatus = [
   {
-    id: 1,
-    date: "12/03/2025",
-    companyName: "Everestwalk Groups Pvt. Ltd.",
-    email: "rahul@gmail.com",
-    phone: "9824356541",
-    status: "Approved",
-    Action: "",
+    name: "John Doe",
+    phone: "9876543212",
+    email: "test@gmail.com",
   },
   {
-    id: 2,
-    date: "17/04/2025",
-    companyName: "Castin.io Media Solutions ",
-    email: "accounts@greenleaf.org",
-    phone: "+44-20-3345-9080",
-    status: "Pending",
-    Action: "",
-  },
-  {
-    id: 3,
-    date: "12/03/2025",
-    companyName: "Everestwalk Groups Pvt. Ltd.",
-    email: "rahul@gmail.com",
-    phone: "9824356541",
-    status: "Rejected",
-    Action: "",
-  },
-  {
-    id: 4,
-    date: "17/04/2025",
-    companyName: "Castin.io Media Solutions ",
-    email: "accounts@greenleaf.org",
-    phone: "+44-20-3345-9080",
-    status: "Department",
-    Action: "",
+    name: "John Doe",
+    phone: "9876543212",
+    email: "test@gmail.com",
   },
 ];
+
+type StatusType = "Approved" | "Pending" | "Rejected" | "Department";
 
 export const statusColors: Record<StatusType, string> = {
   Approved: "text-[#007a6d] bg-[#b2f0e7]",
@@ -308,4 +274,11 @@ export const FtlRateData = [
     truckType: "20FT Curtain Side",
     charges: 3100,
   },
+];
+
+export const USER_COLUMN = [
+  { key: "name", label: "Company Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "status", label: "Status", type: "status" },
 ];

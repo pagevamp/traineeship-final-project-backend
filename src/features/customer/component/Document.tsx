@@ -7,7 +7,7 @@ const Documents = () => {
   const maxLength = Math.max(NID.length, utility.length);
 
   return (
-    <div className="flex flex-col w-full bg-white rounded-[25px] p-4 md:p-6">
+    <div className="flex flex-col w-full bg-white rounded-[25px] p-x-2 py-4 md:p-6">
       <div className="flex flex-wrap items-center gap-4 justify-start">
         {Array.from({ length: maxLength }).map((_, index) => (
           <React.Fragment key={index}>
@@ -16,7 +16,7 @@ const Documents = () => {
                 <Image
                   src={NID[index].idCard}
                   alt={NID[index].alt}
-                  width={230}
+                  width={220}
                   height={115}
                   className="rounded-lg object-contain"
                 />
@@ -27,7 +27,7 @@ const Documents = () => {
                 <Image
                   src={utility[index].idCard}
                   alt={utility[index].alt}
-                  width={265}
+                  width={230}
                   height={108}
                   className="rounded-lg object-contain"
                 />
@@ -35,7 +35,7 @@ const Documents = () => {
             )}
           </React.Fragment>
         ))}
-        <Button className="w-[135px] h-[125px] bg-[#F1F1F1] rounded-[25px] text-[#1C2B38] hover:bg-[#E0E0E0] mt-2 md:mt-0">
+        <Button className="w-[130px] h-[115px] bg-[#F1F1F1] rounded-[25px] text-[#1C2B38] hover:bg-[#E0E0E0] mt-2 md:mt-0">
           More
         </Button>
       </div>
