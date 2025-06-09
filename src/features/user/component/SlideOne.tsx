@@ -7,7 +7,7 @@ type SlideOneProps = {
 
 const SlideOne = ({ onContinue }: SlideOneProps) => {
   return (
-    <div className="lg:max-w-[538px] sm:max-w-[400px] mx-auto px-[24px] mt-[34px] mb-[48px] box-border">
+    <div className="p-8">
       <span className="font-primary text-[20px] text-[#111D35] block">
         Create Employee
       </span>
@@ -30,7 +30,7 @@ const SlideOne = ({ onContinue }: SlideOneProps) => {
           <Input
             type="text"
             placeholder="Enter Employee ID"
-            className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+            className="w-full h-[40px] px-3 text-muted-foreground rounded border border-[#ccc] text-[14px] bg-white"
           />
         </div>
       </div>

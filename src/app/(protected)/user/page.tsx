@@ -1,5 +1,3 @@
-"use client";
-
 import UserComponent from "@/features/user/component/userComponent";
 
 const User = () => {
