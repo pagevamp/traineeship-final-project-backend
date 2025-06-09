@@ -654,7 +654,7 @@ const RegisterStep4 = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 border-[#DFDFDF]">
           <Input
             className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             id="bank-address"
@@ -713,79 +713,103 @@ const RegisterStep5 = () => {
 
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="company-name"
-            name="company-name"
-            labelName=" Company Name"
-            placeholder="Enter your company name"
-            type="text"
-          />
+          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              Company Name
+            </span>
+          </div>
         </div>
 
         <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="company-mail"
-            name="company-mail"
-            labelName="Company Mail"
-            placeholder="Enter your company mail"
-            type="email"
-          />
+          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              Company Name
+            </span>
+          </div>
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="years-incorporated"
-            name="years-incorporated"
-            labelName="Years Since Incorporated"
-            placeholder="Enter date"
-            type="date"
-          />
+          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              Company Name
+            </span>
+          </div>
         </div>
 
         <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="employee-size"
-            name="employee-size"
-            labelName="Employer Site"
-            placeholder="Enter your company size"
-            type="text"
-          />
+          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              Company Name
+            </span>
+          </div>
         </div>
       </div>
 
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="another-field"
-            labelName="Another Field"
-            name="another-field"
-            placeholder="Enter something"
-            type="text"
-          />
+          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              Company Name
+            </span>
+          </div>
         </div>
 
-        <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
+        <div className="hidden md:block w-[1px] h-[62px]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="last-field"
-            name="last-field"
-            labelName="Last Field"
-            placeholder="Enter something else"
-            type="text"
-          />
+          <div className="w-[209px] h-[48px]  border-[#DFDFDF] bg-white flex items-center gap-2 px-3 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              Company Name
+            </span>
+          </div>
         </div>
       </div>
     </div>
