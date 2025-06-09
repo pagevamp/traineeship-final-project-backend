@@ -590,6 +590,15 @@ const RegisterStep4 = () => {
         </div>
 
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="iban"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            IBAN{" "}
+            <span className="text-[8px]">
+              (International Bank Account Number)
+            </span>
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="iban"
@@ -749,6 +758,12 @@ const RegisterStep5 = () => {
         <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="employee-size"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Employer Site
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="employee-size"
@@ -841,7 +856,7 @@ const RegisterStep6 = () => {
           <Select>
             <SelectTrigger
               id="shipment-type"
-              className="min-w-[420px] py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+              className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             >
               <SelectValue placeholder="Select Shipment Type" />
             </SelectTrigger>

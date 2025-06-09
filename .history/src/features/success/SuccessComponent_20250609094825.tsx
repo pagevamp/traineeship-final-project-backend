@@ -30,15 +30,15 @@ const SuccessComponent = () => {
 
       <Heading title="Account Request Submitted Successfully" description="" />
 
-      <span className="font-primary text-[#9C9AA5] text-[14px] font-weight-400 sm:text-lg mt-6 block">
+      <span className="font-primary text-[#9C9AA5] text-[14px] font-weight-400 sm:text-xl mt-6 block">
         Your Credit Account Number: <strong>ABC12316</strong>
       </span>
 
-      <span className="font-secondary text-[#9C9AA5] text-[14px] font-weight-400 sm:text-lg mt-2 block">
+      <span className="font-secondary text-[#9C9AA5] text-md sm:text-xl mt-2 block">
         Status: <span className="text-[#FF811A]">In-active</span>
       </span>
 
-      <p className="font-secondary text-[#9C9AA5] text-[14px] font-weight-400 sm:text-base mt-5 max-w-xl mx-auto leading-relaxed">
+      <p className="font-secondary text-[#9C9AA5] text-sm sm:text-base mt-4 max-w-xl mx-auto leading-relaxed">
         Your account is under internal review. Our Operations and Finance
         departments are verifying your submitted details and documents. You will
         receive updates at each step of the process.

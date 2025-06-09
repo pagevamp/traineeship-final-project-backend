@@ -38,7 +38,7 @@ const SuccessComponent = () => {
         Status: <span className="text-[#FF811A]">In-active</span>
       </span>
 
-      <p className="font-secondary text-[#9C9AA5] text-[14px] font-weight-400 sm:text-base mt-5 max-w-xl mx-auto leading-relaxed">
+      <p className="font-secondary text-[#9C9AA5] text-[10px] sm:text-base mt-5 max-w-xl mx-auto leading-relaxed">
         Your account is under internal review. Our Operations and Finance
         departments are verifying your submitted details and documents. You will
         receive updates at each step of the process.

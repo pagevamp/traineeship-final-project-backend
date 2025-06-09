@@ -590,94 +590,130 @@ const RegisterStep4 = () => {
         </div>
 
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="iban"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            IBAN{" "}
+            <span className="text-[8px]">
+              (International Bank Account Number)
+            </span>
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="iban"
             name="iban"
-            labelName={
-              <>
-                IBAN{" "}
-                <span className="text-[8px]">
-                  (International Bank Account Number)
-                </span>
-              </>
-            }
             placeholder="Enter IBAN"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="swift-bic"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Swift/BIC Code
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="swift-bic"
             name="swift-bic"
-            labelName="Swift/BIC Code"
             placeholder="Enter Swift/BIC Code"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="currency"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Currency
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="currency"
             name="currency"
-            labelName="Currency"
             placeholder="Enter Currency"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="bank-country"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Bank Country
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="bank-country"
             name="bank-country"
-            labelName=" Bank Country"
             placeholder="Enter Bank Country"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="beneficiary-address"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Beneficiary Address
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="beneficiary-address"
             name="beneficiary-address"
-            labelName="Beneficiary Address"
             placeholder="Enter Beneficiary Address"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="bank-address"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Bank Address
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="bank-address"
             name="bank-address"
-            labelName="Bank Address"
             placeholder="Enter Bank Address"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="vat-trn-number"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            VAT/TRN Number
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="vat-trn-number"
             name="vat-trn-number"
-            labelName="VAT/TRN Number"
             placeholder="Enter VAT/TRN Number"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="cancelled-cheque"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Upload Cancelled Cheque
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="cancelled-cheque"
-            labelName="Upload Cancelled Cheque"
             name="cancelled-cheque"
             type="file"
             required
@@ -710,11 +746,16 @@ const RegisterStep5 = () => {
 
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="company-name"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Company Name
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="company-name"
             name="company-name"
-            labelName=" Company Name"
             placeholder="Enter your company name"
             type="text"
           />
@@ -723,11 +764,16 @@ const RegisterStep5 = () => {
         <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="company-mail"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Company Mail
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="company-mail"
             name="company-mail"
-            labelName="Company Mail"
             placeholder="Enter your company mail"
             type="email"
           />
@@ -736,11 +782,16 @@ const RegisterStep5 = () => {
 
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="years-incorporated"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Years Since Incorporated
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="years-incorporated"
             name="years-incorporated"
-            labelName="Years Since Incorporated"
             placeholder="Enter date"
             type="date"
           />
@@ -749,11 +800,16 @@ const RegisterStep5 = () => {
         <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="employee-size"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Employer Site
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="employee-size"
             name="employee-size"
-            labelName="Employer Site"
             placeholder="Enter your company size"
             type="text"
           />
@@ -762,10 +818,15 @@ const RegisterStep5 = () => {
 
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="another-field"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Another Field
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="another-field"
-            labelName="Another Field"
             name="another-field"
             placeholder="Enter something"
             type="text"
@@ -775,11 +836,16 @@ const RegisterStep5 = () => {
         <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
 
         <div className="flex flex-col gap-2 flex-1 w-full">
+          <Label
+            htmlFor="last-field"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Last Field
+          </Label>
           <Input
             className="py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             id="last-field"
             name="last-field"
-            labelName="Last Field"
             placeholder="Enter something else"
             type="text"
           />
@@ -805,7 +871,7 @@ const RegisterStep6 = () => {
         <div className="flex flex-col gap-2 w-full max-w-[442px] mx-auto md:mx-0">
           <Label
             htmlFor="nature-of-business"
-            className="text-[14px] font-primary text-[#26203B]"
+            className="text-[16px] font-primary text-[#26203B]"
           >
             Nature of Business
           </Label>
@@ -834,14 +900,14 @@ const RegisterStep6 = () => {
         <div className="flex flex-col gap-2 w-full max-w-[442px] mx-auto md:mx-0">
           <Label
             htmlFor="shipment-type"
-            className="text-[14px] font-primary text-[#26203B]"
+            className="text-[16px] font-primary text-[#26203B]"
           >
             Shipment Type
           </Label>
           <Select>
             <SelectTrigger
               id="shipment-type"
-              className="min-w-[420px] py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+              className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             >
               <SelectValue placeholder="Select Shipment Type" />
             </SelectTrigger>

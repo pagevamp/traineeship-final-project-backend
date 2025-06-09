@@ -841,7 +841,7 @@ const RegisterStep6 = () => {
           <Select>
             <SelectTrigger
               id="shipment-type"
-              className="min-w-[420px] py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+              className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             >
               <SelectValue placeholder="Select Shipment Type" />
             </SelectTrigger>
