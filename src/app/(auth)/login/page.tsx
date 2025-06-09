@@ -1,5 +1,4 @@
 import React from "react";
-import Layout from "./layout";
 import LoginComponent from "@/features/login/components/LoginComponent";
 
 const Login = () => {

@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import Link from "next/link";
 
 export function UserNav() {
   return (
@@ -74,11 +75,13 @@ export function UserNav() {
 
           <DropdownMenuSeparator className="h-px my-2 bg-gradient-to-r from-[#540F86] to-[#542F80] " />
 
-          <DropdownMenuItem className="group px-3 py-2 rounded-md transition-colors hover:bg-[#FF743C]/10">
-            <span className="bg-gradient-to-r from-[#540F86] to-[#542F80]  text-transparent bg-clip-text font-medium">
-              Log out
-            </span>
-          </DropdownMenuItem>
+          <Link href="/login">
+            <DropdownMenuItem className="group px-3 py-2 rounded-md transition-colors hover:bg-[#FF743C]/10">
+              <span className="bg-gradient-to-r from-[#540F86] to-[#542F80]  text-transparent bg-clip-text font-medium">
+                Log out
+              </span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

@@ -47,16 +47,17 @@ const LoginComponent = () => {
       >
         Forgot password?
       </span>
-
-      <button
-        className="w-[357px] h-[48px] rounded-md text-white font-primary text-lg"
-        style={{
-          background: "linear-gradient(to bottom, #CF5406, #FF811A)",
-          marginBottom: "45px",
-        }}
-      >
-        Continue
-      </button>
+      <Link href="/dashboard">
+        <button
+          className="w-[357px] h-[48px] rounded-md text-white font-primary text-lg"
+          style={{
+            background: "linear-gradient(to bottom, #CF5406, #FF811A)",
+            marginBottom: "45px",
+          }}
+        >
+          Continue
+        </button>
+      </Link>
 
       <div className="flex items-center gap-2 mb-[155px]">
         <span className="text-[#9C9AA5] font-primary text-sm">
