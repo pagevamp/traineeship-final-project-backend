@@ -7,7 +7,7 @@ export interface InputProps
   register?: any;
   trigger?: any;
   label?: string;
-  labelName?: string;
+  labelName?: string; // ✅ Add this line
   error?: string;
   name?: string;
   optional?: boolean;
@@ -19,15 +19,12 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, error, register, labelName, name, ...props }, ref) => {
-    const inputId = name || "input-" + Math.random().toString(36).substr(2, 9);
+    const inputId = name || "input-" + Math.random().toString(36).substr(2, 9); // fallback id
 
     return (
       <div className="flex flex-col gap-1">
         {labelName && (
-          <label
-            htmlFor={inputId}
-            className="text-[14px] font-primary text-[#26203B]"
-          >
+          <label htmlFor={inputId} className="text-sm font-medium text-primary">
             {labelName}
           </label>
         )}

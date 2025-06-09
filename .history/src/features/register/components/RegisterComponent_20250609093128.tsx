@@ -310,33 +310,48 @@ const RegisterStep2 = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[18px] gap-x-[10px] mb-8">
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="company-type"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Company Type
+          </Label>
           <Input
             className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
             id="company-type"
             name="company-type"
-            labelName="Company Type"
             placeholder="Enter Company Type"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="director-email"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Email Id
+          </Label>
           <Input
             className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
             id="director-email"
             name="director-email"
-            labelName="Email Id"
             placeholder="Enter Email Id"
             type="email"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="director-phone-no"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Phone Number
+          </Label>
           <Input
             className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
             id="director-phone-no"
             name="director-phone-no"
-            labelName="Phone Number"
             placeholder="Enter Phone Number"
             type="text"
             required
@@ -344,33 +359,48 @@ const RegisterStep2 = () => {
         </div>
 
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="company-type-2"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Company Type
+          </Label>
           <Input
             className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
             id="company-type-2"
             name="company-type-2"
-            labelName="Company Type"
             placeholder="Enter Company Type"
             type="text"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="director-email-2"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Email Id
+          </Label>
           <Input
             className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
             id="director-email-2"
             name="director-email-2"
-            labelName="Email Id"
             placeholder="Enter Email Id"
             type="email"
             required
           />
         </div>
         <div className="flex flex-col gap-2">
+          <Label
+            htmlFor="director-phone-no-2"
+            className="text-[16px] font-primary text-[#26203B]"
+          >
+            Phone Number
+          </Label>
           <Input
             className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
             id="director-phone-no-2"
             name="director-phone-no-2"
-            labelName="Phone Number"
             placeholder="Enter Phone Number"
             type="text"
             required
@@ -384,33 +414,48 @@ const RegisterStep2 = () => {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px]">
           <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="finance-company-type"
+              className="text-[16px] font-primary text-[#26203B]"
+            >
+              Company Type
+            </Label>
             <Input
               className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
-              id="company-type-2"
-              name="company-type-2"
-              labelName="Company Type"
+              id="finance-company-type"
+              name="finance-company-type"
               placeholder="Enter Company Type"
               type="text"
               required
             />
           </div>
           <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="finance-email"
+              className="text-[16px] font-primary text-[#26203B]"
+            >
+              Email Id
+            </Label>
             <Input
               className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
-              id="director-email-2"
-              name="director-email-2"
-              labelName="Email Id"
+              id="finance-email"
+              name="finance-email"
               placeholder="Enter Email Id"
               type="email"
               required
             />
           </div>
           <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="finance-phone"
+              className="text-[16px] font-primary text-[#26203B]"
+            >
+              Phone Number
+            </Label>
             <Input
               className="py-2 px-4 h-12 placeholder:text-sm placeholder:text-[#9C9AA5]"
-              id="director-phone-no-2"
-              name="director-phone-no-2"
-              labelName="Phone Number"
+              id="finance-phone"
+              name="finance-phone"
               placeholder="Enter Phone Number"
               type="text"
               required
