@@ -8,7 +8,7 @@ import DashboardUserComponent from "@/features/dashboard-component/dashboard-use
 
 const Index = () => {
   return (
-    <div className="py-4">
+    <div>
       <div className="mx-auto space-y-4">
         {/* Top Row */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">

@@ -43,7 +43,7 @@ const CustomerStatus = () => {
 
   return (
     <div className="flex flex-col gap-[15px]">
-      <div className="flex items-end justify-between w-full flex-wrap md:flex-nowrap">
+      <div className="flex items-end justify-end md:justify-between w-full flex-wrap md:flex-nowrap">
         <div className="flex flex-col w-full md:w-auto">
           <motion.div
             className="flex gap-[81px] w-full md:w-fit border-b-[1px] border-[#E5D5EF] overflow-x-auto no-scrollbar"
@@ -66,7 +66,7 @@ const CustomerStatus = () => {
           </motion.div>
         </div>
 
-        <div className="mt-4 md:mt-0 w-full md:w-[104px] h-[28px] bg-white flex items-center justify-center gap-[6px] rounded-[10px]">
+        <div className="mt-4 md:mt-0 w-fit px-4 md:px-0 md:w-[104px] h-[28px] bg-white flex items-center justify-center gap-[6px] rounded-[10px]">
           <span className="text-[#540F86] text-[14px] font-medium whitespace-nowrap">
             See all
           </span>

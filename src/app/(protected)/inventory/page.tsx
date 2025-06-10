@@ -8,7 +8,7 @@ export async function generateMetadata() {
 }
 const Index = () => {
   return (
-    <div className="py-4">
+    <div>
       <InventoryComponent />
     </div>
   );

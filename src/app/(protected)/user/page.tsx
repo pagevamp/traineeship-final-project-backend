@@ -1,8 +1,9 @@
+import React from "react";
 import UserComponent from "@/features/user/component/userComponent";
 
 const User = () => {
   return (
-    <div className="py-4">
+    <div>
       <UserComponent />
     </div>
   );

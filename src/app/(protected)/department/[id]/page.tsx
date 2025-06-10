@@ -3,7 +3,7 @@ import DepartmentId from "@/features/department/component/DepartmentId";
 
 const page = () => {
   return (
-    <div className="py-4">
+    <div>
       <DepartmentId />
     </div>
   );

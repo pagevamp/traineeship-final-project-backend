@@ -28,23 +28,21 @@ const DepartmentStatus = () => {
       className="bg-[#F9F2FD] w-full px-2 sm:px-4 md:px-0"
     >
       <div className="w-full flex flex-col gap-4 md:gap-[15px]">
-        <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between w-full gap-2">
-          <div className="flex flex-col">
-            <div className="flex gap-[81px] w-full md:w-fit border-b-[3px] border-[#E5D5EF] overflow-x-auto no-scrollbar">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
-                >
-                  <span className="relative z-10">{tab}</span>
+        <div className="flex items-start justify-between w-full gap-2">
+          <div className="flex gap-[81px] w-fit border-b-[3px] border-[#E5D5EF] overflow-x-auto no-scrollbar">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
+              >
+                <span className="relative z-10">{tab}</span>
 
-                  {activeTab === tab && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[4px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
-                  )}
-                </button>
-              ))}
-            </div>
+                {activeTab === tab && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[4px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
+                )}
+              </button>
+            ))}
           </div>
 
           <div className="w-fit h-[28px] bg-white flex items-center justify-center px-3 gap-[6px] rounded-[10px]">

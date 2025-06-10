@@ -1,5 +1,4 @@
 import React from "react";
-import InventoryComponent from "@/features/inventory";
 
 export async function generateMetadata() {
   return {
@@ -7,12 +6,7 @@ export async function generateMetadata() {
   };
 }
 const Index = () => {
-  return (
-    <div className="py-4 text-center">
-      {/* <InventoryComponent /> */}
-      Setting Work In Progress
-    </div>
-  );
+  return <div className="text-center">Setting Work In Progress</div>;
 };
 
 export default Index;

@@ -108,7 +108,7 @@ const RegisterComponent = () => {
         className="mb-[22px]"
       />
 
-      <div className="w-full flex justify-between items-center px-10 mb-2">
+      <div className="w-full flex justify-between items-center px-4 mb-4">
         {showLeftArrow ? (
           <ScrollArrow
             direction="left"
@@ -143,7 +143,7 @@ const RegisterComponent = () => {
         className="overflow-x-auto scrollbar-hide w-full"
         style={{ scrollBehavior: "smooth" }}
       >
-        <div className="flex gap-4 min-w-max " ref={stepsInnerRef}>
+        <div className="flex gap-4 min-w-max" ref={stepsInnerRef}>
           <Stepper steps={steps} currentStep={currStep} />
         </div>
       </div>
@@ -822,7 +822,7 @@ const RegisterStep5 = () => {
 
 const RegisterStep6 = () => {
   return (
-    <div className="text-[16px] max-w-screen-lg mx-auto px-4 mt-2">
+    <div className="text-[16px] w-full sm:max-w-screen-lg mx-auto px-4 mt-2">
       <div className="flex justify-end mb-6 gap-2">
         <Button
           variant="outline"
@@ -836,7 +836,7 @@ const RegisterStep6 = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
-        <div className="flex flex-col gap-2 w-full max-w-[442px] mx-auto md:mx-0">
+        <div className="flex flex-col gap-2 w-full sm:max-w-[442px] mx-auto md:mx-0">
           <Label
             htmlFor="nature-of-business"
             className="text-[14px] font-primary text-[#26203B]"
@@ -865,7 +865,7 @@ const RegisterStep6 = () => {
           </Select>
         </div>
 
-        <div className="flex flex-col gap-2 w-full max-w-[442px] mx-auto md:mx-0">
+        <div className="flex flex-col gap-2 w-full sm:max-w-[442px] mx-auto md:mx-0">
           <Label
             htmlFor="shipment-type"
             className="text-[14px] font-primary text-[#26203B]"
@@ -875,7 +875,7 @@ const RegisterStep6 = () => {
           <Select>
             <SelectTrigger
               id="shipment-type"
-              className="min-w-[420px] py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
+              className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
             >
               <SelectValue placeholder="Select Shipment Type" />
             </SelectTrigger>

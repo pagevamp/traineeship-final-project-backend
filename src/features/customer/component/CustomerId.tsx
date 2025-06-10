@@ -9,7 +9,7 @@ import Header from "./header";
 const CustomerId = () => {
   return (
     <div className="bg-[#F9F2FD] min-h-screen">
-      <div className="w-full max-w-full md:px-6 px-4 lg:px-0 mx-auto">
+      <div className="w-full max-w-full mx-auto">
         <div className="mb-4">
           <Header />
         </div>
@@ -23,7 +23,7 @@ const CustomerId = () => {
         <div className="mb-4 w-full">
           <Operations />
         </div>
-        <div className="mb-4 w-full">
+        <div className="w-full">
           <Admin />
         </div>
       </div>

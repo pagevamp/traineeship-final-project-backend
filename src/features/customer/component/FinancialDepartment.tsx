@@ -13,7 +13,7 @@ import React from "react";
 
 const Financial = () => {
   return (
-    <div className="w-full flex flex-col gap-6 items-center px-4 md:px-0">
+    <div className="w-full flex flex-col gap-6 items-center">
       <span className="font-primary text-[16px] text-[#1C2B38] text-center">
         Financial Department
       </span>

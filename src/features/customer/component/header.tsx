@@ -9,7 +9,7 @@ import { useState } from "react";
 const Header = () => {
   const [flip, setFlip] = useState(true);
   return (
-    <div className="flex flex-col gap-6 px-4 md:px-0 w-full mx-auto">
+    <div className="flex flex-col gap-6 w-full mx-auto">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
         <span className="font-primary text-[20px] text-[#1C2B38]">
           Company Information
