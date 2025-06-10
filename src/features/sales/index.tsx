@@ -67,7 +67,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="pt-4">
+      <div className="pt-3 sm:pt-4">
         <TableComponent
           currentPage={state.pagination.page}
           columns={SALES_COLUMN}

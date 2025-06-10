@@ -46,7 +46,7 @@ const Index = () => {
 
   return (
     <div className="bg-white rounded-3xl p-4">
-      <div className="flex items-center justify-between pb-4">
+      <div className="flex items-center flex-wrap gap-2 justify-between pb-4">
         <p className="font-semibold font-primary text-lg">Products</p>
         <div className="flex items-center gap-4">
           <SearchComponent
@@ -70,7 +70,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {products.map((product, index) => (
           <ProductCard key={product.id} product={product} index={index} />
         ))}

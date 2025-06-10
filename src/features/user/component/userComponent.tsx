@@ -15,7 +15,7 @@ const UserComponent = () => {
 
   return (
     <div>
-      <div className="mb-4">
+      <div className="mb-3 sm:mb-4">
         <InfoBox />
       </div>
 

@@ -60,7 +60,7 @@ const TableComponent: React.FC<Props> = ({
               {columns.map((col) => (
                 <TableHead
                   key={col.key}
-                  className="px-4 py-2 text-left text-sm font-primary text-[#0B0704] font-medium"
+                  className="px-4 py-2 whitespace-nowrap text-left text-sm font-primary text-[#0B0704] font-medium"
                 >
                   {col.label}
                 </TableHead>

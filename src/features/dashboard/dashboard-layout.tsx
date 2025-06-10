@@ -53,7 +53,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             <UserNav />
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-sidebar-background">
+        <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4 bg-sidebar-background">
           {children}
         </main>
       </SidebarInset>

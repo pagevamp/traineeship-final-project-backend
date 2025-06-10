@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const CustomerComponent = () => {
   return (
     <div className="bg-[#F9F2FD] lg:px-0 sm:px-6 md:px-1 pb-6 w-full">
-      <div className="mb-4">
+      <div className="mb-3 sm:mb-4">
         <InfoBox />
       </div>
 
