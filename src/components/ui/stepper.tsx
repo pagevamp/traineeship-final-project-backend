@@ -13,11 +13,11 @@ interface StepProps {
 const Step = React.forwardRef<HTMLDivElement, StepProps>(
   ({ title, stepNumber, isCompleted, isActive }, ref) => {
     return (
-      <div ref={ref} className="flex items-center h-8 min-w-[140px]">
+      <div ref={ref} className="flex items-center justify-center h-8 min-w-[140px]">
         <div className="relative flex items-center justify-center">
           <div
             className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center",
+              "w-7 h-7 rounded-full flex items-center justify-center",
               isCompleted || isActive
                 ? "text-primary-foreground bg-gradient-to-r from-[#CF5406] to-[#F87B18]"
                 : "border-[1px] border-[#DFDFDF]"
@@ -35,7 +35,7 @@ const Step = React.forwardRef<HTMLDivElement, StepProps>(
         <div className="ml-2">
           <p
             className={cn(
-              "text-[16px]",
+              "text-[15px]",
               isCompleted || isActive
                 ? "font-normal inline-block bg-gradient-to-r from-[#CF5406] to-[#F87B18] bg-clip-text text-transparent"
                 : "text-muted-foreground text-[#DFDFDF]"
@@ -72,7 +72,10 @@ export function Stepper({ steps, currentStep }: StepperProps) {
   }, [currentStep]);
 
   return (
-    <div className="w-full mx-auto overflow-x-auto" ref={containerRef}>
+    <div
+      className="w-full mx-auto overflow-x-auto px-4 sm:px-0"
+      ref={containerRef}
+    >
       <div className="flex flex-row items-center gap-4 mb-6 w-max">
         {steps.map((step, index) => (
           <Step
