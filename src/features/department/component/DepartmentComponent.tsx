@@ -47,7 +47,7 @@ const DepartmentComponent = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
         >
-          <div className="w-full flex flex-row items-center gap-[10px] mb-[26px]">
+          <div className="w-full flex flex-row items-center gap-[10px] mb-4">
             <SearchBar
               placeholder="Search for Department"
               className="w-[97%]  gap-[7px]"

@@ -30,7 +30,7 @@ const DepartmentStatus = () => {
       <div className="w-full flex flex-col gap-4 md:gap-[15px]">
         <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between w-full gap-2">
           <div className="flex flex-col">
-            <div className="flex gap-[24px] w-full md:w-fit border-b-[3px] border-[#E5D5EF] overflow-x-auto no-scrollbar">
+            <div className="flex gap-[81px] w-full md:w-fit border-b-[3px] border-[#E5D5EF] overflow-x-auto no-scrollbar">
               {tabs.map((tab) => (
                 <button
                   key={tab}
@@ -55,7 +55,7 @@ const DepartmentStatus = () => {
           </div>
         </div>
 
-        <div className="bg-[#ffffff] w-full px-4 sm:pl-[20px] sm:pr-[30px] pt-[20px] sm:pt-[25px] rounded-[25px] overflow-x-auto">
+        <div className="bg-[#ffffff] w-full p-4 rounded-[25px] overflow-x-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}

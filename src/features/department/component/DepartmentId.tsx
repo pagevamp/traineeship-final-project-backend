@@ -18,7 +18,7 @@ const DepartmentId = () => {
   return (
     <>
       <motion.div
-        className="mb-[43px]"
+        className="mb-4"
         initial={{ y:-50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
@@ -51,7 +51,7 @@ const DepartmentId = () => {
           </div>
         </motion.div>
       </div>
-      <div className="mt-[25px]">
+      <div className="mt-4">
         <DepartmentStatus />
       </div>
     </>

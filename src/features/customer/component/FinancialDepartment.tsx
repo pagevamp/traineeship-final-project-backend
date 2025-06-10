@@ -18,7 +18,7 @@ const Financial = () => {
         Financial Department
       </span>
 
-      <div className="flex flex-wrap justify-center gap-6 w-full max-w-[920px]">
+      <div className="flex flex-wrap gap-6 w-full">
         <div className="flex flex-col gap-2 w-full sm:w-[442px] h-[76px]">
           <Label
             htmlFor="credit-amount"

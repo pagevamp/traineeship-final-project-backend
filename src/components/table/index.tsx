@@ -48,7 +48,7 @@ const TableComponent: React.FC<Props> = ({
     return get(row, key) ?? "N/A";
   };
   return (
-    <div className="bg-[#ffffff] rounded-3xl px-5">
+    <div className="bg-[#ffffff] rounded-3xl px-4">
       <div className="w-full overflow-x-auto ">
         <Table className="min-w-full rounded-lg">
           <TableHeader>
@@ -88,19 +88,19 @@ const TableComponent: React.FC<Props> = ({
               data.map((row, rowIndex) => (
                 <TableRow key={rowIndex} className="">
                   {/* Auto-Generated Serial Number */}
-                  <TableCell className="px-4 py-2 text-[#0B0704] font-secondary font-[300] text-[13px]">
+                  <TableCell className="px-4 py-3 text-[#0B0704] font-secondary font-[300] text-[13px]">
                     {(Number(currentPage) - 1) * 10 + rowIndex + 1}
                   </TableCell>
                   {columns.map((col) => (
                     <TableCell
                       key={col.key}
-                      className="px-4 py-4 truncate max-w-48 font-secondary font-[300] text-[13px]"
+                      className="px-4 py-3 truncate max-w-48 font-secondary font-[300] text-[13px]"
                     >
                       {getData(row, col.key, col.type)}
                     </TableCell>
                   ))}
                   {actions && (
-                    <TableCell className="px-4 py-4 flex gap-8 justify-center">
+                    <TableCell className="px-4 py-3 flex gap-8 justify-center">
                       {actions.map((action, index) => (
                         <button
                           key={index}

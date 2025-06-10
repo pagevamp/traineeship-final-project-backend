@@ -102,7 +102,8 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
             <SidebarGroupContent>
               <SidebarMenu className="">
                 {filteredNavigation.map((item: any) => {
-                  const isActive = Boolean(item.href && pathname === item.href);
+                  const isActive =
+                    pathname === item.href || pathname.includes(item.href);
 
                   // If item has subitems
                   if (item?.subItems) {

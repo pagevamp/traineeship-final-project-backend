@@ -20,8 +20,16 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   // Get current page title from pathname
   const getCurrentPageTitle = () => {
     const segments = pathname.split("/").filter(Boolean);
-    if (segments.length <= 1) return segments;
-    return segments[segments.length - 1]
+    if (segments.length === 0) return "Home";
+    const lastSegment = segments[segments.length - 1];
+    if (/^\d+$/.test(lastSegment) && segments.length >= 2) {
+      // If last segment is numeric, use the previous one
+      return segments[segments.length - 2]
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+    return lastSegment
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");

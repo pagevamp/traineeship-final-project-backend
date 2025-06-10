@@ -70,7 +70,7 @@ const Index = () => {
           </Card>
         ))}
       </div>
-      <div className="mt-4 bg-white rounded-3xl px-5">
+      <div className="mt-4 bg-white rounded-3xl">
         <div className="flex items-center justify-between p-4">
           <p className="font-semibold font-primary text-lg">Inventory</p>
           <div className="flex items-center gap-4">

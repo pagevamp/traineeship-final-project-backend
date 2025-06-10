@@ -3,7 +3,7 @@ import CustomerId from "@/features/customer/component/CustomerId";
 
 const page = () => {
   return (
-    <div className="px-1 py-6">
+    <div className="py-4">
       <CustomerId />
     </div>
   );

@@ -4,7 +4,7 @@ import { bankDetails } from "./constant";
 const BankDetails = () => {
   return (
     <div className="bg-white rounded-[25px] px-4 md:px-[22px] pb-6 md:pb-[18px] w-full mx-auto">
-      <h2 className="text-[12px] md:text-[11px] font-semibold text-[#1A1A1A] mb-4">
+      <h2 className="text-[12px] md:text-[14px] font-semibold text-[#1A1A1A] mb-4">
         Bank Details
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6">

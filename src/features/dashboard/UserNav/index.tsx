@@ -39,7 +39,7 @@ export function UserNav() {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent
-          className="w-64 rounded-xl p-2 shadow-lg border-[1px] border-black bg-[#F9F2FF]"
+          className="w-64 rounded-xl p-2 shadow-lg border-[1px] border-muted-light bg-[#fff]"
           align="end"
           forceMount
         >
@@ -59,7 +59,7 @@ export function UserNav() {
           <DropdownMenuGroup>
             {[
               { label: "Profile" },
-              { label: "Billing" },
+         
               { label: "Settings" },
             ].map(({ label }) => (
               <DropdownMenuItem

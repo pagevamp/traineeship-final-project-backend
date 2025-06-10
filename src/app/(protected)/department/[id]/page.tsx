@@ -1,9 +1,9 @@
-import DepartmentId from "@/features/department/component/DepartmentId";
 import React from "react";
+import DepartmentId from "@/features/department/component/DepartmentId";
 
 const page = () => {
   return (
-    <div className="px-1 py-6">
+    <div className="py-4">
       <DepartmentId />
     </div>
   );

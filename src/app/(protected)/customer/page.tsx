@@ -3,7 +3,7 @@ import CustomerComponent from "@/features/customer/component/CustomerComponent";
 
 const Customer = () => {
   return (
-    <div className="px-1 py-6">
+    <div className="py-4">
       <CustomerComponent />
     </div>
   );

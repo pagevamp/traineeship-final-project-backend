@@ -45,8 +45,8 @@ const Index = () => {
   }
 
   return (
-    <div className="bg-white rounded-3xl px-5">
-      <div className="flex items-center justify-between p-4">
+    <div className="bg-white rounded-3xl p-4">
+      <div className="flex items-center justify-between pb-4">
         <p className="font-semibold font-primary text-lg">Products</p>
         <div className="flex items-center gap-4">
           <SearchComponent

@@ -8,8 +8,8 @@ const Rates = () => {
   const [activeTab, setActiveTab] = useState<"FTL" | "LTL">("FTL");
 
   return (
-    <div className="w-full flex flex-col items-center gap-4 px-4 sm:px-6 md:px-8">
-      <div className="flex gap-8 self-start mt-6 border-b border-[#D3A8FF] w-fit">
+    <div className="w-full flex flex-col items-center gap-4">
+      <div className="flex gap-8 self-start mt-2 border-b border-[#D3A8FF] w-fit">
         {["FTL", "LTL"].map((tab) => (
           <button
             key={tab}
@@ -29,7 +29,7 @@ const Rates = () => {
 
       <div className="w-full overflow-x-auto">
         <div className="bg-[#ffffff] rounded-[25px] font-primary mx-auto">
-          <div className="h-[54px] pt-[14px] mb-[23px] text-[14px] font-primary text-[#0B0704] text-center px-4">
+          <div className="h-[54px] pt-[14px] text-[14px] font-primary text-[#0B0704] text-center px-4">
             {activeTab === "FTL"
               ? "Bonded FTL to GCC Freight only (excluding clearance)"
               : "Bonded LTL to GCC Freight only (excluding clearance)"}

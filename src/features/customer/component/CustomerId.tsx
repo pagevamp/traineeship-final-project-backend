@@ -10,16 +10,16 @@ const CustomerId = () => {
   return (
     <div className="bg-[#F9F2FD] min-h-screen">
       <div className="w-full max-w-full md:px-6 px-4 lg:px-0 mx-auto">
-        <div className="mb-12">
+        <div className="mb-4">
           <Header />
         </div>
         <div className="mb-4 w-full">
           <InfoBar />
         </div>
-        <div className="mb-5 w-full">
+        <div className="mb-4 w-full">
           <Financial />
         </div>
-        <div className="mb-5 w-full"> <Rates /></div>
+        <div className="mb-4 w-full"> <Rates /></div>
         <div className="mb-4 w-full">
           <Operations />
         </div>

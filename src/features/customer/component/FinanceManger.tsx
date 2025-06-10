@@ -12,7 +12,7 @@ import { financeDetails } from "./constant";
 const FinanceManager = () => {
   return (
     <div className="bg-white rounded-[25px] px-4 md:px-6 lg:px-10 pb-6 md:pb-8 w-full mx-auto">
-      <h2 className="text-[12px] md:text-[11px] font-semibold text-[#1A1A1A] mb-4">
+      <h2 className="text-[12px] md:text-[14px] font-semibold text-[#1A1A1A] mb-4">
         Finance Manager
       </h2>
 
@@ -20,16 +20,16 @@ const FinanceManager = () => {
         <table className="min-w-full text-sm md:text-base">
           <thead>
             <tr>
-              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[12px]">
+              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[14px]">
                 SN
               </th>
-              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[12px]">
+              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[14px]">
                 Directors Name
               </th>
-              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[12px]">
+              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[14px]">
                 Email
               </th>
-              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[12px]">
+              <th className="font-primary px-4 py-2 text-left text-[#0B0704] text-[12px] md:text-[14px]">
                 Phone
               </th>
             </tr>

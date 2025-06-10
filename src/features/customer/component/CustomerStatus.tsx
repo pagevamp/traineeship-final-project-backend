@@ -1,12 +1,11 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { ChevronDown } from "lucide-react";
-
 import TableComponent from "@/components/table";
-import { customerStatus, USER_COLUMN, statusColors } from "./constant";
+import { customerStatus, USER_COLUMN } from "./constant";
 
 type StatusType = "Approved" | "Pending" | "Rejected";
 
@@ -47,7 +46,7 @@ const CustomerStatus = () => {
       <div className="flex items-end justify-between w-full flex-wrap md:flex-nowrap">
         <div className="flex flex-col w-full md:w-auto">
           <motion.div
-            className="flex gap-[24px] w-full md:w-fit border-b-[2px] border-[#E5D5EF] overflow-x-auto no-scrollbar"
+            className="flex gap-[81px] w-full md:w-fit border-b-[1px] border-[#E5D5EF] overflow-x-auto no-scrollbar"
             initial={{ x: -20 }}
             animate={{ x: 0 }}
           >
@@ -60,7 +59,7 @@ const CustomerStatus = () => {
                 <span className="relative z-10">{tab}</span>
 
                 {activeTab === tab && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[4px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[3px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
                 )}
               </button>
             ))}
@@ -75,7 +74,7 @@ const CustomerStatus = () => {
         </div>
       </div>
 
-      <div className="bg-[#ffffff] w-full rounded-[25px] pl-[15px] pr-[15px] md:pl-[30px] md:pr-[57px] pt-[25px] overflow-auto">
+      <div className="bg-[#ffffff] w-full rounded-[25px] overflow-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

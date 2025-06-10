@@ -3,7 +3,7 @@ import DepartmentComponent from "@/features/department/component/DepartmentCompo
 
 const Department = () => {
   return (
-    <div className="px-1 py-6">
+    <div className="py-4">
       <DepartmentComponent />
     </div>
   );

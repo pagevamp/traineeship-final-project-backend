@@ -9,8 +9,8 @@ import { motion } from "framer-motion";
 
 const CustomerComponent = () => {
   return (
-    <div className="bg-[#F9F2FD] lg:px-0 sm:px-6 md:px-10 pb-6 w-full">
-      <div className="mb-6">
+    <div className="bg-[#F9F2FD] lg:px-0 sm:px-6 md:px-1 pb-6 w-full">
+      <div className="mb-4">
         <InfoBox />
       </div>
 
@@ -37,7 +37,7 @@ const CustomerComponent = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         style={{ WebkitOverflowScrolling: "touch" }}
       >
-        <div className="mt-6">
+        <div className="mt-4">
           <CustomerStatus />
         </div>
       </motion.div>

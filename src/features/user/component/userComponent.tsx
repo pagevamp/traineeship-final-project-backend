@@ -15,7 +15,7 @@ const UserComponent = () => {
 
   return (
     <div>
-      <div className="mb-[15px]">
+      <div className="mb-4">
         <InfoBox />
       </div>
 
@@ -24,7 +24,7 @@ const UserComponent = () => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       >
-        <div className="w-full flex flex-row items-center gap-[5px] mt-[41px] mb-[26px]">
+        <div className="w-full flex flex-row items-center gap-[5px] mb-4">
           <SearchBar
             placeholder="Search for Department"
             className="w-[97%] gap-[7px]"

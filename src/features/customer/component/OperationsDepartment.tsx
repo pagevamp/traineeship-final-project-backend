@@ -73,7 +73,7 @@ const Operations = () => {
           <div className="relative max-w-[250px] min-w-[160px] rounded-[7px] sm:w-[377px] h-[48px] bg-linear-to-r from-[#FF6502] to to-[#FF953D]">
             <Button
               className="h-full w-full rounded-[10px] text-white font-medium flex items-center justify-center px-3
-  text-[12px] sm:text-[10px] md:text-[16px] lg:text-[20px] 
+  text-[12px] sm:text-[10px] md:text-[16px] lg:text-[16px] 
   hover:bg-[#FF6502] transition-colors duration-200"
             >
               Generate SOP
@@ -91,7 +91,7 @@ const Operations = () => {
           <Image
             src="/Pdf.svg"
             alt="pdf"
-            width={100}
+            width={80}
             height={10}
             className="item-center"
           />
