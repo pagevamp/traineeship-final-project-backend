@@ -26,7 +26,7 @@ const slides = [
 
 const ImageSlider = () => {
   return (
-    <div className="w-[610px] h-max-screen rounded-[20px] overflow-hidden relative hidden md:block">
+    <div className="w-[610px] xl:w-[40vw] 2xl:w-[35vw] h-full rounded-[20px] overflow-hidden relative hidden lg:block">
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 5000, disableOnInteraction: false }}

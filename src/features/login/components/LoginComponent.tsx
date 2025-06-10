@@ -9,10 +9,7 @@ import Image from "next/image";
 
 const LoginComponent = () => {
   return (
-    <div
-      className="flex flex-col items-center px-6"
-      style={{ marginTop: "65px" }}
-    >
+    <div className="flex flex-col items-center px-6 mt-[5px] md:mt-[5px] lg:mt-[65px]">
       <Image
         src="/arctern-logo.svg"
         alt="Arctern Logo"
