@@ -95,3 +95,18 @@ export const department: DepartmentStatusItem[] = [
     designation: "Tech Lead",
   },
 ];
+
+export const USER_COLUMN = [
+  { key: "name", label: "Employee Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "status", label: "Status", type: "status" },
+];
+
+export const DEPARTMENT_COLUMN = [
+  { key: "department", label: "Department Name" },
+  { key: "name", label: "Contact Person" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "status", label: "Status", type: "status" },
+];

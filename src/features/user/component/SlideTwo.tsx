@@ -1,3 +1,4 @@
+"use client";
 import { Checkbox } from "@/components/ui/checkbox";
 import React, { useState } from "react";
 import { accessItems } from "../constant";
@@ -25,68 +26,71 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
   };
 
   return (
-    <div className="p-8">
-      <span className="font-primary text-[18px] sm:text-[20px] text-[#111D35] block mb-[20px] sm:mb-[28px] text-center sm:text-left">
+    <div
+      className="p-4 sm:p-6 max-w-[900px] w-full mx-auto scale-[1] origin-top"
+      style={{ zoom: "reset" }}
+    >
+      <span className="font-primary text-[18px] sm:text-[16px] text-[#111D35] block mb-5 sm:mb-4 text-center sm:text-left">
         Grant Access
       </span>
 
       <div className="overflow-x-auto">
-        <div className="min-w-[600px] lg:min-w-0 mx-auto">
-          <div className="flex items-center mb-[12px] ml-[10px] sm:ml-[100px]">
-            <div className="w-[150px] shrink-0" />
-            <div className="grid grid-cols-5 gap-x-[20px] sm:gap-x-[32px] w-fit">
+        <div className="min-w-[500px] sm:min-w-full mx-auto">
+          <div className="grid grid-cols-6 items-center mb-3 px-2 sm:px-4">
+            <div className="col-span-2"></div>
+            <div className="col-span-4 grid grid-cols-4 gap-x-4 sm:gap-x-8">
               {headers.map((header, i) => (
-                <span
-                  key={i}
-                  className="text-[14px] font-semibold text-center"
-                  style={{ color: headerColors[i] }}
-                >
-                  {header}
-                </span>
+                <div key={i} className="flex justify-center">
+                  <span
+                    className="text-[13px] sm:text-[14px] font-semibold text-center"
+                    style={{ color: headerColors[i] }}
+                  >
+                    {header}
+                  </span>
+                </div>
               ))}
-              <div className="w-[52px]" />
             </div>
           </div>
 
           {accessItems.map(({ title }, rowIndex) => (
             <div
               key={rowIndex}
-              className="flex items-center justify-start sm:justify-between w-full lg:w-[589px] h-[40px] bg-white rounded-[6px] mb-[16px] px-[10px] sm:px-[14px] mx-auto"
-              style={{ boxShadow: "0 0 2px rgba(0,0,0,0.1)" }}
+              className="grid grid-cols-6 items-center w-full h-[40px] bg-white rounded-md mb-4 px-2 sm:px-4 mx-auto shadow-sm"
             >
-              <span className="font-medium text-[14px] text-[#111D35] w-[150px] shrink-0">
+              <span className="col-span-2 font-medium text-[13px] sm:text-[14px] text-[#111D35] truncate">
                 {title}
               </span>
-
-              <div className="grid grid-cols-5 gap-x-[20px] sm:gap-x-[32px] w-fit justify-items-center">
+              <div className="col-span-4 grid grid-cols-4 gap-x-4 sm:gap-x-8">
                 {headers.map((_, colIndex) => {
                   const isChecked = checkedState[rowIndex][colIndex];
                   return (
-                    <Checkbox
-                      key={colIndex}
-                      checked={isChecked}
-                      onCheckedChange={() => toggleCheckbox(rowIndex, colIndex)}
-                      className={`border-2 rounded-[4px] w-[20px] h-[20px] cursor-pointer
-                        ${
-                          isChecked
-                            ? "bg-gradient-to-r from-[#FF8826] to-[#FF6502] border-[#FF743C]"
-                            : "bg-white border-[#FF743C]"
+                    <div key={colIndex} className="flex justify-center">
+                      <Checkbox
+                        checked={isChecked}
+                        onCheckedChange={() =>
+                          toggleCheckbox(rowIndex, colIndex)
                         }
-                      `}
-                    />
+                        className={`border-2 rounded w-5 h-5 cursor-pointer
+                          ${
+                            isChecked
+                              ? "bg-gradient-to-r from-[#FF8826] to-[#FF6502] border-[#FF743C]"
+                              : "bg-white border-[#FF743C]"
+                          }
+                        `}
+                      />
+                    </div>
                   );
                 })}
-                <div className="w-[52px]" />
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-center mt-[28px]">
+      <div className="flex justify-center mt-7">
         <button
           onClick={onContinue}
-          className="w-[180px] sm:w-[191px] h-[40px] rounded text-white font-medium text-[14px]"
+          className="w-full max-w-[180px] sm:w-[191px] h-10 rounded text-white font-medium text-[14px]"
           style={{
             background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
           }}

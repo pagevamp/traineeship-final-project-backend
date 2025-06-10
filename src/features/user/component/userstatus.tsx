@@ -70,23 +70,12 @@ const CustomerStatus = () => {
       </div> */}
 
       <div className="bg-[#ffffff] w-full rounded-[25px] overflow-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="min-w-[600px]"
-          >
-            <TableComponent
-              currentPage={state.pagination.page}
-              columns={USER_COLUMN}
-              data={UserData}
-              isLoading={false}
-            />
-          </motion.div>
-        </AnimatePresence>
+        <TableComponent
+          currentPage={state.pagination.page}
+          columns={USER_COLUMN}
+          data={UserData}
+          isLoading={false}
+        />
       </div>
     </div>
   );

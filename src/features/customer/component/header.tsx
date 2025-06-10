@@ -45,9 +45,13 @@ const Header = () => {
                 width={14}
                 height={22}
               />
-              <p className="text-[14px]">
-                <span className="font-primary">{detail.label}: </span>
-                <span className="font-secondary">{detail.value}</span>
+              <p>
+                <span className="font-secondary text-[12px] font-normal">
+                  {detail.label}:{" "}
+                </span>
+                <span className="font-primary text-[14px] font-normal font-weight-200">
+                  {detail.value}
+                </span>
               </p>
             </div>
           ))}

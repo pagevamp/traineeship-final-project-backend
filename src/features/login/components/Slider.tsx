@@ -5,6 +5,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const slides = [
   {
@@ -26,7 +27,12 @@ const slides = [
 
 const ImageSlider = () => {
   return (
-    <div className="w-[610px] xl:w-[40vw] 2xl:w-[35vw] h-full rounded-[20px] overflow-hidden relative hidden lg:block">
+    <motion.div
+      className="w-full max-w-[600px] min-w-[400px] h-[890px] min-h-[500px] lg:h-[99vh] rounded-[20px] overflow-hidden relative"
+      initial={{ x: -70, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+    >
       <Swiper
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -51,18 +57,18 @@ const ImageSlider = () => {
               >
                 <div className="flex flex-col justify-between items-center text-center h-full p-10 text-white">
                   <div className="mt-10">
-                    <h1 className="font-primary text-[40px]">
+                    <h1 className="font-primary text-[30px]">
                       {slide.heading}
                     </h1>
-                    <p className="font-secondary text-[22px] mt-2">
+                    <p className="font-secondary text-[20px] mt-2">
                       {slide.subheading}
                     </p>
                   </div>
                   <div className="mb-16">
-                    <h2 className="font-primary text-[40px]">
+                    <h2 className="font-primary text-[30px]">
                       {slide.bottomText}
                     </h2>
-                    <p className="font-secondary text-[22px] mt-1">
+                    <p className="font-secondary text-[20px] mt-1">
                       {slide.description}
                     </p>
                   </div>
@@ -83,7 +89,7 @@ const ImageSlider = () => {
           opacity: 1;
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 };
 

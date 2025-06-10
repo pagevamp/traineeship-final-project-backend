@@ -70,17 +70,28 @@ const Operations = () => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 items-center w-full justify-center max-w-[920px]">
-          <div className="relative max-w-[250px] min-w-[160px] rounded-[7px] sm:w-[377px] h-[48px] bg-linear-to-r from-[#FF6502] to to-[#FF953D]">
+          <div className="relative w-full max-w-[377px] min-w-[160px] rounded-[7px] h-[48px]">
             <Button
-              className="h-full w-full rounded-[10px] text-white font-medium flex items-center justify-center px-3
-  text-[12px] sm:text-[10px] md:text-[16px] lg:text-[16px] 
-  hover:bg-[#FF6502] transition-colors duration-200"
+              className="h-full w-full rounded-[10px] text-white font-medium flex items-center justify-center 
+    pl-3 pr-[3.5rem]
+    bg-gradient-to-r from-[#FF6502] to-[#FF953D]
+    text-[clamp(12px,3.5vw,16px)]
+    hover:bg-[#FF6502] transition-colors duration-200"
             >
               Generate SOP
             </Button>
-
-            <div className="absolute right-3 top-2 w-[30px] h-[30px] sm:w-[40px] sm:h-[34px] bg-[#FFAE7A] rounded flex items-center justify-center sm:mx-[2px]">
-              <Image src="/navigation.svg" alt="icon" width={20} height={12} />
+            <div
+              className="absolute right-1 top-1/2 transform -translate-y-1/2 
+    w-[clamp(32px,8vw,40px)] h-[clamp(32px,8vw,40px)]
+    bg-[#FFAE7A] rounded flex items-center justify-center"
+            >
+              <Image
+                src="/navigation.svg"
+                alt="icon"
+                width={20}
+                height={12}
+                className="w-[clamp(16px,4vw,20px)] h-[clamp(10px,2.5vw,12px)]"
+              />
             </div>
           </div>
 

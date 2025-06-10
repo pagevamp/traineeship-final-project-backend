@@ -6,10 +6,16 @@ import { Label } from "@/components/ui/label";
 import Heading from "@/components/ui/Heading";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const LoginComponent = () => {
   return (
-    <div className="flex flex-col items-center px-6 mt-[5px] md:mt-[5px] lg:mt-[65px]">
+    <motion.div
+      className="flex flex-col items-center px-6 min-w-[358px]"
+      initial={{ x: 70, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+    >
       <Image
         src="/arctern-logo.svg"
         alt="Arctern Logo"
@@ -25,7 +31,7 @@ const LoginComponent = () => {
           type="text"
           labelName="Company ID"
           placeholder="Enter Company ID"
-          className="w-[358px] h-[48px] rounded border border-gray-300 px-4 mb-[26px] font-primary placeholder-gray-400"
+          className="min-w-[358px]"
         />
       </div>
 
@@ -34,7 +40,7 @@ const LoginComponent = () => {
           type="password"
           placeholder="Enter Password"
           labelName="Password"
-          className="w-[358px] h-[48px] rounded border border-gray-300 px-4 mb-[6px] font-primary placeholder-gray-400"
+          className="min-w-[358px]"
         />
       </div>
 
@@ -56,7 +62,7 @@ const LoginComponent = () => {
         </button>
       </Link>
 
-      <div className="flex items-center gap-2 mb-[155px]">
+      <div className="flex items-center gap-2 mb-[20px]">
         <span className="text-[#9C9AA5] font-primary text-sm">
           Don’t have an account
         </span>
@@ -75,14 +81,14 @@ const LoginComponent = () => {
       </div>
 
       <div className="flex flex-col items-center gap-1 text-center">
-        <span className="text-[#9C9AA5] font-primary text-xs max-w-[300px]">
+        <span className="text-[#9C9AA5] font-secondary font-weight-200 text-xs ">
           By signing up to create an account I accept Company’s
         </span>
-        <span className="text-black font-secondary text-[10px] cursor-pointer">
+        <span className="text-[#26203B] font-secondary text-[10px] font-weight-200 cursor-pointer">
           Terms of use and Privacy Policy
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

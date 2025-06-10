@@ -28,7 +28,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             htmlFor={inputId}
             className="text-[14px] font-primary text-[#26203B]"
           >
-            {labelName}
+            {labelName}{" "}
+            {props.required && (
+              <sup className="font-[16px] text-[#E45270]"> *</sup>
+            )}
           </label>
         )}
         <input

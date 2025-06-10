@@ -19,7 +19,7 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-9 w-full items-center font-[300] justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm data-[placeholder]:text-xs shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-9 w-full items-center font-[300] justify-between whitespace-nowrap rounded-md border border-muted-light bg-transparent px-3 py-2 text-sm data-[placeholder]:text-xs shadow-sm ring-offset-background placeholder:font-[300] data-[placeholder]:text-[#9C9AA5] focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
     {...props}
@@ -101,13 +101,18 @@ SelectContent.displayName = SelectPrimitive.Content.displayName;
 
 const SelectLabel = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label> & {
+    required?: boolean;
+  }
+>(({ className, children, required, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
     className={cn("px-2 py-1.5 text-sm font-semibold", className)}
     {...props}
-  />
+  >
+    {children}
+    {required && <sup className="ml-1 text-[#E45270] text-xs">*</sup>}
+  </SelectPrimitive.Label>
 ));
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 

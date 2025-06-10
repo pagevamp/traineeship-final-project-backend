@@ -14,15 +14,12 @@ const Rates = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab as "FTL" | "LTL")}
-            className={`relative text-[16px] font-medium text-[#540F86] pb-2 whitespace-nowrap inline-block ${
-              activeTab === tab ? "border-b border-[#540F86]" : ""
-            }`}
-            style={{
-              borderRadius: activeTab === tab ? "8px 8px 0 0" : undefined,
-              borderBottomWidth: activeTab === tab ? "1px" : undefined,
-            }}
+            className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
           >
-            Rate card for {tab}
+            <span className="relative z-10"> Rate card for {tab}</span>
+            {activeTab === tab && (
+              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[3px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
+            )}
           </button>
         ))}
       </div>
