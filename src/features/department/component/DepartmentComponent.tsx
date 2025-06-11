@@ -52,7 +52,7 @@ const DepartmentComponent = () => {
           <div className="w-full flex flex-row items-center gap-[10px] mb-4">
             <SearchBar
               placeholder="Search for Department"
-              className="w-[97%]  gap-[7px]"
+              className="w-[97%] gap-[7px]"
               firstCircleContent={
                 <Image src="/Menu.svg" alt="Menu" width={20} height={20} />
               }

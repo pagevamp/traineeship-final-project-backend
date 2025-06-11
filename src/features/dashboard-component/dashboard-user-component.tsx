@@ -39,7 +39,7 @@ const Index = () => {
     <AnimatedCard delay={500}>
       <div className="flex items-center flex-wrap gap-2 justify-between p-4 w-full">
         <p className="font-semibold font-primary text-lg">Users</p>
-        <div className="flex items-center flex-wrap lg:justify-end gap-4 lg:w-[60%]">
+        <div className="flex items-center flex-wrap lg:justify-end gap-4 w-[100%] lg:w-[80%]">
           <SearchComponent
             state={state}
             setState={setState}

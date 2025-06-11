@@ -141,6 +141,10 @@ body {
   font-size: 1rem;
   background-color: hsl(var(--background-dashboard));
 }
+::-webkit-scrollbar {
+  -webkit-appearance: none !important;
+  display: none;
+}
 
 /*-----SOONER TOAST CSS------*/
 .toast-sonner-position {
