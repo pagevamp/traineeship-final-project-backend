@@ -2,9 +2,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { ChevronDown } from "lucide-react";
 import TableComponent from "@/components/table";
 import { USER_COLUMN, department } from "../constant";
 

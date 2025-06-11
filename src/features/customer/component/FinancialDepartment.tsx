@@ -20,15 +20,10 @@ const Financial = () => {
 
       <div className="flex flex-wrap gap-6 w-full">
         <div className="flex flex-col gap-2 w-full sm:w-[442px] h-[76px]">
-          <Label
-            htmlFor="credit-amount"
-            className="text-[16px] font-primary text-[#26203B]"
-          >
-            Credit Amount:
-          </Label>
           <Input
             id="credit-amount"
             name="credit-amount"
+            labelName="Credit Amount:"
             placeholder="Enter Credit Amount"
             type="text"
             className="h-[48px] bg-white placeholder:text-sm placeholder:text-[#9C9AA5] py-2 px-4"
@@ -38,7 +33,7 @@ const Financial = () => {
         <div className="flex flex-col gap-2 w-full sm:w-[442px] h-[76px]">
           <Label
             htmlFor="net-term"
-            className="text-[16px] font-primary text-[#26203B]"
+            className="text-[14px] font-primary text-[#26203B]"
           >
             Net Term:
           </Label>

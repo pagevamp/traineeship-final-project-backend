@@ -74,6 +74,19 @@ export const navigationItems = [
     roles: ["admin", "manager"],
   },
   {
+    title: "Shipment",
+    href: "/shipment",
+    icon: (props: any) => (
+      <Icon
+        icon="icon-park-solid:sales-report"
+        width="48"
+        height="48"
+        {...props}
+      />
+    ),
+    roles: ["admin", "manager"],
+  },
+  {
     title: "Users",
     href: "/user",
     icon: (props: any) => (
