@@ -62,7 +62,7 @@ const ShipmentAdd = () => {
                     Select Type: {`${selectType}`}
                   </span>
                 ) : (
-                  <SelectValue placeholder="Select Vehicle: " />
+                  <SelectValue placeholder="Select Type: " />
                 )}
               </span>
             </SelectTrigger>
@@ -116,7 +116,7 @@ const ShipmentAdd = () => {
                     Select Type: {`${selectDriver}`}
                   </span>
                 ) : (
-                  <SelectValue placeholder="Select Vehicle: " />
+                  <SelectValue placeholder="Select Driver: " />
                 )}
               </span>
             </SelectTrigger>

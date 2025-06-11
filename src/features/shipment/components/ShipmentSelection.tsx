@@ -130,7 +130,7 @@ const ShipmentItemDetails = () => {
               <span className="font-primary text-[14px] sm:text-[14px] md:text-[15px] text-[#404040] whitespace-nowrap">
                 Commodity Description:
               </span>
-              <div className="w-full border border-[#EAEAEA] rounded-[25px] p-2 font-secondary font-light text-[#404040] break-words">
+              <div className="w-full border border-[#EAEAEA] rounded-[25px] p-2 font-secondary font-light text-[#404040] text-[12px] break-words">
                 {item.commodity}
               </div>
             </div>
