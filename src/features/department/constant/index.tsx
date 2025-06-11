@@ -71,7 +71,6 @@ type DepartmentStatusItem = {
   email: string;
   phone: string;
   status: StatusType;
-  Action: string;
   designation?: string;
 };
 
@@ -82,7 +81,6 @@ export const department: DepartmentStatusItem[] = [
     email: "rahul@gmail.com",
     phone: "9824356541",
     status: "Approved",
-    Action: "",
     designation: "HR Manager",
   },
   {
@@ -91,7 +89,6 @@ export const department: DepartmentStatusItem[] = [
     email: "San@gmail.com",
     phone: "8197765113",
     status: "Pending",
-    Action: "",
     designation: "Tech Lead",
   },
 ];

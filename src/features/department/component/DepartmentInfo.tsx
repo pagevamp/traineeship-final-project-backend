@@ -32,7 +32,7 @@ const DepartmentInfo = () => {
   });
   return (
     <div className="flex flex-col gap-[15px]">
-      <div className="bg-[#ffffff] w-full p-4 rounded-[25px] overflow-x-auto">
+      <div className="bg-[#ffffff] w-full rounded-[25px] overflow-x-auto">
         <TableComponent
           currentPage={state.pagination.page}
           columns={USER_COLUMN}
