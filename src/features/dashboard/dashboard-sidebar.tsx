@@ -206,7 +206,7 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
                 <a
                   href={link?.href}
                   key={idx}
-                  className="font-secondary text-muted font-[300] text-xs"
+                  className="font-secondary text-muted font-[300] text-xs hover:underline duration-500 transition ease-in-out"
                 >
                   {link?.title}
                 </a>
