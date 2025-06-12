@@ -32,7 +32,7 @@ const VehicleStatus = () => {
           color="#FF811A"
         />
       ),
-      onClick: (row: any) => router.push(`/vehicle/${row.id}`),
+      onClick: (row: any) => router.push(`/vehicle/1`),
     },
   ];
 

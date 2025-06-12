@@ -1,5 +1,5 @@
-import VehicleComponent from "@/features/vehicles/component/VehicleComponent";
 import React from "react";
+import VehicleComponent from "@/features/vehicles/component/VehicleComponent";
 
 const Vehicle = () => {
   return (

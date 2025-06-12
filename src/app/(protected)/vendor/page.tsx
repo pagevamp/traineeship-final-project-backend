@@ -1,5 +1,5 @@
-import VendorComponent from '@/features/vendor/component/VendorComponent';
 import React from 'react'
+import VendorComponent from '@/features/vendor/component/VendorComponent';
 
 const Vendor = () => {
   return (

@@ -131,12 +131,7 @@ export const navigationItems = [
     title: "Vehicle",
     href: "/vehicle",
     icon: (props: any) => (
-      <Icon
-        icon="icon-park-solid:sales-report"
-        width="48"
-        height="48"
-        {...props}
-      />
+      <Icon icon="tdesign:vehicle-filled" width="24" height="24" {...props} />
     ),
     roles: ["admin", "manager"],
   },
@@ -144,12 +139,7 @@ export const navigationItems = [
     title: "Vendor",
     href: "/vendor",
     icon: (props: any) => (
-      <Icon
-        icon="icon-park-solid:sales-report"
-        width="48"
-        height="48"
-        {...props}
-      />
+      <Icon icon="mage:shop" width="24" height="24" {...props} />
     ),
     roles: ["admin", "manager"],
   },
@@ -157,12 +147,7 @@ export const navigationItems = [
     title: "Driver",
     href: "/driver",
     icon: (props: any) => (
-      <Icon
-        icon="icon-park-solid:sales-report"
-        width="48"
-        height="48"
-        {...props}
-      />
+      <Icon icon="ant-design:car-outlined" width="24" height="24" {...props} />
     ),
     roles: ["admin", "manager"],
   },

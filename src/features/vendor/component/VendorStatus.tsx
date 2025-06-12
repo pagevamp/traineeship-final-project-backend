@@ -32,7 +32,7 @@ const VendorStatus = () => {
           color="#FF811A"
         />
       ),
-      onClick: (row: any) => router.push(`/vendor/${row.id}`),
+      onClick: (row: any) => router.push(`/vendor/1`),
     },
   ];
 

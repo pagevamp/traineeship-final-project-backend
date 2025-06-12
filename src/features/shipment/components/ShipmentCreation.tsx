@@ -14,7 +14,7 @@ const ShipmentCreation = () => {
       <ShipmentPickup />
       <ShipmentItemDetails />
       <div className="flex items-center justify-center w-full">
-        <Button className="bg-gradient-to-r from-[#FF6502] to-[#E3802A] font-primary font-light text-white h-[40px] 2xl:h-[52px] w-full lg:w-[190px] 2xl:w-[200px] text-[12px] 2xl:text-[14px]">
+        <Button className="bg-gradient-to-r from-[#FF6502] to-[#E3802A] font-primary text-sm text-white h-[40px] 2xl:h-[52px] w-fit px-10">
           Submit Shipment
         </Button>
       </div>

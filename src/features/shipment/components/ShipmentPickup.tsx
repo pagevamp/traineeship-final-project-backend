@@ -19,27 +19,28 @@ import { useRouter } from "next/navigation";
 const ShipmentPickup = () => {
   const router = useRouter();
   return (
-    <div className="flex flex-col gap-1 px-4 sm:px-6 lg:px-0">
-      <div className="flex flex-row justify-between items-center px-6">
+    <div className="flex flex-col px-4 sm:px-6 lg:px-0">
+      <div className="flex flex-row justify-between items-center px-6 pb-1">
         <span className="font-primary text-black text-[16px] font-normal">
           Pickup Details
         </span>
-
-        <Button
-          variant="outline"
-          className="flex items-center bg-white text-primary text-[13px] font-weight-200 border border-primary rounded-[37px] px-4"
-        >
-          Edit
-          <Image
-            src="/pencilorange.svg"
-            alt="pencilorange"
-            width={12}
-            height={12}
-          />
-        </Button>
       </div>
 
-      <div className="w-full bg-[#ffffff] rounded-[20px] p-6">
+      <div className="w-full bg-[#ffffff] rounded-[20px] p-4 relative">
+        <div className="absolute right-1 -top-4">
+          <Button
+            variant="outline"
+            className="flex items-center bg-white text-primary text-[13px] font-weight-200 border border-primary rounded-[37px] px-4"
+          >
+            Edit
+            <Image
+              src="/pencilorange.svg"
+              alt="pencilorange"
+              width={12}
+              height={12}
+            />
+          </Button>
+        </div>
         <div className="w-full flex flex-col gap-6">
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-x-20">
             <div className="w-full md:w-[442px] p-[1px] rounded-[40px] bg-gradient-to-b from-[#E06518] to-[#E3802A]">
@@ -74,11 +75,11 @@ const ShipmentPickup = () => {
             </div>
           </div>
 
-          <div className="col-span-1 rounded-[25px] flex flex-col w-full h-full p-4 md:p-8 gap-6">
+          <div className="col-span-1 rounded-[25px] flex flex-col w-full h-full gap-6">
             {pickupDetails.map((item) => (
               <div
                 key={item.pin_code}
-                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-6 gap-x-8 w-full"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-y-4 gap-x-4 w-full"
               >
                 <div className="col-span-1">
                   <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">

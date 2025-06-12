@@ -1,5 +1,5 @@
-import DriverComponent from '@/features/driver/component/DriverComponent'
 import React from 'react'
+import DriverComponent from '@/features/driver/component/DriverComponent'
 
 const Driver = () => {
   return (

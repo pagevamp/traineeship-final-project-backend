@@ -43,15 +43,15 @@ const ShipmentItemDetails = () => {
   };
 
   return (
-    <div className="flex flex-col gap-1 py-2">
-      <div className="flex flex-row justify-between items-center px-6">
-        <span className="font-primary text-black text-[16px] font-normal">
+    <div className="flex flex-col">
+      <div className="flex flex-row justify-between items-end px-6">
+        <span className="font-primary text-black text-[16px] pb-1 font-normal">
           Item Details
         </span>
 
         <Button
           variant="outline"
-          className="flex items-center gap-3 bg-white text-primary text-[13px] font-secondary font-normal border border-primary rounded-[37px] p-2"
+          className="flex items-center mb-2 gap-3 bg-white text-primary text-[13px] font-secondary font-normal border border-primary rounded-[37px] p-2"
           onClick={handleCreateClick}
         >
           Add
@@ -59,7 +59,7 @@ const ShipmentItemDetails = () => {
         </Button>
       </div>
 
-      <div className="rounded-[25px] bg-white w-full h-full flex-col items-center pl-8 pr-16 py-6">
+      <div className="rounded-[25px] bg-white w-full h-full flex-col items-center p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8 w-full">
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center gap-1">

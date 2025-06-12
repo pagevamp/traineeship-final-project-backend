@@ -32,7 +32,7 @@ const DriverStatus = () => {
           color="#FF811A"
         />
       ),
-      onClick: (row: any) => router.push(`/driver/${row.id}`),
+      onClick: (row: any) => router.push(`/driver/1`),
     },
   ];
 
