@@ -79,12 +79,12 @@ const Register1 = () => {
 
       <div className="flex flex-col gap-2">
         <Input
-          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
+          className="w-full  bg-white py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5]"
           id="years-incorporated"
           name="years-incorporated"
           labelName=" Years Since Incorporated"
           placeholder="Enter date"
-          type="text"
+          type="date"
           required={true}
         />
       </div>

@@ -107,3 +107,26 @@ export const DEPARTMENT_COLUMN = [
   { key: "phone", label: "Phone" },
   { key: "status", label: "Status", type: "status" },
 ];
+
+export const DESIGNATION_COLUMN = [
+  { key: "designation", label: "Designation" },
+];
+
+export const designationInfo = [
+  {
+    id: 1,
+    designation: "HOD ",
+  },
+  {
+    id: 2,
+    designation: "Manager ",
+  },
+  {
+    id: 3,
+    designation: "General Manager ",
+  },
+  {
+    id: 4,
+    designation: "Director ",
+  },
+];

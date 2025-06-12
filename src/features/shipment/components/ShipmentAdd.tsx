@@ -1,0 +1,145 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft } from "lucide-react";
+import React, { useState } from "react";
+import { addDetails } from "../constant";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+
+const ShipmentAdd = () => {
+  const [selectVehicle, setSelectedVehicle] = useState("");
+  const [selectType, setSelectedType] = useState("");
+  const [selectDriver, setSelectedDriver] = useState("");
+  const router = useRouter();
+
+  return (
+    <div className="flex flex-col">
+      <div
+        className="text-base bg-transparent text-[#FF6502] text-[16px] gap-2 pb-2 font-weight-300 shadow-none hover:bg-transparent flex items-center justify-start"
+        onClick={() => router.push("/shipment")}
+      >
+        <ChevronLeft size={20} className="cursor-pointer" />
+        <p className="font-primary">Create Customer Shipments</p>
+      </div>
+      <div className="grid grid-cols-2 gap-x-4">
+        <div className=" bg-[#FFFFFF] rounded-[25px] flex flex-col items-start w-full h-fit p-4">
+          {addDetails.map((item) => (
+            <div key={item.bill_no} className="flex flex-col space-y-4">
+              <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">
+                Bill No.:
+                <span className="font-secondary text-[#404040] font-normal">
+                  {item.bill_no}
+                </span>
+              </p>
+              <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">
+                Job ID:
+                <span className="font-secondary text-[#404040] font-normal">
+                  {item.job_id}
+                </span>
+              </p>
+              <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">
+                Date:
+                <span className="font-secondary text-[#404040] font-normal">
+                  {item.date}
+                </span>
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="col-span-1 bg-[#FFFFFF] rounded-[25px] flex flex-col items-start place-content-start w-full p-4">
+          <Select onValueChange={(value) => setSelectedType(value)}>
+            <SelectTrigger
+              id="net-term"
+              className="w-full h-full rounded-[40px] border-none font-primary bg-white pt-0 pb-1.5 px-0 placeholder:text-[14px] placeholder:items-start focus:outline-none focus:ring-0 focus:ring-offset-0 placeholder:text-[#B7B7B7] text-sm shadow-none"
+            >
+              <span>
+                {selectType ? (
+                  <span className="text-sm text-[#404040] font-primary font-extralight">
+                    Shipment Type: {`${selectType}`}
+                  </span>
+                ) : (
+                  <SelectValue placeholder="Select Type: " />
+                )}
+              </span>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Shipment Type:</SelectLabel>
+                <SelectItem value="Oman">Oman</SelectItem>
+                <SelectItem value="Dubai">Dubai</SelectItem>
+                <SelectItem value="Qatar">Qatar</SelectItem>
+                <SelectItem value="Bahrain">Bahrain</SelectItem>
+                <SelectItem value="Kuwait">Kuwait</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          <Select onValueChange={(value) => setSelectedVehicle(value)}>
+            <SelectTrigger
+              id="net-term"
+              className="w-full h-full rounded-[40px] border-none font-primary bg-white py-1.5 px-0 placeholder:text-[14px] focus:outline-none focus:ring-0 focus:ring-offset-0 placeholder:text-[#B7B7B7] text-sm shadow-none"
+            >
+              <span>
+                {selectVehicle ? (
+                  <span className="text-sm text-[#404040] font-primary font-light">
+                    Select Vehicle: {`${selectVehicle}`}
+                  </span>
+                ) : (
+                  <SelectValue placeholder="Select Vehicle: " />
+                )}
+              </span>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Select Vehicle: </SelectLabel>
+                <SelectItem value="Oman">Oman</SelectItem>
+                <SelectItem value="Dubai">Dubai</SelectItem>
+                <SelectItem value="Qatar">Qatar</SelectItem>
+                <SelectItem value="Bahrain">Bahrain</SelectItem>
+                <SelectItem value="Kuwait">Kuwait</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+
+          <Select onValueChange={(value) => setSelectedDriver(value)}>
+            <SelectTrigger
+              id="net-term"
+              className="w-full h-full rounded-[40px] border-none font-primary bg-white pb-0 pt-1.5 px-0 placeholder:text-[14px] focus:outline-none focus:ring-0 focus:ring-offset-0 placeholder:text-[#B7B7B7] text-sm shadow-none"
+            >
+              <span>
+                {selectDriver ? (
+                  <span className="text-sm text-[#404040] font-primary font-light">
+                    Select Driver: {`${selectDriver}`}
+                  </span>
+                ) : (
+                  <SelectValue placeholder="Select Driver: " />
+                )}
+              </span>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Select Driver: </SelectLabel>
+                <SelectItem value="Oman">Oman</SelectItem>
+                <SelectItem value="Dubai">Dubai</SelectItem>
+                <SelectItem value="Qatar">Qatar</SelectItem>
+                <SelectItem value="Bahrain">Bahrain</SelectItem>
+                <SelectItem value="Kuwait">Kuwait</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ShipmentAdd;

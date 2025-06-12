@@ -10,6 +10,8 @@
 
     --background-dashboard: 272, 100%, 97%;
 
+    --border-extra-light: 0, 0%, 93%;
+
     --foreground: 0 0% 3.9%;
 
     --card: 0 0% 100%;
@@ -172,6 +174,29 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.depot-marker-label {
+  background: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #6707c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(0px, 40px);
+  color: #6707c8 !important;
+}
+
+.map-label {
+  background: #6707c8;
+  border-radius: 100%;
+  display: flex;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  transform: translate(10px, -32px);
+  color: #ffffff !important;
+}
+
 .text-gradient-vertical {
   background: linear-gradient(to bottom, #cf5406, #ff811a);
   -webkit-background-clip: text;
@@ -207,4 +232,24 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* TIPTAP CSS */
+.tiptap ol {
+  counter-reset: list-counter;
+  padding-left: 0;
+  list-style: none;
+}
+
+.tiptap ol li {
+  display: flex;
+  align-items: flex-start;
+}
+
+.tiptap ol li::before {
+  counter-increment: list-counter;
+  content: counter(list-counter) ".";
+  margin-right: 0.5ch; /* small space between number and text */
+  min-width: 2ch; /* small number width */
+  text-align: right;
 }

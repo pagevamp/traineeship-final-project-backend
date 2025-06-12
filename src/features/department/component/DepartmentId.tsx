@@ -5,6 +5,7 @@ import SearchComponent from "@/components/SearchComponent/SearchComponent";
 import DepartmentStatus from "./DepartmentStatus";
 import DepartmentInfoCard from "./DepartmentInfoCard";
 import { motion } from "framer-motion";
+import Pagination from "@/components/pagination";
 
 const DepartmentId = () => {
   const [state, setState] = useState({
@@ -59,6 +60,26 @@ const DepartmentId = () => {
       >
         <DepartmentStatus />
       </motion.div>
+      <div className="mt-8">
+        <Pagination
+          currentPage={state.pagination.page}
+          totalPages={
+            // count / state.pagination.recordsPerPage > 0
+            //   ? Math.ceil(count / state.pagination.recordsPerPage)
+            //   : Math.floor(count / state.pagination.recordsPerPage) + 1
+            4
+          }
+          onPageChange={(page: number) => {
+            setState((prevState) => ({
+              ...prevState,
+              pagination: {
+                ...prevState.pagination,
+                page,
+              },
+            }));
+          }}
+        />
+      </div>
     </>
   );
 };
