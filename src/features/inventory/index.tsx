@@ -11,6 +11,8 @@ import Image from "next/image";
 import DownloadIcon from "../../../public/images/download-icon.svg";
 import Pagination from "@/components/pagination";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import Button from "@/components/Button/Button";
 
 const Index = () => {
   const router = useRouter();
@@ -122,6 +124,12 @@ const Index = () => {
                   />
                 </div>
               </div>
+              <Link href="/inventory/add-inventory">
+                <Button
+                  label="Add Inventory"
+                  className="w-fit h-[38px] px-4 text-sm whitespace-nowrap"
+                />
+              </Link>
             </div>
           </div>
           <TableComponent

@@ -14,7 +14,7 @@ const BillingDetailComponent = () => {
           <Input
             labelName="Street Address 1"
             placeholder="Enter Your Street Address 1"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"streetAddress1"}
             maxLength={50}
@@ -23,7 +23,7 @@ const BillingDetailComponent = () => {
           <Input
             labelName="City"
             placeholder="Enter City"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"city"}
             maxLength={50}
@@ -32,7 +32,7 @@ const BillingDetailComponent = () => {
           <Input
             labelName="Country"
             placeholder="Enter Country"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"country"}
             maxLength={50}
@@ -42,7 +42,7 @@ const BillingDetailComponent = () => {
           <Input
             labelName="Street Address 2"
             placeholder="Enter Your Street Address 2"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"streetAddress2"}
             maxLength={50}
@@ -50,7 +50,7 @@ const BillingDetailComponent = () => {
           <Input
             labelName="State"
             placeholder="Enter State"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"state"}
             maxLength={50}
@@ -59,7 +59,7 @@ const BillingDetailComponent = () => {
           <Input
             labelName="Zip Code"
             placeholder="Enter Zip Code"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"zipCode"}
             maxLength={50}

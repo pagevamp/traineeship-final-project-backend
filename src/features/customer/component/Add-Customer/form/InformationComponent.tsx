@@ -14,7 +14,7 @@ const InformationComponent = () => {
           <Input
             labelName="First Name"
             placeholder="Enter Your First Name"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             // register={register}
             // trigger={trigger}
@@ -27,7 +27,7 @@ const InformationComponent = () => {
           <Input
             labelName="Email /  Username"
             placeholder="Enter Your Email / Username"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"email"}
             maxLength={50}
@@ -38,7 +38,7 @@ const InformationComponent = () => {
             placeholder="Enter Your Password"
             type="password"
             name={"password"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -46,7 +46,7 @@ const InformationComponent = () => {
             placeholder="Enter Your Organization Name"
             type="text"
             name={"organizationName"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -54,7 +54,7 @@ const InformationComponent = () => {
             placeholder="Enter Your Invoice Email"
             type="text"
             name={"invoiceEmail"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <div className="grid grid-cols-3 gap-2">
@@ -62,7 +62,7 @@ const InformationComponent = () => {
               <Input
                 labelName="Customer Contact"
                 placeholder="Enter Your Customer Contact"
-                className="bg-white"
+                className="bg-white border-border-extra-light"
                 type="text"
                 name={"customerContact"}
                 maxLength={10}
@@ -71,7 +71,7 @@ const InformationComponent = () => {
             <Input
               labelName="Extension"
               placeholder="Enter Your Number"
-              className="bg-white"
+              className="bg-white border-border-extra-light"
               type="text"
               name={"customerExtension_Number"}
               maxLength={50}
@@ -82,7 +82,7 @@ const InformationComponent = () => {
             placeholder="Enter Your NPI"
             type="text"
             name={"npi"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -90,7 +90,7 @@ const InformationComponent = () => {
             placeholder="Select Terms"
             type="text"
             name={"invoiceEmail"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
         </div>
@@ -98,7 +98,7 @@ const InformationComponent = () => {
           <Input
             labelName="Last Name"
             placeholder="Enter Your Last Name"
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             type="text"
             name={"lastName"}
             maxLength={50}
@@ -109,7 +109,7 @@ const InformationComponent = () => {
               <Input
                 labelName="Contact Number"
                 placeholder="Enter Your Contact Number"
-                className="bg-white"
+                className="bg-white border-border-extra-light"
                 type="text"
                 name={"lastName"}
                 maxLength={10}
@@ -119,7 +119,7 @@ const InformationComponent = () => {
             <Input
               labelName="Extension"
               placeholder="Enter Your Number"
-              className="bg-white"
+              className="bg-white border-border-extra-light"
               type="text"
               name={"extension_Number"}
               maxLength={50}
@@ -130,7 +130,7 @@ const InformationComponent = () => {
             placeholder="Re-enter your password"
             type="password"
             name={"confirmPassword"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -138,7 +138,7 @@ const InformationComponent = () => {
             placeholder="Enter Your IVR Email"
             type="text"
             name={"ivrEmail"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -146,7 +146,7 @@ const InformationComponent = () => {
             placeholder="Enter Your Packing Slip Email"
             type="text"
             name={"packingSlipEmail"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -154,7 +154,7 @@ const InformationComponent = () => {
             placeholder="Enter Your Tax Id"
             type="text"
             name={"taxId"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
           <Input
@@ -162,7 +162,7 @@ const InformationComponent = () => {
             placeholder="Enter Your PTAN No."
             type="text"
             name={"taxId"}
-            className="bg-white"
+            className="bg-white border-border-extra-light"
             required
           />
         </div>
