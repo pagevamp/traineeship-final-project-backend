@@ -8,9 +8,18 @@ import { PlusCircleIcon } from "lucide-react";
 import { useModalContext } from "@/providers/modal-context";
 import DepartmentForm from "./ModalInfo";
 import { motion } from "framer-motion";
+import Pagination from "@/components/pagination";
+import { useState } from "react";
 
 const DepartmentComponent = () => {
   const { openModal } = useModalContext();
+  const [state, setState] = useState({
+    pagination: {
+      page: 1,
+      recordsPerPage: 10,
+    },
+    search: "",
+  });
 
   const handleCreateClick = () => {
     openModal({
@@ -77,6 +86,27 @@ const DepartmentComponent = () => {
       >
         <DepartmentInfo />
       </motion.div>
+
+      <div className="mt-8">
+        <Pagination
+          currentPage={state.pagination.page}
+          totalPages={
+            // count / state.pagination.recordsPerPage > 0
+            //   ? Math.ceil(count / state.pagination.recordsPerPage)
+            //   : Math.floor(count / state.pagination.recordsPerPage) + 1
+            4
+          }
+          onPageChange={(page: number) => {
+            setState((prevState) => ({
+              ...prevState,
+              pagination: {
+                ...prevState.pagination,
+                page,
+              },
+            }));
+          }}
+        />
+      </div>
     </>
   );
 };

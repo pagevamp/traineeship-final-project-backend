@@ -166,26 +166,55 @@ export const documentDetails = [
   {
     id: 1,
     title: "Upload Commercial Invoice",
+    required: true,
   },
   {
     id: 2,
     title: "Upload Packaging List",
+    required: true,
   },
   {
     id: 3,
     title: "Upload Freight Class",
+    required: true,
   },
   {
     id: 4,
-    title: (
-      <p>
-        Certificate of Origin <span className="text-[10px]">(Optional)</span>
-      </p>
-    ),
+    title: "Certificate of Origin",
+    required: false,
   },
   {
     id: 5,
     title: "SABER/COC Certificate",
+    required: false,
+  },
+];
+
+export const optionalDocumentDetails = [
+  {
+    id: 1,
+    title: "Freight Bill ",
+    required: false,
+  },
+  {
+    id: 2,
+    title: "Proof of Delivery (POD)",
+    required: false,
+  },
+  {
+    id: 3,
+    title: "Shipping Instructions",
+    required: false,
+  },
+  {
+    id: 4,
+    title: "Carrier Contract",
+    required: false,
+  },
+  {
+    id: 5,
+    title: "Customs Documents",
+    required: false,
   },
 ];
 

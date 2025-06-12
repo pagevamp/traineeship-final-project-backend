@@ -10,7 +10,7 @@ type DGFields = {
   DGDAttached: string;
 };
 
-const ShipmentItemDetails = () => {
+const ShipmentSelection = () => {
   const [temperatureEnabled, setTemperatureEnabled] = useState(false);
   const [unit, setUnit] = useState<"F" | "C">("F");
   const [temperature, setTemperature] = useState("");
@@ -32,29 +32,26 @@ const ShipmentItemDetails = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto bg-white rounded-lg p-4 sm:p-6 flex flex-col gap-4 sm:gap-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <span className="font-primary text-[14px] sm:text-[14px] md:text-[15px] text-[#404040] whitespace-nowrap">
-              Temperature Requirement
-            </span>
-            <button
-              onClick={() => setTemperatureEnabled(!temperatureEnabled)}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${
-                temperatureEnabled ? "bg-[#19BDA5]" : "bg-[#FF6502]"
+    <div className="w-full max-w-7xl mx-auto bg-white rounded-lg flex flex-col gap-4 sm:gap-6">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <span className="font-primary text-[14px] sm:text-[14px] md:text-[15px] text-[#404040] whitespace-nowrap">
+            Temperature Requirement
+          </span>
+          <button
+            onClick={() => setTemperatureEnabled(!temperatureEnabled)}
+            className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${
+              temperatureEnabled ? "bg-[#19BDA5]" : "bg-[#FF6502]"
+            }`}
+          >
+            <div
+              className={`bg-white w-4 h-4 rounded-full transform transition-transform duration-300 ${
+                temperatureEnabled ? "translate-x-6" : ""
               }`}
-            >
-              <div
-                className={`bg-white w-4 h-4 rounded-full transform transition-transform duration-300 ${
-                  temperatureEnabled ? "translate-x-6" : ""
-                }`}
-              />
-            </button>
-          </div>
-
+            />
+          </button>
           {temperatureEnabled && (
-            <div className="flex items-center px-3 py-1 bg-[#F3F3F3] text-[#333] rounded-[40px] text-[14px] font-secondary shadow-sm gap-2 w-fit">
+            <div className="flex items-center px-3 py-1 bg-[#F3F3F3] text-[#333] rounded-[40px] text-[14px] font-secondary gap-2 w-fit">
               <select
                 value={unit}
                 onChange={(e) => setUnit(e.target.value as "F" | "C")}
@@ -75,47 +72,70 @@ const ShipmentItemDetails = () => {
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <span className="font-primary text-[14px] sm:text-[14px] md:text-[15px] text-[#404040] whitespace-nowrap">
-              DG Declaration
-            </span>
-            <button
-              onClick={() => setDgEnabled(!dgEnabled)}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${
-                dgEnabled ? "bg-[#19BDA5]" : "bg-[#FF6502]"
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 flex-1">
+          <span className="font-primary text-[14px] sm:text-[14px] md:text-[15px] text-[#404040] whitespace-nowrap">
+            DG Declaration
+          </span>
+          <button
+            onClick={() => setDgEnabled(!dgEnabled)}
+            className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${
+              dgEnabled ? "bg-[#19BDA5]" : "bg-[#FF6502]"
+            }`}
+          >
+            <div
+              className={`bg-white w-4 h-4 rounded-full transform transition-transform duration-300 ${
+                dgEnabled ? "translate-x-6" : ""
               }`}
-            >
-              <div
-                className={`bg-white w-4 h-4 rounded-full transform transition-transform duration-300 ${
-                  dgEnabled ? "translate-x-6" : ""
-                }`}
+            />
+          </button>
+
+          {dgEnabled && (
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                value={dgFields.EnterCommodityName}
+                onChange={(e) =>
+                  handleDGChange("EnterCommodityName", e.target.value)
+                }
+                placeholder="Enter DG Commodity Name"
+                className="rounded-[40px] p-2 text-[12px] w-[180px] border border-[#E9E9E9] bg-white text-[#404040]"
               />
-            </button>
-          </div>
+              <input
+                value={dgFields.EnterUNNumber}
+                onChange={(e) =>
+                  handleDGChange("EnterUNNumber", e.target.value)
+                }
+                placeholder="Enter UN Number"
+                className="rounded-[40px] p-2 text-[12px] w-[180px] border border-[#E9E9E9] bg-white text-[#404040]"
+              />
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Object.entries(dgFields).map(([field, value]) => (
-          <input
-            key={field}
-            value={value}
-            onChange={(e) =>
-              handleDGChange(field as keyof DGFields, e.target.value)
-            }
-            placeholder={field
-              .replace(/([A-Z])/g, " $1")
-              .replace(/^./, (c) => c.toUpperCase())}
-            className={`rounded-[40px] p-2 text-sm w-full ${
-              dgEnabled
-                ? "border border-black bg-white text-[#404040]"
-                : "border border-gray-300 bg-white text-gray-400"
-            }`}
-            disabled={!dgEnabled}
-          />
-        ))}
-      </div>
+      {dgEnabled && (
+        <div className="flex flex-row justify-end">
+          <div className="flex flex-wrap gap-4">
+            <input
+              value={dgFields.EnterDGClass}
+              onChange={(e) => handleDGChange("EnterDGClass", e.target.value)}
+              placeholder="Enter DG Class"
+              className="rounded-[40px] p-2 text-[12px] w-[180px] border border-[#E9E9E9] bg-white text-[#404040]"
+            />
+            <input
+              value={dgFields.PackagingGroup}
+              onChange={(e) => handleDGChange("PackagingGroup", e.target.value)}
+              placeholder="Packaging Group"
+              className="rounded-[40px] p-2 text-[12px] w-[180px] border border-[#E9E9E9] bg-white text-[#404040]"
+            />
+            <input
+              value={dgFields.DGDAttached}
+              onChange={(e) => handleDGChange("DGDAttached", e.target.value)}
+              placeholder="DGD Attached: Yes/No"
+              className="rounded-[40px] p-2 text-[12px] w-[180px] border border-[#E9E9E9] bg-white text-[#404040]"
+            />
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-col gap-4 sm:gap-6">
         {po_commodity.map((item) => (
@@ -130,7 +150,7 @@ const ShipmentItemDetails = () => {
               <span className="font-primary text-[14px] sm:text-[14px] md:text-[15px] text-[#404040] whitespace-nowrap">
                 Commodity Description:
               </span>
-              <div className="w-full border border-[#EAEAEA] rounded-[25px] p-2 font-secondary font-light text-[#404040] text-[12px] break-words">
+              <div className="max-full border border-[#EAEAEA] rounded-[10px] p-2 font-secondary font-normal text-[#404040] text-[14px]">
                 {item.commodity}
               </div>
             </div>
@@ -141,4 +161,4 @@ const ShipmentItemDetails = () => {
   );
 };
 
-export default ShipmentItemDetails;
+export default ShipmentSelection;

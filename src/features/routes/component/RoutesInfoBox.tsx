@@ -3,9 +3,9 @@ import Box from "@/components/ui/box";
 import { motion } from "framer-motion";
 import { infoData } from "../constant";
 
-const ShipmentInfoBox = () => {
+const RoutesInfoBox = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid sm:grid-cols-4 flex-wrap justify-center lg:justify-between items-center gap-4 w-full">
+    <div className="grid grid-cols-1 sm:grid sm:grid-cols-4 flex-wrap justify-center lg:justify-between items-center gap-4 w-full mb-4">
       {infoData.map((item, index) => (
         <motion.div
           key={index}
@@ -21,4 +21,4 @@ const ShipmentInfoBox = () => {
   );
 };
 
-export default ShipmentInfoBox;
+export default RoutesInfoBox;

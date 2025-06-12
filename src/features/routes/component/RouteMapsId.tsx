@@ -1,16 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import Maps from "./Maps";
+import MapsId from "./MapsId";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 type StatusType = "Route" | "All Operation" | "Delivered";
 
-const RouterMaps = () => {
+const RouterMapsId = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<StatusType>("Route");
 
@@ -72,9 +72,9 @@ const RouterMaps = () => {
         </div>
       </div>
 
-      <Maps />
+      <MapsId />
     </div>
   );
 };
 
-export default RouterMaps;
+export default RouterMapsId;

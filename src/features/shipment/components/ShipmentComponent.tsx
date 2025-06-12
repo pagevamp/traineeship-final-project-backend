@@ -6,15 +6,21 @@ import SearchBar from "@/components/ui/searchbar";
 import Image from "next/image";
 import { PlusCircleIcon } from "lucide-react";
 import ShipmentTable from "./ShipmentTable";
-import ShipmentPickup from "./ShipmentPickup";
-import ShipmentDetail from "./ShipmentDetails";
-import ShipmentAdd from "./ShipmentAdd";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Pagination from "@/components/pagination";
 
 const ShipmentComponent = () => {
+  const [state, setState] = useState({
+    pagination: {
+      page: 1,
+      recordsPerPage: 10,
+    },
+    search: "",
+  });
   const router = useRouter();
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <div className="mb-3 sm:mb-4">
         <ShipmentInfoBox />
       </div>
@@ -50,6 +56,26 @@ const ShipmentComponent = () => {
       >
         <ShipmentTable />
       </motion.div>
+      <div className="mt-8">
+        <Pagination
+          currentPage={state.pagination.page}
+          totalPages={
+            // count / state.pagination.recordsPerPage > 0
+            //   ? Math.ceil(count / state.pagination.recordsPerPage)
+            //   : Math.floor(count / state.pagination.recordsPerPage) + 1
+            4
+          }
+          onPageChange={(page: number) => {
+            setState((prevState) => ({
+              ...prevState,
+              pagination: {
+                ...prevState.pagination,
+                page,
+              },
+            }));
+          }}
+        />
+      </div>
     </div>
   );
 };

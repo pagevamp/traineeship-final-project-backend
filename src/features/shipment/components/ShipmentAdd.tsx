@@ -12,15 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useRouter } from "next/navigation";
 
 const ShipmentAdd = () => {
   const [selectVehicle, setSelectedVehicle] = useState("");
   const [selectType, setSelectedType] = useState("");
   const [selectDriver, setSelectedDriver] = useState("");
+  const router = useRouter();
 
   return (
     <div className="flex flex-col">
-      <Button className="font-primary text-lg bg-transparent text-[#FF6502] text-[16px] font-weight-300 shadow-none hover:bg-transparent flex items-center justify-start">
+      <Button
+        className="font-primary text-lg bg-transparent text-[#FF6502] text-[16px] font-weight-300 shadow-none hover:bg-transparent flex items-center justify-start"
+        onClick={() => router.push("/shipment")}
+      >
         <ChevronLeft className="mr-2" size={16} />
         Create Customer Shipments
       </Button>
