@@ -40,7 +40,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     if (pathname === "/") {
       router.push("/dashboard");
     }
-  }, [pathname]);
+  }, [router, pathname]);
 
   return (
     <SidebarProvider defaultOpen={true}>
