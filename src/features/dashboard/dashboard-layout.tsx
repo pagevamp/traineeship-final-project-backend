@@ -1,8 +1,8 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import {
   SidebarInset,
@@ -16,6 +16,7 @@ import { UserNav } from "./UserNav";
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [userRole, setUserRole] = useState<string>("admin");
   const pathname = usePathname();
+  const router = useRouter();
 
   // Get current page title from pathname
   const getCurrentPageTitle = () => {
@@ -34,6 +35,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
+
+  useEffect(() => {
+    if (pathname === "/") {
+      router.push("/dashboard");
+    }
+  }, [pathname]);
 
   return (
     <SidebarProvider defaultOpen={true}>
