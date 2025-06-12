@@ -21,7 +21,7 @@ const ShipmentComponent = () => {
   const router = useRouter();
   return (
     <div className="flex flex-col gap-4">
-      <div className="mb-3 sm:mb-4">
+      <div>
         <ShipmentInfoBox />
       </div>
       <motion.div
@@ -29,7 +29,7 @@ const ShipmentComponent = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       >
-        <div className="w-full flex flex-row items-center gap-[7px] mb-4">
+        <div className="w-full flex flex-row items-center gap-[7px]">
           <SearchBar
             placeholder="Search for Department"
             className="w-[97%] gap-[7px]"
@@ -56,7 +56,7 @@ const ShipmentComponent = () => {
       >
         <ShipmentTable />
       </motion.div>
-      <div className="mt-8">
+      <div className="mt-4">
         <Pagination
           currentPage={state.pagination.page}
           totalPages={4}

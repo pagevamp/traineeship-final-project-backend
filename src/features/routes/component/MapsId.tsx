@@ -7,6 +7,8 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface Order {
   orderId: string;
@@ -47,6 +49,7 @@ const MapsId = () => {
   const [minutes, setMinutes] = useState(0);
   const [period, setPeriod] = useState<"AM" | "PM">("AM");
   const mapRef = useRef<google.maps.Map | null>(null);
+  const router = useRouter();
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyCdm8vsgtOEbxfTfmB56_s2SjSaMhk8g4I",
@@ -235,6 +238,14 @@ const MapsId = () => {
                       {period}
                     </button>
                   </div>
+                </div>
+                <div>
+                  <Button
+                    className="bg-gradient-to-r from-[#FF6502] to-[#E3802A] font-primary font-light text-white h-full w-full p-2 my-2"
+                    onClick={() => router.push("/routes")}
+                  >
+                    Save
+                  </Button>
                 </div>
               </div>
             )}

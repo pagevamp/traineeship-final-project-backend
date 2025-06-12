@@ -128,6 +128,30 @@ export const navigationItems = [
     roles: ["admin", "manager"],
   },
   {
+    title: "Vehicle",
+    href: "/vehicle",
+    icon: (props: any) => (
+      <Icon icon="tdesign:vehicle-filled" width="24" height="24" {...props} />
+    ),
+    roles: ["admin", "manager"],
+  },
+  {
+    title: "Vendor",
+    href: "/vendor",
+    icon: (props: any) => (
+      <Icon icon="mage:shop" width="24" height="24" {...props} />
+    ),
+    roles: ["admin", "manager"],
+  },
+  {
+    title: "Driver",
+    href: "/driver",
+    icon: (props: any) => (
+      <Icon icon="ant-design:car-outlined" width="24" height="24" {...props} />
+    ),
+    roles: ["admin", "manager"],
+  },
+  {
     title: "Settings",
     href: "/settings",
     icon: (props: any) => (
