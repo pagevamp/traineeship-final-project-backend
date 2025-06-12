@@ -69,7 +69,7 @@ export default function SingleInventoryDetail() {
 
   return (
     <div className="rounded-3xl bg-white">
-      <div className="container mx-auto p-4 max-w-7xl">
+      <div className="p-4">
         {/* Header Section */}
         <div
           className={cn(
