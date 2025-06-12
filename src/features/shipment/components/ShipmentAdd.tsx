@@ -34,20 +34,20 @@ const ShipmentAdd = () => {
           {addDetails.map((item) => (
             <div key={item.bill_no} className="flex flex-col space-y-2">
               <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">
-                Bill no.:
-                <span className="font-secondary text-[#404040] font-light">
+                Bill No.:
+                <span className="font-secondary text-[#404040] font-normal">
                   {item.bill_no}
                 </span>
               </p>
               <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">
                 Job ID:
-                <span className="font-secondary text-[#404040] font-light">
+                <span className="font-secondary text-[#404040] font-normal">
                   {item.job_id}
                 </span>
               </p>
               <p className="flex items-center gap-[7px] text-[14px] font-primary text-[#404040]">
                 Date:
-                <span className="font-secondary text-[#404040] font-light">
+                <span className="font-secondary text-[#404040] font-normal">
                   {item.date}
                 </span>
               </p>
@@ -63,8 +63,8 @@ const ShipmentAdd = () => {
             >
               <span>
                 {selectType ? (
-                  <span className="text-sm text-black font-primary">
-                    Select Type: {`${selectType}`}
+                  <span className="text-sm text-[#404040] font-primary font-extralight">
+                    Shipment Type: {`${selectType}`}
                   </span>
                 ) : (
                   <SelectValue placeholder="Select Type: " />
@@ -90,8 +90,8 @@ const ShipmentAdd = () => {
             >
               <span>
                 {selectVehicle ? (
-                  <span className="text-sm text-black font-primary">
-                    Select Type: {`${selectVehicle}`}
+                  <span className="text-sm text-[#404040] font-primary font-light">
+                    Select Vehicle: {`${selectVehicle}`}
                   </span>
                 ) : (
                   <SelectValue placeholder="Select Vehicle: " />
@@ -117,8 +117,8 @@ const ShipmentAdd = () => {
             >
               <span>
                 {selectDriver ? (
-                  <span className="text-sm text-black font-primary">
-                    Select Type: {`${selectDriver}`}
+                  <span className="text-sm text-[#404040] font-primary font-light">
+                    Select Driver: {`${selectDriver}`}
                   </span>
                 ) : (
                   <SelectValue placeholder="Select Driver: " />
