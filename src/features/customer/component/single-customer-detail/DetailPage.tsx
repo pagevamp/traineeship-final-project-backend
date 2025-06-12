@@ -22,10 +22,6 @@ import {
   MapPin,
   DollarSign,
   ShoppingCart,
-  TrendingUp,
-  Package,
-  XCircle,
-  CheckCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { customerData } from "./constant";
@@ -52,7 +48,7 @@ export default function CustomerDetailPage() {
             isLoaded ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
           )}
         >
-          <div className="container mx-auto px-4 py-4">
+          <div className="px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex gap-4">
                 <ChevronLeft
@@ -76,7 +72,7 @@ export default function CustomerDetailPage() {
           </div>
         </div>
 
-        <div className="container mx-auto p-4">
+        <div className="p-4">
           {/* Customer Info and Address Row */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
             {/* Customer Info Card */}
@@ -249,7 +245,7 @@ export default function CustomerDetailPage() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid sm:grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
                     <p className="text-sm font-secondary text-blue-600 uppercase tracking-wide mb-1">
                       Total
@@ -289,7 +285,7 @@ export default function CustomerDetailPage() {
               style={{ transitionDelay: "400ms" }}
             >
               <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center flex-wrap gap-2 justify-between">
                   <div className="flex items-center gap-3">
                     <CardTitle className="flex items-center gap-2 text-lg font-secondary">
                       <ShoppingCart className="h-5 w-5 text-orange-600" />
@@ -317,13 +313,10 @@ export default function CustomerDetailPage() {
               <CardContent>
                 <div
                   className={cn(
-                    "grid grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300"
+                    "grid grid-cols-1 sm:grid-cols-4 gap-4 transition-all duration-300"
                   )}
                 >
                   <div className="text-center p-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg">
-                    <div className="flex items-center justify-center mb-2">
-                      <Package className="h-5 w-5 text-gray-600" />
-                    </div>
                     <p className="text-xs font-secondary text-gray-600 uppercase tracking-wide mb-1">
                       All Orders
                     </p>
@@ -332,10 +325,7 @@ export default function CustomerDetailPage() {
                     </p>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg">
-                    <div className="flex items-center justify-center mb-2">
-                      <CheckCircle className="h-5 w-5 text-emerald-600" />
-                    </div>
-                    <p className="text-xs font-medium text-emerald-600 uppercase tracking-wide mb-1">
+                    <p className="text-xs font-medium text-emerald-600 uppercase tracking-wide mb-1 break-all">
                       Completed
                     </p>
                     <p className="text-base font-bold text-emerald-700">
@@ -343,10 +333,7 @@ export default function CustomerDetailPage() {
                     </p>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-                    <div className="flex items-center justify-center mb-2">
-                      <TrendingUp className="h-5 w-5 text-blue-600" />
-                    </div>
-                    <p className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1">
+                    <p className="text-xs font-medium text-blue-600 uppercase tracking-wide mb-1 break-all">
                       Processing
                     </p>
                     <p className="text-base font-bold text-blue-700">
@@ -354,10 +341,7 @@ export default function CustomerDetailPage() {
                     </p>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg">
-                    <div className="flex items-center justify-center mb-2">
-                      <XCircle className="h-5 w-5 text-red-600" />
-                    </div>
-                    <p className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1">
+                    <p className="text-xs font-medium text-red-600 uppercase tracking-wide mb-1 break-all">
                       Cancelled
                     </p>
                     <p className="text-base font-bold text-red-700">

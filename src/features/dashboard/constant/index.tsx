@@ -83,7 +83,7 @@ export const navigationItems = [
     roles: ["admin", "manager"],
   },
   {
-    title: "Consumer",
+    title: "Importer",
     href: "/consumer",
     icon: (props: any) => (
       <Icon icon="ix:customer-filled" width="24" height="24" {...props} />

@@ -187,7 +187,7 @@ export function DashboardSidebar({ userRole }: DashboardSidebarProps) {
                           href={item.href || "#"}
                           className="flex gap-4 items-center py-1 font-secondary tracking-wide"
                         >
-                          <item.icon className="size-[18px]" />
+                          <item.icon className="!size-[24px]" />
                           <span className="text-sm">{item.title}</span>
                         </Link>
                       </SidebarMenuButton>
