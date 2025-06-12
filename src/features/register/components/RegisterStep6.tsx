@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
+
 const Register6 = () => {
   return (
     <motion.div
@@ -28,107 +29,9 @@ const Register6 = () => {
         />
       </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
-        <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-6 rounded-md shadow-sm ">
-            <Image
-              src="/Upload.svg"
-              alt="Company Logo"
-              className="w-6 h-6 object-contain"
-              width={20}
-              height={20}
-            />
-            <span className="text-sm font-medium text-[#1E1E1E]">
-              Trade License
-            </span>
-          </div>
-        </div>
-
-        <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
-
-        <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
-            <Image
-              src="/Upload.svg"
-              alt="Company Logo"
-              className="w-6 h-6 object-contain"
-              width={20}
-              height={20}
-            />
-            <span className="text-sm font-medium text-[#1E1E1E]">
-              Vat certificate
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
-        <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
-            <Image
-              src="/Upload.svg"
-              alt="Company Logo"
-              className="w-6 h-6 object-contain"
-              width={20}
-              height={20}
-            />
-            <span className="text-sm font-medium text-[#1E1E1E]">
-              Passport copy
-            </span>
-          </div>
-        </div>
-
-        <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
-
-        <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px]  border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
-            <Image
-              src="/Upload.svg"
-              alt="Company Logo"
-              className="w-6 h-6 object-contain"
-              width={20}
-              height={20}
-            />
-            <span className="text-sm font-medium text-[#1E1E1E]">
-              Emirates ID
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
-        <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px]  border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
-            <Image
-              src="/Upload.svg"
-              alt="Company Logo"
-              className="w-6 h-6 object-contain"
-              width={20}
-              height={20}
-            />
-            <span className="text-sm font-medium text-[#1E1E1E]">
-              Security Cheque
-            </span>
-          </div>
-        </div>
-
-        <div className="hidden md:block bg-[#DFDFDF] w-[1px] h-[62px]" />
-
-        <div className="flex flex-col gap-2 flex-1 w-full">
-          <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
-            <Image
-              src="/Upload.svg"
-              alt="Company Logo"
-              className="w-6 h-6 object-contain"
-              width={20}
-              height={20}
-            />
-            <span className="text-sm font-medium text-[#1E1E1E]">Contract</span>
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-col  items-center gap-2 flex-1 w-full ">
-        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 rounded-md shadow-sm ">
+      {/* Mobile/Tablet View - Centered Single Column */}
+      <div className="md:flex md:flex-col md:items-center lg:hidden space-y-6">
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-6 rounded-md shadow-sm mx-auto">
           <Image
             src="/Upload.svg"
             alt="Company Logo"
@@ -136,7 +39,201 @@ const Register6 = () => {
             width={20}
             height={20}
           />
-          <span className="text-sm  font-medium text-[#1E1E1E]">Others</span>
+          <span className="text-sm font-medium text-[#1E1E1E]">
+            Trade License
+          </span>
+        </div>
+
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm mx-auto">
+          <Image
+            src="/Upload.svg"
+            alt="Company Logo"
+            className="w-6 h-6 object-contain"
+            width={20}
+            height={20}
+          />
+          <span className="text-sm font-medium text-[#1E1E1E]">
+            Vat certificate
+          </span>
+        </div>
+
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm mx-auto">
+          <Image
+            src="/Upload.svg"
+            alt="Company Logo"
+            className="w-6 h-6 object-contain"
+            width={20}
+            height={20}
+          />
+          <span className="text-sm font-medium text-[#1E1E1E]">
+            Passport copy
+          </span>
+        </div>
+
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm mx-auto">
+          <Image
+            src="/Upload.svg"
+            alt="Company Logo"
+            className="w-6 h-6 object-contain"
+            width={20}
+            height={20}
+          />
+          <span className="text-sm font-medium text-[#1E1E1E]">
+            Emirates ID
+          </span>
+        </div>
+
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm mx-auto">
+          <Image
+            src="/Upload.svg"
+            alt="Company Logo"
+            className="w-6 h-6 object-contain"
+            width={20}
+            height={20}
+          />
+          <span className="text-sm font-medium text-[#1E1E1E]">
+            Security Cheque
+          </span>
+        </div>
+
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm mx-auto">
+          <Image
+            src="/Upload.svg"
+            alt="Company Logo"
+            className="w-6 h-6 object-contain"
+            width={20}
+            height={20}
+          />
+          <span className="text-sm font-medium text-[#1E1E1E]">Contract</span>
+        </div>
+
+        <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 rounded-md shadow-sm mx-auto">
+          <Image
+            src="/Upload.svg"
+            alt="Company Logo"
+            className="w-6 h-6 object-contain"
+            width={20}
+            height={20}
+          />
+          <span className="text-sm font-medium text-[#1E1E1E]">Others</span>
+        </div>
+      </div>
+
+      {/* Desktop View - Original Layout */}
+      <div className="hidden lg:block">
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px]">
+          <div className="flex flex-col gap-2 flex-1 w-full">
+            <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-6 rounded-md shadow-sm">
+              <Image
+                src="/Upload.svg"
+                alt="Company Logo"
+                className="w-6 h-6 object-contain"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-medium text-[#1E1E1E]">
+                Trade License
+              </span>
+            </div>
+          </div>
+
+          <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
+
+          <div className="flex flex-col gap-2 flex-1 w-full">
+            <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
+              <Image
+                src="/Upload.svg"
+                alt="Company Logo"
+                className="w-6 h-6 object-contain"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-medium text-[#1E1E1E]">
+                Vat certificate
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px] mt-6">
+          <div className="flex flex-col gap-2 flex-1 w-full">
+            <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
+              <Image
+                src="/Upload.svg"
+                alt="Company Logo"
+                className="w-6 h-6 object-contain"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-medium text-[#1E1E1E]">
+                Passport copy
+              </span>
+            </div>
+          </div>
+
+          <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
+
+          <div className="flex flex-col gap-2 flex-1 w-full">
+            <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
+              <Image
+                src="/Upload.svg"
+                alt="Company Logo"
+                className="w-6 h-6 object-contain"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-medium text-[#1E1E1E]">
+                Emirates ID
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px] mt-6">
+          <div className="flex flex-col gap-2 flex-1 w-full">
+            <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
+              <Image
+                src="/Upload.svg"
+                alt="Company Logo"
+                className="w-6 h-6 object-contain"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-medium text-[#1E1E1E]">
+                Security Cheque
+              </span>
+            </div>
+          </div>
+
+          <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
+
+          <div className="flex flex-col gap-2 flex-1 w-full">
+            <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm">
+              <Image
+                src="/Upload.svg"
+                alt="Company Logo"
+                className="w-6 h-6 object-contain"
+                width={20}
+                height={20}
+              />
+              <span className="text-sm font-medium text-[#1E1E1E]">
+                Contract
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 flex-1 w-full mt-6">
+          <div className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 rounded-md shadow-sm">
+            <Image
+              src="/Upload.svg"
+              alt="Company Logo"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">Others</span>
+          </div>
         </div>
       </div>
     </motion.div>

@@ -20,14 +20,13 @@ const ShipmentPickup = () => {
   const router = useRouter();
   return (
     <div className="flex flex-col gap-1 px-4 sm:px-6 lg:px-0">
-      <div className="flex flex-row justify-between items-center px-0 sm:px-6 lg:px-0">
-        <span className="font-primary text-black font-weight-1000 text-[16px]">
+      <div className="flex flex-row justify-between items-center px-6">
+        <span className="font-primary text-black text-[16px] font-normal">
           Pickup Details
         </span>
 
         <Button
           variant="outline"
-          onClick={() => router.push(`/shipment`)}
           className="flex items-center bg-white text-primary text-[13px] font-weight-200 border border-primary rounded-[37px] px-4"
         >
           Edit
@@ -40,7 +39,7 @@ const ShipmentPickup = () => {
         </Button>
       </div>
 
-      <div className="w-full bg-[#ffffff] rounded-[20px] p-6 mt-4">
+      <div className="w-full bg-[#ffffff] rounded-[20px] p-6">
         <div className="w-full flex flex-col gap-6">
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-x-20">
             <div className="w-full md:w-[442px] p-[1px] rounded-[40px] bg-gradient-to-b from-[#E06518] to-[#E3802A]">

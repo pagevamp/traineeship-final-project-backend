@@ -6,7 +6,12 @@ import { useState } from "react";
 import { department, statusColors, USER_COLUMN } from "../constant";
 import TableComponent from "@/components/table";
 import { Icon } from "@iconify/react";
-import { info, DEPARTMENT_COLUMN } from "../constant";
+import {
+  info,
+  DEPARTMENT_COLUMN,
+  DESIGNATION_COLUMN,
+  designationInfo,
+} from "../constant";
 
 type StatusType = "Users" | "Designation";
 
@@ -24,7 +29,7 @@ const DepartmentStatus = () => {
     search: "",
   });
 
-  const actions = [
+  const userActions = [
     {
       label: (
         <Icon
@@ -32,6 +37,29 @@ const DepartmentStatus = () => {
           width="22"
           height="22"
           color="#FF811A"
+        />
+      ),
+    },
+  ];
+
+  const designationActions = [
+    {
+      label: (
+        <Icon
+          icon="heroicons:pencil-solid"
+          width="22"
+          height="22"
+          color="#4CAF50"
+        />
+      ),
+    },
+    {
+      label: (
+        <Icon
+          icon="heroicons:trash-solid"
+          width="22"
+          height="22"
+          color="#F44336"
         />
       ),
     },
@@ -73,13 +101,22 @@ const DepartmentStatus = () => {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="min-w-[600px]"
           >
-            <TableComponent
-              currentPage={state.pagination.page}
-              columns={DEPARTMENT_COLUMN}
-              data={info}
-              isLoading={false}
-              actions={actions}
-            />
+            {activeTab === "Users" ? (
+              <TableComponent
+                currentPage={state.pagination.page}
+                columns={DEPARTMENT_COLUMN}
+                data={info}
+                isLoading={false}
+                actions={userActions}
+              />
+            ) : (
+              <TableComponent
+                currentPage={state.pagination.page}
+                columns={DESIGNATION_COLUMN} 
+                data={designationInfo} 
+                isLoading={false}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

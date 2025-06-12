@@ -19,7 +19,10 @@ const CustomerId = () => {
         <div className="mb-4 w-full">
           <Financial />
         </div>
-        <div className="mb-4 w-full"> <Rates /></div>
+        <div className="mb-4 w-full">
+          {" "}
+          <Rates />
+        </div>
         <div className="mb-4 w-full">
           <Operations />
         </div>

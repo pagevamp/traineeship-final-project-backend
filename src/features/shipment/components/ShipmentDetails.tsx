@@ -21,7 +21,7 @@ const ShipmentDetail = () => {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex flex-row justify-between items-center px-6">
-        <span className="font-primary text-black font-weight-1000 text-[16px]">
+        <span className="font-primary text-black font-normal text-[16px]">
           Details
         </span>
 

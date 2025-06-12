@@ -93,9 +93,21 @@ const Register3 = () => {
       </div>
 
       <div className="flex flex-col gap-y-[22px]">
-        <h3 className="text-center font-primary text-xl">
-          Finance Manager Information
-        </h3>
+        <div className="flex flex-row items-center justify-between w-full">
+          <div className="flex-1"></div>{" "}
+          <div className="font-primary text-xl mx-auto">
+            Finance Manager Information
+          </div>
+          <div className="flex-1 flex justify-end">
+            <Button
+              variant="outline"
+              className="flex gap-2 h-[40px] text-primary border border-primary hover:bg-primary-light hover:text-primary"
+            >
+              Add
+              <Image src="/plus.svg" alt="plus" width={24} height={24} />
+            </Button>
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px]">
           <div className="flex flex-col gap-2">
             <Input
