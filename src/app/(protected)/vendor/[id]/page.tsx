@@ -1,11 +1,12 @@
-import VendorComponent from "@/features/vendor/component/VendorComponent";
-import VendorId from "@/features/vendor/component/VendorId";
 import React from "react";
+import VendorId from "@/features/vendor/component/VendorId";
 
-const page = () => {
-  return <div>
-    <VendorId/>
-  </div>;
+const Index = () => {
+  return (
+    <div>
+      <VendorId />
+    </div>
+  );
 };
 
-export default page;
+export default Index;
