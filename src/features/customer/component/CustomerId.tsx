@@ -8,7 +8,7 @@ import Header from "./header";
 
 const CustomerId = () => {
   return (
-    <div className="bg-[#F9F2FD] min-h-screen">
+    <div className="min-h-screen">
       <div className="w-full max-w-full mx-auto">
         <div className="mb-4">
           <Header />

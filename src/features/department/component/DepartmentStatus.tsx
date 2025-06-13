@@ -71,7 +71,7 @@ const DepartmentStatus = () => {
         <div className="flex flex-col w-full md:w-auto">
           <motion.div
             className="flex gap-[81px] w-full md:w-fit border-b-[1px] border-[#E5D5EF] overflow-x-auto no-scrollbar"
-            initial={{ x: -20 }}
+            initial={{ x: 0 }}
             animate={{ x: 0 }}
           >
             {tabs.map((tab) => (
@@ -92,7 +92,7 @@ const DepartmentStatus = () => {
       </div>
 
       <div className="bg-[#ffffff] w-full rounded-[25px] overflow-auto">
-        <AnimatePresence mode="wait">
+        {/* <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
             initial={{ opacity: 0, x: 50 }}
@@ -100,25 +100,27 @@ const DepartmentStatus = () => {
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="min-w-[600px]"
-          >
-            {activeTab === "Users" ? (
-              <TableComponent
-                currentPage={state.pagination.page}
-                columns={DEPARTMENT_COLUMN}
-                data={info}
-                isLoading={false}
-                actions={userActions}
-              />
-            ) : (
-              <TableComponent
-                currentPage={state.pagination.page}
-                columns={DESIGNATION_COLUMN} 
-                data={designationInfo} 
-                isLoading={false}
-              />
-            )}
-          </motion.div>
-        </AnimatePresence>
+          > */}
+        <div key={activeTab} className="min-w-[600px]">
+          {activeTab === "Users" ? (
+            <TableComponent
+              currentPage={state.pagination.page}
+              columns={DEPARTMENT_COLUMN}
+              data={info}
+              isLoading={false}
+              actions={userActions}
+            />
+          ) : (
+            <TableComponent
+              currentPage={state.pagination.page}
+              columns={DESIGNATION_COLUMN}
+              data={designationInfo}
+              isLoading={false}
+            />
+          )}
+        </div>
+        {/* </motion.div>
+        </AnimatePresence> */}
       </div>
     </div>
   );

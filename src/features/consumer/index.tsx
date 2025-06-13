@@ -41,8 +41,8 @@ const Index = () => {
     <div>
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2, delay: 0.1, ease: "easeOut" }}
       >
         <div className="flex items-center gap-4">
           <SearchComponent
@@ -73,7 +73,7 @@ const Index = () => {
       </motion.div>
 
       <motion.div
-        initial={{ x: 100, opacity: 0 }}
+        initial={{ x: 0, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 60, damping: 12 }}
       >
@@ -89,12 +89,7 @@ const Index = () => {
         <div className="mt-4">
           <Pagination
             currentPage={state.pagination.page}
-            totalPages={
-              // count / state.pagination.recordsPerPage > 0
-              //   ? Math.ceil(count / state.pagination.recordsPerPage)
-              //   : Math.floor(count / state.pagination.recordsPerPage) + 1
-              4
-            }
+            totalPages={4}
             onPageChange={(page: number) => {
               setState((prevState) => ({
                 ...prevState,

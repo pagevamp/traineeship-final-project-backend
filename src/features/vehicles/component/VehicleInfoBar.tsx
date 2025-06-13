@@ -58,9 +58,11 @@ const VehicleInfoBar = () => {
         <motion.div
           key={index}
           className="w-full"
-          initial={{ y: -50, opacity: 0 }}
+          initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: index * 0.3, ease: "easeOut" }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+
+          // transition={{ duration: 0.2, delay: index * 0.1, ease: "easeOut" }}
         >
           <Accordion
             type="single"

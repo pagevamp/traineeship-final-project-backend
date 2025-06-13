@@ -34,9 +34,9 @@ const Index = () => {
   return (
     <motion.div
       key="add-inventory"
-      initial={{ y: 50, opacity: 0 }}
+      initial={{ y: 0, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+      transition={{ duration: 0.2, delay: 0.1, ease: "easeOut" }}
     >
       <div className="rounded-3xl">
         <div className="flex items-center justify-between mb-4">

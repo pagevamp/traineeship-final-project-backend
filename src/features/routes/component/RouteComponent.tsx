@@ -6,9 +6,9 @@ import RouteAssign from "./RouteAssign";
 const RouteComponent = () => {
   return (
     <>
-      <RoutesInfoBox />
+      {/* <RoutesInfoBox /> */}
       <RouterMaps />
-      <RouteAssign/>
+      <RouteAssign />
     </>
   );
 };

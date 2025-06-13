@@ -45,11 +45,11 @@ const Index = () => {
         {INVENTORY_COUNTS?.map((inventory, idx) => (
           <motion.div
             key={idx}
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: 0, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
-              duration: 0.5,
-              delay: 0.2 + idx * 0.1,
+              duration: 0.2,
+              delay: 0.1 + idx * 0.1,
               ease: "easeOut",
             }}
           >
@@ -86,7 +86,7 @@ const Index = () => {
       </div>
 
       <motion.div
-        initial={{ x: 100, opacity: 0 }}
+        initial={{ x: 0, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 60, damping: 12 }}
       >

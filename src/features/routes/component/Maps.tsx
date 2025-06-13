@@ -114,10 +114,10 @@ const Maps = () => {
 
   return (
     <div className="order-map-container relative">
-      <div className="flex justify-between font-primary">
-        <span>Setup A Route</span>
+      <div className="flex justify-end font-primary">
+        {/* <span className="text-base pb-2">Setup A Route</span> */}
 
-        <div className="date-picker pr-24">
+        <div className="date-picker pb-2">
           <label htmlFor="order-date">Select Date: </label>
           <input
             type="date"

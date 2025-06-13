@@ -40,7 +40,7 @@ const RouterMaps = () => {
   return (
     <div className="flex flex-col gap-[15px]">
       <div className="flex items-end justify-end md:justify-between w-full flex-wrap md:flex-nowrap">
-        <div className="flex flex-col w-full md:w-auto">
+        {/* <div className="flex flex-col w-full md:w-auto">
           <motion.div
             className="flex gap-[81px] w-full md:w-fit border-b-[1px] border-[#E5D5EF] overflow-x-auto no-scrollbar"
             initial={{ x: -20 }}
@@ -60,7 +60,11 @@ const RouterMaps = () => {
               </button>
             ))}
           </motion.div>
-        </div>
+        </div> */}
+        <span className="text-base pb-2 font-secondary font-semibold">
+          Setup A Route
+        </span>
+
         <div className="pr-6">
           <Button
             variant="outline"
