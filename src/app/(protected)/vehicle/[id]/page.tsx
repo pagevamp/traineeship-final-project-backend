@@ -1,7 +1,7 @@
 import React from "react";
 import VehicleId from "@/features/vehicles/component/VehicleId";
 
-const page = () => {
+const Index = () => {
   return (
     <div>
       <VehicleId />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Index;

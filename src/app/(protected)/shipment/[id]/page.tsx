@@ -1,7 +1,7 @@
 import React from "react";
 import ShipmentCreation from "@/features/shipment/components/ShipmentCreation";
 
-const page = () => {
+const Index = () => {
   return (
     <>
       <ShipmentCreation />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Index;

@@ -37,10 +37,11 @@ export const statusColors: Record<StatusType, string> = {
 export const tabs = ["Pending", "Rejected", "Approved"] as const;
 
 export const USER_COLUMN = [
-  { key: "name", label: "User Name" },
-  { key: "phone", label: "Phone" },
+  { key: "id", label: "Employee Id" },
+  { key: "name", label: "Employee Name" },
   { key: "email", label: "Email" },
-  { key: "status", label: "Status", type: "status" },
+  { key: "phone", label: "Phone" },
+  // { key: "status", label: "Status", type: "status" },
 ];
 
 export const UserData = [
@@ -81,4 +82,38 @@ export const accessItems = [
   { title: "Shipment Approval" },
   { title: "Customer Services" },
   { title: "Customer Services" },
+];
+export const headerDetails = [
+  {
+    img: "/pencil.svg",
+    label: "Full Name:",
+    value: "Everestwalk Groups Pvt. Ltd.",
+  },
+  {
+    img: "/system_security_update.svg",
+    label: "Employee Id:",
+    value: "1234",
+  },
+  {
+    img: "/share_location.svg",
+    label: "Email: ",
+    value: "test@gmail.com",
+  },
+  {
+    img: "/transgender.svg",
+    label: "Phone Number:",
+    value: " Software Development",
+  },
+  { img: "/share_location.svg", label: "Estd. Year:", value: " 2020" },
+
+  {
+    img: "/document_scanner.svg",
+    label: "Department:",
+    value: " LTL, FTL, Both",
+  },
+  {
+    img: "/pencil.svg",
+    label: "Designation:",
+    value: "info@everetswalk.com",
+  },
 ];

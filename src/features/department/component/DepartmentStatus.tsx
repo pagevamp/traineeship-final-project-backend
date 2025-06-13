@@ -3,7 +3,12 @@
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { department, statusColors, USER_COLUMN } from "../constant";
+import {
+  department,
+  DepartmentTab,
+  statusColors,
+  USER_COLUMN,
+} from "../constant";
 import TableComponent from "@/components/table";
 import { Icon } from "@iconify/react";
 import {
@@ -12,14 +17,13 @@ import {
   DESIGNATION_COLUMN,
   designationInfo,
 } from "../constant";
+import { cn } from "@/lib/utils";
+import Pagination from "@/components/pagination";
 
-type StatusType = "Users" | "Designation";
-
-const DepartmentStatus = () => {
+const DepartmentStatus = ({ activeTab, setActiveTab }: any) => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<StatusType>("Users");
 
-  const tabs: StatusType[] = ["Users", "Designation"];
+  const tabs: DepartmentTab[] = ["Users", "Designation"];
 
   const [state, setState] = useState({
     pagination: {
@@ -39,6 +43,7 @@ const DepartmentStatus = () => {
           color="#FF811A"
         />
       ),
+      onClick: (row: any) => router.push(`/users/1`),
     },
   ];
 
@@ -93,36 +98,64 @@ const DepartmentStatus = () => {
         </div>
       </div>
 
-      <div className="bg-[#ffffff] w-full rounded-[25px] overflow-auto">
-        {/* <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="min-w-[600px]"
-          > */}
+      <div
+        className={cn(
+          "w-full rounded-[25px] overflow-auto",
+          activeTab === "Designation" && "w-[50%]"
+        )}
+      >
         <div key={activeTab} className="min-w-[600px]">
           {activeTab === "Users" ? (
-            <TableComponent
-              currentPage={state.pagination.page}
-              columns={DEPARTMENT_COLUMN}
-              data={info}
-              isLoading={false}
-              actions={userActions}
-            />
+            <div>
+              <TableComponent
+                currentPage={state.pagination.page}
+                columns={USER_COLUMN}
+                data={info}
+                isLoading={false}
+                actions={userActions}
+              />
+              <div className="mt-4">
+                <Pagination
+                  currentPage={state.pagination.page}
+                  totalPages={4}
+                  onPageChange={(page: number) => {
+                    setState((prevState) => ({
+                      ...prevState,
+                      pagination: {
+                        ...prevState.pagination,
+                        page,
+                      },
+                    }));
+                  }}
+                />
+              </div>
+            </div>
           ) : (
-            <TableComponent
-              currentPage={state.pagination.page}
-              columns={DESIGNATION_COLUMN}
-              data={designationInfo}
-              isLoading={false}
-            />
+            <div>
+              <TableComponent
+                currentPage={state.pagination.page}
+                columns={DESIGNATION_COLUMN}
+                data={designationInfo}
+                isLoading={false}
+              />
+              <div className="mt-4">
+                <Pagination
+                  currentPage={state.pagination.page}
+                  totalPages={4}
+                  onPageChange={(page: number) => {
+                    setState((prevState) => ({
+                      ...prevState,
+                      pagination: {
+                        ...prevState.pagination,
+                        page,
+                      },
+                    }));
+                  }}
+                />
+              </div>
+            </div>
           )}
         </div>
-        {/* </motion.div>
-        </AnimatePresence> */}
       </div>
     </div>
   );

@@ -51,7 +51,7 @@ const Register6 = () => {
             height={20}
           />
           <span className="text-sm font-medium text-[#1E1E1E]">
-            Vat certificate
+            Vat Certificate
           </span>
         </div>
 
@@ -64,7 +64,7 @@ const Register6 = () => {
             height={20}
           />
           <span className="text-sm font-medium text-[#1E1E1E]">
-            Passport copy
+            Passport Copy
           </span>
         </div>
 

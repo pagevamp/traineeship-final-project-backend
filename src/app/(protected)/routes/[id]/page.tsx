@@ -1,7 +1,7 @@
-import RouterId from "@/features/routes/component/RouterId";
 import React from "react";
+import RouterId from "@/features/routes/component/RouterId";
 
-const page = () => {
+const Index = () => {
   return (
     <div>
       <RouterId />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Index;
