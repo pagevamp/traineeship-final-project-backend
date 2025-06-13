@@ -187,7 +187,7 @@ const PaginationPrevious = ({
     className={cn("text-secondary gap-1 pl-2.5", className)}
     {...props}
   >
-    <span>Previous</span>
+    <span className="font-secondary font-[400]">Previous</span>
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
@@ -202,7 +202,7 @@ const PaginationNext = ({
     className={cn("text-secondary gap-1 pr-2.5", className)}
     {...props}
   >
-    <span>Next</span>
+    <span className="font-secondary font-[400]">Next</span>
   </PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";

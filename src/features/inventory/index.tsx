@@ -127,7 +127,7 @@ const Index = () => {
               <Link href="/inventory/add-inventory">
                 <Button
                   label="Add Inventory"
-                  className="w-fit h-[38px] px-4 text-sm whitespace-nowrap"
+                  className="w-fit font-secondary font-[400] h-[38px] px-4 text-sm whitespace-nowrap"
                 />
               </Link>
             </div>

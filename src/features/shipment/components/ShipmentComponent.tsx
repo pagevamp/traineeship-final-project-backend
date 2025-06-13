@@ -41,7 +41,7 @@ const ShipmentComponent = () => {
           <div className="">
             <button
               onClick={() => router.push(`/shipment/1`)}
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF6502] to-[#FF953D] text-white rounded-[37px] text-primary text-sm font-300 whitespace-nowrap px-6 py-3 "
+              className="flex items-center font-secondary font-[400] justify-center gap-2 bg-gradient-to-r from-[#FF6502] to-[#FF953D] text-white rounded-[37px] text-primary text-sm font-300 whitespace-nowrap px-6 py-3 "
             >
               Add Shipment <PlusCircleIcon size={20} />
             </button>

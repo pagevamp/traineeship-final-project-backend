@@ -68,7 +68,7 @@ const RouterMaps = () => {
         <div className="pr-6">
           <Button
             variant="outline"
-            className="flex items-center gap-3 bg-white text-primary text-[13px] font-secondary font-normal border border-primary rounded-[37px] p-2"
+            className="flex items-center font-secondary font-[400] gap-3 bg-white text-primary text-[13px] border border-primary rounded-[37px] p-2"
           >
             Add
             <Image src="/plus.svg" alt="plus" width={24} height={24} />

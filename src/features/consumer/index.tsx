@@ -66,7 +66,7 @@ const Index = () => {
           <Link href="/customer/add-customer">
             <Button
               label="Add Customer"
-              className="w-fit h-[38px] px-4 text-sm"
+              className="w-fit h-[38px] font-secondary font-[400] px-4 text-sm"
             />
           </Link>
         </div>

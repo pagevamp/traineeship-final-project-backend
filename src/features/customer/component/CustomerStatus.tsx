@@ -58,7 +58,9 @@ const CustomerStatus = () => {
                 onClick={() => setActiveTab(tab)}
                 className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
               >
-                <span className="relative z-10">{tab}</span>
+                <span className="relative z-10 font-secondary font-[400]">
+                  {tab}
+                </span>
 
                 {activeTab === tab && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[3px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />
@@ -70,7 +72,7 @@ const CustomerStatus = () => {
         </div>
 
         <div className="mt-4 md:mt-0 w-fit px-4 md:px-0 md:w-[104px] h-[28px] bg-white flex items-center justify-center gap-[6px] rounded-[10px]">
-          <span className="text-[#540F86] text-[14px] font-medium whitespace-nowrap">
+          <span className="text-[#540F86] font-secondary font-[400] text-[14px] font-medium whitespace-nowrap">
             See all
           </span>
           <ChevronDown size={18} color="#000000" />
