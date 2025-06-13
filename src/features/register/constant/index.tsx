@@ -1,8 +1,6 @@
-import { ReactNode } from "react";
-
 export const steps = [
   { id: 1, title: "Company Details" },
-  { id: 2, title: "Nature of Business" },
+  { id: 2, title: "Business Activity" },
   { id: 3, title: "Directors" },
   { id: 4, title: "Referrals" },
   { id: 5, title: "Bank Details" },

@@ -26,10 +26,10 @@ const Register3 = () => {
         <div className="flex flex-col gap-2">
           <Input
             className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="company-type"
-            name="company-type"
-            labelName="Company Type"
-            placeholder="Enter Company Type"
+            id="director-name"
+            name="director-name"
+            labelName="Director Name"
+            placeholder="Enter Director Name"
             type="text"
             required
           />
@@ -60,10 +60,10 @@ const Register3 = () => {
         <div className="flex flex-col gap-2">
           <Input
             className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="company-type-2"
-            name="company-type-2"
-            labelName="Company Type"
-            placeholder="Enter Company Type"
+            id="director-name-2"
+            name="director-name-2"
+            labelName="Director Name"
+            placeholder="Enter Director Name"
             type="text"
             required
           />
@@ -114,8 +114,8 @@ const Register3 = () => {
               className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
               id="company-type-2"
               name="company-type-2"
-              labelName="Company Type"
-              placeholder="Enter Company Type"
+              labelName="Finance Manager Name"
+              placeholder="Enter Finance Manager Name"
               type="text"
               required
             />

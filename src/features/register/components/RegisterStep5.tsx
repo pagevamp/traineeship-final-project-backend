@@ -155,7 +155,7 @@ const Register5 = () => {
             required
           />
         </div>
-        <div className="flex flex-col gap-2 flex-1 w-full min-w-[255px]">
+        {/* <div className="flex flex-col gap-2 flex-1 w-full min-w-[255px]">
           <Label
             className="text-[14px] font-primary text-[#26203B]"
             required={true}
@@ -174,7 +174,7 @@ const Register5 = () => {
               Upload Files
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );
