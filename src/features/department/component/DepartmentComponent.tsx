@@ -24,28 +24,6 @@ const DepartmentComponent = () => {
   const handleCreateClick = () => {
     openModal({
       component: DepartmentForm,
-      // (props: any) => (
-      //   <motion.div
-      //     initial={{ opacity: 0 }}
-      //     animate={{ y: 0, opacity: 1 }}
-      //     transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-      //     className="relative"
-      //   >
-      //     <div className="relative my-[30px]">
-      //       <button
-      //         onClick={props.closeModal}
-      //         className="absolute top-1 right-2 bg-white w-[45px] h-[45px] border rounded-full text-2xl text-[#E06518] font-bold bg-transparent border-primary cursor-pointer"
-      //         aria-label="Close modal"
-      //       >
-      //         &times;
-      //       </button>
-      //       <DepartmentForm {...props} />
-      //     </div>
-      //   </motion.div>
-      // ),
-      // className:
-      //   "bg-white rounded-lg max-w-[600px] min-h-[400px] px-[10px] pt-[10px] relative overflow-x-hidden",
-      // overlayClassName: "fixed inset-0 bg-black/60",
       className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
     });
   };

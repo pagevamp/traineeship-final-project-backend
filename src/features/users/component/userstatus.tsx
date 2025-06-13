@@ -24,7 +24,7 @@ const CustomerStatus = () => {
     search: "",
   });
 
-  const actions = [
+  const userActions = [
     {
       label: (
         <Icon
@@ -34,7 +34,7 @@ const CustomerStatus = () => {
           color="#FF811A"
         />
       ),
-      onClick: (row: any) => router.push(`/sales/${row.id}`),
+      onClick: (row: any) => router.push(`/users/1`),
     },
   ];
 
@@ -75,6 +75,7 @@ const CustomerStatus = () => {
           columns={USER_COLUMN}
           data={UserData}
           isLoading={false}
+          actions={userActions}
         />
       </div>
       <div className="mt-4">

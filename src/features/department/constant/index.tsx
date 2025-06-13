@@ -94,10 +94,11 @@ export const department: DepartmentStatusItem[] = [
 ];
 
 export const USER_COLUMN = [
+  { key: "id", label: "Employee Id" },
   { key: "name", label: "Employee Name" },
   { key: "email", label: "Email" },
   { key: "phone", label: "Phone" },
-  { key: "status", label: "Status", type: "status" },
+  // { key: "status", label: "Status", type: "status" },
 ];
 
 export const DEPARTMENT_COLUMN = [
@@ -105,7 +106,6 @@ export const DEPARTMENT_COLUMN = [
   { key: "name", label: "Contact Person" },
   { key: "email", label: "Email" },
   { key: "phone", label: "Phone" },
-  { key: "status", label: "Status", type: "status" },
 ];
 
 export const DESIGNATION_COLUMN = [
@@ -130,3 +130,5 @@ export const designationInfo = [
     designation: "Director ",
   },
 ];
+
+export type DepartmentTab = "Users" | "Designation";

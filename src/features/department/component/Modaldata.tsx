@@ -5,7 +5,7 @@ const ModalData = () => {
   return (
     <div className="relative p-6">
       <span className="font-primary text-[20px] text-[#111D35] block">
-        Create Employee
+        Create Department
       </span>
 
       <div className="flex gap-[26px] mt-[28px]">

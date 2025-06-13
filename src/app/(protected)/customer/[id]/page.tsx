@@ -1,7 +1,7 @@
 import React from "react";
 import CustomerId from "@/features/customer/component/CustomerId";
 
-const page = () => {
+const Index = () => {
   return (
     <div>
       <CustomerId />
@@ -9,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Index;

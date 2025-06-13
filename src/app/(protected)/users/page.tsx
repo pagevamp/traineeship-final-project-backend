@@ -1,5 +1,5 @@
 import React from "react";
-import UserComponent from "@/features/user/component/userComponent";
+import UserComponent from "@/features/users/component/userComponent";
 
 const User = () => {
   return (
