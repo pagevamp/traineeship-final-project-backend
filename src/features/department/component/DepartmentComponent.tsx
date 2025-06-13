@@ -70,7 +70,7 @@ const DepartmentComponent = () => {
             <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[1px] rounded-[37px] w-fit h-fit">
               <button
                 onClick={handleCreateClick}
-                className="flex items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white hover:bg-primary-light rounded-[37px] text-sm font-semibold"
+                className="flex font-secondary font-[400] items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white hover:bg-primary-light rounded-[37px] text-sm"
               >
                 Create <PlusCircleIcon size={24} />
               </button>

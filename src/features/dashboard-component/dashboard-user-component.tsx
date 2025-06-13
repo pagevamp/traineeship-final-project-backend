@@ -72,7 +72,7 @@ const Index = () => {
           </div>
           <Button
             label="Add Users"
-            className="w-fit h-[38px] whitespace-nowrap px-4 text-sm"
+            className="w-fit h-[38px] whitespace-nowrap px-4 font-secondary font-[400] text-sm"
           />
         </div>
       </div>

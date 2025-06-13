@@ -45,7 +45,7 @@ const UserComponent = () => {
                     "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
                 });
               }}
-              className="flex items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white rounded-[37px] text-sm font-semibold"
+              className="flex font-secondary items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white rounded-[37px] text-sm font-[400]"
             >
               Create <PlusCircleIcon size={24} />
             </button>

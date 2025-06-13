@@ -80,7 +80,9 @@ const DepartmentStatus = () => {
                 onClick={() => setActiveTab(tab)}
                 className="relative whitespace-nowrap text-[14px] md:text-[16px] font-medium text-[#540F86] pb-3 transition-all duration-300 overflow-visible"
               >
-                <span className="relative z-10">{tab}</span>
+                <span className="relative z-10 font-secondary font-[400]">
+                  {tab}
+                </span>
 
                 {activeTab === tab && (
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100%] h-[3px] bg-[#540F86] rounded-t-[10px] transition-all duration-300 z-0" />

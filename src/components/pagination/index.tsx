@@ -97,7 +97,7 @@ export default function CustomPagination({
                     onPageChange(pageNumber as number);
                   }}
                   isActive={pageNumber === currentPage}
-                  className="hover:text-white hover:bg-secondary"
+                  className="hover:text-white hover:bg-secondary font-secondary font-[400]"
                 >
                   {pageNumber}
                 </PaginationLink>
