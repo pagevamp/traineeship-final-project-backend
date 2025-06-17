@@ -32,7 +32,7 @@ export default function AnimatedCard({
       style={{ transitionDelay: `${delay}ms` }}
     >
       <Card
-        className={`hover:shadow-lg transition-shadow h-full duration-300 ${className}`}
+        className={`hover:shadow-md transition-shadow h-full duration-300 ${className}`}
       >
         {children}
       </Card>

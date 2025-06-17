@@ -12,6 +12,7 @@ import {
 import { get } from "lodash";
 import { PageLoader } from "../loaders/page-loader";
 import { NoDataFound } from "@/components/Nodatafound/NoDataFound";
+import { cn } from "@/lib/utils";
 
 type Column = {
   key: string;
@@ -32,6 +33,7 @@ type Props = {
   isLoading: boolean;
   currentPage: number;
   actions?: Action[];
+  className?: string;
 };
 
 const TableComponent: React.FC<Props> = ({
@@ -40,6 +42,7 @@ const TableComponent: React.FC<Props> = ({
   actions,
   isLoading,
   currentPage,
+  className,
 }) => {
   const getData = (row: any, key: string, type?: string) => {
     if (type == "status") {
@@ -48,7 +51,12 @@ const TableComponent: React.FC<Props> = ({
     return get(row, key) || "N/A";
   };
   return (
-    <div className="bg-[#ffffff] rounded-3xl px-4">
+    <div
+      className={cn(
+        "bg-[#ffffff] border shadow rounded-3xl px-4 hover:shadow-md transition-shadow duration-300",
+        className && className
+      )}
+    >
       <div className="w-full overflow-x-auto ">
         <Table className="min-w-full rounded-lg">
           <TableHeader>
@@ -100,7 +108,7 @@ const TableComponent: React.FC<Props> = ({
                     </TableCell>
                   ))}
                   {actions && (
-                    <TableCell className="px-4 py-3 flex gap-8 justify-center">
+                    <TableCell className="px-4 py-3 flex gap-3 justify-center">
                       {actions.map((action, index) => (
                         <button
                           key={index}

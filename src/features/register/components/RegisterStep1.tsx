@@ -11,8 +11,18 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
+import { MultiSelect } from "@/components/ui/multi-select";
+import { companyType } from "../constant";
+import { SelectedBadges } from "@/components/selected-badge/SelectedBadges";
+import { DatePicker } from "@/components/ui/date-picker";
 
 const Register1 = () => {
+  const [selectedCompany, setSelectedCompany] = React.useState<string[]>([]);
+  const [date, setDate] = React.useState<Date | undefined>(undefined);
+
+  const handleRemoveFramework = (value: string) => {
+    setSelectedCompany((prev) => prev.filter((item) => item !== value));
+  };
   return (
     <motion.div
       className="text-[16px] max-w-[500px] w-full px-4 sm:px-6 md:px-8 lg:px-0 justify-items flex flex-col gap-4"
@@ -44,14 +54,14 @@ const Register1 = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <Label
+      <div className="flex flex-col gap-2 w-full">
+        {/* <Label
           className="text-[14px] font-primary text-[#26203B]"
           required={true}
         >
           Company Type
-        </Label>
-        <Select>
+        </Label> */}
+        {/* <Select>
           <SelectTrigger
             id="company-type"
             className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
@@ -74,11 +84,24 @@ const Register1 = () => {
               <SelectItem value="pineapple">Pineapple</SelectItem>
             </SelectGroup>
           </SelectContent>
-        </Select>
+        </Select> */}
+        <MultiSelect
+          options={companyType}
+          selected={selectedCompany}
+          onChange={setSelectedCompany}
+          placeholder="Select Company Type..."
+          searchPlaceholder="Search..."
+          label="Company Type"
+        />
+        <SelectedBadges
+          selected={selectedCompany}
+          options={companyType}
+          onRemove={handleRemoveFramework}
+        />
       </div>
 
       <div className="flex flex-col gap-2">
-        <Input
+        {/* <Input
           className="w-full  bg-white py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5]"
           id="years-incorporated"
           name="years-incorporated"
@@ -86,6 +109,13 @@ const Register1 = () => {
           placeholder="Enter date"
           type="date"
           required={true}
+        /> */}
+        <DatePicker
+          selected={date}
+          onSelect={setDate}
+          placeholder="Enter Date"
+          label="Years Since Incorporated"
+          className="w-full text-xs"
         />
       </div>
 

@@ -33,6 +33,28 @@ const Index = () => {
       ),
       onClick: (row: any) => router.push(`/sales/${row.id}`),
     },
+    {
+      label: (
+        <Icon
+          icon="material-symbols:edit-outline-rounded"
+          width="22"
+          height="22"
+          color="#FF811A"
+        />
+      ),
+      onClick: (row: any) => ({}),
+    },
+    {
+      label: (
+        <Icon
+          icon="proicons:arrow-download"
+          width="22"
+          height="22"
+          color="#FF811A"
+        />
+      ),
+      onClick: (row: any) => ({}),
+    },
   ];
 
   return (

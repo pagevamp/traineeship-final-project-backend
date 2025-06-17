@@ -44,26 +44,28 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider defaultOpen={true}>
-      <DashboardSidebar userRole={userRole} />
-      <SidebarInset>
-        <header className="flex min-h-16 py-5 shrink-0 items-center gap-2 sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            <Breadcrumb>
-              <BreadcrumbPage className="text-primary font-primary capitalize text-lg">
-                {getCurrentPageTitle()}
-              </BreadcrumbPage>
-            </Breadcrumb>
-          </div>
-          <div className="ml-auto flex items-center gap-2 px-4">
-            <UserNav />
-          </div>
-        </header>
-        <main className="flex flex-1 flex-col gap-4 p-3 sm:p-4 bg-sidebar-background">
-          {children}
-        </main>
-      </SidebarInset>
+      <div className="min-h-screen flex w-full">
+        <DashboardSidebar userRole={userRole} />
+        <div className="flex-1 flex flex-col min-w-0">
+          <header className="flex min-h-16 py-5 shrink-0 items-center gap-2 sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+            <div className="flex items-center gap-2 px-4">
+              <SidebarTrigger className="-ml-1" />
+              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Breadcrumb>
+                <BreadcrumbPage className="text-primary font-primary capitalize text-lg">
+                  {getCurrentPageTitle()}
+                </BreadcrumbPage>
+              </Breadcrumb>
+            </div>
+            <div className="ml-auto flex items-center gap-2 px-4">
+              <UserNav />
+            </div>
+          </header>
+          <main className="flex-1 overflow-auto gap-4 p-3 sm:p-4 bg-sidebar-background">
+            {children}
+          </main>
+        </div>
+      </div>
     </SidebarProvider>
   );
 }

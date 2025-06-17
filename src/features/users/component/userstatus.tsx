@@ -69,7 +69,9 @@ const CustomerStatus = () => {
         </div>
       </div> */}
 
-      <div className="bg-[#ffffff] w-full rounded-[25px] overflow-auto">
+      <div
+      // className="bg-[#ffffff] w-full rounded-[25px] overflow-auto"
+      >
         <TableComponent
           currentPage={state.pagination.page}
           columns={USER_COLUMN}

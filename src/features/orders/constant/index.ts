@@ -3,6 +3,18 @@ export const INVENTORY_COLUMN = [
   { key: "mobileNo", label: "Phone" },
   { key: "email", label: "Email" },
 ];
+export const ORDER_COLUMN = [
+  { key: "name", label: "Order ID" },
+  { key: "mobileNo", label: "Product Name" },
+  { key: "email", label: "Ordered Sizes" },
+  { key: "email", label: "Quantity" },
+  { key: "email", label: "Order Date" },
+  { key: "email", label: "Shipment Date" },
+  { key: "email", label: "Total Amount" },
+  { key: "email", label: "Due Day" },
+  { key: "email", label: "Customer Name" },
+  { key: "email", label: "Order Status" },
+];
 export const InventoryData = [
   {
     name: "John Doe",

@@ -78,7 +78,7 @@ export default function CustomerDetailPage() {
             {/* Customer Info Card */}
             <Card
               className={cn(
-                "group hover:shadow-xl transition-all duration-300 border shadow-md",
+                "group hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
@@ -145,7 +145,7 @@ export default function CustomerDetailPage() {
             {/* Address Card */}
             <Card
               className={cn(
-                "hover:shadow-xl transition-all duration-300 border shadow-md",
+                "hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
@@ -218,7 +218,7 @@ export default function CustomerDetailPage() {
             {/* Amount Card */}
             <Card
               className={cn(
-                "hover:shadow-xl transition-all duration-300 border shadow-md",
+                "hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
@@ -277,7 +277,7 @@ export default function CustomerDetailPage() {
             {/* Order Details Card */}
             <Card
               className={cn(
-                "hover:shadow-xl transition-all duration-300 border shadow-md",
+                "hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"

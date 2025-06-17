@@ -79,7 +79,9 @@ const CustomerStatus = () => {
         </div>
       </div>
 
-      <div className="bg-[#ffffff] w-full rounded-[25px] overflow-auto">
+      <div 
+      // className="bg-[#ffffff] w-full rounded-[25px] overflow-auto"
+      >
         {/* <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

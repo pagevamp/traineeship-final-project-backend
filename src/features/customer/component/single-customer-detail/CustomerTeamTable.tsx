@@ -68,6 +68,7 @@ const CustomerTeamTable = () => {
           data={ConsumerData}
           isLoading={false}
           actions={actions}
+          className="border-none"
         />
       </div>
       <div className="mt-4">

@@ -22,13 +22,16 @@ export const infoData = [
 ];
 
 export const SHIPMENT_COLUMN = [
-  { key: "date", label: "Date" },
   { key: "job_id", label: "Job ID" },
-  { key: "name", label: "Company Name" },
-  { key: "email", label: "Email" },
-  { key: "phone", label: "Phone" },
-  { key: "contact_person", label: "Contact Person" },
-  { key: "address", label: "Address" },
+  { key: "order_id", label: "Order ID" },
+  { key: "shipmentType", label: "Shipment Type" },
+  { key: "pickupDate", label: "Pickup Date" },
+  { key: "dispatchDate", label: "Dispatch Date" },
+  { key: "estimatedDelivery", label: "Estimated Delivery" },
+  { key: "status", label: "Status" },
+  { key: "deliveryDate", label: "Delivery Date" },
+  { key: "driver_info", label: "Carrier/Driver Info" },
+  { key: "trackingLink", label: "Live Tracking Link" },
 ];
 
 export const shipmentData = [

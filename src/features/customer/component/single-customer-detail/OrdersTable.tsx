@@ -82,6 +82,7 @@ const OrdersTable = () => {
           data={SalesData}
           isLoading={false}
           actions={actions}
+          className="border-none"
         />
       </div>
       <div className="mt-4">

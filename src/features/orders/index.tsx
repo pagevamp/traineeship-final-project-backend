@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import TableComponent from "@/components/table";
-import { INVENTORY_COLUMN, InventoryData } from "./constant";
+import { InventoryData, ORDER_COLUMN } from "./constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
 import SearchComponent from "@/components/SearchComponent/SearchComponent";
@@ -31,7 +31,18 @@ const Index = () => {
           color="#FF811A"
         />
       ),
-      onClick: (row: any) => router.push(`/sales/${row.id}`),
+      onClick: (row: any) => router.push(`/orders/${row.id}`),
+    },
+    {
+      label: (
+        <Icon
+          icon="material-symbols:edit-outline-rounded"
+          width="22"
+          height="22"
+          color="#FF811A"
+        />
+      ),
+      onClick: (row: any) => router.push(`/orders/${row.id}`),
     },
   ];
 
@@ -80,10 +91,11 @@ const Index = () => {
           </div>
           <TableComponent
             currentPage={state.pagination.page}
-            columns={INVENTORY_COLUMN}
+            columns={ORDER_COLUMN}
             data={InventoryData}
             isLoading={false}
             actions={actions}
+            className="border-none"
           />
         </div>
         <div className="mt-4">

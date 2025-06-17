@@ -56,3 +56,8 @@ export const headings: HeadingsType[] = [
     description: "Add product details now or skip for later.",
   },
 ];
+export const companyType = [
+  { label: "Company", value: "Company" },
+  { label: "Company 1", value: "Company 1" },
+  { label: "Company 2", value: "Company 2" },
+];

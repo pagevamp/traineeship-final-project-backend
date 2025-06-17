@@ -37,9 +37,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className="text-[14px] font-primary text-[#26203B]"
           >
             {labelName}{" "}
-            {props.required && (
-              <sup className="font-[16px] text-[#E45270]"> *</sup>
-            )}
+            {props.required && <span className="text-red-600">*</span>}
           </label>
         )}
         <div className="relative">
@@ -47,7 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             type={isPassword && showPassword ? "text" : type}
             className={cn(
-              "flex h-12 w-full rounded-md border border-muted-light bg-transparent px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:font-[300] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-xs",
+              "flex h-12 w-full rounded-md border border-muted-light bg-transparent font-[300] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:font-[300] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-xs",
               error &&
                 "border-destructive shadow-error font-primary placeholder:font-primary",
               isPassword && "pr-10",

@@ -138,6 +138,7 @@ const Index = () => {
             data={InventoryData}
             isLoading={false}
             actions={actions}
+            className={"border-none"}
           />
         </div>
         <div className="mt-4">

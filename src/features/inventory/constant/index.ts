@@ -1,7 +1,8 @@
 export const INVENTORY_COLUMN = [
-  { key: "name", label: "User Name" },
-  { key: "mobileNo", label: "Phone" },
-  { key: "email", label: "Email" },
+  { key: "name", label: "Product Name" },
+  { key: "mobileNo", label: "HS Codes " },
+  { key: "email", label: "Units of Measure" },
+  { key: "email", label: "Short Description" },
 ];
 export const InventoryData = [
   {

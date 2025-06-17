@@ -101,7 +101,7 @@ const DepartmentStatus = ({ activeTab, setActiveTab }: any) => {
       <div
         className={cn(
           "w-full rounded-[25px] overflow-auto",
-          activeTab === "Designation" && "w-[50%]"
+          activeTab === "Designation" && "max-w-fit"
         )}
       >
         <div key={activeTab} className="min-w-[600px]">
