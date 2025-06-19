@@ -25,24 +25,26 @@ const Vehicle1 = ({ control }: { control: any }) => {
         required={true}
       />
 
-      <Controller
-        name="vehicleType"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "3 Ton", value: "3 Ton" },
-              { label: "7 Ton", value: "7 Ton" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Vehicle Type"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="Vehicle Type"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="vehicleType"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "3 Ton", value: "3 Ton" },
+                { label: "7 Ton", value: "7 Ton" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="Vehicle Type"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="Vehicle Type"
+            />
+          )}
+        />
+      </div>
 
       <Input
         type="text"
@@ -74,24 +76,26 @@ const Vehicle1 = ({ control }: { control: any }) => {
         required={true}
       />
 
-      <Controller
-        name="countryOfRegistration"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Nepal", value: "Nepal" },
-              { label: "India", value: "India" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Country Of Registration"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="Country Of Registration"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="countryOfRegistration"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Nepal", value: "Nepal" },
+                { label: "India", value: "India" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="Country Of Registration"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="Country Of Registration"
+            />
+          )}
+        />
+      </div>
     </motion.div>
   );
 };

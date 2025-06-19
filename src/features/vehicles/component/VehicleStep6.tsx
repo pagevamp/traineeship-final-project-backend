@@ -29,24 +29,26 @@ const Vehicle6 = ({ control }: { control: any }) => {
         type="text"
       />
 
-      <Controller
-        name="selectAcceptedCurrency"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Active", value: "Active" },
-              { label: "Inactive", value: "Inactive" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Status"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="Status"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="selectAcceptedCurrency"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Active", value: "Active" },
+                { label: "Inactive", value: "Inactive" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="Status"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="Status"
+            />
+          )}
+        />
+      </div>
 
       <Input
         id="createdBy"

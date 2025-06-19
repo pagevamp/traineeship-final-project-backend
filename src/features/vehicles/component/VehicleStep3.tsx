@@ -13,24 +13,26 @@ const Vehicle3 = ({ control }: { control: any }) => {
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
     >
-      <Controller
-        name="temperatureControlled"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Yes", value: "Yes" },
-              { label: "No", value: "No" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Temperature Controlled"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="Temperature Controlled"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="temperatureControlled"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Yes", value: "Yes" },
+                { label: "No", value: "No" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="Temperature Controlled"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="Temperature Controlled"
+            />
+          )}
+        />
+      </div>
 
       <Input
         id="temperatureRange"
@@ -42,44 +44,48 @@ const Vehicle3 = ({ control }: { control: any }) => {
         required={false}
       />
 
-      <Controller
-        name="DGCertified"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Yes", value: "Yes" },
-              { label: "No", value: "No" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="DG Certified"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="DG Certified"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="DGCertified"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Yes", value: "Yes" },
+                { label: "No", value: "No" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="DG Certified"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="DG Certified"
+            />
+          )}
+        />
+      </div>
 
-      <Controller
-        name="GDPCompliant"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Yes", value: "Yes" },
-              { label: "No", value: "No" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="GDP Compliant"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="GDP Compliant"
-            optional={true}
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="GDPCompliant"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Yes", value: "Yes" },
+                { label: "No", value: "No" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="GDP Compliant"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="GDP Compliant"
+              optional={true}
+            />
+          )}
+        />
+      </div>
 
       <Input
         id="capacity"

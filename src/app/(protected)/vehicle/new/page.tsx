@@ -1,8 +1,7 @@
-import VehicleCreation from "@/features/vehicles/component/VehicleCreation";
-import VendorCreation from "@/features/vendor/component/VendorCreation";
 import React from "react";
+import VehicleCreation from "@/features/vehicles/component/VehicleCreation";
 
-const page = () => {
+const Index = () => {
   return (
     <div>
       <VehicleCreation />
@@ -10,4 +9,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Index;

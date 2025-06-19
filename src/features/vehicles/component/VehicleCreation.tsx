@@ -1,16 +1,14 @@
 "use client";
 
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/Heading";
 import { Stepper } from "@/components/ui/stepper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useRef, useState, useCallback } from "react";
 import { steps, headings } from "../constant";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-import Link from "next/link";
 import Vehicle1 from "./VehicleStep1";
 import Vehicle2 from "./VehicleStep2";
 import Vehicle3 from "./VehicleStep3";
@@ -97,15 +95,7 @@ const VehicleCreation = () => {
   const currHeading = headings.find((h) => h.id === currStep);
 
   return (
-    <section className="font-secondary max-w-[900px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
-      {/* <Image
-        src="/arctern-logo.svg"
-        width={142}
-        height={81}
-        alt="Company Logo"
-        className="mb-[22px]"
-      /> */}
-
+    <section className="font-secondary max-w-[1100px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
       <div className="w-full flex justify-between items-center px-4 mb-4">
         {showLeftArrow ? (
           <ScrollArrow
@@ -141,7 +131,10 @@ const VehicleCreation = () => {
         className="overflow-x-auto scrollbar-hide w-full"
         style={{ scrollBehavior: "smooth" }}
       >
-        <div className="flex gap-4 min-w-max" ref={stepsInnerRef}>
+        <div
+          className="flex gap-4 min-w-max m-auto items-center justify-center"
+          ref={stepsInnerRef}
+        >
           <Stepper steps={steps} currentStep={currStep} />
         </div>
       </div>

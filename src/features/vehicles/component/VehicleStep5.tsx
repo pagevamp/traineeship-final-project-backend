@@ -36,43 +36,47 @@ const Vehicle5 = ({ control }: { control: any }) => {
         required={true}
       />
 
-      <Controller
-        name="fuelType"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Diesel", value: "Diesel" },
-              { label: "Petrol", value: "Inactive" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Fuel Type"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="Fuel Type"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="fuelType"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Diesel", value: "Diesel" },
+                { label: "Petrol", value: "Inactive" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="Fuel Type"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="Fuel Type"
+            />
+          )}
+        />
+      </div>
 
-      <Controller
-        name="GDPTrackerInstalled"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Yes", value: "Yes" },
-              { label: "No", value: "No" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="GDP Tracker Installed"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="GDP Tracker Installed"
-          />
-        )}
-      />
+      <div>
+        <Controller
+          name="GDPTrackerInstalled"
+          control={control}
+          render={({ field }) => (
+            <Selectbox
+              options={[
+                { label: "Yes", value: "Yes" },
+                { label: "No", value: "No" },
+              ]}
+              value={field.value || ""}
+              onChange={(selected) => field.onChange(selected.value)}
+              placeholder="GDP Tracker Installed"
+              emptyText="No data found."
+              className="w-full bg-transparent h-12"
+              label="GDP Tracker Installed"
+            />
+          )}
+        />
+      </div>
 
       <Input
         id="deviceId"
