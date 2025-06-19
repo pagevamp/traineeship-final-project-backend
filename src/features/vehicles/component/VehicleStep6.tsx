@@ -27,6 +27,8 @@ const Vehicle6 = ({ control }: { control: any }) => {
         value={vehicleId}
         placeholder="Enter your Vehicle Id"
         type="text"
+        readOnly
+        optional={false}
       />
 
       <div>
@@ -58,16 +60,18 @@ const Vehicle6 = ({ control }: { control: any }) => {
         value={createdBy}
         readOnly
         className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]  bg-gray-100"
+        optional={false}
       />
 
       <Input
         id="dateCreated"
         name="dateCreated"
         type="text"
-        labelName="Created By"
+        labelName="Created Date"
         value={format(dateCreated, "PPpp")}
         readOnly
         className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-gray-100"
+        optional={false}
       />
     </motion.div>
   );
