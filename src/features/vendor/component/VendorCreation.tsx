@@ -95,7 +95,7 @@ const VendorCreation = () => {
   const currHeading = headings.find((h) => h.id === currStep);
 
   return (
-    <section className="font-secondary max-w-[1130px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
+    <section className="font-secondary max-w-[900px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
       <Image
         src="/arctern-logo.svg"
         width={142}

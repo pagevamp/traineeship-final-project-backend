@@ -17,6 +17,7 @@ const Vendor4 = ({ control }: { control: any }) => {
         id="billingContact"
         name="billingContact"
         placeholder="Enter billing contact person's name"
+        labelName="Billing Contact"
         type="string"
         required={true}
       />
@@ -24,9 +25,9 @@ const Vendor4 = ({ control }: { control: any }) => {
       <Input
         id="billingEmail"
         name="billingEmail"
-        placeholder="Enter email for invoices"
+        placeholder="Enter Billing Email"
         type="email"
-        labelName="Contact Person Name"
+        labelName="Billing Email"
         className="w-full h-[40px] px-3 text-muted-foreground rounded border border-[#ccc] text-[14px] bg-white"
         required={true}
       />

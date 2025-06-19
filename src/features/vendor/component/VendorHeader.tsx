@@ -8,7 +8,7 @@ const VendorHeader = () => {
     <div className="flex flex-col gap-6 w-full mx-auto">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
         <span className="font-primary text-[20px] text-[#1C2B38]">
-          Vehicle Information
+          Vendor Information
         </span>
       </div>
 
