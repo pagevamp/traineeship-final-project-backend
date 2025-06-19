@@ -76,6 +76,7 @@ const Vehicle3 = ({ control }: { control: any }) => {
             emptyText="No data found."
             className="w-full bg-transparent h-12"
             label="GDP Compliant"
+            optional={true}
           />
         )}
       />
@@ -83,7 +84,7 @@ const Vehicle3 = ({ control }: { control: any }) => {
       <Input
         id="capacity"
         name="capacity"
-        labelName="Capacity"
+        labelName="Capacity (Weight)"
         placeholder="Capacity"
         type="integer"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
@@ -93,7 +94,7 @@ const Vehicle3 = ({ control }: { control: any }) => {
       <Input
         id="volumeCapacity "
         name="volumeCapacity "
-        labelName="Volume Capacity "
+        labelName="Volume Capacity (CBM)"
         placeholder="Volume Capacity"
         type="integer"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"

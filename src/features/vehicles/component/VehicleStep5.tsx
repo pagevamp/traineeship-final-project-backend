@@ -77,11 +77,11 @@ const Vehicle5 = ({ control }: { control: any }) => {
       <Input
         id="deviceId"
         name="deviceId"
-        labelName="Device Id"
+        labelName="Device ID (if GPS)"
         placeholder="Device Id"
         type="integer"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
-        required={true}
+        required={false}
       />
     </motion.div>
   );

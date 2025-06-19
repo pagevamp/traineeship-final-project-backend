@@ -69,6 +69,7 @@ const Driver1 = ({ control }: { control: any }) => {
             emptyText="No data found."
             className="w-full bg-transparent h-12"
             label="Gender"
+            optional={true}
           />
         )}
       />
@@ -79,8 +80,8 @@ const Driver1 = ({ control }: { control: any }) => {
         type="file"
         labelName="Photo"
         placeholder="Upload photo"
-        className="w-full h-[100px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
-        required={true}
+        className="w-full h-full px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        optional={true}
       />
     </motion.div>
   );

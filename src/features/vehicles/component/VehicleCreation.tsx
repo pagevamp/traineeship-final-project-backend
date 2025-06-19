@@ -73,7 +73,7 @@ const VehicleCreation = () => {
     if (currStep < totalSteps) {
       setCurrStep((prev) => prev + 1);
     } else {
-      router.push("/vendor/1");
+      router.push("/vehicle/1");
     }
   }, [currStep, totalSteps, router]);
 
@@ -98,13 +98,13 @@ const VehicleCreation = () => {
 
   return (
     <section className="font-secondary max-w-[900px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
-      <Image
+      {/* <Image
         src="/arctern-logo.svg"
         width={142}
         height={81}
         alt="Company Logo"
         className="mb-[22px]"
-      />
+      /> */}
 
       <div className="w-full flex justify-between items-center px-4 mb-4">
         {showLeftArrow ? (

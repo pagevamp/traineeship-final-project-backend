@@ -6,11 +6,11 @@ import { Controller } from "react-hook-form";
 import { Selectbox } from "@/components/ui/select-box";
 
 const Driver7 = ({ control }: { control: any }) => {
-  const vendorId = `VEN-${Math.random()
+  const driverId = `DRI-${Math.random()
     .toString(36)
     .substring(2, 10)
     .toUpperCase()}`;
-  const createdBy = "User";
+  const createdBy = "Admin";
   const dateCreated = new Date();
   return (
     <motion.div
@@ -21,12 +21,22 @@ const Driver7 = ({ control }: { control: any }) => {
     >
       <Input
         className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5]  bg-gray-100 h-12"
-        id="vendorId"
-        name="vendorId"
-        labelName="Vendor Id"
-        value={vendorId}
-        placeholder="Enter your Vendor Id"
+        id="driverId"
+        name="driverId"
+        labelName="Driver Id"
+        value={driverId}
+        placeholder="Enter your Vehicle Id"
         type="text"
+      />
+
+      <Input
+        id="createdBy"
+        name="createdBy"
+        type="text"
+        labelName="Created By"
+        value={createdBy}
+        readOnly
+        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]  bg-gray-100"
       />
 
       <Controller
@@ -49,23 +59,13 @@ const Driver7 = ({ control }: { control: any }) => {
       />
 
       <Input
-        id="createdBy"
-        name="createdBy"
+        id="auditLogs"
+        name="auditLogs"
         type="text"
-        labelName="Created By"
-        value={createdBy}
+        labelName="Audit Logs"
+        value={createdBy + "  " + dateCreated}
         readOnly
         className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]  bg-gray-100"
-      />
-
-      <Input
-        id="dateCreated"
-        name="dateCreated"
-        type="text"
-        labelName="Created By"
-        value={format(dateCreated, "PPpp")}
-        readOnly
-        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-gray-100"
       />
     </motion.div>
   );

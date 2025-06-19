@@ -47,7 +47,8 @@ const Vehicle2 = ({ control }: { control: any }) => {
             placeholder="Assigned Vendor"
             emptyText="No data found."
             className="w-full bg-transparent h-12"
-            label="Assigned Vendor"
+            label="Assigned Vendor (if leased)"
+            optional={true}
           />
         )}
       />
@@ -66,6 +67,7 @@ const Vehicle2 = ({ control }: { control: any }) => {
             emptyText="No data found."
             className="w-full bg-transparent h-12"
             label="Assigned Driver"
+            optional={true}
           />
         )}
       />

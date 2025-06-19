@@ -30,7 +30,7 @@ const Vendor1 = ({ control }: { control: any }) => {
         type="text"
         id="contactName"
         name="contactName"
-        labelName="Contact Person Name"
+        labelName="Contact Person"
         placeholder="Enter Contact Person Name"
         className="w-full h-[40px] px-3 text-muted-foreground rounded border border-[#ccc] text-[14px] bg-white"
         required={true}
@@ -40,7 +40,7 @@ const Vendor1 = ({ control }: { control: any }) => {
         id="phoneNumber"
         name="phoneNumber"
         type="tel"
-        labelName="Phone Number"
+        labelName="Contact Number"
         placeholder="+91"
         className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
         required={true}
@@ -60,9 +60,9 @@ const Vendor1 = ({ control }: { control: any }) => {
         id="companyAddress"
         name="companyAddress"
         type="textarea"
-        labelName="Email Company Address"
+        labelName="Company Address"
         placeholder="Enter Company Address"
-        className="w-full h-[100px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
         required={true}
       />
 

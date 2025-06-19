@@ -4,14 +4,11 @@ import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { Controller } from "react-hook-form";
 import { Selectbox } from "@/components/ui/select-box";
+import { DatePicker } from "@/components/ui/date-picker";
 
 const Driver8 = ({ control }: { control: any }) => {
-  const vendorId = `VEN-${Math.random()
-    .toString(36)
-    .substring(2, 10)
-    .toUpperCase()}`;
-  const createdBy = "User";
-  const dateCreated = new Date();
+  const [date, setDate] = React.useState<Date | undefined>(undefined);
+
   return (
     <motion.div
       className="text-[16px] max-w-[500px] w-full px-4 sm:px-6 md:px-8 lg:px-0 justify-items flex flex-col gap-4"
@@ -20,52 +17,125 @@ const Driver8 = ({ control }: { control: any }) => {
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
     >
       <Input
-        className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5]  bg-gray-100 h-12"
-        id="vendorId"
-        name="vendorId"
-        labelName="Vendor Id"
-        value={vendorId}
-        placeholder="Enter your Vendor Id"
+        className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
+        id="fullName"
+        name="fullName"
+        labelName="Full Name"
+        placeholder="Enter the Full Name"
         type="text"
+        required={true}
       />
 
       <Controller
-        name="selectAcceptedCurrency"
+        name="nationality"
         control={control}
         render={({ field }) => (
           <Selectbox
             options={[
-              { label: "Active", value: "Active" },
-              { label: "Inactive", value: "Inactive" },
+              { label: "Nepal", value: "Nepal" },
+              { label: "India", value: "India" },
             ]}
             value={field.value || ""}
             onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Status"
+            placeholder="Nationality"
             emptyText="No data found."
             className="w-full bg-transparent h-12"
-            label="Status"
+            label="Nationality"
+          />
+        )}
+      />
+
+      <div className="flex flex-col gap-2">
+        <DatePicker
+          selected={date}
+          onSelect={setDate}
+          placeholder="Enter Date"
+          label="Date Of Birth"
+          className="w-full text-xs"
+        />
+      </div>
+
+      <Controller
+        name="gender"
+        control={control}
+        render={({ field }) => (
+          <Selectbox
+            options={[
+              { label: "Female", value: "Female" },
+              { label: "Male", value: "Male" },
+              { label: "Others", value: "Others" },
+            ]}
+            value={field.value || ""}
+            onChange={(selected) => field.onChange(selected.value)}
+            placeholder="Gender"
+            emptyText="No data found."
+            className="w-full bg-transparent h-12"
+            label="Gender"
+            optional={true}
           />
         )}
       />
 
       <Input
-        id="createdBy"
-        name="createdBy"
+        className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
+        id="licenseNumber"
+        name="licenseNumber"
+        labelName="Driver's License Number"
+        placeholder="Enter the Driver's License Number"
         type="text"
-        labelName="Created By"
-        value={createdBy}
-        readOnly
-        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]  bg-gray-100"
+        required={true}
+      />
+
+      <div className="flex flex-col gap-2">
+        <DatePicker
+          selected={date}
+          onSelect={setDate}
+          placeholder="Enter Date"
+          label="License Expiry Date"
+          className="w-full text-xs"
+          optional={false}
+        />
+      </div>
+
+      <Controller
+        name="licenseType"
+        control={control}
+        render={({ field }) => (
+          <Selectbox
+            options={[
+              { label: "Heavy", value: "Heavy" },
+              { label: "Medium", value: "Medium" },
+              { label: "Light", value: "Light" },
+            ]}
+            value={field.value || ""}
+            onChange={(selected) => field.onChange(selected.value)}
+            placeholder="License Type"
+            emptyText="No data found."
+            className="w-full bg-transparent h-12"
+            label="License Type"
+            optional={true}
+          />
+        )}
       />
 
       <Input
-        id="dateCreated"
-        name="dateCreated"
-        type="text"
-        labelName="Created By"
-        value={format(dateCreated, "PPpp")}
-        readOnly
-        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-gray-100"
+        id="password"
+        name="password"
+        type="password"
+        labelName="Password"
+        placeholder="Enter Password"
+        className="w-full h-full px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        optional={true}
+      />
+
+      <Input
+        id="createPassword"
+        name="createPassword"
+        type="password"
+        labelName="Confirm Password"
+        placeholder="Enter Password"
+        className="w-full h-full px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        optional={true}
       />
     </motion.div>
   );

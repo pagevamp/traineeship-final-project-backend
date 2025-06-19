@@ -53,10 +53,10 @@ const Driver5 = ({ control }: { control: any }) => {
             ]}
             value={field.value || ""}
             onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Contact Type"
+            placeholder="Contract Type"
             emptyText="No data found."
             className="w-full bg-transparent h-12"
-            label="Contact Type"
+            label="Contract Type"
           />
         )}
       />
@@ -67,7 +67,8 @@ const Driver5 = ({ control }: { control: any }) => {
         type="text"
         labelName="Salary"
         placeholder="Enter the Salary"
-        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]  bg-gray-100"
+        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]"
+        optional={true}
       />
     </motion.div>
   );

@@ -17,7 +17,7 @@ const Vendor4 = ({ control }: { control: any }) => {
         id="billingContact"
         name="billingContact"
         placeholder="Enter billing contact person's name"
-        labelName="Billing Contact"
+        labelName="Billing Contact Name"
         type="string"
         required={true}
       />
@@ -45,10 +45,20 @@ const Vendor4 = ({ control }: { control: any }) => {
       <Input
         id="iban"
         name="iban"
-        type="text"
+        type="textarea"
         labelName="IBAN / Account Number"
         placeholder="Enter IBAN / Account Number"
-        className="w-full h-[100px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        required={true}
+      />
+
+      <Input
+        id="swift"
+        name="swift"
+        type="textarea"
+        labelName="SWIFT / BIC Code"
+        placeholder="Enter SWIFT / BIC Code"
+        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
         required={true}
       />
 
@@ -93,10 +103,10 @@ const Vendor4 = ({ control }: { control: any }) => {
       <Input
         id="vat"
         name="vat"
-        type="text"
+        type="textarea"
         labelName="VAT / TRN Number"
         placeholder="Enter the VAT / TRN Number"
-        className="w-full h-[100px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
         required={false}
       />
     </motion.div>

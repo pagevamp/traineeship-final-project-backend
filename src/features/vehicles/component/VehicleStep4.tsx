@@ -75,7 +75,7 @@ const Vehicle4 = ({ control }: { control: any }) => {
       <Input
         id="uploadReeferCertificate"
         name="uploadReeferCertificate"
-        labelName="Upload Reefer/GDP Certificate"
+        labelName="Upload Reefer/GDP Cert (if applicable)"
         type="file"
         accept=".pdf,.jpg,"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
@@ -85,7 +85,7 @@ const Vehicle4 = ({ control }: { control: any }) => {
       <Input
         id="uploadDGCertificate"
         name="uploadDGCertificate"
-        labelName="Upload DG Certificate"
+        labelName="Upload DG Certificate (if applicable)"
         type="file"
         accept=".pdf,.xlsx,.xls"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"

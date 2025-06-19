@@ -59,7 +59,7 @@ const Driver2 = ({ control }: { control: any }) => {
         name="emergencyContactNo"
         labelName="Emergency Contact No."
         placeholder="Enter your Emergency Contact No."
-        type="number"
+        type="integer"
         required={true}
       />
     </motion.div>

@@ -28,7 +28,7 @@ const Vendor2 = ({ control }: { control: any }) => {
           onChange={setSelectedCompany}
           placeholder="Select Type of Vehicles Offered..."
           searchPlaceholder="Search..."
-          label="Vehicle Type"
+          label="Type of Vehicles Offered"
         />
         <SelectedBadges
           selected={selectedCompany}
@@ -54,7 +54,7 @@ const Vendor2 = ({ control }: { control: any }) => {
           onChange={setSelectedCompany}
           placeholder="Select Type of Cargo Supported..."
           searchPlaceholder="Search..."
-          label="Cargo Type"
+          label="Type of Cargo Supported"
         />
         <SelectedBadges
           selected={selectedCompany}
@@ -70,7 +70,7 @@ const Vendor2 = ({ control }: { control: any }) => {
           onChange={setSelectedCompany}
           placeholder="Select Coverage Area / Route..."
           searchPlaceholder="Search..."
-          label="Coverage Area"
+          label="Coverage Area / Routes"
         />
         <SelectedBadges
           selected={selectedCompany}

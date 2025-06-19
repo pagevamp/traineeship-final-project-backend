@@ -1,17 +1,8 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { format } from "date-fns";
-import { Controller } from "react-hook-form";
-import { Selectbox } from "@/components/ui/select-box";
 
 const Driver6 = ({ control }: { control: any }) => {
-  const vendorId = `VEN-${Math.random()
-    .toString(36)
-    .substring(2, 10)
-    .toUpperCase()}`;
-  const createdBy = "User";
-  const dateCreated = new Date();
   return (
     <motion.div
       className="text-[16px] max-w-[500px] w-full px-4 sm:px-6 md:px-8 lg:px-0 justify-items flex flex-col gap-4"
@@ -20,52 +11,83 @@ const Driver6 = ({ control }: { control: any }) => {
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
     >
       <Input
-        className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5]  bg-gray-100 h-12"
-        id="vendorId"
-        name="vendorId"
-        labelName="Vendor Id"
-        value={vendorId}
-        placeholder="Enter your Vendor Id"
-        type="text"
-      />
-
-      <Controller
-        name="selectAcceptedCurrency"
-        control={control}
-        render={({ field }) => (
-          <Selectbox
-            options={[
-              { label: "Active", value: "Active" },
-              { label: "Inactive", value: "Inactive" },
-            ]}
-            value={field.value || ""}
-            onChange={(selected) => field.onChange(selected.value)}
-            placeholder="Status"
-            emptyText="No data found."
-            className="w-full bg-transparent h-12"
-            label="Status"
-          />
-        )}
+        id="drivingLicenseCopy"
+        name="drivingLicenseCopy"
+        labelName="Driving License Copy"
+        type="file"
+        accept=".pdf,.jpg,"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={true}
       />
 
       <Input
-        id="createdBy"
-        name="createdBy"
-        type="text"
-        labelName="Created By"
-        value={createdBy}
-        readOnly
-        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px]  bg-gray-100"
+        id="emiratesID"
+        name="emiratesID"
+        labelName="Emirates ID or National ID"
+        type="file"
+        accept=".pdf,.jpg,"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={true}
       />
 
       <Input
-        id="dateCreated"
-        name="dateCreated"
-        type="text"
-        labelName="Created By"
-        value={format(dateCreated, "PPpp")}
-        readOnly
-        className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-gray-100"
+        id="passportCopy"
+        name="passportCopy"
+        labelName="Passport Copy"
+        type="file"
+        accept=".pdf,.jpg,"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={true}
+      />
+
+      <Input
+        id="workPermit"
+        name="workPermit"
+        labelName="Visa / Work Permit"
+        type="file"
+        accept=".pdf,.jpg,"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={true}
+      />
+
+      <Input
+        id="driverPhoto"
+        name="driverPhoto"
+        labelName="Driver Photo (optional)"
+        type="file"
+        accept=".jpeg,.png"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={false}
+      />
+
+      <Input
+        id="policeClearanceCertificate"
+        name="policeClearanceCertificate"
+        labelName="Police Clearance Certificate"
+        type="file"
+        accept=".pdf,.jpg,"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={false}
+      />
+
+      <Input
+        id="medicalFitnessCertificate"
+        name="medicalFitnessCertificate"
+        labelName="Medical Fitness Certificate"
+        type="file"
+        accept=".pdf"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={false}
+      />
+
+      <Input
+        id="specializationCerts"
+        name="specializationCerts"
+        labelName="Any specialized training certs"
+        type="file"
+        accept=".pdf,.xlsx,.xls"
+        className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
+        required={false}
       />
     </motion.div>
   );

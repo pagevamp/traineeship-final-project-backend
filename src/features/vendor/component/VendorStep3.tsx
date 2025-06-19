@@ -36,7 +36,7 @@ const Vendor3 = ({ control }: { control: any }) => {
         <Input
           id="driverList"
           name="driverList"
-          labelName="Driver List"
+          labelName="Driver List (with IDs)"
           type="file"
           accept=".pdf,.xlsx,.xls"
           className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"

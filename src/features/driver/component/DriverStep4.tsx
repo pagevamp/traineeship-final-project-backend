@@ -46,7 +46,7 @@ const Driver4 = ({ control }: { control: any }) => {
           onChange={setSelectedCompany}
           placeholder="Select Type of Vehicles Assigned..."
           searchPlaceholder="Search..."
-          label="Vehicle Type"
+          label="Assigned Vehicle(s)"
         />
         <SelectedBadges
           selected={selectedCompany}
@@ -89,6 +89,7 @@ const Driver4 = ({ control }: { control: any }) => {
             emptyText="No data found."
             className="w-full bg-transparent h-12"
             label="DG Certification"
+            optional={true}
           />
         )}
       />
@@ -108,6 +109,7 @@ const Driver4 = ({ control }: { control: any }) => {
             emptyText="No data found."
             className="w-full bg-transparent h-12"
             label="Reefer/GDP Handling Cert."
+            optional={true}
           />
         )}
       />

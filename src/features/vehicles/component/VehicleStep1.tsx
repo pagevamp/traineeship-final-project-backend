@@ -19,7 +19,7 @@ const Vehicle1 = ({ control }: { control: any }) => {
         className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
         id="vehicleName"
         name="vehicleName"
-        labelName="Vehicle Name"
+        labelName="Vehicle Name / Title"
         placeholder="Enter the Vehicle Name"
         type="text"
         required={true}
@@ -59,7 +59,7 @@ const Vehicle1 = ({ control }: { control: any }) => {
           selected={date}
           onSelect={setDate}
           placeholder="Enter Date"
-          label="Years Since Incorporated"
+          label="Year of Manufacture"
           className="w-full text-xs"
         />
       </div>
