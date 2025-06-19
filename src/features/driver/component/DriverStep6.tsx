@@ -11,8 +11,8 @@ const Driver6 = ({ control }: { control: any }) => {
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
     >
       <Input
-        id="drivingLicenseCopy"
-        name="drivingLicenseCopy"
+        id="uploadRegistrationDocument"
+        name="uploadRegistrationDocument"
         labelName="Driving License Copy"
         type="file"
         accept=".pdf,.jpg,"
@@ -21,8 +21,8 @@ const Driver6 = ({ control }: { control: any }) => {
       />
 
       <Input
-        id="emiratesID"
-        name="emiratesID"
+        id="uploadInsuranceDocument"
+        name="uploadInsuranceDocument"
         labelName="Emirates ID or National ID"
         type="file"
         accept=".pdf,.jpg,"
@@ -31,8 +31,8 @@ const Driver6 = ({ control }: { control: any }) => {
       />
 
       <Input
-        id="passportCopy"
-        name="passportCopy"
+        id="uploadFitnessCertificate"
+        name="uploadFitnessCertificate"
         labelName="Passport Copy"
         type="file"
         accept=".pdf,.jpg,"
@@ -41,8 +41,8 @@ const Driver6 = ({ control }: { control: any }) => {
       />
 
       <Input
-        id="workPermit"
-        name="workPermit"
+        id="uploadReeferCertificate"
+        name="uploadReeferCertificate"
         labelName="Visa / Work Permit"
         type="file"
         accept=".pdf,.jpg,"
@@ -51,43 +51,42 @@ const Driver6 = ({ control }: { control: any }) => {
       />
 
       <Input
-        id="driverPhoto"
-        name="driverPhoto"
+        id="uploadDGCertificate"
+        name="uploadDGCertificate"
         labelName="Driver Photo (optional)"
         type="file"
-        accept=".jpeg,.png"
+        accept=".pdf,.xlsx,.xls"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
-        required={false}
+        required={true}
       />
-
       <Input
-        id="policeClearanceCertificate"
-        name="policeClearanceCertificate"
+        id="uploadRegistrationDocument"
+        name="uploadRegistrationDocument"
         labelName="Police Clearance Certificate"
         type="file"
         accept=".pdf,.jpg,"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
-        required={false}
+        required={true}
       />
 
       <Input
-        id="medicalFitnessCertificate"
-        name="medicalFitnessCertificate"
+        id="uploadInsuranceDocument"
+        name="uploadInsuranceDocument"
         labelName="Medical Fitness Certificate"
         type="file"
-        accept=".pdf"
+        accept=".pdf,.jpg,"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
-        required={false}
+        required={true}
       />
 
       <Input
-        id="specializationCerts"
-        name="specializationCerts"
+        id="uploadFitnessCertificate"
+        name="uploadFitnessCertificate"
         labelName="Any specialized training certs"
         type="file"
-        accept=".pdf,.xlsx,.xls"
+        accept=".pdf,.jpg,"
         className="w-full py-1.5 text-xs font-light px-3 placeholder:text-[11px] placeholder:text-[#9C9AA5] h-10"
-        required={false}
+        required={true}
       />
     </motion.div>
   );

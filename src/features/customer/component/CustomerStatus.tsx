@@ -72,7 +72,7 @@ const CustomerStatus = () => {
         </div>
 
         <div className="mt-4 md:mt-0 w-fit px-4 md:px-0 md:w-[104px] h-[28px] bg-white flex items-center justify-center gap-[6px] rounded-[10px]">
-          <span className="text-[#540F86] font-secondary font-[400] text-[14px] font-medium whitespace-nowrap">
+          <span className="text-[#540F86] font-secondary  text-[14px] font-medium whitespace-nowrap">
             See all
           </span>
           <ChevronDown size={18} color="#000000" />

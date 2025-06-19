@@ -72,6 +72,7 @@ const VehicleCreation = () => {
       setCurrStep((prev) => prev + 1);
     } else {
       router.push("/vehicle/1");
+      
     }
   }, [currStep, totalSteps, router]);
 
@@ -95,7 +96,15 @@ const VehicleCreation = () => {
   const currHeading = headings.find((h) => h.id === currStep);
 
   return (
-    <section className="font-secondary max-w-[1100px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
+    <section className="font-secondary max-w-[900px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
+      {/* <Image
+        src="/arctern-logo.svg"
+        width={142}
+        height={81}
+        alt="Company Logo"
+        className="mb-[22px]"
+      /> */}
+
       <div className="w-full flex justify-between items-center px-4 mb-4">
         {showLeftArrow ? (
           <ScrollArrow

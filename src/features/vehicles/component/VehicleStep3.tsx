@@ -65,27 +65,25 @@ const Vehicle3 = ({ control }: { control: any }) => {
         />
       </div>
 
-      <div>
-        <Controller
-          name="GDPCompliant"
-          control={control}
-          render={({ field }) => (
-            <Selectbox
-              options={[
-                { label: "Yes", value: "Yes" },
-                { label: "No", value: "No" },
-              ]}
-              value={field.value || ""}
-              onChange={(selected) => field.onChange(selected.value)}
-              placeholder="GDP Compliant"
-              emptyText="No data found."
-              className="w-full bg-transparent h-12"
-              label="GDP Compliant"
-              optional={true}
-            />
-          )}
-        />
-      </div>
+      <Controller
+        name="GDPCompliant"
+        control={control}
+        render={({ field }) => (
+          <Selectbox
+            options={[
+              { label: "Yes", value: "Yes" },
+              { label: "No", value: "No" },
+            ]}
+            value={field.value || ""}
+            onChange={(selected) => field.onChange(selected.value)}
+            placeholder="GDP Compliant"
+            emptyText="No data found."
+            className="w-full bg-transparent h-12"
+            label="GDP Compliant"
+            optional={true}
+          />
+        )}
+      />
 
       <Input
         id="capacity"
