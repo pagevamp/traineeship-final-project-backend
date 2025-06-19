@@ -1,16 +1,18 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { ChevronDown } from "lucide-react";
 import TableComponent from "@/components/table";
 import { customerStatus, USER_COLUMN } from "./constant";
 import Pagination from "@/components/pagination";
+import { usePermissions } from "@/hooks/usePermissions";
 
 type StatusType = "Approved" | "Pending" | "Rejected";
 
 const CustomerStatus = () => {
+  const { isView, isCreate, isUpdate, isDelete } = usePermissions();
+
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<StatusType>("Pending");
 
@@ -72,14 +74,14 @@ const CustomerStatus = () => {
         </div>
 
         <div className="mt-4 md:mt-0 w-fit px-4 md:px-0 md:w-[104px] h-[28px] bg-white flex items-center justify-center gap-[6px] rounded-[10px]">
-          <span className="text-[#540F86] font-secondary font-[400] text-[14px] font-medium whitespace-nowrap">
+          <span className="text-[#540F86] font-secondary font-[400] text-[14px] whitespace-nowrap">
             See all
           </span>
           <ChevronDown size={18} color="#000000" />
         </div>
       </div>
 
-      <div 
+      <div
       // className="bg-[#ffffff] w-full rounded-[25px] overflow-auto"
       >
         {/* <AnimatePresence mode="wait">

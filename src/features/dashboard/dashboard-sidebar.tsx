@@ -28,16 +28,23 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import Image from "next/image";
-import { LINKS, MODULE_ICON, MODULE_LINK } from "./constant";
+import { LINKS } from "./constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import DashboardModuleLoading from "./loading";
+import { MODULE_ICON, MODULE_LINK } from "@/constant";
 
 function generateOpenGroups(modulesArray: any[] = []) {
   const groups: Record<string, boolean> = {};
+  let isFirstGroupFound = false;
 
   modulesArray.forEach((mod) => {
     if (mod.isGroup) {
-      groups[mod.name] = true;
+      if (!isFirstGroupFound) {
+        groups[mod.name] = true; // open only the first group
+        isFirstGroupFound = true;
+      } else {
+        groups[mod.name] = false;
+      }
     }
   });
 

@@ -11,25 +11,6 @@ export const LINKS = [
   },
 ];
 
-export const MODULE_LINK: Record<string, { title: string; href: string }> = {
-  USER: { title: "User", href: "/users" },
-  CUSTOMER: { title: "Customer", href: "/customer" },
-  DEPARTMENT: { title: "Department", href: "/department" },
-  REPORT_ADMIN: { title: "Report Admin", href: "/report/admin" },
-  REPORT_FINANCE: { title: "Report Finance", href: "/report/finance" },
-  REPORT_OPERATIONAL: {
-    title: "Report Operational",
-    href: "/report/operational",
-  },
-};
-export const MODULE_ICON: Record<string, string> = {
-  USER: "mdi:users",
-  CUSTOMER: "ix:customer-filled",
-  DEPARTMENT: "mingcute:department-fill",
-  REPORT: "mdi:file-chart",
-  REPORT_FINANCE: "mdi:file-chart",
-};
-
 // Define navigation items with role-based access
 export const navigationItems = [
   {
