@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 type SlideOneProps = {
@@ -7,7 +8,7 @@ type SlideOneProps = {
 
 const SlideOne = ({ onContinue }: SlideOneProps) => {
   return (
-    <div className="p-8">
+    <div className="h-full">
       <span className="font-primary text-[20px] text-[#111D35] block">
         Create Employee
       </span>
@@ -105,15 +106,16 @@ const SlideOne = ({ onContinue }: SlideOneProps) => {
       </div>
 
       <div className="flex justify-center mt-[28px]">
-        <button
+        <Button
+          variant={"default"}
           onClick={onContinue}
-          className="w-[191px] h-[40px] rounded text-white font-medium text-[14px]"
+          className="w-[191px] h-[40px] rounded-[10px] text-white font-medium text-[14px]"
           style={{
             background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
           }}
         >
           Continue
-        </button>
+        </Button>
       </div>
     </div>
   );

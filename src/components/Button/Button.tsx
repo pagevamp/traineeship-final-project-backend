@@ -11,7 +11,7 @@ const Button = ({ label, className }: { label: string; className: any }) => {
       )}
     >
       <p className="gradient-text">{label}</p>{" "}
-      <Icon icon="mdi:plus-circle-outline" width="20" height="20" />
+      <Icon icon="mdi:plus-circle-outline" width="22" height="22" />
     </div>
   );
 };

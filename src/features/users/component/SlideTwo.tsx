@@ -1,7 +1,8 @@
 "use client";
-import { Checkbox } from "@/components/ui/checkbox";
 import React, { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { accessItems } from "../constant";
+import { Button } from "@/components/ui/button";
 
 type SlideTwoProps = {
   onContinue: () => void;
@@ -26,7 +27,7 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
   };
 
   return (
-    <div className="p-4 sm:px-6 lg:px-12 xl:px-20 2xl:px-32 max-w-[1400px] w-full mx-auto">
+    <div className="h-full">
       <h2 className="font-primary text-lg sm:text-xl lg:text-2xl text-[#111D35] mb-5 sm:mb-6 text-start sm:text-left">
         Grant Access
       </h2>
@@ -52,7 +53,7 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
           {accessItems.map(({ title }, rowIndex) => (
             <div
               key={rowIndex}
-              className="grid grid-cols-6 items-center w-full h-[40px] bg-white rounded-md mb-4 px-2 sm:px-4 shadow-sm"
+              className="grid grid-cols-6 items-center w-full h-[40px] bg-white border rounded-md mb-4 px-2 sm:px-4 shadow-sm"
             >
               <span className="col-span-2 font-medium text-xs sm:text-sm lg:text-base text-[#111D35] truncate">
                 {title}
@@ -85,15 +86,16 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
       </div>
 
       <div className="flex justify-center mt-7">
-        <button
+        <Button
+          variant={"default"}
           onClick={onContinue}
-          className="w-full max-w-[180px] sm:w-[191px] h-10 rounded text-white font-medium text-sm sm:text-base"
+          className="w-full max-w-[180px] sm:w-[191px] h-10 rounded-[10px] text-white font-medium text-sm"
           style={{
             background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
           }}
         >
-          Continue
-        </button>
+          Create
+        </Button>
       </div>
     </div>
   );

@@ -30,11 +30,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         {labelName && (
           <label
             htmlFor={inputId}
-            className="text-[14px] font-primary text-[#26203B]"
+            className="text-[14px] font-primary text-[#26203B] pb-1"
           >
             {labelName}{" "}
             {props.required && <span className="text-red-600">*</span>}
