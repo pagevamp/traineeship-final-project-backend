@@ -11,118 +11,100 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+const commonInputClasses =
+  "h-10 px-3 text-sm border border-gray-300 rounded-md w-full";
+
 const VehicleClassification = () => {
   return (
-    <div className="text-[16px] max-w-[500px] grid grid-cols-2 w-full px-4 sm:px-6 md:px-8 lg:px-0 justify-items gap-4">
-      <div className="flex flex-col gap-2">
-        <Label
-          className="text-[14px] font-primary text-[#26203B]"
-          required={true}
-        >
-          Temperature Controlled
-        </Label>
-        <Select>
-          <SelectTrigger
-            id="temperature-controlled"
-            className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
-          >
-            <SelectValue placeholder="Select option" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Temperature Control</SelectLabel>
-              <SelectItem value="yes">Yes</SelectItem>
-              <SelectItem value="no">No</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+    <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-2">
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm text-[#26203B]">
+            Temperature Controlled
+          </Label>
+          <Select>
+            <SelectTrigger
+              id="temperature-controlled"
+              className={commonInputClasses}
+            >
+              <SelectValue placeholder="Select option" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Temperature Control</SelectLabel>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
-      <div className="flex flex-col gap-2">
-        <Input
-          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-          id="temperature-range"
-          name="temperature-range"
-          labelName="Temperature Range (if Yes)"
-          placeholder="e.g., -20°C to 5°C"
-          type="text"
-          required={false}
-        />
-      </div>
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm text-[#26203B]">Temperature Range</Label>
+          <Input
+            className={commonInputClasses}
+            id="temperature-range"
+            placeholder="e.g., -20°C to 5°C"
+            type="text"
+          />
+        </div>
 
-      <div className="flex flex-col gap-2">
-        <Label
-          className="text-[14px] font-primary text-[#26203B]"
-          required={true}
-        >
-          DG Certified
-        </Label>
-        <Select>
-          <SelectTrigger
-            id="dg-certified"
-            className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
-          >
-            <SelectValue placeholder="Select option" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Dangerous Goods</SelectLabel>
-              <SelectItem value="yes">Yes</SelectItem>
-              <SelectItem value="no">No</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm text-[#26203B]">DG Certified</Label>
+          <Select>
+            <SelectTrigger id="dg-certified" className={commonInputClasses}>
+              <SelectValue placeholder="Select option" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Dangerous Goods</SelectLabel>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
-      <div className="flex flex-col gap-2">
-        <Label
-          className="text-[14px] font-primary text-[#26203B]"
-          required={false}
-        >
-          GDP Compliant
-        </Label>
-        <Select>
-          <SelectTrigger
-            id="gdp-compliant"
-            className="w-full py-2 px-4 placeholder:text-sm placeholder:text-[#9C9AA5] h-12"
-          >
-            <SelectValue placeholder="Select option" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Pharmaceutical Compliance</SelectLabel>
-              <SelectItem value="yes">Yes</SelectItem>
-              <SelectItem value="no">No</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm text-[#26203B]">GDP Compliant</Label>
+          <Select>
+            <SelectTrigger id="gdp-compliant" className={commonInputClasses}>
+              <SelectValue placeholder="Select option" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Pharmaceutical Compliance</SelectLabel>
+                <SelectItem value="yes">Yes</SelectItem>
+                <SelectItem value="no">No</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
 
-      <div className="flex flex-col gap-2">
-        <Input
-          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-          id="capacity-weight"
-          name="capacity-weight"
-          labelName="Capacity (Weight)"
-          placeholder="Enter maximum weight in KG/Tons"
-          type="number"
-          min="0"
-          required={true}
-        />
-      </div>
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm text-[#26203B]">Capacity (Weight)</Label>
+          <Input
+            className={commonInputClasses}
+            id="capacity-weight"
+            placeholder="Max weight in KG/Tons"
+            type="number"
+            min="0"
+          />
+        </div>
 
-      <div className="flex flex-col gap-2">
-        <Input
-          className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-          id="volume-capacity"
-          name="volume-capacity"
-          labelName="Volume Capacity (CBM)"
-          placeholder="Enter maximum volume in cubic meters"
-          type="number"
-          min="0"
-          step="0.01"
-          required={true}
-        />
+        <div className="flex flex-col gap-1">
+          <Label className="text-sm text-[#26203B]">
+            Volume Capacity (CBM)
+          </Label>
+          <Input
+            className={commonInputClasses}
+            id="volume-capacity"
+            placeholder="Max volume in m³"
+            type="number"
+            min="0"
+            step="0.01"
+          />
+        </div>
       </div>
     </div>
   );

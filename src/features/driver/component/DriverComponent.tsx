@@ -10,16 +10,18 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import DriverInfoBox from "./DriverInfoBox";
 import DriverStatus from "./DriverStatus";
 import DriverModal from "./DriverModal";
+import { useRouter } from "next/navigation";
 
 const DriverComponent = () => {
-  const { openModal } = useModalContext();
+  // const { openModal } = useModalContext();
+  const router = useRouter();
 
-  const handleCreateClick = () => {
-    openModal({
-      component: DriverModal,
-      className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
-    });
-  };
+  // const handleCreateClick = () => {
+  //   openModal({
+  //     component: DriverModal,
+  //     className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
+  //   });
+  // };
 
   return (
     <div>
@@ -49,7 +51,7 @@ const DriverComponent = () => {
           />
           <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[2px] rounded-[37px] w-fit h-fit">
             <button
-              onClick={handleCreateClick}
+              onClick={() => router.push("/driver/new")}
               className="flex font-secondary font-[400] items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white rounded-[37px] text-sm"
             >
               Add <PlusCircleIcon size={24} />

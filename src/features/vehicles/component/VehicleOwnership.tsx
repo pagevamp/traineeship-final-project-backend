@@ -10,17 +10,20 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+const commonSelectTriggerClasses =
+  "w-full py-2 px-3 placeholder:text-xs placeholder:text-[#9C9AA5] h-10 text-sm border border-gray-300 rounded-md";
+
 const VehicleOwnership = () => {
   return (
-    <div className="text-[14px] max-w-[500px] grid grid-cols-2 w-full px-4 sm:px-6 md:px-8 lg:px-0 gap-3 justify-items-stretch">
-      <div className="flex flex-col gap-1.5">
-        <Label className="text-[12px] font-primary text-[#26203B]" required>
+    <div className="text-[14px] max-w-full grid grid-cols-3 gap-x-3 gap-y-2 px-4 sm:px-6 md:px-8 lg:px-0">
+      <div className="flex flex-col gap-1">
+        <Label className="text-xs font-primary text-[#26203B]">
           Ownership Type
         </Label>
         <Select>
           <SelectTrigger
             id="ownership-type"
-            className="w-full py-1.5 px-3 placeholder:text-xs placeholder:text-[#9C9AA5] h-9 text-sm"
+            className={commonSelectTriggerClasses}
           >
             <SelectValue placeholder="Select ownership type" />
           </SelectTrigger>
@@ -35,17 +38,14 @@ const VehicleOwnership = () => {
         </Select>
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <Label
-          className="text-[12px] font-primary text-[#26203B]"
-          required={false}
-        >
+      <div className="flex flex-col gap-1">
+        <Label className="text-xs font-primary text-[#26203B]">
           Assigned Vendor (if leased)
         </Label>
         <Select>
           <SelectTrigger
             id="assigned-vendor"
-            className="w-full py-1.5 px-3 placeholder:text-xs placeholder:text-[#9C9AA5] h-9 text-sm"
+            className={commonSelectTriggerClasses}
           >
             <SelectValue placeholder="Select vendor" />
           </SelectTrigger>
@@ -60,17 +60,14 @@ const VehicleOwnership = () => {
         </Select>
       </div>
 
-      <div className="flex flex-col gap-1.5 col-span-2">
-        <Label
-          className="text-[12px] font-primary text-[#26203B]"
-          required={false}
-        >
+      <div className="flex flex-col gap-1">
+        <Label className="text-xs font-primary text-[#26203B]">
           Driver Assigned
         </Label>
         <Select>
           <SelectTrigger
             id="driver-assigned"
-            className="w-full py-1.5 px-3 placeholder:text-xs placeholder:text-[#9C9AA5] h-9 text-sm"
+            className={commonSelectTriggerClasses}
           >
             <SelectValue placeholder="Select driver" />
           </SelectTrigger>

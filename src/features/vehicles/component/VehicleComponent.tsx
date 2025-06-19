@@ -9,17 +9,19 @@ import { useModalContext } from "@/providers/modal-context";
 import { PlusCircleIcon } from "lucide-react";
 import VehicleStatus from "./VehicleStatus";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import VehicleModal from "./VehicleModal";
+// import VehicleModal from "./VehicleModal";
+import { useRouter } from "next/navigation";
 
 const VehicleComponent = () => {
-  const { openModal } = useModalContext();
+  const router = useRouter();
+  // const { openModal } = useModalContext();
 
-  const handleCreateClick = () => {
-    openModal({
-      component: VehicleModal,
-      className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
-    });
-  };
+  // const handleCreateClick = () => {
+  //   openModal({
+  //     component: VehicleModal,
+  //     className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
+  //   });
+  // };
 
   return (
     <div>
@@ -49,7 +51,7 @@ const VehicleComponent = () => {
           />
           <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[2px] rounded-[37px] w-fit h-fit">
             <button
-              onClick={handleCreateClick}
+              onClick={() => router.push("/vehicle/new")}
               className="flex font-secondary font-[400] items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white rounded-[37px] text-sm"
             >
               Add <PlusCircleIcon size={24} />

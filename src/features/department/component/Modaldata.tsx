@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 
 const ModalData = () => {
   return (
-    <div className="relative p-6">
+    <div className="relative p-12">
       <span className="font-primary text-[20px] text-[#111D35] block">
         Create Department
       </span>

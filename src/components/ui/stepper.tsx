@@ -13,7 +13,10 @@ interface StepProps {
 const Step = React.forwardRef<HTMLDivElement, StepProps>(
   ({ title, stepNumber, isCompleted, isActive }, ref) => {
     return (
-      <div ref={ref} className="flex items-center justify-center h-8 min-w-[140px]">
+      <div
+        ref={ref}
+        className="flex items-center justify-center h-8 min-w-[140px]"
+      >
         <div className="relative flex items-center justify-center">
           <div
             className={cn(
@@ -73,7 +76,7 @@ export function Stepper({ steps, currentStep }: StepperProps) {
 
   return (
     <div
-      className="w-full mx-auto overflow-x-auto px-4 sm:px-0"
+      className="w-full mx-auto overflow-x-auto flex items-center justify-center px-4 sm:px-0"
       ref={containerRef}
     >
       <div className="flex flex-row items-center gap-4 mb-6 w-max">

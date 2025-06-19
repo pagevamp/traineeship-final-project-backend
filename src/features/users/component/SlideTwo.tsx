@@ -26,7 +26,7 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
   };
 
   return (
-    <div className="p-4 sm:px-6 lg:px-12 xl:px-20 2xl:px-32 max-w-[1400px] w-full mx-auto">
+    <div className="p-4 sm:px-4 lg:px-12 xl:px-20 2xl:px-32 max-w-[1400px] w-full mx-auto">
       <h2 className="font-primary text-lg sm:text-xl lg:text-2xl text-[#111D35] mb-5 sm:mb-6 text-start sm:text-left">
         Grant Access
       </h2>

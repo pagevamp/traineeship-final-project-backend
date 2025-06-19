@@ -76,3 +76,69 @@ export const driverHeaderDetails = [
     value: "Heavy Vehicle",
   },
 ];
+
+export const steps = [
+  { id: 1, title: "Personal Information" },
+  { id: 2, title: "Contact Details" },
+  { id: 3, title: "Legal Documentation" },
+  { id: 4, title: "Registration" },
+  { id: 5, title: "Employment & HR Info" },
+  { id: 6, title: "Documents Upload" },
+  { id: 7, title: "System Fields" },
+  { id: 8, title: "Driver Creation Fields" },
+];
+
+type HeadingsType = {
+  id: number;
+  title: string | React.ReactElement;
+  description: string;
+};
+export const headings: HeadingsType[] = [
+  {
+    id: 1,
+    title: "Personal Information",
+    description: "Enter the driver information.",
+  },
+  {
+    id: 2,
+    title: "Contact Details",
+    description: "Enter the driver information.",
+  },
+
+  {
+    id: 3,
+    title: "Legal Documentation",
+    description: "Enter the driver information.",
+  },
+  {
+    id: 4,
+    title: "Operational Details",
+    description: "Enter the driver information.",
+  },
+  {
+    id: 5,
+    title: "Employment & HR Inf",
+    description: "Enter the driver information.",
+  },
+  {
+    id: 6,
+    title: "Documents Upload",
+    description: "Enter the driver information.",
+  },
+  {
+    id: 7,
+    title: "System Fields",
+    description: "Enter the driver information.",
+  },
+  {
+    id: 8,
+    title: " Driver Creation Fields",
+    description: "Enter the driver information.",
+  },
+];
+
+export const companyType = [
+  { label: "Company", value: "Company" },
+  { label: "Company 1", value: "Company 1" },
+  { label: "Company 2", value: "Company 2" },
+];

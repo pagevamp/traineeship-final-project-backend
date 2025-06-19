@@ -35,7 +35,7 @@ export const VehicleUserData = [
     country_of_registration: "Oman",
   },
   {
-    name: "13.5M Reefer #2",
+    vehicle_name: "13.5M Reefer #2",
     vehicle_type: "3 Ton",
     model: "MAN TGS 26.440",
     year_of_manufacture: "2021",
@@ -75,4 +75,58 @@ export const vehicleHeaderDetails = [
     label: "Country of Registration:",
     value: "Oman",
   },
+];
+
+export const steps = [
+  { id: 1, title: "Information" },
+  { id: 2, title: "Ownership Details" },
+  { id: 3, title: "Classification & Capabilities" },
+  { id: 4, title: "Registration" },
+  { id: 5, title: "System Fields" },
+  { id: 6, title: "System Fields" },
+];
+
+type HeadingsType = {
+  id: number;
+  title: string | React.ReactElement;
+  description: string;
+};
+export const headings: HeadingsType[] = [
+  {
+    id: 1,
+    title: "Information",
+    description: "Enter the vehicle information.",
+  },
+  {
+    id: 2,
+    title: "Ownership Details",
+    description: "Enter the vehicle information.",
+  },
+
+  {
+    id: 3,
+    title: "Classification & Capabilities",
+    description: "Enter the vehicle information.",
+  },
+  {
+    id: 4,
+    title: "Registration and Compliance",
+    description: "Enter the vehicle information.",
+  },
+  {
+    id: 5,
+    title: " Maintenance & Tracking",
+    description: "Enter the vehicle information.",
+  },
+  {
+    id: 6,
+    title: "System Information",
+    description: "Enter the vehicle information.",
+  },
+];
+
+export const companyType = [
+  { label: "Company", value: "Company" },
+  { label: "Company 1", value: "Company 1" },
+  { label: "Company 2", value: "Company 2" },
 ];
