@@ -35,7 +35,7 @@ export const VehicleUserData = [
     country_of_registration: "Oman",
   },
   {
-    name: "13.5M Reefer #2",
+    vehicle_name: "13.5M Reefer #2",
     vehicle_type: "3 Ton",
     model: "MAN TGS 26.440",
     year_of_manufacture: "2021",
