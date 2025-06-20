@@ -2,16 +2,14 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import { images, productDetails } from "../constant";
-import { Button } from "@/components/ui/button";
 
 const ProductImages = () => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
-    <div className="flex flex-col gap-2 sm:mx-4">
-      <span className="font-primary text-start mb-2">Product Details</span>
-      <div className="bg-[#F9F3FF] rounded-[5px] p-4">
-        <div className="h-[300px] relative rounded overflow-hidden shadow-md mb-2">
+    <div>
+      <div className="flex flex-col gap-2 sm:mx-4 ">
+        <div className="h-[300px] relative rounded overflow-hidden mb-2 justify-start">
           <Image
             src={selectedImage}
             alt="Selected"
@@ -43,39 +41,6 @@ const ProductImages = () => {
           ))}
         </div>
       </div>
-
-      <div className="grid grid-cols-3 gap-2">
-        <div>
-          <div className="flex flex-col">
-            <span className="font-primary text-[16px] font-normal">
-              A1-23412
-            </span>
-            <span className="font-normal text-[16px] text-muted-light">
-              Qty: 1
-            </span>
-          </div>
-        </div>
-
-        <hr className="flex-grow h-[50px] w-[0px] border-r border-gray-300" />
-
-        <div className="w-full flex flex-col justify-normal">
-          {productDetails.map((detail, index) => (
-            <div key={index} className="flex flex-row items-start gap-2">
-              <span className="font-primary text-[16px] font-normal">
-                {detail.label}{" "}
-              </span>
-              <span className="font-primary text-[16px] font-light">
-                {detail.value}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* <div className="flex justify-center">
-        <Button className=" bg-linear-to-b from-[#CF5406] to-[#FF811A] rounded-[10px] font-light text-white mt-2 w-fit hover:bg-[#CF5406]">
-          Purchase Order
-        </Button>
-      </div> */}
     </div>
   );
 };

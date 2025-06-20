@@ -1,30 +1,79 @@
-import React from 'react'
-import { productDetails } from '../constant';
+"use client";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Controller } from "react-hook-form";
+import { Selectbox } from "@/components/ui/select-box";
 
 const ProductDescriptions = () => {
+  const [count, setCount] = useState(0);
   return (
-    <div className="grid grid-cols-1">
-      <div>
-        <span className="font-primary text-[16px] font-normal">A1-23412</span>
-        <span className="font-primary text-[16px] font-light">Qty: 1</span>
+    <div className="grid grid-cols-1 gap-3">
+      <h1 className="font-primary text-[18px] font-bold ">Pink Hoodie</h1>
+
+      <span className="font-primary text-[16px] font-bold">
+        Short Description
+      </span>
+      <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
+      <span className="font-extralight text-muted-foreground">
+        Stay cozy and stylish in our ultra-soft pink hoodie — the perfect blend
+        of comfort, charm, and casual flair.
+      </span>
+
+      <div className="flex space-x-0">
+        <button
+          onClick={() => setCount(count - 1)}
+          className="bg-muted-light text-white px-4 py-2 rounded-l-lg hover:bg-orange-600 transition"
+        >
+          -
+        </button>
+        <button
+          onClick={() => setCount(0)}
+          className="bg-black text-white px-4 py-2  hover:bg-gray-500 transition"
+        >
+          0
+        </button>
+        <button
+          onClick={() => setCount(count + 1)}
+          className="bg-muted-light text-white px-4 py-2 rounded-r-lg hover:bg-orange-600 transition"
+        >
+          +
+        </button>
       </div>
-      <hr className="flex-grow h-[50px] w-[0px] border-r border-gray-300" />
-      <div className="w-full sm:max-w-[823px] grid grid-cols-2 sm:grid-cols-2 gap-x-8 gap-y-4">
-        {productDetails.map((detail, index) => (
-          <div key={index} className="grid grid-cols-3 items-center gap-2">
-            <p>
-              <span className="font-primary text-[16px] font-normal">
-                {detail.label}{" "}
-              </span>
-              <span className="font-primary text-[16px] font-light">
-                {detail.value}
-              </span>
-            </p>
-          </div>
-        ))}
+
+      <span className="font-normal items-center text-[16px] m-2">6 * 6</span>
+      <div className="flex flex-col justify-center border border-muted-light max-w-[200px] rounded-md p-4 text-[14px]">
+        <span>
+          Stock: <span className="text-[#FF811A] font-extralight">100</span>
+        </span>
+        <span>
+          Size: <span>6*6</span>
+        </span>
+        <span>
+          Price:{" "}
+          <span className="text-[#FF811A] font-extralight ">$500.00</span>
+        </span>
       </div>
+
+      <div className="flex justify-start">
+        <Button className=" bg-linear-to-b from-[#CF5406] to-[#FF811A] rounded-[20px] font-light text-white mt-2 w-[150px] hover:bg-[#CF5406] p-6">
+          Order
+        </Button>
+      </div>
+
+      <span className="font-primary text-[16px] font-bold">
+        Long Description
+      </span>
+      <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
+      <span className="font-extralight text-muted-foreground">
+        Wrap yourself in warmth and confidence with our beautifully crafted pink
+        hoodie — your new favorite go-to for laid-back days and cozy evenings.
+        Designed with a flattering unisex fit and made from a premium
+        cotton-blend fleece, this hoodie features a soft brushed interior,
+        adjustable drawstring hood, and a spacious kangaroo pocket to keep your
+        hands warm or essentials close.
+      </span>
     </div>
   );
-}
+};
 
-export default ProductDescriptions
+export default ProductDescriptions;
