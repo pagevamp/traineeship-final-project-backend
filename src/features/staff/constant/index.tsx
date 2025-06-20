@@ -12,3 +12,13 @@ export const StaffData = [
     contact: "+1 (878) 787-8787",
   },
 ];
+
+export const details1 = [
+  { label: "Contact ", value: "+1 (211) 221-1221" },
+  { label: "Email", value: "rayush.everestwalk+1.19@gmail.com" },
+];
+
+export const details2 = [
+  { label: "Street1", value: "bhumisthali, gokarna, bagmati, 321" },
+  { label: "Street2", value: "gokarna, bagmati, 321" },
+];

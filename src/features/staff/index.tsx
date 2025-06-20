@@ -31,7 +31,7 @@ const Index = () => {
           color="#FF811A"
         />
       ),
-      onClick: (row: any) => router.push(`/sales/${row.id}`),
+      onClick: (row: any) => router.push(`/staff/${row.id}`),
     },
   ];
 

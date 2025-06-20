@@ -1,9 +1,8 @@
-import React from 'react'
+import StaffId from "@/features/staff/components/StaffId";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+  return <StaffId />;
+};
 
-export default page
+export default page;

@@ -30,7 +30,7 @@ const ProductDescriptions = () => {
           onClick={() => setCount(0)}
           className="bg-black text-white px-4 py-2  hover:bg-gray-500 transition"
         >
-          0
+          {count <= 0 ? 0 : count}
         </button>
         <button
           onClick={() => setCount(count + 1)}
