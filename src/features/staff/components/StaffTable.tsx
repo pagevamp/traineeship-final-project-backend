@@ -46,12 +46,12 @@ const StaffTable = ({ control }: { control: any }) => {
   ];
   return (
     <div className="rounded-t-[25px] bg-white p-4">
-      <div className="flex justify-between mb-2 w-full ">
-        <div className="flex items-center justify-start mb-2 text-[16px]">
+      <div className="flex justify-between items-center mb-2 w-full">
+        <div className="text-[16px]">
           <span className="font-primary font-bold">Verification Request</span>
         </div>
 
-        <div className="mr-0 flex flex-row">
+        <div className="flex items-center gap-2">
           <Controller
             name="contactType"
             control={control}
@@ -70,6 +70,16 @@ const StaffTable = ({ control }: { control: any }) => {
               />
             )}
           />
+
+          {/* Icon 1 */}
+          <div className="w-12 h-12 border border-muted-light rounded flex items-center justify-center">
+            <Image src="/filter-icon.svg" alt="icon1" width={20} height={20} />
+          </div>
+
+          {/* Icon 2 */}
+          <div className="w-12 h-12 border border-muted-light rounded flex items-center justify-center">
+            <Image src="/downloadgrey.png" alt="icon2" width={20} height={20} />
+          </div>
         </div>
       </div>
 

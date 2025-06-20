@@ -30,22 +30,28 @@ const StaffHeader = () => {
         <div className="w-full bg-[#ffffff] rounded-[25px] px-4 py-4 sm:px-6 sm:py-6 md:px-[24px] md:py-[20px] flex flex-col font-primary">
           <div className="flex flex-col sm:grid-cols-2 gap-y-2 sm:gap-x-8 md:gap-x-12">
             <div className="flex items-center justify-between">
-              <div className="flex flex-row gap-1">
-                <div className="bg-[#cbcbcb] p-2 rounded-[5px]">
+              <div className="flex items-center gap-2">
+                <div className="bg-[#cbcbcb] h-[35px] p-2 rounded-[5px] flex items-center justify-center">
                   <Image
                     src="/Profile.svg"
                     alt="profile"
-                    width={16}
-                    height={16}
+                    width={18}
+                    height={18}
                   />
                 </div>
 
-                <p>prawin staff</p>
+                <div className="flex flex-col justify-center">
+                  <p>Prawin staff</p>
+                  <p className="font-extralight text-muted-light text-sm">
+                    ID:
+                  </p>
+                </div>
+              </div>
 
-                <p className="font-extralight text-muted-light">ID:</p>
+              <div className="bg-green-500 text-white text-xs px-3 py-1 rounded-[5px]  flex items-center">
+                Staff
               </div>
             </div>
-
             {details1.map((item, index) => (
               <div key={index} className="flex flex-row gap-2 ">
                 <span className="lg:text-[14px] sm:text-[12px] md:text-[15px] text-[#808080] font-extralight">
@@ -61,12 +67,12 @@ const StaffHeader = () => {
 
         <div className="w-full bg-[#ffffff] rounded-[25px] px-4 py-4 sm:px-6 sm:py-6 md:px-[24px] md:py-[20px] flex flex-col font-primary">
           <div className="flex flex-row gap-1">
-            <div className="bg-[#cbcbcb] p-2 rounded-[5px] ">
+            <div className="bg-[#cbcbcb] h-[35px] p-2 rounded-[5px] ">
               <Image
                 src="/Location.svg"
                 alt="location"
-                width={16}
-                height={16}
+                width={18}
+                height={18}
               />
             </div>
             <div className="flex flex-col">

@@ -36,9 +36,14 @@ const ProductId = ({ control }: { control: any }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#ffffff] rounded-[25px] min-h-screen py-10 px-6">
-        <ProductImages />
-        <ProductDescriptions />
+      <div className="grid grid-cols-3 bg-[#ffffff] rounded-[25px] min-h-screen py-10 px-6 gap-6">
+        <div className="col-span-1">
+          <ProductImages />
+        </div>
+
+        <div className="col-span-2">
+          <ProductDescriptions />
+        </div>
       </div>
     </div>
   );
