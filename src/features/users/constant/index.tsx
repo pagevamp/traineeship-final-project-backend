@@ -75,13 +75,13 @@ export const infoData = [
   },
 ];
 
-export const accessItems = [
-  { title: "Customer Creation " },
-  { title: "Customer Approval" },
-  { title: "Shipment Creation" },
-  { title: "Shipment Approval" },
-  { title: "Customer Services" },
-  { title: "Customer Services" },
+export const permissionsData = [
+  "Customer Creation",
+  "Customer Approval",
+  "Shipment Creation",
+  "Shipment Approval",
+  "Customer Services",
+  "Customer Support",
 ];
 export const headerDetails = [
   {

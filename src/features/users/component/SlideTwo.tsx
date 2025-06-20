@@ -1,43 +1,47 @@
 "use client";
 import React, { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { accessItems } from "../constant";
-import { Button } from "@/components/ui/button";
+import { permissionsData } from "../constant";
 
-type SlideTwoProps = {
-  onContinue: () => void;
-};
-
-const headers = ["View", "Edit", "Create", "Delete"];
+const actions = ["View", "Edit", "Create", "Delete"];
 const headerColors = ["#FF743C", "#007AFF", "#34C759", "#AF52DE"];
 
-const SlideTwo = ({ onContinue }: SlideTwoProps) => {
-  const [checkedState, setCheckedState] = useState(
-    accessItems.map(() => headers.map(() => false))
+const SlideTwo = () => {
+  const [matrix, setMatrix] = useState(() =>
+    permissionsData.reduce((acc, row) => {
+      acc[row] = {
+        View: false,
+        Edit: false,
+        Create: false,
+        Delete: false,
+      };
+      return acc;
+    }, {} as Record<string, Record<string, boolean>>)
   );
 
-  const toggleCheckbox = (rowIndex: number, colIndex: number) => {
-    setCheckedState((prevState) =>
-      prevState.map((row, rIdx) =>
-        row.map((col, cIdx) =>
-          rIdx === rowIndex && cIdx === colIndex ? !col : col
-        )
-      )
-    );
+  // Handler to toggle a permission
+  const togglePermission = (row: string, action: string) => {
+    setMatrix((prev) => ({
+      ...prev,
+      [row]: {
+        ...prev[row],
+        [action]: !prev[row][action],
+      },
+    }));
   };
-
+  console.log("first", matrix);
   return (
-    <div className="h-full">
+    <div className="h-full overflow-auto">
       <h2 className="font-primary text-lg sm:text-xl lg:text-2xl text-[#111D35] mb-5 sm:mb-6 text-start sm:text-left">
         Grant Access
       </h2>
 
-      <div className="overflow-x-auto">
-        <div className="min-w-[500px] sm:min-w-full">
-          <div className="grid grid-cols-6 items-center mb-3 px-2 sm:px-4">
-            <div className="col-span-2"></div>
+      <div className="overflow-auto">
+        <div className="w-full overflow-auto sm:min-w-full">
+          {/* Header */}
+          <div className="hidden sm:grid grid-cols-6 items-center mb-3 px-2 sm:px-4">
+            <div className="col-span-2" />
             <div className="col-span-4 grid grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-8">
-              {headers.map((header, i) => (
+              {actions.map((header, i) => (
                 <div key={i} className="flex justify-center">
                   <span
                     className="text-xs sm:text-sm lg:text-base font-semibold text-center"
@@ -50,32 +54,62 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
             </div>
           </div>
 
-          {accessItems.map(({ title }, rowIndex) => (
+          {/* Rows — responsive */}
+          {permissionsData.map((deta, rowIndex) => (
             <div
               key={rowIndex}
-              className="grid grid-cols-6 items-center w-full h-[40px] bg-white border rounded-md mb-4 px-2 sm:px-4 shadow-sm"
+              className="w-full mb-4 border rounded-md shadow-sm p-1 sm:px-4 sm:py-3 bg-white 
+      sm:grid sm:grid-cols-6 sm:items-center
+      flex flex-col gap-y-2"
             >
-              <span className="col-span-2 font-medium text-xs sm:text-sm lg:text-base text-[#111D35] truncate">
-                {title}
+              {/* Title */}
+              <span className="font-medium text-[8px] sm:text-base text-[#111D35] col-span-2 truncate">
+                {deta}
               </span>
-              <div className="col-span-4 grid grid-cols-4 gap-x-4 sm:gap-x-6 lg:gap-x-8">
-                {headers.map((_, colIndex) => {
-                  const isChecked = checkedState[rowIndex][colIndex];
+
+              {/* Permissions */}
+              <div
+                className="
+        sm:col-span-4 grid grid-cols-4 sm:grid-cols-4 
+        gap-x-0 gap-y-2 sm:gap-x-6 lg:gap-x-8
+      "
+              >
+                {actions.map((header, colIndex) => {
                   return (
-                    <div key={colIndex} className="flex justify-center">
-                      <Checkbox
-                        checked={isChecked}
-                        onCheckedChange={() =>
-                          toggleCheckbox(rowIndex, colIndex)
-                        }
-                        className={`border-2 rounded w-4 h-4 sm:w-5 sm:h-5 cursor-pointer
-                          ${
-                            isChecked
-                              ? "bg-gradient-to-r from-[#FF8826] to-[#FF6502] border-[#FF743C]"
-                              : "bg-white border-[#FF743C]"
-                          }
-                        `}
-                      />
+                    <div
+                      className="flex items-center justify-start gap-1 sm:justify-center"
+                      key={colIndex}
+                    >
+                      <span
+                        className="text-[9px] font-medium sm:hidden"
+                        style={{ color: headerColors[colIndex] }}
+                      >
+                        {header}
+                      </span>
+                      <button
+                        onClick={() => togglePermission(deta, header)}
+                        className={`rounded-[2px] sm:rounded w-3 h-3 sm:w-5 sm:h-5 border sm:border-2 ${
+                          matrix[deta][header]
+                            ? "bg-orange-500 border-orange-500 text-white"
+                            : "border-orange-500 text-orange-500"
+                        } flex items-center justify-center transition`}
+                      >
+                        {matrix[deta][header] && (
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        )}
+                      </button>
                     </div>
                   );
                 })}
@@ -83,19 +117,6 @@ const SlideTwo = ({ onContinue }: SlideTwoProps) => {
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="flex justify-center mt-7">
-        <Button
-          variant={"default"}
-          onClick={onContinue}
-          className="w-full max-w-[180px] sm:w-[191px] h-10 rounded-[10px] text-white font-medium text-sm"
-          style={{
-            background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
-          }}
-        >
-          Create
-        </Button>
       </div>
     </div>
   );

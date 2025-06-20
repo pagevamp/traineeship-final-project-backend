@@ -54,13 +54,8 @@ const UserComponent = () => {
             onClick={() => {
               openModal({
                 component: InternalUserSliderModal,
-                props: {
-                  className: "max-h-[100%] sm:max-h-[80%] h-full bg-white",
-                },
                 className:
-                  "max-h-[100%] sm:max-h-[80%] h-full rounded-sm sm:rounded-[39px] bg-white max-w-[98%] sm:max-w-[50%] ",
-                // className:
-                //   "min-h-fit h-full bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
+                  "max-h-[95%] rounded-sm sm:rounded-[39px] bg-white max-w-[98%] sm:max-w-[80%] lg:max-w-[60%] xl:max-w-[50%]",
               });
             }}
           >
