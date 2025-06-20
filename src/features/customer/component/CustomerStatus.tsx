@@ -72,14 +72,14 @@ const CustomerStatus = () => {
         </div>
 
         <div className="mt-4 md:mt-0 w-fit px-4 md:px-0 md:w-[104px] h-[28px] bg-white flex items-center justify-center gap-[6px] rounded-[10px]">
-          <span className="text-[#540F86] font-secondary  text-[14px] font-medium whitespace-nowrap">
+          <span className="text-[#540F86] font-secondary text-[14px] font-medium whitespace-nowrap">
             See all
           </span>
           <ChevronDown size={18} color="#000000" />
         </div>
       </div>
 
-      <div 
+      <div
       // className="bg-[#ffffff] w-full rounded-[25px] overflow-auto"
       >
         {/* <AnimatePresence mode="wait">

@@ -188,7 +188,7 @@ export const productDetails: HeaderDetail[] = [
     label: (
       <span className="font-secondary font-light text-muted-light">Name: </span>
     ),
-    value: <span>PARACETAMOL</span>,
+    value: <span>Hoodie</span>,
   },
   {
     label: (
@@ -196,7 +196,7 @@ export const productDetails: HeaderDetail[] = [
         Total Qty:{" "}
       </span>
     ),
-    value: <span className="text-[#FF6502]">1</span>,
+    value: <span className="text-[#FF6502]">3</span>,
   },
 ];
 

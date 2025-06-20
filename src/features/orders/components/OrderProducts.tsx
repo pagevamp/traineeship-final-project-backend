@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { images, productDetails } from "../constant";
+
 import { Button } from "@/components/ui/button";
+import { images } from "../constant";
+import { productDetails } from "../constant/index";
 
 const OrderProducts = () => {
   const [selectedImage, setSelectedImage] = useState(images[0]);
