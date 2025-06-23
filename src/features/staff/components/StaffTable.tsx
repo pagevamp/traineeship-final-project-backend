@@ -11,7 +11,6 @@ import Image from "next/image";
 
 const StaffTable = ({ control }: { control: any }) => {
   const router = useRouter();
-  // managing states
   const [state, setState] = useState({
     pagination: {
       page: 1,
