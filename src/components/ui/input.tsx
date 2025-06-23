@@ -30,11 +30,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     return (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col">
         {labelName && (
           <label
             htmlFor={inputId}
-            className="text-[14px] font-primary text-[#26203B]"
+            className="text-[14px] font-primary text-[#26203B] pb-1"
           >
             {labelName}{" "}
             {props.required && <span className="text-red-600 ml-0">*</span>}
@@ -45,9 +45,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             type={isPassword && showPassword ? "text" : type}
             className={cn(
-              "flex h-12 w-full rounded-md border border-muted-light bg-transparent font-[300] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:font-[300] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-xs",
+              "flex h-12 w-full rounded-md font-secondary border border-muted-light bg-transparent font-[300] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:font-[300] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-xs",
               error &&
-                "border-destructive shadow-error font-primary placeholder:font-primary",
+                "border-destructive shadow-error font-secondary font-[300]",
               isPassword && "pr-10",
               className
             )}
@@ -86,6 +86,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 {showPassword ? "Hide password" : "Show password"}
               </span>
             </Button>
+          )}
+        </div>
+        <div className="flex items-center justify-between w-full">
+          {error && (
+            <p className="text-xs text-destructive flex items-center gap-1 mt-1">
+              <div className="w-fit">
+                <Icon
+                  icon="solar:close-square-bold"
+                  width="14"
+                  height="14"
+                  className="text-destructive"
+                />
+              </div>
+              <span className="font-secondary font-[300]">{error}</span>
+            </p>
           )}
         </div>
       </div>

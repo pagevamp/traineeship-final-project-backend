@@ -1,64 +1,105 @@
 "use client";
 
-import type React from "react";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import React, { useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { DashboardSidebar } from "./dashboard-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Breadcrumb, BreadcrumbPage } from "@/components/ui/breadcrumb";
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { UserNav } from "./UserNav";
+import { useProfileInformation } from "./hooks/useProfileInformation";
+import Link from "next/link";
+import { moduleRoutes } from "@/routes";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const [userRole, setUserRole] = useState<string>("admin");
   const pathname = usePathname();
-  const router = useRouter();
+
+  const { data: profileInformationData } = useProfileInformation();
+  const modules = useMemo(
+    () => profileInformationData?.data?.data?.modules,
+    [profileInformationData?.data?.data?.modules]
+  );
 
   // Get current page title from pathname
-  const getCurrentPageTitle = () => {
+
+  const isValidBreadcrumbPath = (href: string): boolean => {
+    return Object.values(moduleRoutes).some((patterns) =>
+      patterns.some((pattern) => {
+        if (pattern.endsWith("/*")) {
+          const base = pattern.replace("/*", "");
+          return href.startsWith(base);
+        }
+        return href === pattern;
+      })
+    );
+  };
+
+  const getBreadcrumbs = (pathname: string) => {
     const segments = pathname.split("/").filter(Boolean);
-    if (segments.length === 0) return "Home";
-    const lastSegment = segments[segments.length - 1];
-    if (/^\d+$/.test(lastSegment) && segments.length >= 2) {
-      // If last segment is numeric, use the previous one
-      return segments[segments.length - 2]
+    return segments.map((segment, index) => {
+      const href = "/" + segments.slice(0, index + 1).join("/");
+      const label = segment
         .split("-")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
-    }
-    return lastSegment
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+      const clickable = isValidBreadcrumbPath(href);
+      return { href, label, clickable };
+    });
   };
 
-  useEffect(() => {
-    if (pathname === "/") {
-      router.push("/dashboard");
-    }
-  }, [router, pathname]);
-
+  const breadcrumbs = getBreadcrumbs(pathname);
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full">
-        <DashboardSidebar userRole={userRole} />
+        <DashboardSidebar modules={modules} />
         <div className="flex-1 flex flex-col min-w-0">
           <header className="flex min-h-16 py-5 shrink-0 items-center gap-2 sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
             <div className="flex items-center gap-2 px-4">
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
               <Breadcrumb>
-                <BreadcrumbPage className="text-primary font-primary capitalize text-lg">
-                  {getCurrentPageTitle()}
-                </BreadcrumbPage>
+                <BreadcrumbList>
+                  {breadcrumbs.map((crumb, idx) => (
+                    <React.Fragment key={crumb.href}>
+                      <BreadcrumbItem>
+                        {idx !== breadcrumbs.length - 1 ? (
+                          crumb.clickable ? (
+                            <BreadcrumbLink asChild>
+                              <Link
+                                href={crumb.href}
+                                className="font-primary text-base"
+                              >
+                                {crumb.label}
+                              </Link>
+                            </BreadcrumbLink>
+                          ) : (
+                            <span className="font-primary text-base text-gray-500">
+                              {crumb.label}
+                            </span>
+                          )
+                        ) : (
+                          <BreadcrumbPage className="text-primary font-primary text-base">
+                            {crumb.label}
+                          </BreadcrumbPage>
+                        )}
+                      </BreadcrumbItem>
+                      {idx !== breadcrumbs.length - 1 && (
+                        <BreadcrumbSeparator />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </BreadcrumbList>
               </Breadcrumb>
             </div>
             <div className="ml-auto flex items-center gap-2 px-4">
-              <UserNav />
+              <UserNav profileData={profileInformationData?.data?.data} />
             </div>
           </header>
           <main className="flex-1 overflow-auto gap-4 p-3 sm:p-4 bg-sidebar-background">

@@ -1,6 +1,11 @@
 import React from "react";
-import LoginComponent from "@/features/login/components/LoginComponent";
+import LoginComponent from "@/features/login";
 
+export async function generateMetadata() {
+  return {
+    title: "Login | Arctern Express",
+  };
+}
 const Login = () => {
   return <LoginComponent />;
 };

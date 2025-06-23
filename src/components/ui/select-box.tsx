@@ -79,81 +79,74 @@ export function Selectbox({
   }, []);
 
   return (
-    <div>
-      <Popover open={open} onOpenChange={setOpen}>
-        {label && (
-          <label
-            className={cn(
-              "text-[14px] font-primary text-[#26203B]",
-              error && "text-destructive"
+    <Popover open={open} onOpenChange={setOpen}>
+      {label && (
+        <label className={cn("text-[14px] font-primary text-[#26203B]")}>
+          {label}
+          {!optional && <span className="text-red-600">*</span>}
+        </label>
+      )}
+      <PopoverTrigger asChild>
+        <Button
+          ref={triggerRef}
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          disabled={disabled}
+          className={cn(
+            "justify-between relative shadow-none hover:bg-transparent font-normal mt-1",
+            className,
+            error && "border-destructive !shadow-error"
+          )}
+        >
+          <span className="truncate">
+            {value ? (
+              <span className="text-sm font-[300]">
+                {options.find((option) => option.value === value)?.label}
+              </span>
+            ) : (
+              <span className="text-muted-foreground text-xs font-[300]">
+                {placeholder}
+              </span>
             )}
-          >
-            {label}
-            {!optional && <span className="text-red-600">*</span>}
-          </label>
-        )}
-        <PopoverTrigger asChild>
-          <Button
-            ref={triggerRef}
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            disabled={disabled}
-            className={cn(
-              "justify-between relative shadow-none hover:bg-transparent font-normal mt-1",
-              className,
-              error && "border-destructive !shadow-error"
-            )}
-          >
-            <span className="truncate">
-              {value ? (
-                <span className="text-sm font-secondary font-[300]">
-                  {options.find((option) => option.value === value)?.label}
-                </span>
-              ) : (
-                <span className="text-muted-foreground text-xs font-secondary font-[300]">
-                  {placeholder}
-                </span>
-              )}
-            </span>
+          </span>
 
-            <Icon
-              icon="hugeicons:arrow-down-01"
-              width="3"
-              height="24"
-              className="scale-[1.8]"
-            />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="p-0 z-[301]" style={{ width: triggerWidth }}>
-          <Command className="max-h-[300px]">
-            <CommandInput placeholder={placeholder} />
-            <CommandList>
-              <CommandEmpty>{emptyText}</CommandEmpty>
-              <CommandGroup>
-                {options.map((option) => (
-                  <CommandItem
-                    key={option.value}
-                    value={option.label}
-                    onSelect={() => {
-                      onChange(option);
-                      setOpen(false);
-                    }}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value === option.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    <span>{option.label}</span>
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      </Popover>
-    </div>
+          <Icon
+            icon="hugeicons:arrow-down-01"
+            width="3"
+            height="24"
+            className="scale-[1.8]"
+          />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="p-0 z-[301]" style={{ width: triggerWidth }}>
+        <Command className="max-h-[300px] border">
+          <CommandInput placeholder={placeholder} />
+          <CommandList>
+            <CommandEmpty>{emptyText}</CommandEmpty>
+            <CommandGroup>
+              {options.map((option) => (
+                <CommandItem
+                  key={option.value}
+                  value={option.label}
+                  onSelect={() => {
+                    onChange(option);
+                    setOpen(false);
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === option.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  <span>{option.label}</span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }

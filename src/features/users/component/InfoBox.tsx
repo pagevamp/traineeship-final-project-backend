@@ -12,7 +12,6 @@ const InfoBox = () => {
           initial={{ y: 0, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 60, damping: 12 }}
-          // transition={{ duration: 0.6, delay: index * 0.3, ease: "easeOut" }}
         >
           <Box imgSrc={item.imgSrc} title={item.title} number={item.number} />
         </motion.div>

@@ -43,7 +43,7 @@ const SearchComponent = (props: PropsI) => {
             setSearch(e.target.value);
             handleSearchChange(e.target.value);
           }}
-          className="pl-0 h-5 border-none text-primary text-sm focus:gradient-text placeholder:gradient-text py-0"
+          className="pl-0 h-5 border-none text-primary text-xs focus:gradient-text placeholder:gradient-text py-0"
         />
       </div>
     </div>

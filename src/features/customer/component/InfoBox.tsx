@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const InfoBox = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid sm:grid-cols-4 flex-wrap justify-center lg:justify-between items-center gap-4 w-full">
+    <div className="grid grid-cols-1 sm:grid sm:grid-cols-2 xl:grid xl:grid-cols-4 flex-wrap justify-center lg:justify-between items-center gap-4 w-full">
       {infoData.map((item, index) => (
         <motion.div
           key={index}

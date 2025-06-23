@@ -1,7 +1,7 @@
 "use client";
 
-import { DashboardLayout } from "@/features/dashboard/dashboard-layout";
 import React from "react";
+import { DashboardLayout } from "@/features/dashboard/dashboard-layout";
 
 type Props = {
   children: React.ReactNode;

@@ -173,6 +173,13 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.gradient-bg {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 101, 2, 1) 0%,
+    rgba(183, 54, 1, 1) 100%
+  );
+}
 
 .depot-marker-label {
   background: #ffffff;
@@ -278,4 +285,87 @@ body {
 }
 .scroll-bar::-webkit-scrollbar-track {
   margin: 10px 10px 10px 100px;
+}
+
+/* PHONE NUMBER INPUT CSS */
+.react-tel-input {
+  width: auto !important;
+  font-family: var(--font-secondary) !important;
+  font-weight: 300 !important;
+}
+.react-tel-input input {
+  width: 85px !important;
+}
+.react-tel-input .countryCode {
+  pointer-events: none !important;
+}
+
+.react-tel-input .form-control {
+  padding-left: 32px !important;
+  z-index: 12 !important;
+  font-weight: 500 !important;
+}
+.react-tel-input .country-list .search {
+  z-index: 20 !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-right: 12px !important;
+}
+
+.react-tel-input .country-list .search-box {
+  width: 100% !important;
+  font-size: 14px !important;
+  font-family: var(--font-secondary);
+  font-weight: 400 !important;
+  border-radius: 8px !important;
+  text-transform: capitalize;
+  padding: 10px 12px !important;
+}
+
+.search-emoji {
+  display: none !important;
+}
+
+.react-tel-input .country-list > input {
+  width: auto !important;
+  cursor: text !important;
+}
+.react-tel-input .country-list {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  margin-left: -5px !important;
+}
+
+.react-tel-input .flag-dropdown {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0;
+  background-color: #fff !important;
+  border: 0px solid #cacaca !important;
+  border-radius: 3px 0 0 3px;
+}
+.react-tel-input .flag {
+  z-index: 14 !important;
+}
+
+.react-tel-input .selected-flag .arrow {
+  border: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M18 9s-4.419 6-6 6s-6-6-6-6' color='currentColor'/%3E%3C/svg%3E");
+  width: 20px !important;
+  height: 20px !important;
+  top: -20% !important;
+  left: 56px !important;
+}
+
+.react-tel-input .selected-flag {
+  width: 85px !important;
+}
+
+.react-tel-input .flag-dropdown.open {
+  z-index: unset !important;
+}
+.react-tel-input .country-list .search-box {
+  margin-left: 0 !important;
 }

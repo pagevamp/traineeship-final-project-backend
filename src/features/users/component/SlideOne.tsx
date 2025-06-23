@@ -1,18 +1,121 @@
 "use client";
 import { Input } from "@/components/ui/input";
+import { Selectbox } from "@/components/ui/select-box";
+import { Controller } from "react-hook-form";
 
-type SlideOneProps = {
-  onContinue: () => void;
-};
+const SlideOne = (props: any) => {
+  const { register, errors, isPending, control, setValue } = props;
 
-const SlideOne = ({ onContinue }: SlideOneProps) => {
   return (
-    <div className="p-8">
+    <div className="h-full">
       <span className="font-primary text-[20px] text-[#111D35] block">
         Create Employee
       </span>
 
-      <div className="flex gap-[26px] mt-[28px]">
+      <div className="grid grid-cols-2 gap-4 mt-4">
+        <div>
+          <Input
+            type="text"
+            name="fullName"
+            register={register}
+            placeholder="Enter Full Name"
+            labelName="Full Name"
+            required
+          />
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="employeeId"
+            register={register}
+            placeholder="Enter Employee ID"
+            labelName="Employee ID"
+            required
+          />
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="email"
+            register={register}
+            placeholder="Enter Email"
+            labelName="Email"
+            required
+          />
+        </div>
+        <div>
+          <Input
+            type="text"
+            name="phoneNumber"
+            register={register}
+            placeholder="Enter Phone Number"
+            labelName="Phone Number"
+            required
+          />
+        </div>
+        <div>
+          <Controller
+            name="department"
+            control={control}
+            render={({ field, fieldState: { error } }) => {
+              return (
+                <Selectbox
+                  options={[{ label: "2 * 3", value: "2 * 3" }]}
+                  value={field.value}
+                  onChange={(value) => {
+                    setValue("department", value?.value);
+                  }}
+                  placeholder="Select Department"
+                  emptyText="No data found."
+                  className="w-full bg-transparent h-12"
+                  label="Department"
+                />
+              );
+            }}
+          />
+        </div>
+        <div>
+          <Controller
+            name="designation"
+            control={control}
+            render={({ field, fieldState: { error } }) => {
+              return (
+                <Selectbox
+                  options={[{ label: "2 * 3", value: "2 * 3" }]}
+                  value={field.value}
+                  onChange={(value) => {
+                    setValue("designation", value?.value);
+                  }}
+                  placeholder="Select Designation"
+                  emptyText="No data found."
+                  className="w-full bg-transparent h-12"
+                  label="Designation"
+                />
+              );
+            }}
+          />
+        </div>
+        <div>
+          <Input
+            type="password"
+            name="password"
+            placeholder="Enter New Password"
+            required
+            labelName="Password"
+          />
+        </div>
+        <div>
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="Re-enter Password"
+            required
+            labelName="Confirm Password"
+          />
+        </div>
+      </div>
+
+      {/* <div className="flex gap-[26px] mt-[28px]">
         <div className="flex flex-col flex-1">
           <label className="mb-1 text-[14px] font-medium text-[#111D35]">
             Full Name
@@ -102,19 +205,7 @@ const SlideOne = ({ onContinue }: SlideOneProps) => {
             className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
           />
         </div>
-      </div>
-
-      <div className="flex justify-center mt-[28px]">
-        <button
-          onClick={onContinue}
-          className="w-[191px] h-[40px] rounded text-white font-medium text-[14px]"
-          style={{
-            background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
-          }}
-        >
-          Continue
-        </button>
-      </div>
+      </div> */}
     </div>
   );
 };

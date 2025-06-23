@@ -1,6 +1,6 @@
 "use client";
-import ImageSlider from "@/features/login/components/Slider";
 import React from "react";
+import ImageSlider from "@/features/login/components/Slider";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -6,11 +6,15 @@ import Heading from "@/components/ui/Heading";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { LoginPropsInterface } from "../types";
+import { Button } from "@/components/ui/button";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
-const LoginComponent = () => {
+const LoginComponent = (props: LoginPropsInterface) => {
+  const { register, errors, isPending } = props;
   return (
     <motion.div
-      className="flex flex-col items-center px-6 min-w-[358px]"
+      className="flex flex-col items-center px-6 max-w-[358px]"
       initial={{ x: 70, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
@@ -25,22 +29,32 @@ const LoginComponent = () => {
 
       <Heading title="Login" description="Enter your credentials to proceed." />
 
-      <div className="pb-4">
-        <Input
-          type="text"
-          labelName="Company ID"
-          placeholder="Enter Company ID"
-          className="min-w-[358px]"
-        />
-      </div>
+      <div className="min-w-[300px] sm:min-w-[358px]">
+        <div className="pb-4">
+          <Input
+            type="text"
+            register={register}
+            // trigger={trigger}
+            name={"username"}
+            labelName="Employee ID / Email"
+            placeholder="Enter Employee ID / Email"
+            // className="min-w-[358px]"
+            error={errors?.username?.message}
+          />
+        </div>
 
-      <div>
-        <Input
-          type="password"
-          placeholder="Enter Password"
-          labelName="Password"
-          className="min-w-[358px]"
-        />
+        <div>
+          <Input
+            type="password"
+            register={register}
+            // trigger={trigger}
+            name={"password"}
+            placeholder="Enter Password"
+            labelName="Password"
+            // className="min-w-[358px]"
+            error={errors?.password?.message}
+          />
+        </div>
       </div>
 
       <span
@@ -49,17 +63,23 @@ const LoginComponent = () => {
       >
         Forgot password?
       </span>
-      <Link href="/dashboard">
-        <button
-          className="w-[357px] h-[48px] rounded-md text-white font-primary text-base"
-          style={{
-            background: "linear-gradient(to bottom, #CF5406, #FF811A)",
-            marginBottom: "45px",
-          }}
-        >
-          Sign in
-        </button>
-      </Link>
+      <Button
+        variant={"default"}
+        className="w-full h-[48px] rounded-md text-white font-primary text-base"
+        style={{
+          background: "linear-gradient(to bottom, #CF5406, #FF811A)",
+          marginBottom: "45px",
+        }}
+        disabled={isPending}
+      >
+        {isPending ? (
+          <div className="flex items-center justify-center">
+            <Icon icon="codex:loader" className="text-[30px] animate-spin" />
+          </div>
+        ) : (
+          "Sign in"
+        )}
+      </Button>
 
       <div className="flex items-center gap-2 mb-[20px]">
         <span className="text-[#9C9AA5] font-primary text-sm">

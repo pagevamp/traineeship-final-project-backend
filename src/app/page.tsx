@@ -1,5 +1,3 @@
-import { DashboardLayout } from "@/features/dashboard/dashboard-layout";
-
 export async function generateMetadata() {
   return {
     title: "Arctern Express",
@@ -7,9 +5,5 @@ export async function generateMetadata() {
 }
 
 export default function Home() {
-  return (
-    <DashboardLayout>
-      <></>
-    </DashboardLayout>
-  );
+  return <></>;
 }

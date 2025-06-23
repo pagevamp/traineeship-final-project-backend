@@ -16,7 +16,12 @@ import Register5 from "./RegisterStep5";
 import Register6 from "./RegisterStep6";
 import Register7 from "./RegisterStep7";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
+
+type FormValues = {
+  directorDetails: { name: string; email: string; phone: string }[];
+  financialDirectorDetails: { name: string; email: string; phone: string }[];
+};
 
 const RegisterComponent = () => {
   const router = useRouter();
@@ -29,6 +34,45 @@ const RegisterComponent = () => {
 
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const { register, control, handleSubmit } = useForm<FormValues>({
+    defaultValues: {
+      directorDetails: [{ name: "", email: "", phone: "" }],
+      financialDirectorDetails: [{ name: "", email: "", phone: "" }],
+    },
+  });
+
+  const {
+    fields: directorFields,
+    append: appendDirector,
+    remove: removeDirector,
+  } = useFieldArray({
+    control,
+    name: "directorDetails",
+  });
+
+  const {
+    fields: financeFields,
+    append: appendFinance,
+    remove: removeFinance,
+  } = useFieldArray({
+    control,
+    name: "financialDirectorDetails",
+  });
+
+  const onSubmit = (data: FormValues) => {};
+
+  const formProps = {
+    register,
+    control,
+    handleSubmit,
+    directorFields,
+    appendDirector,
+    removeDirector,
+    financeFields,
+    appendFinance,
+    removeFinance,
+  };
 
   useEffect(() => {
     const container = stepperContainerRef.current;
@@ -85,7 +129,7 @@ const RegisterComponent = () => {
     const StepComponents = [
       <RegisterStep1 key="step-1" />,
       <RegisterStep2 key="step-2" />,
-      <RegisterStep3 key="step-3" />,
+      <RegisterStep3 key="step-3" {...formProps} />,
       <RegisterStep4 key="step-4" />,
       <RegisterStep5 key="step-5" />,
       <RegisterStep6 key="step-6" />,
@@ -196,7 +240,7 @@ const ChangeStep = ({
   totalSteps: number;
 }) => {
   return (
-    <div className="font-primary flex flex-col items-center gap-[31px] mb-[47px] mt-[70px]">
+    <div className="font-primary flex flex-col items-center gap-4 mb-[47px] mt-[70px]">
       {currStep === totalSteps ? (
         <Button className="font-primary text-lg bg-transparent text-[#CF5406] shadow-none hover:bg-transparent flex items-center justify-center">
           <ChevronRight className="mr-2" size={18} />
@@ -239,10 +283,10 @@ const RegisterStep2 = () => {
   );
 };
 
-const RegisterStep3 = () => {
+const RegisterStep3 = (props: any) => {
   return (
     <>
-      <Register3 />
+      <Register3 {...props} />
     </>
   );
 };

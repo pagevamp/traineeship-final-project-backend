@@ -61,9 +61,7 @@ const MapsId = () => {
         const response = await fetch("/orders.json");
         const data: Order[] = await response.json();
         setOrders(data);
-      } catch (error) {
-        console.error("Error loading orders:", error);
-      }
+      } catch (error) {}
     };
 
     fetchOrders();
