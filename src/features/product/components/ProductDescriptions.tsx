@@ -14,12 +14,12 @@ const ProductDescriptions = () => {
         Short Description
       </span>
       <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
-      <span className="font-extralight text-muted-foreground">
+      <span className="font-extralight font-secondary text-muted-foreground">
         Stay cozy and stylish in our ultra-soft pink hoodie — the perfect blend
         of comfort, charm, and casual flair.
       </span>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center lg:items-start ">
         <div className="flex space-x-0">
           <button
             onClick={() => setCount(count - 1)}
@@ -66,7 +66,7 @@ const ProductDescriptions = () => {
         Long Description
       </span>
       <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
-      <span className="font-extralight text-muted-foreground">
+      <span className="font-extralight font-secondary text-muted-foreground">
         Wrap yourself in warmth and confidence with our beautifully crafted pink
         hoodie — your new favorite go-to for laid-back days and cozy evenings.
         Designed with a flattering unisex fit and made from a premium

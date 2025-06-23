@@ -12,9 +12,11 @@ const StaffHeader = () => {
         <div className="flex flex-col  justify-start text-[16px]">
           <div className="flex items-center">
             <ChevronLeft />
-            <p className="font-primary font-bold">User Detail Page</p>{" "}
+            <p className="font-secondary font-bold text-[12px] md:text-[16px]">
+              User Detail Page
+            </p>{" "}
           </div>
-          <div className="flex font-extralight m-2 ml-6">
+          <div className="flex font-extralight m-2 ml-6 text-[12px] md:text-[16px]">
             Last Active: a month ago( 05-06-2025 )
           </div>
         </div>
@@ -26,9 +28,8 @@ const StaffHeader = () => {
         </div>
       </div>
 
-      {/* header */}
       <div className="grid lg:grid-cols-2 sm:grid-cols-1  gap-2">
-        <div className="w-full bg-[#ffffff] rounded-[25px] px-4 py-4 sm:px-6 sm:py-6 md:px-[24px] md:py-[20px] flex flex-col font-primary">
+        <div className="w-full bg-[#ffffff] rounded-[25px] px-4 py-4 sm:px-6 sm:py-6 md:px-[24px] md:py-[20px] flex flex-col font-secondary">
           <div className="flex flex-col sm:grid-cols-2 gap-y-2 sm:gap-x-8 md:gap-x-12">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -43,9 +44,9 @@ const StaffHeader = () => {
 
                 <div className="flex flex-col justify-center">
                   <p>Prawin staff</p>
-                  <p className="font-extralight text-muted-light text-sm">
+                  <p className="font-secondary  font-extralight text-muted-light text-sm">
                     ID:{" "}
-                    <span className="font-light text-black text-sm">
+                    <span className="font-secondary font-light text-black text-sm">
                       STF269
                     </span>
                   </p>
@@ -57,11 +58,11 @@ const StaffHeader = () => {
               </div>
             </div>
             {details1.map((item, index) => (
-              <div key={index} className="flex flex-row gap-2 ">
-                <span className="lg:text-[14px] sm:text-[12px] md:text-[15px] text-[#808080] font-extralight">
+              <div key={index} className="flex flex-row gap-2 font-secondary ">
+                <span className="lg:text-[14px] text-[12px] md:text-[15px] text-[#808080] font-extralight">
                   {item.label}:
                 </span>
-                <span className="lg:text-[14px] sm:text-[12px] md:text-[15px]  text-[#404040] font-secondary">
+                <span className="lg:text-[14px] text-[12px] md:text-[15px]  text-[#404040] ">
                   {item.value}
                 </span>
               </div>
@@ -69,8 +70,8 @@ const StaffHeader = () => {
           </div>
         </div>
 
-        <div className="w-full bg-[#ffffff] rounded-[25px] px-4 py-4 sm:px-6 sm:py-6 md:px-[24px] md:py-[20px] flex flex-col font-primary">
-          <div className="flex flex-row gap-1 items-center">
+        <div className="w-full bg-[#ffffff] rounded-[25px] p-4 sm:px-6 sm:py-6 md:px-[24px] md:py-[20px] flex flex-col font-secondary">
+          <div className="flex flex-row gap-2 items-center">
             <div className="bg-[#e9e7e7] h-[35px] px-2 py-1  rounded-[5px] ">
               <Icon
                 icon="mynaui:location"
@@ -83,13 +84,13 @@ const StaffHeader = () => {
               <span>Address</span>
             </div>
           </div>
-          <div className="flex flex-col sm:grid-cols-2 gap-y-2 sm:gap-x-8 md:gap-x-12 p-4">
+          <div className="flex flex-col sm:grid-cols-2 gap-y-2 sm:gap-x-8 md:gap-x-12 pt-3">
             {details2.map((item, index) => (
-              <div key={index} className="flex flex-row gap-2 ">
-                <span className="lg:text-[14px] sm:text-[12px] md:text-[15px] text-[#808080] font-extralight">
+              <div key={index} className="flex flex-row gap-2 font-secondary ">
+                <span className="lg:text-[14px] text-[12px] md:text-[15px] text-[#808080] font-extralight">
                   {item.label}:
                 </span>
-                <span className="lg:text-[14px] sm:text-[12px] md:text-[15px]  text-[#404040] font-secondary">
+                <span className="lg:text-[14px] text-[12px] md:text-[15px]  text-[#404040] ">
                   {item.value}
                 </span>
               </div>
