@@ -105,10 +105,10 @@ export const USER_COLUMN = [
 ];
 
 export const DEPARTMENT_COLUMN = [
-  { key: "department", label: "Department Name" },
-  { key: "name", label: "Contact Person" },
-  { key: "email", label: "Email" },
-  { key: "phone", label: "Phone" },
+  { key: "name", label: "Department Name" },
+  { key: "contactPerson", label: "Contact Person" },
+  { key: "contactEmail", label: "Email" },
+  { key: "contactPhone", label: "Phone" },
 ];
 
 export const DESIGNATION_COLUMN = [

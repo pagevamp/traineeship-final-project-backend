@@ -51,14 +51,15 @@ const Index = () => {
         contactEmail,
         countryCode,
         contactPhone,
+        designation,
       } = requestObject;
 
       const reqBody = {
         name: name?.trim(),
         contactPerson: contactPerson,
-        contactEmail,
+        contactEmail: contactEmail,
         countryCode: `+${countryCode}`,
-        contactPhone,
+        contactPhone: contactPhone,
       };
 
       await createDepartment(reqBody);

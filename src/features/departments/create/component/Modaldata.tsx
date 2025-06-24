@@ -27,7 +27,7 @@ const ModalData = (props: DepartmentInformationProps) => {
         Create Department
       </span>
 
-      <div className="flex gap-[26px] mt-[28px]">
+      <div className="grid  grid-cols-1 lg:grid-cols-2  gap-[26px] mt-[28px]">
         <div className="flex flex-col flex-1">
           <Input
             type="text"
@@ -54,7 +54,7 @@ const ModalData = (props: DepartmentInformationProps) => {
         </div>
       </div>
 
-      <div className="flex gap-[26px] mt-[20px]">
+      <div className="grid  grid-cols-1 lg:grid-cols-2 gap-[26px] mt-[20px] ">
         <div className="flex flex-col flex-1">
           <Input
             type="email"
@@ -62,7 +62,7 @@ const ModalData = (props: DepartmentInformationProps) => {
             register={register}
             labelName="Email"
             placeholder="Enter Email"
-            className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+            className="w-full h-[40px] px-3 col-span-1 rounded border border-[#ccc] text-[14px] bg-white"
             required
             error={errors?.contactEmail?.message}
           />
@@ -72,7 +72,7 @@ const ModalData = (props: DepartmentInformationProps) => {
           error={errors?.contactPhone?.message}
           name="contactPhone"
           {...phoneNumberProps}
-          className="w-full h-[40px] px-3 rounded border border-[#ccc] text-[14px] bg-white"
+          className="w-full h-[40px]  px-3 col-span-1  rounded border border-[#ccc] text-[14px] bg-white"
         />
       </div>
     </div>

@@ -15,6 +15,7 @@ const PhoneInputField = (props: any) => {
     register,
     trigger,
     error,
+    className,
   } = props;
   return (
     <div>
@@ -26,7 +27,8 @@ const PhoneInputField = (props: any) => {
         className={cn(
           "flex items-center gap-2 border h-12 mt-[1.2px] rounded-md border-muted-light font-[300] px-1 py-2 text-sm placeholder:text-xs",
 
-          error && "border-destructive shadow-error font-secondary font-[300]"
+          error && "border-destructive shadow-error font-secondary font-[300]",
+          className
         )}
       >
         <PhoneInput

@@ -39,3 +39,11 @@ export const getAllDepartments = (params: departmentListParams = {}) => {
 export const getDepartmentDetailById = (id: string) => {
   return api.get(`/departments/${id}`);
 };
+
+export const createDesignation = (id: string, body: any) => {
+  return api.post(`/departments/${id}`, body);
+};
+
+export const getDesignations = (id: string) => {
+  return api.get(`/departments/${id}`);
+};
