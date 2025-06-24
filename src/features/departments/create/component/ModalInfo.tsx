@@ -5,9 +5,33 @@ import ModalData from "./Modaldata";
 import { motion } from "framer-motion";
 import { useModal } from "@/hooks/useModal";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useForm } from "react-hook-form";
+import { CreateDepartmentPayload } from "../../types";
 
 const DepartmentForm = () => {
   const { closeModal } = useModal();
+  const {
+    register,
+    watch,
+    setValue,
+    trigger,
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues,
+  } = useForm<CreateDepartmentPayload>({
+    defaultValues: {
+      name: "",
+      contactPerson: "",
+      contactEmail: "",
+      countryCode: "+977",
+      contactPhone: "",
+    },
+  });
+
+  const onSubmit = (data: CreateDepartmentPayload) => {
+    console.log("Form submitted:", data);
+  };
 
   return (
     <div className="relative w-full">
@@ -22,7 +46,18 @@ const DepartmentForm = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <ModalData />
+        <ModalData
+          register={register}
+          watch={watch}
+          setValue={setValue}
+          trigger={trigger}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          control={control}
+          defaultValues={getValues()}
+          isDepartmentLoading={false}
+        />
       </motion.div>
     </div>
   );

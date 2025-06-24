@@ -1,0 +1,43 @@
+import {
+  Control,
+  FieldErrors,
+  SubmitHandler,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormTrigger,
+  UseFormWatch,
+} from "react-hook-form";
+
+export interface departmentListParams {
+  id?: string;
+  search?: string;
+  limit?: number;
+  offset?: number;
+  sortBy?: string;
+  order?: "ASC" | "DESC";
+}
+
+export interface CreateDepartmentPayload {
+  name: string;
+  contactPerson: string;
+  contactEmail: string;
+  countryCode: string;
+  contactPhone: string;
+}
+
+export interface DepartmentInformationProps {
+  register: UseFormRegister<CreateDepartmentPayload>;
+  watch?: UseFormWatch<CreateDepartmentPayload>;
+  setValue: UseFormSetValue<CreateDepartmentPayload>;
+  trigger: UseFormTrigger<CreateDepartmentPayload>;
+  errors: FieldErrors<CreateDepartmentPayload>;
+  handleSubmit: (
+    onSubmit: SubmitHandler<CreateDepartmentPayload>
+  ) => (e?: React.BaseSyntheticEvent) => Promise<void>;
+  onSubmit: SubmitHandler<CreateDepartmentPayload>;
+  // isPending: boolean;
+  control: Control<CreateDepartmentPayload>;
+  isDepartmentLoading?: boolean;
+  defaultValues?: CreateDepartmentPayload;
+  isPending?: boolean;
+}

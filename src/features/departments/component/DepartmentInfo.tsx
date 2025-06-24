@@ -1,13 +1,18 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { Icon } from "@iconify/react";
 import TableComponent from "@/components/table";
-import { DEPARTMENT_COLUMN, USER_COLUMN, department } from "../constant";
+import { DEPARTMENT_COLUMN } from "../constant";
 
-const DepartmentInfo = () => {
+type DepartmentInfoProps = {
+  departments: any[];
+  isLoading: boolean;
+};
+
+const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
   const router = useRouter();
+
   const actions = [
     {
       label: (
@@ -19,7 +24,9 @@ const DepartmentInfo = () => {
         />
       ),
       title: "View",
-      onClick: (row: any) => router.push(`/department/1`),
+      
+
+      onClick: (row: any) => router.push(`/departments/${row.id}`), // dynamic routing
     },
     {
       label: (
@@ -32,7 +39,7 @@ const DepartmentInfo = () => {
       ),
       title: "Edit",
       onClick: (row: any) => ({}),
-    },
+ },
     {
       label: (
         <Icon
@@ -44,25 +51,17 @@ const DepartmentInfo = () => {
       ),
       title: "Delete",
       onClick: (row: any) => ({}),
-    },
+ },
   ];
-  const [state, setState] = useState({
-    pagination: {
-      page: 1,
-      recordsPerPage: 10,
-    },
-    search: "",
-  });
+
   return (
     <div className="flex flex-col gap-[15px]">
-      <div
-      //  className="bg-[#ffffff] w-full rounded-[25px] overflow-x-auto"
-      >
+      <div>
         <TableComponent
-          currentPage={state.pagination.page}
+          currentPage={1}
           columns={DEPARTMENT_COLUMN}
-          data={department}
-          isLoading={false}
+          data={departments}
+          isLoading={isLoading}
           actions={actions}
         />
       </div>

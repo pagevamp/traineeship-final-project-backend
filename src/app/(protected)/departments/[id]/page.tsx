@@ -1,5 +1,5 @@
 import React from "react";
-import DepartmentId from "@/features/department/component/DepartmentId";
+import DepartmentId from "@/features/departments/component/DepartmentId";
 
 const page = () => {
   return (

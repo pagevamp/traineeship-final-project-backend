@@ -1,17 +1,15 @@
 import { api } from "@/lib/axios";
-import { userListParams } from "../types";
+import { departmentListParams } from "../types";
 
-export const getAllModules = () => {
-  return api.get("/modules");
+export const createDepartment = (body: any) => {
+  return api.post("/departments", body);
 };
-export const getAllDepartments = () => {
+
+export const getDepartments = () => {
   return api.get("/departments");
 };
-export const createInternalUser = (body: any) => {
-  return api.post("/users/create", body);
-};
 
-export const getAllInternalUsers = (params: userListParams = {}) => {
+export const getAllDepartments = (params: departmentListParams = {}) => {
   const queryParams = new URLSearchParams();
 
   if (params.search?.trim()) {
@@ -33,13 +31,11 @@ export const getAllInternalUsers = (params: userListParams = {}) => {
   }
 
   const queryString = queryParams.toString();
-  const url = `/users${queryString ? `?${queryString}` : ""}`;
+  const url = `/departments${queryString ? `?${queryString}` : ""}`;
 
   return api.get(url);
 };
-export const getUserDetailById = (id: string) => {
-  return api.get(`/users/${id}`);
-};
-export const updateInternalUser = (id: string, body: any) => {
-  return api.put(`/users/${id}`, body);
+
+export const getDepartmentDetailById = (id: string) => {
+  return api.get(`/departments/${id}`);
 };

@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useState } from "react";
 import SearchBar from "@/components/ui/searchbar";
 import Image from "next/image";
 import DepartmentInfo from "./DepartmentInfo";
 import { PlusCircleIcon } from "lucide-react";
 import { useModalContext } from "@/providers/modal-context";
-import DepartmentForm from "./ModalInfo";
 import { motion } from "framer-motion";
 import Pagination from "@/components/pagination";
-import { useState } from "react";
+import { useGetAllDepartments } from "../hooks";
+import Index from "../create";
 
 const DepartmentComponent = () => {
   const { openModal } = useModalContext();
@@ -19,14 +19,31 @@ const DepartmentComponent = () => {
       recordsPerPage: 10,
     },
     search: "",
+    filter: {
+      sortParams: {
+        sortParam: "createdAt",
+        sortOrder: "DESC",
+      },
+    },
   });
 
   const handleCreateClick = () => {
     openModal({
-      component: DepartmentForm,
+      component: Index,
       className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
     });
   };
+
+  const { data, isLoading, isError } = useGetAllDepartments({
+    pagination: state.pagination,
+    search: state.search,
+    filters: state.filter,
+  });
+
+  const DepartmentData: any[] = useMemo(
+    () => (isError ? [] : data?.data?.data?.items || []),
+    [data, isError]
+  );
 
   return (
     <>
@@ -62,13 +79,17 @@ const DepartmentComponent = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 60, damping: 12 }}
       >
-        <DepartmentInfo />
+        <DepartmentInfo departments={DepartmentData} isLoading={isLoading} />
       </motion.div>
 
       <div className="mt-4">
         <Pagination
           currentPage={state.pagination.page}
-          totalPages={4}
+          totalPages={
+            Math.ceil(
+              data?.data?.data?.total / state.pagination.recordsPerPage
+            ) || 1
+          }
           onPageChange={(page: number) => {
             setState((prevState) => ({
               ...prevState,
