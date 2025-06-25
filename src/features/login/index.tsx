@@ -29,7 +29,7 @@ const Index = () => {
     onSuccess: (data) => {
       storageUtil.set(ACCESS_TOKEN, data?.data?.data?.accessToken);
       storageUtil.set(REFRESH_TOKEN, data?.data?.data?.refreshToken);
-      router.push("/customer");
+      window.location.href = "/";
     },
   });
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import { DashboardLayout } from "@/features/dashboard/dashboard-layout";
 
 type Props = {
@@ -8,7 +8,11 @@ type Props = {
 };
 
 const ProtectedLayout = ({ children }: Props) => {
-  return <DashboardLayout>{children}</DashboardLayout>;
+  return (
+    <Suspense fallback={<></>}>
+      <DashboardLayout>{children}</DashboardLayout>
+    </Suspense>
+  );
 };
 
 export default ProtectedLayout;

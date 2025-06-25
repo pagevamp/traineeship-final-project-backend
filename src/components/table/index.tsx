@@ -146,9 +146,11 @@ const TableComponent: React.FC<Props> = ({
                                 >
                                   {action.label}
                                 </button>
-                                <p className="font-secondary font-[400] text-sm">
-                                  {action?.title}
-                                </p>
+                                {action?.title && (
+                                  <p className="font-secondary font-[400] text-sm">
+                                    {action?.title}
+                                  </p>
+                                )}
                               </div>
                             ))}
                           </div>

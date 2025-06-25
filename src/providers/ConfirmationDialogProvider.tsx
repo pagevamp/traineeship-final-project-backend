@@ -60,8 +60,12 @@ export const ConfirmationDialogProvider = ({
         <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <h2 className="font-bold">{dialogOptions.title}</h2>
-              <p>{dialogOptions.description}</p>
+              <h2 className="font-medium font-secondary">
+                {dialogOptions.title}
+              </h2>
+              <p className="font-secondary font-[300] text-sm">
+                {dialogOptions.description}
+              </p>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogAction
@@ -69,14 +73,18 @@ export const ConfirmationDialogProvider = ({
                 className={
                   dialogOptions.confirmClassName
                     ? dialogOptions.confirmClassName
-                    : ""
+                    : "font-secondary font-[300]"
                 }
                 data-cy="confirm"
                 disabled={dialogOptions.isDisabled || false}
               >
                 {dialogOptions.confirmText || "Confirm"}
               </AlertDialogAction>
-              <AlertDialogCancel onClick={handleCancel} data-cy="cancel">
+              <AlertDialogCancel
+                className="font-secondary font-[300]"
+                onClick={handleCancel}
+                data-cy="cancel"
+              >
                 {dialogOptions.cancelText || "Cancel"}
               </AlertDialogCancel>
             </AlertDialogFooter>

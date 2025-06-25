@@ -88,13 +88,13 @@ export function UserNav({ profileData }: any) {
           <DropdownMenuSeparator className="h-px my-2 bg-muted-light" />
 
           <DropdownMenuItem
-            className="group px-3 py-2 rounded-md transition-colors hover:bg-[#FF743C]/10"
+            className="group px-3 py-2 rounded-md transition-colors cursor-pointer hover:bg-[#FF743C]/10"
             onClick={() => {
               queryClient.clear(); // Clear all cached data
               queryClient.resetQueries(); // Reset query state and remove active queries
               Cookies.remove(ACCESS_TOKEN);
               Cookies.remove(REFRESH_TOKEN);
-              router.push("/login");
+              router.replace("/login");
               router.refresh();
             }}
           >

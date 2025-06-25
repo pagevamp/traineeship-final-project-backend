@@ -13,7 +13,7 @@ const UnauthorizedPage = () => {
   };
 
   const handleGoHome = () => {
-    router.push("/dashboard");
+    router.push("/users");
   };
 
   return (
@@ -77,18 +77,20 @@ const UnauthorizedPage = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
             </Button>
-            <Button
+            {/* <Button
               onClick={handleGoHome}
               className="flex-1 h-12 font-secondary bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
             >
               <Home className="w-4 h-4 mr-2" />
               Home
-            </Button>
+            </Button> */}
           </div>
 
           {/* Footer */}
           <div className="pt-4 border-t border-gray-100">
-            <p className="text-xs text-gray-400 font-secondary tracking-wide">Arctern Express</p>
+            <p className="text-xs text-gray-400 font-secondary tracking-wide">
+              Arctern Express
+            </p>
           </div>
         </CardContent>
       </Card>

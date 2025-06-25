@@ -15,13 +15,25 @@ const InternalUserTable = (props: any) => {
       label: (
         <Icon
           icon="heroicons:eye-16-solid"
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           color="#FF811A"
         />
       ),
       title: "View",
       onClick: (row: any) => router.push(`/users/${row.id}`),
+    },
+    {
+      label: (
+        <Icon
+          icon="material-symbols:edit-outline-rounded"
+          width="20"
+          height="20"
+          color="#FF811A"
+        />
+      ),
+      title: "Edit",
+      onClick: (row: any) => router.push(`/users/create?id=${row?.id}`),
     },
   ];
 

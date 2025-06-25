@@ -1,39 +1,82 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-
-interface Permission {
-  view: boolean;
-  create: boolean;
-  update: boolean;
-  delete: boolean;
-}
-
-interface Module {
-  moduleId?: string;
-  isGroup: boolean;
-  key: string;
-  name: string;
-  permission?: Permission;
-  children?: Module[];
-}
+import { Permission, Module } from "@/features/users/types";
 
 interface ModuleItemProps {
   module: Module;
-  onPermissionChange: (
+  onSinglePermissionChange: (
     moduleKey: string,
     permissionType: keyof Permission,
     value: boolean
   ) => void;
+  onBulkPermissionChange: (
+    moduleKey: string,
+    permissions: Partial<Permission>,
+    key?: string
+  ) => void;
   isChild?: boolean;
 }
 
+const PERMISSIONS: (keyof Permission)[] = [
+  "view",
+  "update",
+  "create",
+  "delete",
+];
+
+const PERMISSION_STYLES: Record<keyof Permission, string> = {
+  view: "bg-orange-50 border-orange-200 text-orange-800",
+  update: "bg-blue-50 border-blue-200 text-blue-800",
+  create: "bg-green-50 border-green-200 text-green-800",
+  delete: "bg-purple-50 border-purple-200 text-purple-800",
+};
+
 const ModuleItem: React.FC<ModuleItemProps> = ({
   module,
-  onPermissionChange,
+  onSinglePermissionChange,
+  onBulkPermissionChange,
   isChild = false,
 }) => {
   if (!module.permission) return null;
+
+  const { key, name, permission } = module;
+
+  const handleBulkToggle = () => {
+    const shouldEnableAll = PERMISSIONS.some((p) => !permission[p]);
+
+    const newPermissions: Partial<Permission> = {
+      view: shouldEnableAll,
+      update: shouldEnableAll,
+      create: shouldEnableAll,
+      delete: shouldEnableAll,
+    };
+
+    onBulkPermissionChange(key, newPermissions);
+  };
+
+  const isViewDisabled = permission.create || permission.delete;
+
+  const renderSwitch = (perm: keyof Permission, isMobile: boolean = false) => (
+    <div
+      key={perm}
+      className={
+        isMobile
+          ? `flex items-center justify-between p-2 rounded-lg border ${PERMISSION_STYLES[perm]}`
+          : "flex justify-center"
+      }
+    >
+      {isMobile && (
+        <span className="text-sm font-medium capitalize">{perm}</span>
+      )}
+      <Switch
+        checked={permission[perm]}
+        disabled={perm === "view" && isViewDisabled}
+        onCheckedChange={(value) => onSinglePermissionChange(key, perm, value)}
+        className="scale-75"
+      />
+    </div>
+  );
 
   return (
     <Card
@@ -47,127 +90,23 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
           <div className="flex items-center space-x-3">
             <h4
               className="text-sm font-secondary text-gray-800 break-words cursor-pointer"
-              onClick={() => {
-                const perms = module.permission;
-                const shouldEnableAll =
-                  !perms?.view ||
-                  !perms?.update ||
-                  !perms?.create ||
-                  !perms?.delete;
-
-                ["view", "update", "create", "delete"].forEach((perm) => {
-                  onPermissionChange(
-                    module.key,
-                    perm as keyof Permission,
-                    shouldEnableAll
-                  );
-                });
-              }}
+              onClick={handleBulkToggle}
             >
-              {module.name}
+              {name}
             </h4>
           </div>
-
-          <div className="flex justify-center">
-            <Switch
-              checked={module.permission.view}
-              onCheckedChange={(value) =>
-                onPermissionChange(module.key, "view", value)
-              }
-              className="scale-75"
-            />
-          </div>
-
-          <div className="flex justify-center">
-            <Switch
-              checked={module.permission.update}
-              onCheckedChange={(value) =>
-                onPermissionChange(module.key, "update", value)
-              }
-              className="scale-75"
-            />
-          </div>
-
-          <div className="flex justify-center">
-            <Switch
-              checked={module.permission.create}
-              onCheckedChange={(value) =>
-                onPermissionChange(module.key, "create", value)
-              }
-              className="scale-75"
-            />
-          </div>
-
-          <div className="flex justify-center">
-            <Switch
-              checked={module.permission.delete}
-              onCheckedChange={(value) =>
-                onPermissionChange(module.key, "delete", value)
-              }
-              className="scale-75"
-            />
-          </div>
+          {PERMISSIONS.map((perm) => renderSwitch(perm))}
         </div>
 
         {/* Mobile Layout */}
         <div className="block md:hidden">
           <div className="flex items-center space-x-3 mb-4">
-            {/* <FileText
-              className={`h-5 w-5 flex-shrink-0 ${
-                isChild ? "text-green-600" : "text-blue-600"
-              }`}
-            /> */}
             <h4 className="text-base font-medium text-gray-800 break-words">
-              {module.name}
+              {name}
             </h4>
           </div>
-
           <div className="grid grid-cols-2 gap-3">
-            <div className="flex items-center justify-between p-2 bg-orange-50 rounded-lg border border-orange-200">
-              <span className="text-sm font-medium text-orange-800">View</span>
-              <Switch
-                checked={module.permission.view}
-                onCheckedChange={(value) =>
-                  onPermissionChange(module.key, "view", value)
-                }
-                className="scale-75"
-              />
-            </div>
-
-            <div className="flex items-center justify-between p-2 bg-blue-50 rounded-lg border border-blue-200">
-              <span className="text-sm font-medium text-blue-800">Edit</span>
-              <Switch
-                checked={module.permission.update}
-                onCheckedChange={(value) =>
-                  onPermissionChange(module.key, "update", value)
-                }
-                className="scale-75"
-              />
-            </div>
-
-            <div className="flex items-center justify-between p-2 bg-green-50 rounded-lg border border-green-200">
-              <span className="text-sm font-medium text-green-800">Create</span>
-              <Switch
-                checked={module.permission.create}
-                onCheckedChange={(value) =>
-                  onPermissionChange(module.key, "create", value)
-                }
-                className="scale-75"
-              />
-            </div>
-
-            <div className="flex items-center justify-between p-2 bg-purple-50 rounded-lg border border-purple-200">
-              <span className="text-sm font-medium text-purple-800">
-                Delete
-              </span>
-              <Switch
-                checked={module.permission.delete}
-                onCheckedChange={(value) =>
-                  onPermissionChange(module.key, "delete", value)
-                }
-                className="scale-75"
-              />
-            </div>
+            {PERMISSIONS.map((perm) => renderSwitch(perm, true))}
           </div>
         </div>
       </CardContent>

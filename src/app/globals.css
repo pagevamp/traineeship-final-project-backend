@@ -152,6 +152,18 @@ body {
 .toast-sonner-position {
   top: 4rem !important;
 }
+.custom-toast button[data-close-button] {
+  background-color: #22c55e !important;
+  color: white !important;
+  border: transparent !important;
+}
+.custom-toast {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #22c55e !important;
+  border: transparent !important;
+  font-family: var(--font-secondary) !important;
+  font-weight: 300 !important;
+}
 
 .gradient-border {
   position: relative;

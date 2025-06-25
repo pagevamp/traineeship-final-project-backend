@@ -22,8 +22,7 @@ export interface ModuleGroupProps {
   module: Module;
   onPermissionChange: (
     moduleKey: string,
-    permissionType: keyof Permission,
-    value: boolean,
+    permissions: any,
     parentKey?: string
   ) => void;
 }
@@ -32,33 +31,14 @@ export interface CreateUserPayload {
   firstName: string;
   lastName: string;
   employeeId: string;
-  email: string;
+  email?: string;
   countryCode: string;
   phoneNumber: string;
-  // departments: DepartmentAssignment[];
-  modules: ModulePermission[];
+  modules?: any;
   department?: any;
   designationId?: any;
-  password: string;
-  confirmPassword: string;
-}
-
-// export interface DepartmentAssignment {
-//   id: string | null;
-//   department: {
-//     id: string;
-//   };
-//   designation: {
-//     id: string;
-//   };
-// }
-
-export interface ModulePermission {
-  permissionId: string | null;
-  moduleId: string;
-  isGroup: boolean;
-  children: string[]; // array of child module IDs
-  permission: Permission;
+  password?: string;
+  confirmPassword?: string;
 }
 
 export interface Permission {
@@ -77,22 +57,26 @@ export interface PersonalInformationProps {
     onSubmit: SubmitHandler<CreateUserPayload>
   ) => (e?: React.BaseSyntheticEvent) => Promise<void>;
   onSubmit: SubmitHandler<CreateUserPayload>;
-  // isPending: boolean;
   control: Control<CreateUserPayload>;
   allDepartments?: any;
   isDepartmentLoading?: boolean;
   defaultValues?: CreateUserPayload;
   allDesignations?: any;
   modules: Module[];
-  setModules: React.Dispatch<React.SetStateAction<Module[]>>;
   isPending?: boolean;
+  isModuleLoading: boolean;
+  isEdit?: boolean;
+  handleUpdateModal?: any;
+  localModules?: any;
+  setLocalModules?: any;
 }
 
 export interface PermissionManagerProps {
-  allModuleLists: Module[];
   isLoading: boolean;
   modules: Module[];
-  setModules: React.Dispatch<React.SetStateAction<Module[]>>;
+  setValue: any;
+  localModules?: any;
+  setLocalModules?: any;
 }
 export interface userListParams {
   id?: string;

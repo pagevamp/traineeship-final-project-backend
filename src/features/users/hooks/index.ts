@@ -5,8 +5,10 @@ import {
   getAllInternalUsers,
   getAllModules,
   getUserDetailById,
+  updateInternalUser,
 } from "../api";
 import { Obj } from "@/types";
+import { CreateUserPayload } from "../types";
 
 const useGetModules = () => {
   return useQuery({
@@ -35,6 +37,18 @@ const useCreateInternalUser = (options: {
   });
 };
 
+const useUpdateInternalUser = (options: {
+  onError?: (error: any, variables: any, context: any) => void;
+  onSuccess?: (data: Obj) => void;
+}) => {
+  return useMutation({
+    mutationFn: ({ id, body }: { id: string; body: CreateUserPayload }) =>
+      updateInternalUser(id, body),
+    onError: options.onError,
+    onSuccess: options.onSuccess,
+  });
+};
+
 const useGetAllInternalUsers = (params: any) => {
   return useQuery({
     queryKey: ["allInternalUsers", params],
@@ -51,7 +65,7 @@ const useGetAllInternalUsers = (params: any) => {
   });
 };
 
-export const useGetUserDetail = (id: string) => {
+const useGetUserDetail = (id: string) => {
   return useQuery({
     queryKey: ["userDetail", id],
     queryFn: () => getUserDetailById(id),
@@ -64,4 +78,6 @@ export {
   useGetDepartments,
   useCreateInternalUser,
   useGetAllInternalUsers,
+  useUpdateInternalUser,
+  useGetUserDetail,
 };
