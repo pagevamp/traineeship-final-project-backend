@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
 import TableComponent from "@/components/table";
 import { DEPARTMENT_COLUMN } from "../constant";
 import { useDeleteDepartment } from "../hooks";
-import { deleteDepartment } from "../api";
+// import { deleteDepartment } from "../api";
 
 type DepartmentInfoProps = {
   departments: any[];
@@ -14,6 +14,7 @@ type DepartmentInfoProps = {
 
 const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
   const router = useRouter();
+  const { mutate: deleteDepartment } = useDeleteDepartment();
 
   const actions = [
     {
@@ -57,13 +58,17 @@ const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
       title: "Delete",
 
       onClick: (row: any) => {
-        if (confirm(`Are you sure you want to delete ${row.name}?`)) {
-          deleteDepartment(row.id);
-        }
+        deleteDepartment(row.id);
       },
     },
   ];
-
+  const [state, setState] = useState({
+    pagination: {
+      page: 1,
+      recordsPerPage: 10,
+    },
+    search: "",
+  });
   return (
     <div className="flex flex-col gap-[15px]">
       <div>
