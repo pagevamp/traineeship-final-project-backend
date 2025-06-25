@@ -5,7 +5,6 @@ import { Icon } from "@iconify/react";
 import TableComponent from "@/components/table";
 import { DEPARTMENT_COLUMN } from "../constant";
 import { useDeleteDepartment } from "../hooks";
-// import { deleteDepartment } from "../api";
 
 type DepartmentInfoProps = {
   departments: any[];

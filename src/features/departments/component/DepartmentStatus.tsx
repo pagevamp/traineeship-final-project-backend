@@ -2,12 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+
 import React, { useState } from "react";
 import {
   DepartmentTab,
   USER_COLUMN,
   DESIGNATION_COLUMN,
 } from "../constant";
+
 import TableComponent from "@/components/table";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
@@ -45,8 +47,8 @@ type Props = {
 };
 
 const DepartmentStatus: React.FC<Props> = ({
-  designations,
   users,
+  designations,
   usersTotalPages,
   designationsTotalPages,
   activeTab,
@@ -54,9 +56,12 @@ const DepartmentStatus: React.FC<Props> = ({
   isLoading,
   pagination,
   setPagination,
+  search,
+  setSearch,
+  sortParams,
+  setSortParams,
 }) => {
   const router = useRouter();
-
   const tabs: DepartmentTab[] = ["Users", "Designation"];
 
   const { mutate: deleteDesignation } = useDeleteDesignation();
@@ -86,7 +91,8 @@ const DepartmentStatus: React.FC<Props> = ({
           color="#4CAF50"
         />
       ),
-      title: "View",
+      title: "Edit",
+      onClick: () => {},
     },
     {
       label: (

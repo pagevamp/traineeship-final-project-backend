@@ -1,15 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createDepartment,
-  createDesignation,
+  
   deleteDepartment,
-  deleteDesignation,
+  
   getAllDepartments,
-  getAllDesignations,
+  
   getAllUsers,
 } from "../api";
 import { Obj } from "@/types";
 import { departmentListParams } from "../types";
+import { createDesignation, deleteDesignation, getAllDesignations } from "../component/designation/api";
 import { getDepartmentDetailById } from "../api";
 
 const useCreateDepartment = (options: {
@@ -45,6 +46,7 @@ const useGetAllDepartments = (params: any) => {
       }),
   });
 };
+
 
 const useDeleteDepartment = () => {
   const queryClient = useQueryClient();
