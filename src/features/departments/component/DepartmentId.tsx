@@ -49,7 +49,7 @@ const DepartmentId: React.FC = () => {
     filter: {
       sortParams: {
         sortParam: "createdAt",
-        sortOrder: "DESC" as "ASC" | "DESC",
+        sortOrder: "DESC" as "DESC" | "ASC",
       },
     },
   });
@@ -235,4 +235,3 @@ const DepartmentId: React.FC = () => {
 };
 
 export default DepartmentId;
-
