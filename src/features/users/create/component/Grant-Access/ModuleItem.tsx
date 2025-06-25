@@ -55,7 +55,8 @@ const ModuleItem: React.FC<ModuleItemProps> = ({
     onBulkPermissionChange(key, newPermissions);
   };
 
-  const isViewDisabled = permission.create || permission.delete;
+  const isViewDisabled =
+    permission.create || permission.update || permission.delete;
 
   const renderSwitch = (perm: keyof Permission, isMobile: boolean = false) => (
     <div

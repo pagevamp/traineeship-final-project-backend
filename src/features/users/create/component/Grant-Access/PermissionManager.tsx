@@ -20,12 +20,12 @@ const PermissionManager: React.FC<PermissionManagerProps> = ({
       const updatePerm = (perm: Permission): Permission => {
         const newPerm = { ...perm, ...changes };
 
-        if (newPerm.create || newPerm.delete) {
+        if (newPerm.create || newPerm.update || newPerm.delete) {
           newPerm.view = true;
         }
 
         // Optionally disable view if all others are false
-        if (!newPerm.create && !newPerm.delete) {
+        if (!newPerm.create && !newPerm.update && !newPerm.delete) {
           newPerm.view = newPerm.view && changes.view !== false; // Keep if explicitly true
         }
 
