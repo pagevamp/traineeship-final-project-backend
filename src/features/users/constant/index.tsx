@@ -6,6 +6,14 @@ type UserStatusItem = {
   status: StatusType;
 };
 
+export const internalUserFormField = [
+  "firstName",
+  "lastName",
+  "employeeId",
+  "email",
+  "phoneNumber",
+];
+
 export const user: UserStatusItem[] = [
   {
     id: 1,
@@ -36,7 +44,7 @@ export const tabs = ["Pending", "Rejected", "Approved"] as const;
 
 export const USER_COLUMN = [
   { key: "employeeId", label: "Employee Id" },
-  { key: "name", label: "Employee Name", type: "fullName" },
+  { key: "name", label: "Full Name", type: "fullName" },
   { key: "email", label: "Email" },
   { key: "phoneNumber", label: "Phone" },
   // { key: "status", label: "Status", type: "status" },
@@ -338,6 +346,27 @@ export const countryCodesWithLength: Record<string, number> = {
   "967": 8, // Yemen
   "260": 9, // Zambia
   "263": 9, // Zimbabwe
-
   // Add more country codes with their corresponding phone number length
 };
+
+// Function to access nested properties safely
+export const getNestedValue = (obj: any, path: any) => {
+  return path
+    .split(".")
+    .reduce(
+      (acc: any, key: any) => (acc && acc[key] !== undefined ? acc[key] : ""),
+      obj
+    );
+};
+
+export function validatePermissions(modules: any[]): boolean {
+  return modules.some((module) => {
+    if (module.isGroup && Array.isArray(module.children)) {
+      return module.children.some((child: any) =>
+        Object.values(child.permission || {}).some(Boolean)
+      );
+    }
+
+    return Object.values(module.permission || {}).some(Boolean);
+  });
+}

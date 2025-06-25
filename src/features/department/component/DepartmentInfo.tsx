@@ -13,33 +13,36 @@ const DepartmentInfo = () => {
       label: (
         <Icon
           icon="heroicons:eye-16-solid"
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           color="#FF811A"
         />
       ),
+      title: "View",
       onClick: (row: any) => router.push(`/department/1`),
     },
     {
       label: (
         <Icon
           icon="material-symbols:edit-outline-rounded"
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           color="#FF811A"
         />
       ),
+      title: "Edit",
       onClick: (row: any) => ({}),
     },
     {
       label: (
         <Icon
           icon="material-symbols:delete-outline-rounded"
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           color="#FF811A"
         />
       ),
+      title: "Delete",
       onClick: (row: any) => ({}),
     },
   ];

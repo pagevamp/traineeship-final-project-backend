@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { DashboardSidebar } from "./dashboard-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import {
@@ -20,12 +20,20 @@ import { moduleRoutes } from "@/routes";
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const queryId = searchParams.get("id");
 
   const { data: profileInformationData } = useProfileInformation();
   const modules = useMemo(
     () => profileInformationData?.data?.data?.modules,
     [profileInformationData?.data?.data?.modules]
   );
+
+  const isUUID = (segment: string): boolean => {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      segment
+    );
+  };
 
   // Get current page title from pathname
 
@@ -45,16 +53,27 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     const segments = pathname.split("/").filter(Boolean);
     return segments.map((segment, index) => {
       const href = "/" + segments.slice(0, index + 1).join("/");
-      const label = segment
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
+      let label = isUUID(segment)
+        ? "Detail"
+        : segment
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
       const clickable = isValidBreadcrumbPath(href);
       return { href, label, clickable };
     });
   };
 
   const breadcrumbs = getBreadcrumbs(pathname);
+  // Replace "Create" with "Update" if id exists in query
+  if (
+    breadcrumbs.length &&
+    breadcrumbs[breadcrumbs.length - 1].label.toLowerCase() === "create" &&
+    queryId
+  ) {
+    breadcrumbs[breadcrumbs.length - 1].label = "Update";
+  }
+
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full">

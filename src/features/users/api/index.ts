@@ -39,3 +39,6 @@ export const getAllInternalUsers = (params: userListParams = {}) => {
 export const getUserDetailById = (id: string) => {
   return api.get(`/users/${id}`);
 };
+export const updateInternalUser = (id: string, body: any) => {
+  return api.put(`/users/${id}`, body);
+};

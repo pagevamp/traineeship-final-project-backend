@@ -18,6 +18,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
     allDesignations,
     errors,
     defaultValues,
+    isEdit,
   } = props;
 
   const [phoneLimit, setPhoneLimit] = useState(10);
@@ -84,6 +85,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
               placeholder="Enter Email"
               labelName="Email"
               required
+              disabled={isEdit}
               error={errors?.email?.message}
             />
           </div>
@@ -113,6 +115,7 @@ const PersonalInformation = (props: PersonalInformationProps) => {
                       onChange={(value) => {
                         setValue("department", value);
                         trigger("department");
+                        setValue("designationId", "");
                       }}
                       placeholder="Select Department"
                       emptyText="No data found."
@@ -175,28 +178,32 @@ const PersonalInformation = (props: PersonalInformationProps) => {
               }}
             />
           </div>
-          <div>
-            <Input
-              type="password"
-              name="password"
-              placeholder="Enter Password"
-              required
-              labelName="Password"
-              register={register}
-              error={errors?.password?.message}
-            />
-          </div>
-          <div>
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Re-enter Password"
-              required
-              labelName="Confirm Password"
-              register={register}
-              error={errors?.confirmPassword?.message}
-            />
-          </div>
+          {!isEdit && (
+            <>
+              <div>
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  required
+                  labelName="Password"
+                  register={register}
+                  error={errors?.password?.message}
+                />
+              </div>
+              <div>
+                <Input
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Re-enter Password"
+                  required
+                  labelName="Confirm Password"
+                  register={register}
+                  error={errors?.confirmPassword?.message}
+                />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

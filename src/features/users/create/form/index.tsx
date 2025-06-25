@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo } from "react";
 import PermissionManager from "../component/Grant-Access/PermissionManager";
-import { useGetDepartments, useGetModules } from "../../hooks";
+import { useGetDepartments } from "../../hooks";
 import PersonalInformation from "../component/PersonalInformation/PersonalInformation";
 import { PersonalInformationProps } from "../../types";
 import { Button } from "@/components/ui/button";
@@ -13,18 +13,17 @@ const Index = (props: PersonalInformationProps) => {
     handleSubmit,
     onSubmit,
     modules,
-    setModules,
     isPending,
+    isEdit,
+    handleUpdateModal,
+    setValue,
+    localModules,
+    setLocalModules,
+    isModuleLoading,
   } = props;
 
-  const { data: getModules, isLoading } = useGetModules();
   const { data: getDepartments, isLoading: isDepartmentLoading } =
     useGetDepartments();
-
-  const allModuleList = useMemo(
-    () => getModules?.data?.data?.items,
-    [getModules?.data?.data?.items]
-  );
 
   const departmentDesignations = useMemo(() => {
     if (!getDepartments?.data?.data?.items) return [];
@@ -43,25 +42,29 @@ const Index = (props: PersonalInformationProps) => {
     allDepartments: getDepartments?.data?.data?.items,
     isDepartmentLoading,
     allDesignations: departmentDesignations,
+    isEdit,
   };
 
   return (
     <div>
       <PersonalInformation {...personalInformationProps} />
       <PermissionManager
-        allModuleLists={allModuleList}
         modules={modules}
-        setModules={setModules}
-        isLoading={isLoading}
+        isLoading={isModuleLoading}
+        setValue={setValue}
+        localModules={localModules}
+        setLocalModules={setLocalModules}
       />
       <div className="flex justify-center mt-[28px]">
         <Button
           variant="customGradient"
           className="w-[191px] h-[40px] rounded-[10px] text-white text-[14px] font-medium"
-          onClick={handleSubmit(onSubmit)}
+          onClick={
+            isEdit ? handleSubmit(handleUpdateModal) : handleSubmit(onSubmit)
+          }
           disabled={isPending}
         >
-          Create
+          {isEdit ? "Update" : "Create"}
           {isPending && (
             <div className="flex items-center justify-center">
               <Icon icon="codex:loader" className="text-[30px] animate-spin" />

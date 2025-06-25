@@ -1,109 +1,142 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { moduleRoutes, PUBLIC_PATH } from "./routes";
-
-const userModuleCache = new Map<string, string[]>();
+import { MODULE_LINK, moduleRoutes, PUBLIC_PATH } from "./routes";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("accessToken")?.value;
+  // Early returns for special cases
+  if (PUBLIC_PATH.includes(pathname)) {
+    return handlePublicPath(request, pathname, token);
+  }
 
-  const publicPaths = PUBLIC_PATH;
-  // Allow public paths without token
-  if (publicPaths.includes(pathname)) {
-    if (!token) return NextResponse.next();
-    // If token exists and user tries to access login/register, redirect to dashboard
-    if (pathname === "/login" || pathname === "/register") {
-      return NextResponse.redirect(new URL("/customer", request.url));
-    }
+  if (pathname === "/unauthorized") {
     return NextResponse.next();
   }
 
-  // If no token, redirect to login
+  // Authentication check
   if (!token) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Extract userId from token
   const userId = await getUserFromSession(token);
   if (!userId) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // Get user modules from cache or fetch
-  let userModules: string[] = [];
-  if (userModuleCache.has(userId)) {
-    userModules = userModuleCache.get(userId)!;
-  } else {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/profile`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!res.ok) throw new Error("Failed to fetch modules");
-
-      const data = await res.json();
-      userModules =
-        data.data.modules?.flatMap((mod: any) => {
-          if (mod.isGroup && Array.isArray(mod.children)) {
-            return mod.children.map((child: any) => child.key);
-          } else {
-            return mod.key;
-          }
-        }) || [];
-
-      userModuleCache.set(userId, userModules);
-    } catch (err) {
-      console.error("Error fetching modules:", err);
-      return NextResponse.redirect(new URL("/unauthorized", request.url));
-    }
-  }
-
-  // Determine if current route matches any module route
-  const requiredModuleEntry = Object.entries(moduleRoutes).find(
-    ([moduleName, paths]) =>
-      paths.some((path) => {
-        if (path.endsWith("/*")) {
-          const basePath = path.replace("/*", "");
-          return pathname.startsWith(basePath);
-        }
-        return pathname === path;
-      })
-  );
-
-  if (requiredModuleEntry) {
-    const [requiredModule] = requiredModuleEntry;
-
-    // If user does NOT have the required module, redirect unauthorized
-    if (!userModules.includes(requiredModule)) {
-      return NextResponse.redirect(new URL("/unauthorized", request.url));
-    }
-  } else {
-    // If route is NOT in publicPaths and NOT matched by moduleRoutes keys, block access
-    // You can choose either to redirect to unauthorized or login here
+  // Get user modules
+  const userModules = await getUserModules(userId, token);
+  if (!userModules) {
     return NextResponse.redirect(new URL("/unauthorized", request.url));
   }
 
-  // All checks passed — allow access
+  // Handle root path redirect
+  if (pathname === "/") {
+    return redirectToFirstModule(request, userModules);
+  }
+
+  // Authorization check
+  if (!isPathAuthorized(pathname, userModules)) {
+    return NextResponse.redirect(new URL("/unauthorized", request.url));
+  }
+
   return NextResponse.next();
 }
 
-// export const config = {
-//   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-// };
-export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
-};
+// Helper functions
+async function handlePublicPath(
+  request: NextRequest,
+  pathname: string,
+  token?: string
+) {
+  // Redirect authenticated users away from login/register
+  if (token && (pathname === "/login" || pathname === "/register")) {
+    const userId = await getUserFromSession(token);
+    if (userId) {
+      const userModules = await getUserModules(userId, token);
+      if (userModules) {
+        return redirectToFirstModule(request, userModules);
+      }
+    }
+  }
+  return NextResponse.next();
+}
 
-async function getUserFromSession(token: string) {
+async function getUserModules(
+  userId: string,
+  token: string
+): Promise<string[] | null> {
+  // Fetch from API
   try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    return payload?.id || null;
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/users/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`API responded with status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    const modules = extractModules(data.data.modules || []);
+
+    return modules;
+  } catch (err) {
+    console.error("Error fetching user modules:", err);
+    return null;
+  }
+}
+
+function extractModules(modules: any[]): string[] {
+  return modules.flatMap((mod: any) => {
+    if (mod.isGroup && Array.isArray(mod.children)) {
+      return mod.children.map((child: any) => child.key);
+    }
+    return mod.key;
+  });
+}
+
+function redirectToFirstModule(request: NextRequest, userModules: string[]) {
+  const firstAvailableModule = userModules.find((moduleKey) =>
+    MODULE_LINK.hasOwnProperty(moduleKey)
+  );
+
+  if (firstAvailableModule) {
+    const redirectPath = MODULE_LINK[firstAvailableModule].href;
+    return NextResponse.redirect(new URL(redirectPath, request.url));
+  }
+  return NextResponse.redirect(new URL("/unauthorized", request.url));
+}
+
+function isPathAuthorized(pathname: string, userModules: string[]): boolean {
+  return userModules.some((moduleKey) => {
+    const paths = moduleRoutes[moduleKey];
+    if (!paths) return false;
+
+    return paths.some((path) => {
+      if (path.endsWith("/*")) {
+        const basePath = path.slice(0, -2); // Remove "/*"
+        return pathname.startsWith(basePath);
+      }
+      return pathname === path;
+    });
+  });
+}
+
+async function getUserFromSession(token: string): Promise<string | null> {
+  try {
+    const [, payload] = token.split(".");
+    const decoded = JSON.parse(atob(payload));
+    return decoded?.id || null;
   } catch {
     return null;
   }
 }
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)"],
+};
