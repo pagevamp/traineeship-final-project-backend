@@ -30,7 +30,7 @@ const useCreateDepartment = (options: {
 export const useGetDepartmentById = (id: string) => {
   return useQuery({
     queryKey: ["departmentDetail", id],
-    queryFn: () => getDepartmentDetailById(id),
+    queryFn: () => getDepartmentDetailById(id!),
     enabled: !!id,
   });
 };
@@ -64,46 +64,18 @@ const useDeleteDepartment = () => {
   });
 };
 
-const useUpdateDepartment  = (options: {
+const useUpdateDepartment = (options: {
   onError?: (error: any, variables: any, context: any) => void;
   onSuccess?: (data: Obj) => void;
 }) => {
   return useMutation({
-    mutationFn: ({ id, body }: { id: string; body: CreateUserPayload }) =>
-      updateDepartmentDetailById(id, body),
+    mutationFn: ({ id, body }) => updateDepartmentDetailById(id, body),
     onError: options.onError,
     onSuccess: options.onSuccess,
   });
 };
 
 
-// FOR designation
-interface CreateDesignationBody {
-  name: string;
-  department: { id: string };
-}
-
-const useCreateDesignation = (options: {
-  onError?: (error: any, variables: any, context: any) => void;
-  onSuccess?: (data: any) => void;
-}) => {
-  return useMutation({
-    mutationFn: (body: CreateDesignationBody) => createDesignation(body),
-    onError: options.onError,
-    onSuccess: options.onSuccess,
-  });
-};
-
-const useGetAllDesignations = ({
-  id,
-  ...params
-}: departmentListParams & { id: string }) => {
-  return useQuery({
-    queryKey: ["designations", id, params],
-    queryFn: () => getAllDesignations(id, params),
-    enabled: !!id,
-  });
-};
 
 type UseGetAllUsersProps = {
   id: string;
@@ -117,28 +89,13 @@ const useGetAllUsers = ({ id, ...params }: UseGetAllUsersProps) => {
   });
 };
 
-const useDeleteDesignation = () => {
-  const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (id: string) => deleteDesignation(id),
-    onSuccess: (id) => {
-      queryClient.invalidateQueries({ queryKey: ["designations"] });
-      queryClient.invalidateQueries({ queryKey: ["departmentDetail", id] });
-    },
-    onError: (error) => {
-      console.error("Error deleting designation:", error);
-    },
-  });
-};
 
 export {
   useCreateDepartment,
   useGetAllDepartments,
   useDeleteDepartment,
-  useCreateDesignation,
-  useGetAllDesignations,
-  useDeleteDesignation,
+  
   useGetAllUsers,
   useUpdateDepartment,
 };

@@ -1,4 +1,4 @@
-import { department } from './../constant/index';
+import { department } from "./../constant/index";
 import {
   Control,
   FieldErrors,
@@ -36,18 +36,18 @@ export interface DepartmentInformationProps {
     onSubmit: SubmitHandler<CreateDepartmentPayload>
   ) => (e?: React.BaseSyntheticEvent) => Promise<void>;
   onSubmit: SubmitHandler<CreateDepartmentPayload>;
-  // isPending: boolean;
   control: Control<CreateDepartmentPayload>;
   isDepartmentLoading?: boolean;
   defaultValues?: CreateDepartmentPayload;
   isPending?: boolean;
   isEdit?: boolean;
   handleUpdateModal?: any;
+  id?: string;
 }
 
 export interface CreateDesignationPayload {
   name: string;
-  departmentId : string;
+  departmentId: string;
 }
 
 export interface DesignationInformationProps {
@@ -64,4 +64,6 @@ export interface DesignationInformationProps {
   isDesignationLoading?: boolean;
   defaultValues?: Partial<CreateDesignationPayload>;
   isPending?: boolean;
+  isEdit?: boolean;
+  handleUpdateModal?: any;
 }

@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { CreateDepartmentPayload, departmentListParams } from "../types";
+import { departmentListParams } from "../types";
 import { Department } from "@/features/users/types";
 
 export const createDepartment = (body: any) => {
@@ -58,11 +58,15 @@ export const getAllUsers = (
   if (!departmentId) {
     throw new Error("departmentId is required to fetch designations");
   }
+  console.log(departmentId, "para");
 
   const queryParams = new URLSearchParams();
 
   if (params.search?.trim()) {
     queryParams.append("search", params.search.trim());
+  }
+  if (departmentId?.trim()) {
+    queryParams.append("departmentId", departmentId.trim());
   }
   if (params.limit) {
     queryParams.append("limit", params.limit.toString());
@@ -81,6 +85,3 @@ export const getAllUsers = (
   }`;
   return api.get(url);
 };
-
-
-

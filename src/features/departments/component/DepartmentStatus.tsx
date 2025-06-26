@@ -3,19 +3,21 @@
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-import React, { useState } from "react";
-import {
-  DepartmentTab,
-  USER_COLUMN,
-  DESIGNATION_COLUMN,
-} from "../constant";
+import React from "react";
+import { DepartmentTab, USER_COLUMN, DESIGNATION_COLUMN } from "../constant";
 
 import TableComponent from "@/components/table";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import Pagination from "@/components/pagination";
-import { useDeleteDesignation } from "../hooks";
 import { UserDetail } from "@/features/users/types";
+import {
+  useDeleteDesignation,
+  useUpdateDesignation,
+} from "./designation/hooks";
+import { useModalContext } from "@/providers/modal-context";
+import Form from "./designation/create/form";
+import Index from "../component/designation/create";
 
 type PaginationType = {
   page: number;
@@ -44,6 +46,7 @@ type Props = {
   setSearch: (search: string) => void;
   sortParams: SortParams;
   setSortParams: (sortParams: SortParams) => void;
+  isEdit: boolean;
 };
 
 const DepartmentStatus: React.FC<Props> = ({
@@ -56,13 +59,21 @@ const DepartmentStatus: React.FC<Props> = ({
   isLoading,
   pagination,
   setPagination,
-  search,
-  setSearch,
-  sortParams,
-  setSortParams,
 }) => {
-  const router = useRouter();
   const tabs: DepartmentTab[] = ["Users", "Designation"];
+
+  const { openModal } = useModalContext();
+  const router = useRouter();
+  const { closeModal } = useModalContext();
+
+  const handleEditClick = (row: any) => {
+    closeModal();
+    openModal({
+      component: Index,
+      props: { id: row.id, isEdit: true },
+      className: "h-fit bg-white w-[60%] sm:max-w-[50%] rounded-[39px]",
+    });
+  };
 
   const { mutate: deleteDesignation } = useDeleteDesignation();
 
@@ -71,8 +82,8 @@ const DepartmentStatus: React.FC<Props> = ({
       label: (
         <Icon
           icon="heroicons:eye-16-solid"
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           color="#FF811A"
         />
       ),
@@ -86,28 +97,26 @@ const DepartmentStatus: React.FC<Props> = ({
       label: (
         <Icon
           icon="heroicons:pencil-solid"
-          width="22"
-          height="22"
-          color="#4CAF50"
+          width="20"
+          height="20"
+          color="#FF811A"
         />
       ),
       title: "Edit",
-      onClick: () => {},
+      onClick: handleEditClick,
     },
     {
       label: (
         <Icon
           icon="heroicons:trash-solid"
-          width="22"
-          height="22"
-          color="#F44336"
+          width="20"
+          height="20"
+          color="#FF811A"
         />
       ),
       title: "Delete",
       onClick: (row: any) => {
-        if (confirm(`Are you sure you want to delete "${row.name}"?`)) {
-          deleteDesignation(row.id);
-        }
+        deleteDesignation(row.id);
       },
     },
   ];

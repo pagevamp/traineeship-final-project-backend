@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { DepartmentTab } from "../constant";
 import Button from "@/components/Button/Button";
 import { useModalContext } from "@/providers/modal-context";
-import DesignationForm from "./designation";
+import DesignationForm from "./designation/create";
 import { cn } from "@/lib/utils";
 import {
   useGetAllDepartments,
@@ -204,6 +204,7 @@ const DepartmentId: React.FC = () => {
       >
         <DepartmentStatus
           departments={departmentsList}
+          isEdit
           users={usersList}
           designations={designations}
           usersTotalPages={usersTotalPages}

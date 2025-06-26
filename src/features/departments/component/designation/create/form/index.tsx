@@ -2,21 +2,21 @@ import React from "react";
 import { Icon } from "@iconify/react";
 import { Input } from "@/components/ui/input";
 import { DesignationInformationProps } from "@/features/departments/types";
+import { Button } from "@/components/ui/button";
 
-const Form: React.FC<DesignationInformationProps> = ({
+const Index: React.FC<DesignationInformationProps> = ({
   register,
-  setValue,
-  trigger,
   errors,
-  defaultValues,
   handleSubmit,
   onSubmit,
+  isEdit,
+  handleUpdateModal,
   isPending,
 }) => {
   return (
     <div className="relative p-6">
       <h2 className="font-primary text-[20px] text-[#111D35] mb-6">
-        Create Designation
+        {isEdit ? "Update Designation" : "Create Designation"}
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -43,31 +43,28 @@ const Form: React.FC<DesignationInformationProps> = ({
         </div>
 
         <div className="flex justify-center mt-7">
-          <button
-            type="submit"
-            className="w-[191px] h-[40px] rounded text-white font-medium text-[14px] flex items-center justify-center gap-2 disabled:opacity-70"
-            style={{
-              background: "linear-gradient(90deg, #E06518 0%, #E3802A 100%)",
-            }}
+          <Button
+            variant="customGradient"
+            className="w-[191px] h-[40px] rounded-[10px] text-white text-[14px] font-medium "
+            onClick={
+              isEdit ? handleSubmit(handleUpdateModal) : handleSubmit(onSubmit)
+            }
             disabled={isPending}
-            aria-busy={isPending}
           >
-            {isPending ? (
-              <>
+            {isEdit ? "Update" : "Create"}
+            {isPending && (
+              <div className="flex items-center justify-center">
                 <Icon
                   icon="codex:loader"
-                  className="text-[20px] animate-spin"
+                  className="text-[30px] animate-spin"
                 />
-                Creating...
-              </>
-            ) : (
-              "Create"
+              </div>
             )}
-          </button>
+          </Button>
         </div>
       </form>
     </div>
   );
 };
 
-export default Form;
+export default Index;

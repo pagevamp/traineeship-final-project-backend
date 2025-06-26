@@ -30,7 +30,7 @@ const DepartmentComponent = () => {
   const handleCreateClick = () => {
     openModal({
       component: Index,
-      className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
+      className: "h-fit bg-white lg:min-w-max max-w-[50%] rounded-[39px]",
     });
   };
 
@@ -79,7 +79,11 @@ const DepartmentComponent = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 60, damping: 12 }}
       >
-        <DepartmentInfo departments={DepartmentData} isLoading={isLoading} />
+        <DepartmentInfo
+          departments={DepartmentData}
+          isLoading={isLoading}
+          isEdit
+        />
       </motion.div>
 
       <div className="mt-4">

@@ -7,24 +7,29 @@ import { DEPARTMENT_COLUMN } from "../constant";
 import { useDeleteDepartment } from "../hooks";
 import { useModalContext } from "@/providers/modal-context";
 import Index from "../create";
-import EditForm from "../create/form/editForm";
-import DepartmentEditModal from "./DepartmentEditModal";
 
 type DepartmentInfoProps = {
   departments: any[];
   isLoading: boolean;
+  isEdit: boolean;
 };
 
-const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
+const DepartmentInfo = ({
+  departments,
+  isLoading,
+  isEdit,
+}: DepartmentInfoProps) => {
   const { openModal } = useModalContext();
   const router = useRouter();
   const { mutate: deleteDepartment } = useDeleteDepartment();
 
+  const { closeModal } = useModalContext();
   const handleEditClick = (row: any) => {
+    closeModal();
     openModal({
-      component: DepartmentEditModal,
-      props: { id: row.id },
-      className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
+      component: Index,
+      props: { id: row.id, isEdit: true },
+      className: "h-fit bg-white lg:w-[90%] max-w-[50%] rounded-[39px]",
     });
   };
 
@@ -40,7 +45,7 @@ const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
       ),
       title: "View",
 
-      onClick: (row: any) => router.push(`/departments/${row.id}`), // dynamic routing
+      onClick: (row: any) => router.push(`/departments/${row.id}`),
     },
     {
       label: (
@@ -81,6 +86,8 @@ const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
     },
     search: "",
   });
+
+  console.log("isEdit and id are");
   return (
     <div className="flex flex-col gap-[15px]">
       <div>

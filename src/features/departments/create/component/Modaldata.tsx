@@ -5,7 +5,7 @@ import { phoneNumberLimit } from "@/features/users/constant";
 import PhoneInputField from "@/components/PhoneInputField/PhoneInputField";
 
 const ModalData = (props: DepartmentInformationProps) => {
-  const { register, setValue, trigger, errors, defaultValues } = props;
+  const { register, setValue, trigger, errors, defaultValues, isEdit } = props;
 
   const [phoneLimit, setPhoneLimit] = useState(10);
 
@@ -24,7 +24,7 @@ const ModalData = (props: DepartmentInformationProps) => {
   return (
     <div className="relative p-12">
       <span className="font-primary text-[20px] text-[#111D35] block">
-        Create Department
+        {isEdit ? "Update Department" : "Create Department"}
       </span>
 
       <div className="grid  grid-cols-1 lg:grid-cols-2  gap-[26px] mt-[28px]">

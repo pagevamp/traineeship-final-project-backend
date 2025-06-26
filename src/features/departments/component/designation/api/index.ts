@@ -43,3 +43,7 @@ export const getAllDesignations = (
 export const deleteDesignation = (id: string) => {
   return api.delete(`/departments/designations/${id}`);
 };
+
+export const updateDesignation = (id: string, body: any) => {
+  return api.put(`/departments/designations/${id}`, body);
+};

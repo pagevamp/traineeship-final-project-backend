@@ -5,6 +5,11 @@ export const departmentFormField = [
   "contactPhone",
 ];
 
+export const designationFormField = [
+  "name",
+];
+
+
 export const info = [
   {
     id: 1,

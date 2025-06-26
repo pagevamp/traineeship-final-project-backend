@@ -8,6 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogCancel,
   AlertDialogAction,
+  AlertDialogTitle,
+  AlertDialogDescription,
 } from "@/components/ui/alert-dialog";
 
 type ConfirmationDialogOptions = {
@@ -60,12 +62,12 @@ export const ConfirmationDialogProvider = ({
         <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <h2 className="font-medium font-secondary">
+              <AlertDialogTitle className="font-medium font-secondary">
                 {dialogOptions.title}
-              </h2>
-              <p className="font-secondary font-[300] text-sm">
+              </AlertDialogTitle>
+              <AlertDialogDescription className="font-secondary font-[300] text-sm">
                 {dialogOptions.description}
-              </p>
+              </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogAction
