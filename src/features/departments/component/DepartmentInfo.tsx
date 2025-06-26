@@ -5,6 +5,10 @@ import { Icon } from "@iconify/react";
 import TableComponent from "@/components/table";
 import { DEPARTMENT_COLUMN } from "../constant";
 import { useDeleteDepartment } from "../hooks";
+import { useModalContext } from "@/providers/modal-context";
+import Index from "../create";
+import EditForm from "../create/form/editForm";
+import DepartmentEditModal from "./DepartmentEditModal";
 
 type DepartmentInfoProps = {
   departments: any[];
@@ -12,8 +16,17 @@ type DepartmentInfoProps = {
 };
 
 const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
+  const { openModal } = useModalContext();
   const router = useRouter();
   const { mutate: deleteDepartment } = useDeleteDepartment();
+
+  const handleEditClick = (row: any) => {
+    openModal({
+      component: DepartmentEditModal,
+      props: { id: row.id },
+      className: "h-fit bg-white max-w-[98%] sm:max-w-[50%] rounded-[39px]",
+    });
+  };
 
   const actions = [
     {
@@ -27,9 +40,7 @@ const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
       ),
       title: "View",
 
-
       onClick: (row: any) => router.push(`/departments/${row.id}`), // dynamic routing
-
     },
     {
       label: (
@@ -43,7 +54,7 @@ const DepartmentInfo = ({ departments, isLoading }: DepartmentInfoProps) => {
 
       title: "Edit",
 
-      onClick: (row: any) => {},
+      onClick: handleEditClick,
     },
 
     {

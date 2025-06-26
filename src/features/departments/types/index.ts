@@ -41,6 +41,8 @@ export interface DepartmentInformationProps {
   isDepartmentLoading?: boolean;
   defaultValues?: CreateDepartmentPayload;
   isPending?: boolean;
+  isEdit?: boolean;
+  handleUpdateModal?: any;
 }
 
 export interface CreateDesignationPayload {

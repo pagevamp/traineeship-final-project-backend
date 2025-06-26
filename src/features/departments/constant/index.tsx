@@ -1,3 +1,10 @@
+export const departmentFormField = [
+  "name",
+  "contactPerson",
+  "contactEmail",
+  "contactPhone",
+];
+
 export const info = [
   {
     id: 1,

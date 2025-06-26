@@ -1,5 +1,6 @@
 import { api } from "@/lib/axios";
-import { departmentListParams } from "../types";
+import { CreateDepartmentPayload, departmentListParams } from "../types";
+import { Department } from "@/features/users/types";
 
 export const createDepartment = (body: any) => {
   return api.post("/departments", body);
@@ -44,8 +45,8 @@ export const getDepartmentDetailById = (id: string) => {
   return api.get(`/departments/${id}`);
 };
 
-export const appendDepartmentDetailById = (id: string) => {
-  return api.get(`/departments/${id}`);
+export const updateDepartmentDetailById = (id: string, body: any) => {
+  return api.put(`/departments/${id}`, body);
 };
 
 // FOR USERS

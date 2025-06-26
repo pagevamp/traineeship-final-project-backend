@@ -1,17 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createDepartment,
-  
   deleteDepartment,
-  
   getAllDepartments,
-  
   getAllUsers,
+  updateDepartmentDetailById,
 } from "../api";
 import { Obj } from "@/types";
-import { departmentListParams } from "../types";
-import { createDesignation, deleteDesignation, getAllDesignations } from "../component/designation/api";
+import { CreateDepartmentPayload, departmentListParams } from "../types";
+import {
+  createDesignation,
+  deleteDesignation,
+  getAllDesignations,
+} from "../component/designation/api";
 import { getDepartmentDetailById } from "../api";
+import { Department } from "@/features/users/types";
 
 const useCreateDepartment = (options: {
   onError?: (error: any, variables: any, context: any) => void;
@@ -47,7 +50,6 @@ const useGetAllDepartments = (params: any) => {
   });
 };
 
-
 const useDeleteDepartment = () => {
   const queryClient = useQueryClient();
 
@@ -62,6 +64,20 @@ const useDeleteDepartment = () => {
   });
 };
 
+const useUpdateDepartment  = (options: {
+  onError?: (error: any, variables: any, context: any) => void;
+  onSuccess?: (data: Obj) => void;
+}) => {
+  return useMutation({
+    mutationFn: ({ id, body }: { id: string; body: CreateUserPayload }) =>
+      updateDepartmentDetailById(id, body),
+    onError: options.onError,
+    onSuccess: options.onSuccess,
+  });
+};
+
+
+// FOR designation
 interface CreateDesignationBody {
   name: string;
   department: { id: string };
@@ -106,8 +122,9 @@ const useDeleteDesignation = () => {
 
   return useMutation({
     mutationFn: async (id: string) => deleteDesignation(id),
-    onSuccess: () => {
+    onSuccess: (id) => {
       queryClient.invalidateQueries({ queryKey: ["designations"] });
+      queryClient.invalidateQueries({ queryKey: ["departmentDetail", id] });
     },
     onError: (error) => {
       console.error("Error deleting designation:", error);
@@ -123,4 +140,5 @@ export {
   useGetAllDesignations,
   useDeleteDesignation,
   useGetAllUsers,
+  useUpdateDepartment,
 };

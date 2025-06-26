@@ -8,39 +8,21 @@ import ModalData from "../component/Modaldata";
 import { useModal } from "@/hooks/useModal";
 import { motion } from "framer-motion";
 
-const Index = (props: DepartmentInformationProps) => {
-  const {
-    defaultValues,
-    handleSubmit,
-    onSubmit,
-    isPending,
-    isEdit,
-    handleUpdateModal,
-  } = props;
+const EditForm = (props: DepartmentInformationProps) => {
+  const { defaultValues, handleSubmit, onSubmit, isPending } = props;
 
   const { data: getDepartments, isLoading: isDepartmentLoading } =
     useGetAllDepartments({});
 
-  // const departmentDesignations = useMemo(() => {
-  //   if (!getDepartments?.data?.data?.items) return [];
-
-  //   return (
-  //     getDepartments?.data?.data?.items.find(
-  //       (dept: any) =>
-  //         dept.name.toLowerCase() ===
-  //         defaultValues?.departmentName?.toLowerCase()
-  //     )?.designations || []
-  //   );
-  // }, [getDepartments?.data, defaultValues?.departmentName]);
+  
 
   const departmentInformationProps = {
     ...props,
     allDepartments: getDepartments?.data?.data?.items,
     isDepartmentLoading,
-    // allDesignations: departmentDesignations,
+   
   };
 
-  
   const { closeModal } = useModal();
   return (
     <div className="relative w-full">
@@ -59,24 +41,25 @@ const Index = (props: DepartmentInformationProps) => {
 
         <div className="flex justify-center my-[15px]">
           <Button
-                    variant="customGradient"
-                    className="w-[191px] h-[40px] rounded-[10px] text-white text-[14px] font-medium"
-                    onClick={
-                      isEdit ? handleSubmit(handleUpdateModal) : handleSubmit(onSubmit)
-                    }
-                    disabled={isPending}
-                  >
-                    {isEdit ? "Update" : "Create"}
-                    {isPending && (
-                      <div className="flex items-center justify-center">
-                        <Icon icon="codex:loader" className="text-[30px] animate-spin" />
-                      </div>
-                    )}
-                  </Button>
+            variant="customGradient"
+            className="w-[191px] h-[40px] rounded-[10px] text-white text-[14px] font-medium"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isPending}
+          >
+            Update
+            {isPending && (
+              <div className="flex items-center justify-center">
+                <Icon
+                  icon="codex:loader"
+                  className="text-[30px] animate-spin"
+                />
+              </div>
+            )}
+          </Button>
         </div>
       </motion.div>
     </div>
   );
 };
 
-export default Index;
+export default EditForm;
