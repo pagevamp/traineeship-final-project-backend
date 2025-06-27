@@ -25,9 +25,10 @@ export const departmentCreationValidationSchema = yup.object({
   contactPhone: yup
     .string()
     .required("Contact Number is required")
+    .max(15, "Designation Name must be at most 100 characters")
 
     .test("is-valid-number", "Invalid contact number format", function (value) {
-      const countryCode: string = this.parent.countryCode; // Assuming countryCode is present in the form values
+      const countryCode: string = this.parent.countryCode; 
       const expectedLength: number | undefined =
         countryCodesWithLength[countryCode];
       if (

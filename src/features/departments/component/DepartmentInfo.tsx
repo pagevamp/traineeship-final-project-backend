@@ -7,6 +7,7 @@ import { DEPARTMENT_COLUMN } from "../constant";
 import { useDeleteDepartment } from "../hooks";
 import { useModalContext } from "@/providers/modal-context";
 import Index from "../create";
+import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
 
 type DepartmentInfoProps = {
   departments: any[];
@@ -20,9 +21,22 @@ const DepartmentInfo = ({
   isLoading,
   currentPage,
 }: DepartmentInfoProps) => {
+  const { showConfirmation } = useConfirmationDialog();
   const { openModal } = useModalContext();
   const router = useRouter();
-  const { mutate: deleteDepartment } = useDeleteDepartment();
+  const { mutate: deleteDepartment } = useDeleteDepartment({});
+
+  const handleDeleteClick = (row: any) => {
+    showConfirmation({
+      title: "Delete Department?",
+      description: "Are you sure you want to delete this department?",
+      confirmText: "Yes, Delete",
+      confirmClassName:
+        "font-secondary bg-gradient-to-r from-[#E06518] to-[#E3802A] hover:from-[#E06518] hover:to-[#E06518] transition-all duration-300",
+      cancelText: "Cancel",
+      onConfirm: () => deleteDepartment(row.id),
+    });
+  };
 
   const { closeModal } = useModalContext();
   const handleEditClick = (row: any) => {
@@ -58,7 +72,7 @@ const DepartmentInfo = ({
         />
       ),
       title: "Edit",
-      onClick: handleEditClick,
+      onClick: (row: any) => handleEditClick(row),
     },
 
     {
@@ -73,9 +87,7 @@ const DepartmentInfo = ({
 
       title: "Delete",
 
-      onClick: (row: any) => {
-        deleteDepartment(row.id);
-      },
+      onClick: (row: any) => handleDeleteClick(row),
     },
   ];
 

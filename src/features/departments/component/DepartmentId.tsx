@@ -17,6 +17,7 @@ import {
 } from "../hooks";
 import { useParams } from "next/navigation";
 import DepartmentSearchComponent from "@/components/SearchComponent/DepartmentSearch";
+import { TableLoader } from "@/features/users/loading/TableLoader";
 
 interface Pagination {
   page: number;
@@ -87,18 +88,34 @@ const DepartmentId: React.FC = () => {
   const limit = recordsPerPage;
   const offset = (page - 1) * recordsPerPage;
 
-  const { data: usersData } = useGetAllUsers({
-    id: selectedDepartment?.id,
-    limit,
-    offset,
-    search: state.userSearch,
-    sortBy: state.filter.sortParams.sortParam,
-    order: state.filter.sortParams.sortOrder,
-  });
+  const shouldFetchUsers = !!selectedDepartment?.id;
 
+  useEffect(() => {
+    console.log("Fetching users for department ID:", selectedDepartment?.id);
+  }, [selectedDepartment?.id]);
+
+  const {
+    data: usersData,
+    isError: usersError,
+    isLoading,
+  } = useGetAllUsers(
+    shouldFetchUsers
+      ? {
+          id: selectedDepartment.id,
+          limit,
+          offset,
+          search: state.userSearch,
+          sortBy: state.filter.sortParams.sortParam,
+          order: state.filter.sortParams.sortOrder,
+        }
+      : { id: "", limit, offset, search: "", sortBy: "", order: "ASC" },
+    {
+      enabled: shouldFetchUsers,
+    }
+  );
   const usersList: any[] = useMemo(
-    () => (isError ? [] : usersData?.data?.data?.items || []),
-    [usersData, isError]
+    () => (usersError ? [] : usersData?.data?.data?.items || []),
+    [usersData, usersError]
   );
 
   const {
@@ -196,41 +213,53 @@ const DepartmentId: React.FC = () => {
         )}
       </motion.div>
 
-      <motion.div
-        className="mt-4"
-        initial={{ x: 0, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 60, damping: 12 }}
-      >
-        <DepartmentStatus
-          departments={departmentsList}
-          isEdit
-          users={usersList}
-          designations={designations}
-          usersTotalPages={usersTotalPages}
-          designationsTotalPages={designationsTotalPages}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          isLoading={isDesignationsLoading}
-          isError={isDesignationsError}
-          refetch={refetch}
-          pagination={state.pagination}
-          setPagination={(pagination: Pagination) =>
-            setState((prev) => ({ ...prev, pagination }))
-          }
-          // search={state.search}
-          setSearch={(search: string) =>
-            setState((prev) => ({ ...prev, search }))
-          }
-          sortParams={state.filter.sortParams}
-          setSortParams={(sortParams: SortParams) =>
-            setState((prev) => ({
-              ...prev,
-              filter: { ...prev.filter, sortParams },
-            }))
-          }
-        />
-      </motion.div>
+      {isLoading ? (
+        <motion.div
+          className="mt-4"
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <TableLoader />
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <DepartmentStatus
+            departments={departmentsList}
+            isEdit
+            users={usersList}
+            designations={designations}
+            usersTotalPages={usersTotalPages}
+            designationsTotalPages={designationsTotalPages}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            isLoading={isDesignationsLoading}
+            isError={isDesignationsError}
+            refetch={refetch}
+            pagination={state.pagination}
+            setPagination={(pagination: Pagination) =>
+              setState((prev) => ({ ...prev, pagination }))
+            }
+            // search={state.search}
+            setSearch={(search: string) =>
+              setState((prev) => ({ ...prev, search }))
+            }
+            sortParams={state.filter.sortParams}
+            setSortParams={(sortParams: SortParams) =>
+              setState((prev) => ({
+                ...prev,
+                filter: { ...prev.filter, sortParams },
+              }))
+            }
+          />
+        </motion.div>
+      )}
     </>
   );
 };

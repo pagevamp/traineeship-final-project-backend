@@ -10,6 +10,7 @@ import { useGetAllDepartments } from "../hooks";
 import Index from "../create";
 import SearchComponent from "@/components/SearchComponent/SearchComponent";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { TableLoader } from "@/features/users/loading/TableLoader";
 
 const DepartmentComponent = () => {
   const { openModal } = useModalContext();
@@ -95,7 +96,32 @@ const DepartmentComponent = () => {
         </motion.div>
       </div>
 
-      <motion.div
+      {isLoading ? (
+        <motion.div
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <TableLoader />
+        </motion.div>
+      ) : (
+        <motion.div
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <DepartmentInfo
+            departments={DepartmentData}
+            isLoading={isLoading}
+            isEdit
+            currentPage={state.pagination}
+          />
+        </motion.div>
+      )}
+
+      {/* <motion.div
         initial={{ x: 0, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 60, damping: 12 }}
@@ -106,7 +132,7 @@ const DepartmentComponent = () => {
           isEdit
           currentPage={state.pagination}
         />
-      </motion.div>
+      </motion.div> */}
 
       <div className="mt-4">
         <Pagination

@@ -114,23 +114,6 @@ export const userUpdateValidationSchema = yup.object({
       value: yup.string().required("Department is required"),
     })
     .required("Department is required"),
-  designationId: yup.string().required("Designation is required"),
+  designationId: yup.string().required("Designation is required").max(100,"The Designation can be at most 100 characters"),
 
-  // modules: yup
-  //   .array()
-  //   .of(
-  //     yup.object({
-  //       permissionId: yup.string().nullable().optional(),
-  //       moduleId: yup.string().required(),
-  //       isGroup: yup.boolean().required(),
-  //       children: yup.array().of(yup.string()).required(),
-  //       permission: yup.object({
-  //         view: yup.boolean().required(),
-  //         create: yup.boolean().required(),
-  //         update: yup.boolean().required(),
-  //         delete: yup.boolean().required(),
-  //       }),
-  //     })
-  //   )
-  //   .optional(),
 });

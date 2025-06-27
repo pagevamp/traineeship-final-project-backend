@@ -14,6 +14,7 @@ import { UserDetail } from "@/features/users/types";
 import { useDeleteDesignation } from "./designation/hooks";
 import { useModalContext } from "@/providers/modal-context";
 import Index from "../component/designation/create";
+import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
 
 type PaginationType = {
   page: number;
@@ -57,10 +58,12 @@ const DepartmentStatus: React.FC<Props> = ({
   setPagination,
 }) => {
   const tabs: DepartmentTab[] = ["Users", "Designation"];
+  const { showConfirmation } = useConfirmationDialog();
 
   const { openModal } = useModalContext();
   const router = useRouter();
   const { closeModal } = useModalContext();
+  const { mutate: deleteDesignation } = useDeleteDesignation({});
 
   const handleEditClick = (row: any) => {
     closeModal();
@@ -72,7 +75,17 @@ const DepartmentStatus: React.FC<Props> = ({
     });
   };
 
-  const { mutate: deleteDesignation } = useDeleteDesignation();
+  const handleDeleteClick = (row: any) => {
+    showConfirmation({
+      title: "Delete Designation?",
+      description: "Are you sure you want to delete this designation?",
+      confirmText: "Yes, Delete",
+      confirmClassName:
+        "font-secondary bg-gradient-to-r from-[#E06518] to-[#E3802A] hover:from-[#E06518] hover:to-[#E06518] transition-all duration-300",
+      cancelText: "Cancel",
+      onConfirm: () => deleteDesignation(row.id),
+    });
+  };
 
   const userActions = [
     {
@@ -112,9 +125,7 @@ const DepartmentStatus: React.FC<Props> = ({
         />
       ),
       title: "Delete",
-      onClick: (row: any) => {
-        deleteDesignation(row.id);
-      },
+      onClick: (row: any) => handleDeleteClick(row),
     },
   ];
 

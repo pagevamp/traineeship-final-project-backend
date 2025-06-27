@@ -7,13 +7,14 @@ import { departmentCreationValidationSchema } from "../validation";
 import { CreateDepartmentPayload } from "../types";
 import {
   useCreateDepartment,
+  useDeleteDepartment,
   useGetDepartmentById,
   useUpdateDepartment,
 } from "../hooks";
 import { toast } from "sonner";
 import { useModal } from "@/hooks/useModal";
 import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
-import { departmentFormField } from "../constant";
+import { department, departmentFormField } from "../constant";
 import { getNestedValue } from "@/features/users/constant";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -86,6 +87,18 @@ const Index = ({ id }: IndexProps) => {
       },
     });
 
+  const { mutateAsync: handleDelete, isPending: isDeleteLoading } =
+    useDeleteDepartment({
+      onError: (error) => {
+        toast.error(error?.response?.data?.message || "Something went wrong!");
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["departmentList"] });
+        toast.success("Designation Deleted Successfully!!");
+        closeModal();
+      },
+    });
+
   const buildRequestBody = (formData: CreateDepartmentPayload) => {
     const { name, contactEmail, contactPerson, contactPhone, countryCode } =
       formData;
@@ -142,6 +155,8 @@ const Index = ({ id }: IndexProps) => {
     onSubmit,
     onUpdate,
     isPending,
+    departments: [],
+    isLoading: false,
     isEdit: Boolean(id),
   };
 

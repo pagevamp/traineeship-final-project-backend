@@ -50,9 +50,9 @@ export const getAllUsers = (
   departmentId: string,
   params: departmentListParams = {}
 ) => {
-  // if (!departmentId) {
-  //   throw new Error("departmentId is required to fetch designations");
-  // }
+  if (!departmentId) {
+    throw new Error("departmentId is required to fetch designations");
+  }
 
   const queryParams = new URLSearchParams();
 

@@ -13,6 +13,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   useCreateDesignation,
+  useDeleteDesignation,
   useGetAllDesignations,
   useUpdateDesignation,
 } from "../hooks";
@@ -78,6 +79,7 @@ const Index: React.FC<Props> = (props: any) => {
       },
     });
 
+
   const buildRequestBody = (formData: CreateDesignationPayload) => {
     const { name } = formData;
 
@@ -111,6 +113,30 @@ const Index: React.FC<Props> = (props: any) => {
     } catch (error) {}
   };
 
+    
+  const onDelete = async () => {
+    try {
+      if (!props?.data?.id) return;
+      await handleDelete(props?.data?.id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  const { mutateAsync: handleDelete, isPending: isDeleteLoading } =
+    useDeleteDesignation({
+      onError: (error) => {
+        toast.error(error?.response?.data?.message || "Something went wrong!");
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries({ queryKey: ["departmentDetail"] });
+        toast.success("Designation Deleted Successfully!!");
+        closeModal();
+      },
+    });
+
+
   const handleUpdateModal = (formData: CreateDesignationPayload) => {
     showConfirmation({
       title: "Update Designation?",
@@ -123,6 +149,18 @@ const Index: React.FC<Props> = (props: any) => {
     });
   };
 
+  const handleDeleteModal = () => {
+    showConfirmation({
+      title: "Delete Designation?",
+      description: "Are you sure you want to delete the designation?",
+      confirmText: "Yes, Delete",
+      confirmClassName:
+        "font-secondary bg-gradient-to-r from-[#E06518] to-[#E3802A] hover:from-[#E06518] hover:to-[#E06518] transition-all duration-300",
+      cancelText: "Cancel",
+      onConfirm: () => onDelete(),
+    });
+  };
+
   const createDesignationProps = {
     register,
     watch,
@@ -132,6 +170,7 @@ const Index: React.FC<Props> = (props: any) => {
     errors,
     defaultValues,
     handleUpdateModal,
+    handleDeleteModal,
     handleSubmit,
     onSubmit,
     onUpdate,

@@ -66,4 +66,5 @@ export interface DesignationInformationProps {
   isPending?: boolean;
   isEdit?: boolean;
   handleUpdateModal?: any;
+  handleDeleteModal?: any;
 }
