@@ -45,22 +45,24 @@ export const updateDepartmentDetailById = (id: string, body: any) => {
 };
 
 // FOR USERS
-
 export const getAllUsers = (
-  departmentId: string,
-  params: departmentListParams = {}
+  params: {
+    departmentId?: string;
+    search?: string;
+    limit?: number;
+    offset?: number;
+    sortBy?: string;
+    order?: "ASC" | "DESC";
+  } = {}
 ) => {
-  // if (!departmentId) {
-  //   throw new Error("departmentId is required to fetch designations");
-  // }
-
   const queryParams = new URLSearchParams();
+
+  if (params.departmentId?.trim()) {
+    queryParams.append("departmentId", params.departmentId.trim());
+  }
 
   if (params.search?.trim()) {
     queryParams.append("search", params.search.trim());
-  }
-  if (departmentId?.trim()) {
-    queryParams.append("departmentId", departmentId?.trim());
   }
   if (params.limit) {
     queryParams.append("limit", params.limit.toString());

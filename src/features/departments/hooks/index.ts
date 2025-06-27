@@ -45,17 +45,30 @@ const useGetAllDepartments = (params: any) => {
   });
 };
 
-const useDeleteDepartment = () => {
+const useDeleteDepartment = (options: {
+  onError?: (error: any, variables?: any, context?: any) => void;
+  onSuccess?: (data: any) => void;
+}) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => deleteDepartment(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["departmentList"] });
-      toast.success("Department Successfully Deleted!!");
+    mutationFn: async (id: string) => {
+      return await deleteDepartment(id);
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message);
+
+    onSuccess: (data, variables, context) => {
+      toast.success("Department deleted successfully!");
+      queryClient.invalidateQueries({ queryKey: ["departmentList"] });
+      if (options.onSuccess) {
+        options.onSuccess(data);
+      }
+    },
+
+    onError: (error: any, variables, context) => {
+      toast.error(error?.response?.data?.message || "Something went wrong!");
+      if (options.onError) {
+        options.onError(error, variables, context);
+      }
     },
   });
 };
@@ -71,14 +84,16 @@ const useUpdateDepartment = (options: {
   });
 };
 
-type UseGetAllUsersProps = {
-  id: string;
-} & departmentListParams;
+type UseGetAllUsersProps = departmentListParams & {
+  departmentId?: string;
+};
 
-const useGetAllUsers = ({ id, ...params }: UseGetAllUsersProps) => {
+const useGetAllUsers = (params: UseGetAllUsersProps, options = {}) => {
   return useQuery({
-    queryKey: ["users", id, JSON.stringify(params)],
-    queryFn: () => getAllUsers(id, params),
+    queryKey: ["users", params.departmentId, JSON.stringify(params)],
+    queryFn: () => getAllUsers(params),
+    enabled: !!params.departmentId,
+    ...options,
   });
 };
 

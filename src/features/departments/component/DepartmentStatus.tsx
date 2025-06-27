@@ -14,6 +14,8 @@ import { UserDetail } from "@/features/users/types";
 import { useDeleteDesignation } from "./designation/hooks";
 import { useModalContext } from "@/providers/modal-context";
 import Index from "../component/designation/create";
+import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
+import { usePermissions } from "@/hooks/usePermissions";
 
 type PaginationType = {
   page: number;
@@ -57,11 +59,13 @@ const DepartmentStatus: React.FC<Props> = ({
   setPagination,
 }) => {
   const tabs: DepartmentTab[] = ["Users", "Designation"];
+  const { showConfirmation } = useConfirmationDialog();
 
   const { openModal } = useModalContext();
   const router = useRouter();
   const { closeModal } = useModalContext();
-
+  const { mutate: deleteDesignation } = useDeleteDesignation({});
+  const { isView, isCreate, isUpdate, isDelete } = usePermissions();
   const handleEditClick = (row: any) => {
     closeModal();
     openModal({
@@ -72,7 +76,17 @@ const DepartmentStatus: React.FC<Props> = ({
     });
   };
 
-  const { mutate: deleteDesignation } = useDeleteDesignation();
+  const handleDeleteClick = (row: any) => {
+    showConfirmation({
+      title: "Delete Designation?",
+      description: "Are you sure you want to delete this designation?",
+      confirmText: "Yes, Delete",
+      confirmClassName:
+        "font-secondary bg-gradient-to-r from-[#E06518] to-[#E3802A] hover:from-[#E06518] hover:to-[#E06518] transition-all duration-300",
+      cancelText: "Cancel",
+      onConfirm: () => deleteDesignation(row.id),
+    });
+  };
 
   const userActions = [
     {
@@ -90,7 +104,7 @@ const DepartmentStatus: React.FC<Props> = ({
   ];
 
   const designationActions = [
-    {
+    isUpdate && {
       label: (
         <Icon
           icon="heroicons:pencil-solid"
@@ -102,7 +116,7 @@ const DepartmentStatus: React.FC<Props> = ({
       title: "Edit",
       onClick: (row: any) => handleEditClick(row),
     },
-    {
+    isDelete && {
       label: (
         <Icon
           icon="heroicons:trash-solid"
@@ -112,11 +126,9 @@ const DepartmentStatus: React.FC<Props> = ({
         />
       ),
       title: "Delete",
-      onClick: (row: any) => {
-        deleteDesignation(row.id);
-      },
+      onClick: (row: any) => handleDeleteClick(row),
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <div className="flex flex-col gap-[15px]">
@@ -179,13 +191,22 @@ const DepartmentStatus: React.FC<Props> = ({
             </>
           ) : (
             <>
-              <TableComponent
-                currentPage={pagination.page}
-                columns={DESIGNATION_COLUMN}
-                data={designations}
-                isLoading={isLoading}
-                actions={designationActions}
-              />
+              {isUpdate || isDelete ? (
+                <TableComponent
+                  currentPage={pagination.page}
+                  columns={DESIGNATION_COLUMN}
+                  data={designations}
+                  isLoading={isLoading}
+                  actions={designationActions}
+                />
+              ) : (
+                <TableComponent
+                  currentPage={pagination.page}
+                  columns={DESIGNATION_COLUMN}
+                  data={designations}
+                  isLoading={isLoading}
+                />
+              )}
               <div className="mt-4">
                 <Pagination
                   currentPage={pagination.page}

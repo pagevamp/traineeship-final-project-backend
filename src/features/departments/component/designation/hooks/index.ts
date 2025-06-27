@@ -37,17 +37,30 @@ const useGetAllDesignations = ({
   });
 };
 
-const useDeleteDesignation = () => {
+const useDeleteDesignation = (options: {
+  onError?: (error: any, variables?: any, context?: any) => void;
+  onSuccess?: (data: any) => void;
+}) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: string) => deleteDesignation(id),
-    onSuccess: (id) => {
-      toast.success("Designation Deleted Successfully!!");
-      queryClient.invalidateQueries({ queryKey: ["departmentDetail"] });
+    mutationFn: async (id: string) => {
+      return await deleteDesignation(id);
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Something went wrong!!");
+
+    onSuccess: (data, variables, context) => {
+      toast.success("Designation deleted successfully!");
+      queryClient.invalidateQueries({ queryKey: ["departmentDetail"] });
+      if (options.onSuccess) {
+        options.onSuccess(data);
+      }
+    },
+
+    onError: (error: any, variables, context) => {
+      toast.error(error?.response?.data?.message || "Something went wrong!");
+      if (options.onError) {
+        options.onError(error, variables, context);
+      }
     },
   });
 };

@@ -10,9 +10,12 @@ import { useGetAllDepartments } from "../hooks";
 import Index from "../create";
 import SearchComponent from "@/components/SearchComponent/SearchComponent";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { TableLoader } from "@/features/users/loading/TableLoader";
+import { usePermissions } from "@/hooks/usePermissions";
 
 const DepartmentComponent = () => {
   const { openModal } = useModalContext();
+  const { isView, isCreate, isUpdate, isDelete } = usePermissions();
   const [state, setState] = useState({
     pagination: {
       page: 1,
@@ -83,30 +86,46 @@ const DepartmentComponent = () => {
                 />
               </div>
             </div>
-            <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[1px] rounded-[37px] w-fit h-fit">
-              <button
-                onClick={handleCreateClick}
-                className="flex font-secondary font-[400] items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white hover:bg-primary-light rounded-[37px] text-sm"
-              >
-                Create <PlusCircleIcon size={24} />
-              </button>
-            </div>
+            {isCreate && (
+              <div className="bg-gradient-to-r from-[#E06518] to-[#E3802A] p-[1px] rounded-[37px] w-fit h-fit">
+                <button
+                  onClick={handleCreateClick}
+                  className="flex font-secondary font-[400] items-center justify-center gap-2 text-[#E06518] w-[122px] h-[45px] bg-white hover:bg-primary-light rounded-[37px] text-sm"
+                >
+                  Create <PlusCircleIcon size={24} />
+                </button>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ x: 0, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 60, damping: 12 }}
-      >
-        <DepartmentInfo
-          departments={DepartmentData}
-          isLoading={isLoading}
-          isEdit
-          currentPage={state.pagination}
-        />
-      </motion.div>
+      {isLoading ? (
+        <motion.div
+          className="mt-4"
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <TableLoader />
+        </motion.div>
+      ) : (
+        <motion.div
+          className="mt-4"
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 60, damping: 12 }}
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          <DepartmentInfo
+            departments={DepartmentData}
+            isLoading={isLoading}
+            isEdit
+            currentPage={state.pagination}
+          />
+        </motion.div>
+      )}
 
       <div className="mt-4">
         <Pagination
