@@ -68,8 +68,11 @@ const InfoRow = ({
       {label} :
     </span>
     <span className="text-sm text-[#232323] font-secondary font-[300] break-all">
-      {type === "phone" && countryCode + " - "}
-      {value || "N/A"}
+      {type === "phone"
+        ? value
+          ? `${countryCode || "N/A"} - ${value}`
+          : "N/A"
+        : value || "N/A"}
     </span>
   </div>
 );
