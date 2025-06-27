@@ -191,13 +191,22 @@ const DepartmentStatus: React.FC<Props> = ({
             </>
           ) : (
             <>
-              <TableComponent
-                currentPage={pagination.page}
-                columns={DESIGNATION_COLUMN}
-                data={designations}
-                isLoading={isLoading}
-                actions={designationActions}
-              />
+              {isUpdate || isDelete ? (
+                <TableComponent
+                  currentPage={pagination.page}
+                  columns={DESIGNATION_COLUMN}
+                  data={designations}
+                  isLoading={isLoading}
+                  actions={designationActions}
+                />
+              ) : (
+                <TableComponent
+                  currentPage={pagination.page}
+                  columns={DESIGNATION_COLUMN}
+                  data={designations}
+                  isLoading={isLoading}
+                />
+              )}
               <div className="mt-4">
                 <Pagination
                   currentPage={pagination.page}
