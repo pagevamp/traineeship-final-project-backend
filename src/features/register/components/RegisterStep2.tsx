@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { CustomerRegister2Props } from "../types";
 import { Input } from "@/components/ui/input";
@@ -9,13 +9,26 @@ import {
   getNatureOfBusinessOptions,
   ServiceNeeded,
   SHIPMENT_TYPE,
-  TRUCK_TYPE,
   TypeOfEquipment,
 } from "../constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Register2 = (props: CustomerRegister2Props) => {
-  const { register, control, setValue, trigger, errors, defaultValues } = props;
+  const {
+    register,
+    control,
+    setValue,
+    trigger,
+    errors,
+    defaultValues,
+    getVehicleType,
+    isVehicleTypeLoading,
+  } = props;
+
+  const vehicleType = useMemo(
+    () => getVehicleType?.data?.data?.items,
+    [getVehicleType?.data?.data?.items]
+  );
   return (
     <motion.div
       className="text-[16px] w-full px-3 mt-[10px] flex justify-center"
@@ -42,7 +55,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                     emptyText="No data found."
                     className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                     label="Nature of Business"
-                    error={error?.value?.message}
+                    error={error?.message}
                   />
                   {error && (
                     <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -52,7 +65,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                         height="14"
                         className="text-destructive"
                       />
-                      <span className="mt-0">{error.value?.message}</span>
+                      <span className="mt-0">{error?.message}</span>
                     </p>
                   )}
                 </div>
@@ -63,26 +76,30 @@ const Register2 = (props: CustomerRegister2Props) => {
 
         <div>
           <Controller
-            name="typeOfTruck"
+            name="vehicleType.id"
             control={control}
             render={({ field, fieldState: { error } }: any) => {
               return (
                 <div>
                   <Selectbox
-                    options={TRUCK_TYPE?.map((type: any) => ({
-                      label: type?.label,
-                      value: type?.value,
-                    }))}
+                    options={
+                      isVehicleTypeLoading
+                        ? [{ label: "Loading...", value: "" }]
+                        : vehicleType?.map((type: any) => ({
+                            label: type?.type,
+                            value: type.id,
+                          }))
+                    }
                     value={field?.value}
                     onChange={(value) => {
-                      setValue("typeOfTruck", value?.value);
-                      trigger("typeOfTruck");
+                      setValue("vehicleType.id", value?.value);
+                      trigger("vehicleType.id");
                     }}
                     placeholder="Select Type Of Truck"
                     emptyText="No data found."
                     className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                     label="Type Of Truck"
-                    error={error?.value?.message}
+                    error={error?.message}
                   />
                   {error && (
                     <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -92,7 +109,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                         height="14"
                         className="text-destructive"
                       />
-                      <span className="mt-0">{error.value?.message}</span>
+                      <span className="mt-0">{error?.message}</span>
                     </p>
                   )}
                 </div>
@@ -122,7 +139,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                     emptyText="No data found."
                     className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                     label="Destination Country"
-                    error={error?.value?.message}
+                    error={error?.message}
                   />
                   {error && (
                     <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -132,7 +149,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                         height="14"
                         className="text-destructive"
                       />
-                      <span className="mt-0">{error.value?.message}</span>
+                      <span className="mt-0">{error?.message}</span>
                     </p>
                   )}
                 </div>
@@ -157,12 +174,14 @@ const Register2 = (props: CustomerRegister2Props) => {
                     onChange={(value) => {
                       setValue("shipmentType", value?.value);
                       trigger("shipmentType");
+                      setValue("shipmentFtl", {});
+                      setValue("shipmentLtl", {});
                     }}
                     placeholder="Select Shipment Type"
                     emptyText="No data found."
                     className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                     label="Shipment Type"
-                    error={error?.value?.message}
+                    error={error?.message}
                   />
                   {error && (
                     <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -172,7 +191,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                         height="14"
                         className="text-destructive"
                       />
-                      <span className="mt-0">{error.value?.message}</span>
+                      <span className="mt-0">{error?.message}</span>
                     </p>
                   )}
                 </div>
@@ -220,7 +239,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                         emptyText="No data found."
                         className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                         label="Type Of Equipment"
-                        error={error?.value?.message}
+                        error={error?.message}
                       />
                       {error && (
                         <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -230,7 +249,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                             height="14"
                             className="text-destructive"
                           />
-                          <span className="mt-0">{error.value?.message}</span>
+                          <span className="mt-0">{error?.message}</span>
                         </p>
                       )}
                     </div>
@@ -260,7 +279,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                         emptyText="No data found."
                         className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                         label="Service Needed"
-                        error={error?.value?.message}
+                        error={error?.message}
                       />
                       {error && (
                         <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -270,7 +289,7 @@ const Register2 = (props: CustomerRegister2Props) => {
                             height="14"
                             className="text-destructive"
                           />
-                          <span className="mt-0">{error.value?.message}</span>
+                          <span className="mt-0">{error?.message}</span>
                         </p>
                       )}
                     </div>

@@ -43,7 +43,6 @@ const Register4 = (props: CustomerRegister4Props) => {
           key={field.id}
         >
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Reference Name"
             labelName="Reference Name"
             name={`tradeReferenceDetails.${index}.referenceName`}
@@ -56,7 +55,6 @@ const Register4 = (props: CustomerRegister4Props) => {
           />
 
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Business Association"
             labelName="Business Association"
             name={`tradeReferenceDetails.${index}.businessAssociation`}
@@ -70,7 +68,6 @@ const Register4 = (props: CustomerRegister4Props) => {
           />
 
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Email Id"
             labelName="Email Id"
             name={`tradeReferenceDetails.${index}.email`}
@@ -81,7 +78,6 @@ const Register4 = (props: CustomerRegister4Props) => {
           />
 
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Phone Number"
             labelName="Phone Number"
             name={`tradeReferenceDetails.${index}.phone`}
@@ -95,7 +91,7 @@ const Register4 = (props: CustomerRegister4Props) => {
             <button
               type="button"
               onClick={() => removeTradeReference(index)}
-              className="absolute -top-2 -right-3 bg-orange-500 text-white rounded-full w-6 h-6 text-xs"
+              className="absolute -top-2 -right-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full w-6 h-6 text-xs"
             >
               ✕
             </button>

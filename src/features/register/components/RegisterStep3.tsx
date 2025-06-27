@@ -39,7 +39,6 @@ const Register3 = (props: CustomerRegister3Props) => {
           key={field.id}
         >
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Director Name"
             labelName="Director Name"
             name={`directorDetails.${index}.name`}
@@ -49,7 +48,6 @@ const Register3 = (props: CustomerRegister3Props) => {
             error={errors?.directorDetails?.[index]?.name?.message}
           />
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Email Id"
             labelName="Email Id"
             name={`directorDetails.${index}.email`}
@@ -59,7 +57,6 @@ const Register3 = (props: CustomerRegister3Props) => {
             error={errors?.directorDetails?.[index]?.email?.message}
           />
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Phone Number"
             labelName="Phone Number"
             name={`directorDetails.${index}.phone`}
@@ -105,7 +102,6 @@ const Register3 = (props: CustomerRegister3Props) => {
             key={field.id}
           >
             <Input
-              className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
               placeholder="Enter Finance Manager Name"
               labelName="Finance Manager Name"
               name={`financialDirectorDetails.${index}.name`}
@@ -115,7 +111,6 @@ const Register3 = (props: CustomerRegister3Props) => {
               error={errors?.financialDirectorDetails?.[index]?.name?.message}
             />
             <Input
-              className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
               placeholder="Enter Email Id"
               labelName="Email Id"
               name={`financialDirectorDetails.${index}.email`}
@@ -124,7 +119,6 @@ const Register3 = (props: CustomerRegister3Props) => {
               error={errors?.financialDirectorDetails?.[index]?.email?.message}
             />
             <Input
-              className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
               placeholder="Enter Phone Number"
               labelName="Phone Number"
               name={`financialDirectorDetails.${index}.phone`}
@@ -139,7 +133,7 @@ const Register3 = (props: CustomerRegister3Props) => {
               <button
                 type="button"
                 onClick={() => removeFinance(index)}
-                className="absolute -top-2 -right-3 bg-orange-500 text-white rounded-full w-6 h-6 text-xs"
+                className="absolute -top-2 -right-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full w-6 h-6 text-xs"
               >
                 ✕
               </button>

@@ -125,6 +125,63 @@ export const TRUCK_TYPE = [
     value: "Low Bed",
   },
 ];
+export const CURRENCY = [
+  {
+    label: "AED",
+    value: "AED",
+  },
+  {
+    label: "SAR",
+    value: "SAR",
+  },
+  {
+    label: "QAR",
+    value: "QAR",
+  },
+  {
+    label: "OMR",
+    value: "OMR",
+  },
+  {
+    label: "BHD",
+    value: "BHD",
+  },
+  {
+    label: "KWD",
+    value: "KWD",
+  },
+  {
+    label: "USD",
+    value: "USD",
+  },
+];
+
+export const BANK_COUNTRY = [
+  {
+    label: "UAE",
+    value: "UAE",
+  },
+  {
+    label: "KSA",
+    value: "KSA",
+  },
+  {
+    label: "Qatar",
+    value: "Qatar",
+  },
+  {
+    label: "Oman",
+    value: "Oman",
+  },
+  {
+    label: "Bahrain",
+    value: "Bahrain",
+  },
+  {
+    label: "Kuwait",
+    value: "Kuwait",
+  },
+];
 // export const TRUCK_TYPE = [
 //   { label: "Dry", value: "Dry" },
 //   { label: "Temperature Controlled", value: "Temperature Controlled" },

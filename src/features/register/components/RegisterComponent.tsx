@@ -25,6 +25,7 @@ import {
 import { yupResolver } from "@hookform/resolvers/yup";
 import { customerRegisterValidationSchemas } from "../validation";
 import { UserPayload } from "../types";
+import { useVehicleType } from "../hooks";
 
 const ScrollArrow = ({
   direction,
@@ -86,7 +87,7 @@ const ChangeStep = ({
 
 const RegisterComponent = () => {
   const router = useRouter();
-  const [activeStep, setActiveStep] = useState(5);
+  const [activeStep, setActiveStep] = useState(1);
   const totalSteps = steps.length;
 
   const stepperContainerRef = useRef<HTMLDivElement>(null);
@@ -103,6 +104,7 @@ const RegisterComponent = () => {
       tradeReferenceDetails: [
         { referenceName: "", businessAssociation: "", phone: "", email: "" },
       ],
+      products: [{ hsCode: "", commodityName: "" }],
     },
     resolver: yupResolver(
       customerRegisterValidationSchemas[activeStep - 1]
@@ -146,8 +148,21 @@ const RegisterComponent = () => {
     name: "tradeReferenceDetails",
   });
 
-  const onSubmit: SubmitHandler<UserPayload> = (data) => {};
+  const {
+    fields: productFields,
+    append: appendProduct,
+    remove: removeProduct,
+  } = useFieldArray({
+    control,
+    name: "products",
+  });
 
+  //get vehicle type data
+  const { data: getVehicleType, isLoading: isVehicleTypeLoading } =
+    useVehicleType(activeStep);
+
+  const onSubmit: SubmitHandler<UserPayload> = (data) => {};
+console.log(errors,'errr')
   const baseFormProps = {
     register,
     watch,
@@ -164,6 +179,8 @@ const RegisterComponent = () => {
   };
   const register2FormProps = {
     ...baseFormProps,
+    getVehicleType,
+    isVehicleTypeLoading,
   };
   const register3FormProps = {
     ...baseFormProps,
@@ -182,6 +199,12 @@ const RegisterComponent = () => {
   };
   const register5FormProps = {
     ...baseFormProps,
+  };
+  const register7FormProps = {
+    ...baseFormProps,
+    productFields,
+    appendProduct,
+    removeProduct,
   };
 
   useEffect(() => {
@@ -246,11 +269,11 @@ const RegisterComponent = () => {
       case 4:
         return <Register4 {...register4FormProps} />;
       case 5:
-        return <Register5 {...register5FormProps}/>;
+        return <Register5 {...register5FormProps} />;
       case 6:
         return <Register6 />;
       case 7:
-        return <Register7 />;
+        return <Register7 {...register7FormProps} />;
       default:
         return <Register1 {...register1FormProps} />;
     }
@@ -315,7 +338,7 @@ const RegisterComponent = () => {
       {renderStep()}
 
       <ChangeStep
-        nextStep={nextStep}
+        nextStep={handleSubmit(nextStep)}
         prevStep={prevStep}
         currStep={activeStep}
         totalSteps={totalSteps}

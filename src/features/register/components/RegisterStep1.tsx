@@ -63,7 +63,7 @@ const Register1 = (props: CustomerRegister1Props) => {
                   emptyText="No data found."
                   className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                   label="Company Type"
-                  error={error?.value?.message}
+                  error={error?.message}
                 />
                 {error && (
                   <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
@@ -73,7 +73,7 @@ const Register1 = (props: CustomerRegister1Props) => {
                       height="14"
                       className="text-destructive"
                     />
-                    <span className="mt-0">{error.value?.message}</span>
+                    <span className="mt-0">{error?.message}</span>
                   </p>
                 )}
               </div>
@@ -140,6 +140,7 @@ const Register1 = (props: CustomerRegister1Props) => {
                   emptyText="No data found."
                   className="w-full bg-transparent h-12"
                   label="Employee Size"
+                  optional
                   error={error?.value?.message}
                 />
                 {error && (

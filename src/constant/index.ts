@@ -22,3 +22,5 @@ export const enum DASHBOARD_MODULES {
   REPORT_FINANCE = "REPORT_FINANCE",
   REPORT_ADMIN = "REPORT_ADMIN",
 }
+
+export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

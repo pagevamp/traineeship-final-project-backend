@@ -24,7 +24,10 @@ export interface CustomerRegisterBaseProps {
 
 export interface CustomerRegister1Props extends CustomerRegisterBaseProps {}
 
-export interface CustomerRegister2Props extends CustomerRegisterBaseProps {}
+export interface CustomerRegister2Props extends CustomerRegisterBaseProps {
+  getVehicleType: any;
+  isVehicleTypeLoading: boolean;
+}
 
 export interface CustomerRegister3Props extends CustomerRegisterBaseProps {
   directorFields: any;
@@ -42,8 +45,16 @@ export interface CustomerRegister4Props extends CustomerRegisterBaseProps {
 }
 export interface CustomerRegister5Props extends CustomerRegisterBaseProps {}
 
+export interface CustomerRegister7Props extends CustomerRegisterBaseProps {
+  productFields: any;
+  appendProduct: any;
+  removeProduct: any;
+}
 export interface UserPayload {
   user: {
+    id: string;
+  };
+  vehicleType: {
     id: string;
   };
   products: Product[];
@@ -55,7 +66,6 @@ export interface UserPayload {
   employeeSize: string;
   natureOfBusiness: string;
   shipmentType: string;
-  typeOfTruck: string;
   destinationCountry: string;
   directorDetails?: Director[];
   financialDirectorDetails?: Director[];
