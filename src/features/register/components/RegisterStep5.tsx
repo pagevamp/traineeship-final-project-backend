@@ -14,15 +14,6 @@ const Register5 = (props: CustomerRegister5Props) => {
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
     >
       <div className="flex flex-col mb-5 items-center justify-center">
-        {/* <Input
-          className="py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-          id="account-holder-name"
-          name="account-holder-name"
-          labelName="Reference from Bank"
-          placeholder="Enter Reference from Bank"
-          type="text"
-          required={true}
-        /> */}
         <Input
           type="text"
           name="bankDetails.0.referenceFromBank"
@@ -36,17 +27,15 @@ const Register5 = (props: CustomerRegister5Props) => {
       </div>
 
       <div className="relative mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-4">
-        <div className="flex flex-col gap-2">
-          <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-            id="account-holder-name"
-            name="account-holder-name"
-            labelName="Account Holder Name"
-            placeholder="Enter Account Holder Name"
-            type="text"
-            required={true}
-          />
-        </div>
+        <Input
+          type="text"
+          name="bankDetails.0.accountHolderName"
+          register={register}
+          placeholder="Enter Account Holder Name"
+          labelName="Account Holder Name"
+          required
+          error={errors?.bankDetails?.[0]?.accountHolderName?.message}
+        />
         <div className="flex flex-col gap-2">
           <Input
             className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
