@@ -8,6 +8,7 @@ import { useDeleteDepartment } from "../hooks";
 import { useModalContext } from "@/providers/modal-context";
 import Index from "../create";
 import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
+import { usePermissions } from "@/hooks/usePermissions";
 
 type DepartmentInfoProps = {
   departments: any[];
@@ -48,9 +49,10 @@ const DepartmentInfo = ({
         "lg:h-fit bg-white max-w-[90%] lg:max-w-max rounded-[39px] h-[310px] sm:h-[360px]",
     });
   };
+  const { isView, isCreate, isUpdate, isDelete } = usePermissions();
 
   const actions = [
-    {
+     {
       label: (
         <Icon
           icon="heroicons:eye-16-solid"
@@ -62,7 +64,7 @@ const DepartmentInfo = ({
       title: "View",
       onClick: (row: any) => router.push(`/departments/${row.id}`),
     },
-    {
+    isUpdate && {
       label: (
         <Icon
           icon="material-symbols:edit-outline-rounded"
@@ -75,7 +77,7 @@ const DepartmentInfo = ({
       onClick: (row: any) => handleEditClick(row),
     },
 
-    {
+    isDelete && {
       label: (
         <Icon
           icon="material-symbols:delete-outline-rounded"
@@ -89,7 +91,7 @@ const DepartmentInfo = ({
 
       onClick: (row: any) => handleDeleteClick(row),
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <div className="flex flex-col gap-[15px]">

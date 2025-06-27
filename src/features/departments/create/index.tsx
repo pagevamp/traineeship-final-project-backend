@@ -17,6 +17,7 @@ import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
 import { departmentFormField } from "../constant";
 import { getNestedValue } from "@/features/users/constant";
 import { useQueryClient } from "@tanstack/react-query";
+import { PageLoader } from "@/components/loaders/page-loader";
 
 interface IndexProps {
   id?: string;
@@ -39,7 +40,7 @@ const Index = ({ id }: IndexProps) => {
     formState: { errors },
   } = useForm<CreateDepartmentPayload>({
     defaultValues: {
-      countryCode: "91", // default for create
+      countryCode: "971", // default for create
     },
     resolver: yupResolver(
       departmentCreationValidationSchema
@@ -47,7 +48,7 @@ const Index = ({ id }: IndexProps) => {
   });
 
   const defaultValues = watch();
-  const { data: getDepartments } = useGetDepartmentById(
+  const { data: getDepartments, isLoading } = useGetDepartmentById(
     departmentId ?? undefined
   );
 
@@ -85,18 +86,6 @@ const Index = ({ id }: IndexProps) => {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["departmentList"] });
         toast.success("Department Updated Successfully!!");
-        closeModal();
-      },
-    });
-
-  const { mutateAsync: handleDelete, isPending: isDeleteLoading } =
-    useDeleteDepartment({
-      onError: (error) => {
-        toast.error(error?.response?.data?.message || "Something went wrong!");
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["departmentList"] });
-        toast.success("Designation Deleted Successfully!!");
         closeModal();
       },
     });
@@ -156,9 +145,11 @@ const Index = ({ id }: IndexProps) => {
     onUpdate,
     isPending,
     departments: [],
-    isLoading: false,
     isEdit: Boolean(id),
   };
+  if (isLoading) {
+    return <PageLoader />;
+  }
 
   return <Child {...createDepartmentProps} />;
 };

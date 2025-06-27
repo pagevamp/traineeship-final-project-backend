@@ -19,6 +19,7 @@ import {
 } from "../hooks";
 import Child from "./form";
 import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
+import { PageLoader } from "@/components/loaders/page-loader";
 
 type Props = {
   onAddDesignation?: (newDesignation: any) => void;
@@ -48,7 +49,9 @@ const Index: React.FC<Props> = (props: any) => {
 
   const defaultValues = watch();
 
-  const { data: existing } = useGetAllDesignations({ id: departmentId });
+  const { data: existing, isLoading } = useGetAllDesignations({
+    id: departmentId,
+  });
 
   useEffect(() => {
     if (props?.data) {
@@ -78,7 +81,6 @@ const Index: React.FC<Props> = (props: any) => {
         closeModal();
       },
     });
-
 
   const buildRequestBody = (formData: CreateDesignationPayload) => {
     const { name } = formData;
@@ -113,7 +115,6 @@ const Index: React.FC<Props> = (props: any) => {
     } catch (error) {}
   };
 
-    
   const onDelete = async () => {
     try {
       if (!props?.data?.id) return;
@@ -122,7 +123,6 @@ const Index: React.FC<Props> = (props: any) => {
       console.error(error);
     }
   };
-
 
   const { mutateAsync: handleDelete, isPending: isDeleteLoading } =
     useDeleteDesignation({
@@ -135,7 +135,6 @@ const Index: React.FC<Props> = (props: any) => {
         closeModal();
       },
     });
-
 
   const handleUpdateModal = (formData: CreateDesignationPayload) => {
     showConfirmation({
@@ -177,6 +176,9 @@ const Index: React.FC<Props> = (props: any) => {
     isEdit: Boolean(props?.data?.id),
   };
 
+  if (isLoading) {
+    return <PageLoader />;
+  }
   return (
     <>
       <button

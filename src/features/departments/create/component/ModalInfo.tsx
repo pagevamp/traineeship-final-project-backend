@@ -29,9 +29,7 @@ const DepartmentForm = () => {
     },
   });
 
-  const onSubmit = (data: CreateDepartmentPayload) => {
-    console.log("Form submitted:", data);
-  };
+  const onSubmit = (data: CreateDepartmentPayload) => {};
 
   return (
     <div className="relative w-full">

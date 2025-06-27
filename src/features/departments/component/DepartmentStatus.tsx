@@ -15,6 +15,7 @@ import { useDeleteDesignation } from "./designation/hooks";
 import { useModalContext } from "@/providers/modal-context";
 import Index from "../component/designation/create";
 import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
+import { usePermissions } from "@/hooks/usePermissions";
 
 type PaginationType = {
   page: number;
@@ -64,7 +65,7 @@ const DepartmentStatus: React.FC<Props> = ({
   const router = useRouter();
   const { closeModal } = useModalContext();
   const { mutate: deleteDesignation } = useDeleteDesignation({});
-
+  const { isView, isCreate, isUpdate, isDelete } = usePermissions();
   const handleEditClick = (row: any) => {
     closeModal();
     openModal({
@@ -103,7 +104,7 @@ const DepartmentStatus: React.FC<Props> = ({
   ];
 
   const designationActions = [
-    {
+    isUpdate && {
       label: (
         <Icon
           icon="heroicons:pencil-solid"
@@ -115,7 +116,7 @@ const DepartmentStatus: React.FC<Props> = ({
       title: "Edit",
       onClick: (row: any) => handleEditClick(row),
     },
-    {
+    isDelete && {
       label: (
         <Icon
           icon="heroicons:trash-solid"
@@ -127,7 +128,7 @@ const DepartmentStatus: React.FC<Props> = ({
       title: "Delete",
       onClick: (row: any) => handleDeleteClick(row),
     },
-  ];
+  ].filter(Boolean);
 
   return (
     <div className="flex flex-col gap-[15px]">

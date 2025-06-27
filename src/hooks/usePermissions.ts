@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useProfileInformation } from "@/features/dashboard/hooks/useProfileInformation";
 import { usePathname } from "next/navigation";
-import { MODULE_LINK } from "@/routes";
+import { MODULE_LINK, moduleRoutes } from "@/routes";
 
 export function usePermissions() {
   const pathname = usePathname();
@@ -9,10 +9,9 @@ export function usePermissions() {
   return useMemo(() => {
     let matchedKey: string | null = null;
     const permissionData = profile?.data?.data?.modules ?? [];
-
     // Find the matching key from MODULE_LINK based on current pathname
-    for (const [key, value] of Object.entries(MODULE_LINK)) {
-      if (value.href === pathname) {
+    for (const [key, value] of Object.entries(moduleRoutes)) {
+      if (value?.includes(pathname)) {
         matchedKey = key;
         break;
       }
@@ -42,7 +41,6 @@ export function usePermissions() {
     }
 
     const permission = findPermission(permissionData);
-
     return {
       isView: permission?.view ?? false,
       isCreate: permission?.create ?? false,

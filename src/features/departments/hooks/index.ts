@@ -84,18 +84,15 @@ const useUpdateDepartment = (options: {
   });
 };
 
-type UseGetAllUsersProps = {
-  id: string;
-} & departmentListParams;
+type UseGetAllUsersProps = departmentListParams & {
+  departmentId?: string;
+};
 
-const useGetAllUsers = (
-  { id, ...params }: UseGetAllUsersProps,
-  options = {}
-) => {
+const useGetAllUsers = (params: UseGetAllUsersProps, options = {}) => {
   return useQuery({
-    queryKey: ["users", id, JSON.stringify(params)],
-    queryFn: () => getAllUsers(id, params),
-    enabled: Boolean(id),
+    queryKey: ["users", params.departmentId, JSON.stringify(params)],
+    queryFn: () => getAllUsers(params),
+    enabled: !!params.departmentId,
     ...options,
   });
 };
