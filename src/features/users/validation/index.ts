@@ -1,7 +1,6 @@
 import * as yup from "yup";
 import { countryCodesWithLength } from "../constant";
-
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+import { emailRegex } from "@/constant";
 
 export const userCreationValidationSchema = yup.object({
   firstName: yup

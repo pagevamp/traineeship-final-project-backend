@@ -22,3 +22,13 @@ export const enum DASHBOARD_MODULES {
   REPORT_FINANCE = "REPORT_FINANCE",
   REPORT_ADMIN = "REPORT_ADMIN",
 }
+
+export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+export function isFileList(object: any): object is FileList {
+  return object instanceof FileList;
+}
+
+export function isFile(object: any): object is File {
+  return object instanceof File;
+}

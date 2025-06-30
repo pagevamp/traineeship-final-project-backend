@@ -94,14 +94,14 @@ export function Selectbox({
           aria-expanded={open}
           disabled={disabled}
           className={cn(
-            "justify-between relative shadow-none hover:bg-transparent font-normal mt-1",
+            "justify-between relative border border-muted-light shadow-none hover:bg-transparent font-normal mt-1",
             className,
             error && "border-destructive !shadow-error"
           )}
         >
           <span className="truncate">
             {value ? (
-              <span className="text-sm font-[300]">
+              <span className="text-sm font-secondary font-[300]">
                 {options.find((option) => option.value === value)?.label}
               </span>
             ) : (
@@ -140,7 +140,9 @@ export function Selectbox({
                       value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  <span>{option.label}</span>
+                  <span className="font-secondary text-sm font-[300]">
+                    {option.label}
+                  </span>
                 </CommandItem>
               ))}
             </CommandGroup>

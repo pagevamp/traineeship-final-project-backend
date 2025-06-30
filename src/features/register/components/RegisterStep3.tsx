@@ -3,13 +3,23 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { CustomerRegister3Props } from "../types";
 
-const Register3 = (props: any) => {
-  const { appendDirector, directorFields, removeDirector, register } = props;
+const Register3 = (props: CustomerRegister3Props) => {
+  const {
+    appendDirector,
+    directorFields,
+    removeDirector,
+    register,
+    errors,
+    financeFields,
+    appendFinance,
+    removeFinance,
+  } = props;
   return (
     <motion.div
       className="text-[16px] w-full px-3 mt-[10px]"
-      initial={{ x: 50, opacity: 0.1 }}
+      initial={{ x: 10, opacity: 0.1 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
     >
@@ -29,22 +39,33 @@ const Register3 = (props: any) => {
           key={field.id}
         >
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Director Name"
             labelName="Director Name"
-            {...register(`directorDetails.${index}.name` as const)}
+            name={`directorDetails.${index}.name`}
+            register={register}
+            required
+            type="text"
+            error={errors?.directorDetails?.[index]?.name?.message}
           />
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Email Id"
             labelName="Email Id"
-            {...register(`directorDetails.${index}.email` as const)}
+            name={`directorDetails.${index}.email`}
+            register={register}
+            required
+            type="email"
+            error={errors?.directorDetails?.[index]?.email?.message}
           />
           <Input
-            className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
             placeholder="Enter Phone Number"
             labelName="Phone Number"
-            {...register(`directorDetails.${index}.phone` as const)}
+            name={`directorDetails.${index}.phone`}
+            register={register}
+            required
+            type="text"
+            numberType
+            maxLength={15}
+            error={errors?.directorDetails?.[index]?.phone?.message}
           />
           {directorFields?.length > 1 && (
             <button
@@ -67,6 +88,7 @@ const Register3 = (props: any) => {
           <div className="flex-1 flex justify-end">
             <Button
               variant="outline"
+              onClick={() => appendFinance({ name: "", email: "", phone: "" })}
               className="flex gap-2 h-[40px] text-primary border border-primary hover:bg-primary-light hover:text-primary"
             >
               Add
@@ -74,41 +96,50 @@ const Register3 = (props: any) => {
             </Button>
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px]">
-          <div className="flex flex-col gap-2">
+        {financeFields?.map((field: any, index: number) => (
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[10px] relative"
+            key={field.id}
+          >
             <Input
-              className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-              id="company-type-2"
-              name="company-type-2"
-              labelName="Finance Manager Name"
               placeholder="Enter Finance Manager Name"
-              type="text"
+              labelName="Finance Manager Name"
+              name={`financialDirectorDetails.${index}.name`}
+              register={register}
               required
+              type="text"
+              error={errors?.financialDirectorDetails?.[index]?.name?.message}
             />
-          </div>
-          <div className="flex flex-col gap-2">
             <Input
-              className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-              id="director-email-2"
-              name="director-email-2"
-              labelName="Email Id"
               placeholder="Enter Email Id"
-              type="email"
+              labelName="Email Id"
+              name={`financialDirectorDetails.${index}.email`}
+              register={register}
               required
+              error={errors?.financialDirectorDetails?.[index]?.email?.message}
             />
-          </div>
-          <div className="flex flex-col gap-2">
             <Input
-              className="w-full py-2 px-4 placeholder:text-xs placeholder:text-[#9C9AA5] h-12"
-              id="director-phone-no-2"
-              name="director-phone-no-2"
-              labelName="Phone Number"
               placeholder="Enter Phone Number"
-              type="text"
+              labelName="Phone Number"
+              name={`financialDirectorDetails.${index}.phone`}
+              register={register}
               required
+              type="text"
+              numberType
+              maxLength={15}
+              error={errors?.financialDirectorDetails?.[index]?.phone?.message}
             />
+            {financeFields?.length > 1 && (
+              <button
+                type="button"
+                onClick={() => removeFinance(index)}
+                className="absolute -top-2 -right-3 bg-orange-500 hover:bg-orange-600 text-white rounded-full w-6 h-6 text-xs"
+              >
+                ✕
+              </button>
+            )}
           </div>
-        </div>
+        ))}
       </div>
     </motion.div>
   );
