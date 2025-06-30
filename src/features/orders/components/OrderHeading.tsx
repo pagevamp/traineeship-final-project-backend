@@ -16,10 +16,10 @@ const OrderHeading = () => {
             }
           >
             <p>
-              <span className="font-primary text-[16px] mr-[4px] font-normal">
+              <span className="font-secondary text-[14px] md:text-[16px] mr-[4px] font-normal">
                 {detail.label}:{" "}
               </span>
-              <span className="font-primary text-[16px] font-light">
+              <span className="font-secondary text-[14px] md:text-[16px] font-light">
                 {detail.value}
               </span>
             </p>

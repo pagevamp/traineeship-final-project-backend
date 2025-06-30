@@ -92,7 +92,7 @@ export const navigationItems = [
   },
   {
     title: "Departments",
-    href: "/department",
+    href: "/departments",
     icon: (props: any) => (
       <Icon icon="mingcute:department-fill" width="24" height="24" {...props} />
     ),

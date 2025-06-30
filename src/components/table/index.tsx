@@ -57,13 +57,7 @@ const TableComponent: React.FC<Props> = ({
     if (type == "status") {
       return <div className="">Pending</div>;
     }
-    if (type === "fullName") {
-      const firstName = get(row, "firstName");
-      const lastName = get(row, "lastName");
-      const fullName = `${firstName ?? ""} ${lastName ?? ""}`.trim();
-      return <div className="truncate max-w-40">{fullName || "N/A"}</div>;
-    }
-    return get(row, key) ?? "N/A";
+    return get(row, key) || "N/A";
   };
   return (
     <div
@@ -121,7 +115,7 @@ const TableComponent: React.FC<Props> = ({
                   {columns.map((col) => (
                     <TableCell
                       key={col.key}
-                      className="px-4 py-3 truncate max-w-40 font-secondary font-[300] text-[13px]"
+                      className="px-4 py-3 truncate max-w-48 font-secondary font-[300] text-[13px]"
                     >
                       {getData(row, col.key, col.type)}
                     </TableCell>
@@ -160,7 +154,7 @@ const TableComponent: React.FC<Props> = ({
                   )}
                 </TableRow>
               ))}
-            {((!isLoading && data?.length === 0) || !data) && (
+            {!isLoading && data && data.length == 0 && (
               <TableRow>
                 <TableCell
                   colSpan={columns.length + 2}

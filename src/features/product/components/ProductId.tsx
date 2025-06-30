@@ -8,8 +8,8 @@ import { ChevronLeft } from "lucide-react";
 const ProductId = ({ control }: { control: any }) => {
   return (
     <div>
-      <div className="flex justify-between mb-2 w-full ">
-        <div className="flex items-center justify-start mb-2 text-[16px]">
+      <div className="flex justify-between mb-1 w-full ">
+        <div className="flex items-center justify-start text-[16px]">
           <ChevronLeft />
           <span className="font-primary font-bold">Product Details</span>
         </div>
@@ -29,19 +29,19 @@ const ProductId = ({ control }: { control: any }) => {
                 onChange={(selected) => field.onChange(selected.value)}
                 placeholder="Select A Customer"
                 emptyText="No data found."
-                className="min-w-[300px] bg-white h-12 p-4 border border-orange-400"
+                className="min-w-[200px] lg:min-w-[300px] bg-white h-12 p-4 border border-orange-400"
               />
             )}
           />
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3  bg-[#ffffff] rounded-[25px] min-h-screen py-10 px-6 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 bg-[#ffffff] rounded-[25px] min-h-screen py-10 px-6 gap-6">
         <div className="col-span-1">
           <ProductImages />
         </div>
 
-        <div className="lg:col-span-2 sm:col-span-1">
+        <div className="col-span-1 lg:col-span-2 ">
           <ProductDescriptions />
         </div>
       </div>

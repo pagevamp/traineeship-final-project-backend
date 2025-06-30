@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useDebouncedCallback } from "@/hooks/useDebouncedCallback";
 import { cn } from "@/lib/utils";
@@ -25,9 +25,15 @@ const DepartmentSearchComponent = (props: PropsI) => {
     searchKey = "search",
   } = props;
 
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = useState(state[searchKey] || "");
 
-  const debouncedSetState = useDebouncedCallback((val: string) => {
+  // Sync input field with external state if it changes externally
+  useEffect(() => {
+    setInputValue(state[searchKey] || "");
+  }, [state, searchKey]);
+
+  // Debounced setter for API-triggering state
+  const debouncedSetSearch = useDebouncedCallback((val: string) => {
     setState((prev: any) => ({
       ...prev,
       [searchKey]: val,
@@ -36,8 +42,8 @@ const DepartmentSearchComponent = (props: PropsI) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    setInputValue(val); // update UI instantly
-    debouncedSetState(val); // update parent state after delay
+    setInputValue(val); // update input field immediately
+    debouncedSetSearch(val); // update parent state with debounce
   };
 
   return (
@@ -48,6 +54,7 @@ const DepartmentSearchComponent = (props: PropsI) => {
       )}
     >
       <Image src={SearchIcon} alt="Search Icon" width={17} height={14} />
+
       <div className="flex-1 mr-2">
         <Input
           placeholder={placeholder}

@@ -1,18 +1,27 @@
 import { useMemo } from "react";
 import { useProfileInformation } from "@/features/dashboard/hooks/useProfileInformation";
 import { usePathname } from "next/navigation";
-import { MODULE_LINK } from "@/routes";
+import { moduleRoutes } from "@/routes"; // Updated route map
+
+function pathMatchesPattern(path: string, pattern: string) {
+  if (pattern.endsWith("/*")) {
+    const base = pattern.replace("/*", "");
+    return path === base || path.startsWith(`${base}/`);
+  }
+  return path === pattern;
+}
 
 export function usePermissions() {
   const pathname = usePathname();
   const { data: profile } = useProfileInformation();
+
   return useMemo(() => {
     let matchedKey: string | null = null;
     const permissionData = profile?.data?.data?.modules ?? [];
 
-    // Find the matching key from MODULE_LINK based on current pathname
-    for (const [key, value] of Object.entries(MODULE_LINK)) {
-      if (value.href === pathname) {
+    // Match pathname against moduleRoutes
+    for (const [key, paths] of Object.entries(moduleRoutes)) {
+      if (paths.some((pattern) => pathMatchesPattern(pathname, pattern))) {
         matchedKey = key;
         break;
       }
@@ -27,7 +36,7 @@ export function usePermissions() {
       };
     }
 
-    // Search recursively in permissionData
+    // Recursively find permission by key
     function findPermission(data: any[]): any | null {
       for (const item of data) {
         if (item.key === matchedKey && item.permission) {

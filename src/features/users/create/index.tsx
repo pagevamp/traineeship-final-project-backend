@@ -42,7 +42,7 @@ const Index = () => {
     formState: { errors },
   } = useForm<CreateUserPayload>({
     defaultValues: {
-      countryCode: "91",
+      countryCode: "971",
     },
     resolver: yupResolver(
       id ? userUpdateValidationSchema : userCreationValidationSchema

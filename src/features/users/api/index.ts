@@ -10,6 +10,7 @@ export const getAllDepartments = () => {
 export const createInternalUser = (body: any) => {
   return api.post("/users/create", body);
 };
+
 export const getAllInternalUsers = (params: userListParams = {}) => {
   const queryParams = new URLSearchParams();
 
@@ -31,9 +32,9 @@ export const getAllInternalUsers = (params: userListParams = {}) => {
     queryParams.append("offset", params.offset.toString());
   }
 
-  const queryString = queryParams.toString();
-  const url = `/users${queryString ? `?${queryString}` : ""}`;
-
+  const url = `/users${
+    queryParams.toString() ? `?${queryParams.toString()}` : ""
+  }`;
   return api.get(url);
 };
 export const getUserDetailById = (id: string) => {

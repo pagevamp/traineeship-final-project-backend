@@ -11,7 +11,6 @@ import Image from "next/image";
 
 const StaffTable = ({ control }: { control: any }) => {
   const router = useRouter();
-  // managing states
   const [state, setState] = useState({
     pagination: {
       page: 1,
@@ -49,10 +48,12 @@ const StaffTable = ({ control }: { control: any }) => {
     <div className="rounded-t-[25px] bg-white p-4">
       <div className="flex justify-between items-center mb-2 w-full">
         <div className="text-[16px]">
-          <span className="font-primary font-bold">Verification Request</span>
+          <span className="font-primary font-bold text-[14px] md:text-[16px]">
+            Verification Request
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:flex-row-2">
           <Controller
             name="contactType"
             control={control}
@@ -67,7 +68,7 @@ const StaffTable = ({ control }: { control: any }) => {
                 onChange={(selected) => field.onChange(selected.value)}
                 placeholder="Select A Customer"
                 emptyText="No data found."
-                className="min-w-[300px] bg-white h-12 p-4 border border-orange-400"
+                className="min-w-[100px] md:min-w-[200px] lg:min-w-[300px] bg-white h-12 p-4 border border-orange-400"
               />
             )}
           />

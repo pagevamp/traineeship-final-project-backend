@@ -11,7 +11,7 @@ const OrderProducts = () => {
 
   return (
     <div className="flex flex-col gap-2 sm:mx-4 ">
-      <span className="font-primary text-start ">Product Details</span>
+      <span className="font-secondary  text-start ">Product Details</span>
       <div className="bg-[#F9F3FF] rounded-[5px] p-4">
         <div className=" h-[300px] relative rounded overflow-hidden shadow-md mb-2">
           <Image
@@ -49,10 +49,10 @@ const OrderProducts = () => {
       <div className="grid grid-cols-3 gap-2 my-7">
         <div>
           <div className="flex flex-col">
-            <span className="font-primary text-[16px] font-normal">
+            <span className="font-secondary text-[16px] font-normal">
               A1-23412
             </span>
-            <span className="font-normal text-[16px] text-muted-light">
+            <span className="font-normal font-secondary text-[16px] text-muted-light">
               Qty: 1
             </span>
           </div>
@@ -63,10 +63,10 @@ const OrderProducts = () => {
         <div className="w-full flex flex-col justify-normal">
           {productDetails.map((detail, index) => (
             <div key={index} className="flex flex-row items-start gap-2">
-              <span className="font-primary text-[16px] font-normal">
+              <span className="font-secondary text-[16px] font-normal">
                 {detail.label}{" "}
               </span>
-              <span className="font-primary text-[16px] font-light">
+              <span className="font-secondary text-[16px] font-light">
                 {detail.value}
               </span>
             </div>

@@ -3,7 +3,7 @@ export const moduleRoutes: Record<string, string[]> = {
   DASHBOARD_OPERATIONAL: ["/dashboard/operational", "/dashboard/operational/*"],
   DASHBOARD: ["/dashboard/sales", "/dashboard/sales/*"],
   CUSTOMER: ["/customer", "/customer/*"],
-  DEPARTMENT: ["/department", "/department/*", "/users/*"],
+  DEPARTMENT: ["/departments", "/departments/*", "/users/*"],
   REPORT_ADMIN: ["/report/admin", "/report/admin/*"],
   REPORT_OPERATIONAL: ["/report/operational", "/report/operational/*"],
   REPORT_FINANCE: ["/report/finance", "/report/finance/*"],
@@ -19,7 +19,7 @@ export const MODULE_LINK: Record<string, { title: string; href: string }> = {
   DASHBOARD: { title: "Dashboard Sales", href: "/dashboard/sales" },
   USER: { title: "User", href: "/users" },
   CUSTOMER: { title: "Customer", href: "/customer" },
-  DEPARTMENT: { title: "Department", href: "/department" },
+  DEPARTMENT: { title: "Department", href: "/departments" },
   REPORT_ADMIN: { title: "Report Admin", href: "/report/admin" },
   REPORT_FINANCE: { title: "Report Finance", href: "/report/finance" },
   REPORT_OPERATIONAL: {

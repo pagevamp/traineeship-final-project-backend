@@ -300,6 +300,10 @@ body {
 }
 
 /* PHONE NUMBER INPUT CSS */
+.react-tel-input .country-list {
+  position: fixed !important;
+  height: 60% !important;
+}
 .react-tel-input {
   width: auto !important;
   font-family: var(--font-secondary) !important;
