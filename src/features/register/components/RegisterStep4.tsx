@@ -85,6 +85,7 @@ const Register4 = (props: CustomerRegister4Props) => {
             required
             numberType
             type="text"
+            maxLength={15}
             error={errors?.tradeReferenceDetails?.[index]?.phone?.message}
           />
           {tradeReferenceFields?.length > 1 && (

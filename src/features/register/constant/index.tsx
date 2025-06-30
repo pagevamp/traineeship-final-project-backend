@@ -211,6 +211,7 @@ export const DESTINATION_COUNTRY = [
     label: "Qatar",
     value: "Qatar",
   },
+  { label: "Saudi Arabia", value: "Saudi Arabia" },
 ];
 export const EMPLOYEE_SIZE = [
   {

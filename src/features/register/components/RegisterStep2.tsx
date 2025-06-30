@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { CustomerRegister2Props } from "../types";
+import { CustomerRegister2Props, FieldName } from "../types";
 import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
 import { Selectbox } from "@/components/ui/select-box";
@@ -172,10 +172,25 @@ const Register2 = (props: CustomerRegister2Props) => {
                     }))}
                     value={field?.value}
                     onChange={(value) => {
-                      setValue("shipmentType", value?.value);
+                      const selectedType = value?.value;
+                      setValue("shipmentType", selectedType);
                       trigger("shipmentType");
-                      setValue("shipmentFtl", {});
-                      setValue("shipmentLtl", {});
+
+                      const resetFields: Record<FieldName, any> = {
+                        "shipmentFtl.equipmentCapacity": "",
+                        "shipmentFtl.noOfTrips": undefined,
+                        "shipmentFtl.serviceNeeded": "",
+                        "shipmentFtl.typeOfEquipments": "",
+                        "shipmentLtl.noOfShipmentsPerLane": undefined,
+                        "shipmentLtl.weightPerShipmentPerLane": undefined,
+                      };
+
+                      Object.entries(resetFields).forEach(([field, val]) => {
+                        setValue(field as FieldName, val);
+                      });
+
+                      // Trigger all related fields at once
+                      trigger(Object.keys(resetFields) as FieldName[]);
                     }}
                     placeholder="Select Shipment Type"
                     emptyText="No data found."

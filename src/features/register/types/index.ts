@@ -8,6 +8,14 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 
+export type FieldName =
+  | "shipmentFtl.equipmentCapacity"
+  | "shipmentFtl.noOfTrips"
+  | "shipmentFtl.serviceNeeded"
+  | "shipmentFtl.typeOfEquipments"
+  | "shipmentLtl.noOfShipmentsPerLane"
+  | "shipmentLtl.weightPerShipmentPerLane";
+
 export interface CustomerRegisterBaseProps {
   register: UseFormRegister<UserPayload>;
   watch: UseFormWatch<UserPayload>;
@@ -17,7 +25,7 @@ export interface CustomerRegisterBaseProps {
   handleSubmit: (
     onSubmit: SubmitHandler<UserPayload>
   ) => (e?: React.BaseSyntheticEvent) => Promise<void>;
-  onSubmit: SubmitHandler<UserPayload>;
+  // onSubmit: SubmitHandler<UserPayload>;
   control: Control<UserPayload>;
   defaultValues: UserPayload;
 }
@@ -44,6 +52,8 @@ export interface CustomerRegister4Props extends CustomerRegisterBaseProps {
   removeTradeReference: any;
 }
 export interface CustomerRegister5Props extends CustomerRegisterBaseProps {}
+
+export interface CustomerRegister6Props extends CustomerRegisterBaseProps {}
 
 export interface CustomerRegister7Props extends CustomerRegisterBaseProps {
   productFields: any;
@@ -129,12 +139,12 @@ export interface BankDetail {
 }
 
 export interface Document {
-  id: string;
+  id?: string;
   tradeLicense: string;
   vatCertificate: string;
   passport: string;
   emiratesId: string;
-  secuirtyCheck: string;
+  securityCheque?: string;
   contract: string;
-  other: string;
+  other?: string;
 }
