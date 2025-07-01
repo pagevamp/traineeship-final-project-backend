@@ -5,19 +5,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import BankDetails from "@/features/customer/component/BankDetails";
-import Director from "@/features/customer/component/Director";
-import Documents from "@/features/customer/component/Document";
-import FinanceManager from "@/features/customer/component/FinanceManger";
-import Referral from "@/features/customer/component/referral";
 import { cn } from "@/lib/utils";
-
 import { motion } from "framer-motion";
 import VendorFleet from "./VendorFleet";
 import VendorCompliance from "./VendorCompliance";
 import VendorCommercial from "./VendorCommercial";
 import VendorSystem from "./VendorSystem";
-import { useForm } from "react-hook-form";
 
 const accordionData = [
   {
@@ -45,7 +38,6 @@ const VendorInfoBar = () => {
         flex flex-col justify-center items-center
         w-full
         max-w-full
-        sm:max-w-[750px]
         lg:max-w-none
         mx-0
       "

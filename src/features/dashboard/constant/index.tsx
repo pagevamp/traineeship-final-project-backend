@@ -182,3 +182,8 @@ export const navigationItems = [
   //   ],
   // },
 ];
+
+export const menuItems = [
+  { label: "Profile", href: "/profile" },
+  { label: "Settings", href: "/settings" },
+];

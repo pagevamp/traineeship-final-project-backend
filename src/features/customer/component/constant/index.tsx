@@ -1,26 +1,24 @@
-import BankDetails from "../BankDetails";
-import Director from "../Director";
-import Documents from "../Document";
-import FinanceManager from "../FinanceManger";
-import Referral from "../referral";
-
-export const bankDetails = [
-  { label: "Reference from Bank", value: "Shaan Roy" },
-  { label: "Account Holder Name", value: "Rahul Sah" },
-  { label: "Bank Name", value: "HDFC Bank" },
-  { label: "Branch & Location", value: "HSR Layout, Bangalore" },
-  { label: "Account Number", value: "000987655543211" },
+export const BANK_DETAILS = [
+  { label: "Reference from Bank", key: "referenceFromBank" },
+  { label: "Account Holder Name", key: "accountHolderName" },
+  { label: "Bank Name", key: "bankName" },
+  { label: "Branch & Location", key: "bankBranchNameAndLocation" },
+  { label: "Account Number", key: "accountNumber" },
   {
     label: "IBAN",
     fullForm: "International Bank Account Number",
-    value: "09876544321234",
+    key: "iban",
   },
-  { label: "Swift/BIC Code", value: "Swift00675" },
-  { label: "Currency", value: "Indian Rupees" },
-  { label: "Bank Country", value: "India" },
-  { label: "Beneficiary Address", value: "HSR Layout, Bangalore" },
-  { label: "Bank Address", value: "HSR Layout, Bangalore" },
-  { label: "VAT/TRN Number", value: "09876544321234" },
+  {
+    label: "Swift/BIC Code",
+    key: "swiftBicCode",
+  },
+
+  { label: "Currency", key: "currency" },
+  { label: "Bank Country", key: "bankCountry" },
+  { label: "Beneficiary Address", key: "beneficiaryAddress" },
+  { label: "Bank Address", key: "bankAddress" },
+  { label: "VAT/TRN Number", key: "vatTrnNumber" },
 ];
 
 export const tabs = ["Pending", "Rejected", "Approved"] as const;
@@ -124,41 +122,45 @@ export const financeDetails = [
 export const headerDetails = [
   {
     img: "/pencil.svg",
-    label: "Company Name:",
-    value: "Everestwalk Groups Pvt. Ltd.",
+    label: "Company Name",
+    key: "companyName",
   },
   {
     img: "/system_security_update.svg",
-    label: "Employee Size:",
-    value: " 50+",
+    label: "Employee Size",
+    key: "employeeSize",
   },
   {
     img: "/share_location.svg",
-    label: "Company Type: ",
-    value: "Private Limited",
+    label: "Company Type",
+    key: "companyType",
   },
   {
     img: "/transgender.svg",
-    label: "Nature of Business:",
-    value: " Software Development",
+    label: "Nature of Business",
+    key: "natureOfBusiness",
   },
-  { img: "/share_location.svg", label: "Estd. Year:", value: " 2020" },
+  {
+    img: "/share_location.svg",
+    label: "Estd. Year",
+    key: "yearOfEstablishment",
+  },
 
   {
     img: "/document_scanner.svg",
-    label: "Shipment Type:",
-    value: " LTL, FTL, Both",
+    label: "Shipment Type",
+    key: "shipmentType",
   },
   {
     img: "/pencil.svg",
-    label: "Email ID:",
-    value: "info@everetswalk.com",
+    label: "Email ID",
+    key: "companyEmail",
   },
-  {
-    img: "/system_security_update.svg",
-    label: "Phone Number:  ",
-    value: "+91 9296654332",
-  },
+  // {
+  //   img: "/system_security_update.svg",
+  //   label: "Phone Number",
+  //   key: "companyName",
+  // },
 ];
 
 export const infoData = [
@@ -282,4 +284,25 @@ export const USER_COLUMN = [
   { key: "email", label: "Email" },
   { key: "phone", label: "Phone" },
   { key: "status", label: "Status", type: "status" },
+];
+
+export const DIRECTOR_COLUMN = [
+  { key: "name", label: "Directors Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+];
+export const FINANCE_MANAGER_COLUMN = [
+  { key: "name", label: "Finance Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+];
+export const TRADE_REFERENCE_COLUMN = [
+  { key: "referenceName", label: "Reference Name" },
+  { key: "email", label: "Email" },
+  { key: "phone", label: "Phone" },
+  { key: "businessAssociation", label: "Business Associate" },
+];
+export const CUSTOMER_PRODUCT_COLUMN = [
+  { key: "hsCode", label: "H S Code" },
+  { key: "commodityName", label: "Commodity Name" },
 ];

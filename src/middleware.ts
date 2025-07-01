@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Authorization check
-  if (!isPathAuthorized(pathname, userModules)) {
+  if (!isPathAuthorized(pathname, userModules, token)) {
     return NextResponse.redirect(new URL("/unauthorized", request.url));
   }
 
@@ -82,7 +82,9 @@ async function getUserModules(
     }
 
     const data = await res.json();
-    const modules = extractModules(data.data.modules || []);
+    const modules = extractModules(
+      data?.data?.user?.modules || data?.data?.modules || []
+    );
 
     return modules;
   } catch (err) {
@@ -112,7 +114,14 @@ function redirectToFirstModule(request: NextRequest, userModules: string[]) {
   return NextResponse.redirect(new URL("/unauthorized", request.url));
 }
 
-function isPathAuthorized(pathname: string, userModules: string[]): boolean {
+function isPathAuthorized(
+  pathname: string,
+  userModules: string[],
+  token?: string
+): boolean {
+  if (pathname === "/profile") {
+    return Boolean(token);
+  }
   return userModules.some((moduleKey) => {
     const paths = moduleRoutes[moduleKey];
     if (!paths) return false;
