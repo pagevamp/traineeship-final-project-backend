@@ -14,8 +14,10 @@ import FinanceManager from "./FinanceManger";
 import Referral from "./referral";
 import { motion } from "framer-motion";
 import { UserPayload } from "@/features/register/types";
+import ProductsList from "./ProductsList";
 
 const InfoBar = ({ profileDetail }: { profileDetail?: UserPayload }) => {
+  const userId = useMemo(() => profileDetail?.user?.id, [profileDetail]);
   const directorDetails = useMemo(
     () => profileDetail?.directorDetails,
     [profileDetail?.directorDetails]
@@ -57,10 +59,10 @@ const InfoBar = ({ profileDetail }: { profileDetail?: UserPayload }) => {
       title: "Documents",
       content: <Documents documentsDetail={documentsDetail} />,
     },
-    // {
-    //   title: "Product List",
-    //   content: <ProductsList documentsDetail={documentsDetail} />,
-    // },
+    {
+      title: "Product List",
+      content: <ProductsList userId={userId} />,
+    },
   ];
   return (
     <div
