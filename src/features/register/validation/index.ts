@@ -346,7 +346,7 @@ const productsSchema = Yup.array().of(
       ),
   })
 );
-
+const currentYear = new Date().getFullYear();
 export const customerRegisterValidationSchemas: any = [
   Yup.object().shape({
     companyName: Yup.string()
@@ -362,9 +362,17 @@ export const customerRegisterValidationSchemas: any = [
       .required("Company Email is required"),
     companyType: Yup.string().required("Company Type is required"),
     yearOfEstablishment: Yup.string()
-      .required("Year Of Establishment is required")
-      .min(4, "Year Of Establishment must be minimun 4 digits")
-      .max(4, "Year Of Establishment must be at most 4 digits"),
+      .required("Years Since First Incorporated is required")
+      .matches(/^\d{4}$/, "Years Since Incorporated must be exactly 4 digits")
+      .test(
+        "not-in-future",
+        `Years Since Incorporated cannot be in the future`,
+        (value) => {
+          if (!value) return false;
+          const year = parseInt(value, 10);
+          return year <= currentYear;
+        }
+      ),
   }),
   Yup.object().shape({
     natureOfBusiness: Yup.string().required("Nature Of Business is required"),
