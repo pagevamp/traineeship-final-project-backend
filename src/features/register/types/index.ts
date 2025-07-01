@@ -81,6 +81,7 @@ export interface UserPayload {
   documents: Document[];
   shipmentFtl?: shipmentFtl;
   shipmentLtl?: shipmentLtl;
+  user?: { id?: string };
 }
 
 interface shipmentLtl {

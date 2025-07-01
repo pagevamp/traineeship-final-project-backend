@@ -85,6 +85,7 @@ export interface userListParams {
   offset?: number;
   sortBy?: string;
   order?: "ASC" | "DESC";
+  createdById?: string;
 }
 
 export interface UserDetail {
