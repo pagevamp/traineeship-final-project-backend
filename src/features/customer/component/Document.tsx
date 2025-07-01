@@ -72,7 +72,7 @@ const Documents = ({ documentsDetail }: any) => {
             doc.url && (
               <div key={index} className="flex flex-col items-center">
                 <div
-                  className="relative w-[220px] h-[115px] bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
+                  className="relative w-[220px] h-[115px] overflow-hidden border rounded-lg flex items-center justify-center cursor-pointer transition-colors"
                   onClick={() => handleDocumentClick(doc)}
                 >
                   {isImageFile(doc.url) ? (
