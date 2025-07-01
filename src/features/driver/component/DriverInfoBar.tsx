@@ -54,7 +54,6 @@ const DriverInfoBar = () => {
         flex flex-col justify-center items-center
         w-full
         max-w-full
-        sm:max-w-[750px]
         lg:max-w-none
         mx-0
       "

@@ -25,8 +25,13 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   const { data: profileInformationData } = useProfileInformation();
   const modules = useMemo(
-    () => profileInformationData?.data?.data?.modules,
-    [profileInformationData?.data?.data?.modules]
+    () =>
+      profileInformationData?.data?.data?.user?.modules ??
+      profileInformationData?.data?.data?.modules,
+    [
+      profileInformationData?.data?.data?.modules,
+      profileInformationData?.data?.data?.user?.modules,
+    ]
   );
 
   const isUUID = (segment: string): boolean => {

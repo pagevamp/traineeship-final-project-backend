@@ -237,44 +237,38 @@ const bankSchema = Yup.array().of(
       .test(
         "iban-length-validation",
         "IBAN length must be valid for GCC countries (UAE: 23, KSA: 24, Qatar: 29, Oman: 23, Bahrain: 22, Kuwait: 30)",
-        function (value, context) {
+        function (value) {
           if (!value) return true; // Skip validation if no value
 
-          // IBAN length validation for GCC countries based on destination country
-          const countryIbanLengths: Record<string, number> = {
-            "United Arab Emirates": 23,
-            "Saudi Arabia": 24,
-            "Qatar": 29,
-            "Oman": 23,
-            "Bahrain": 22,
-            "State of Kuwait": 30,
+          const countryIbanLengths = {
+            UAE: 23,
+            KSA: 24,
+            Qatar: 29,
+            Oman: 23,
+            Bahrain: 22,
+            Kuwait: 30,
           };
 
-          // Try to get destination country from form context
-          let destinationCountry: string | undefined;
-          
-          // Try to access from the form context
-          if (context.options.context?.destinationCountry) {
-            destinationCountry = context.options.context.destinationCountry;
-          }
-          // Try to access from the form data if available
-          else if (context.from && context.from.length > 0) {
-            const formData = context.from[context.from.length - 1]?.value;
-            if (formData?.destinationCountry) {
-              destinationCountry = formData.destinationCountry;
-            }
-          }
-          // Try to access from the root form using this.parent
-          else if (this.parent && this.parent.destinationCountry) {
-            destinationCountry = this.parent.destinationCountry;
+          const bankCountry = this.parent.bankCountry;
+
+          let expectedLength: number | undefined = undefined;
+          if (
+            bankCountry &&
+            Object.prototype.hasOwnProperty.call(
+              countryIbanLengths,
+              bankCountry
+            )
+          ) {
+            expectedLength =
+              countryIbanLengths[
+                bankCountry as keyof typeof countryIbanLengths
+              ];
           }
 
-          const expectedLength = destinationCountry ? countryIbanLengths[destinationCountry] : undefined;
-          
           if (expectedLength) {
             if (value.length !== expectedLength) {
-              return context.createError({
-                message: `IBAN must be exactly ${expectedLength} characters for ${destinationCountry}`,
+              return this.createError({
+                message: `IBAN must be exactly ${expectedLength} characters for ${bankCountry}`,
               });
             }
           } else {
@@ -282,8 +276,9 @@ const bankSchema = Yup.array().of(
             const length = value.length;
             const validLengths = [22, 23, 24, 29, 30];
             if (!validLengths.includes(length)) {
-              return context.createError({
-                message: "IBAN length must be valid for GCC countries (UAE: 23, KSA: 24, Qatar: 29, Oman: 23, Bahrain: 22, Kuwait: 30)",
+              return this.createError({
+                message:
+                  "IBAN length must be valid for GCC countries (UAE: 23, KSA: 24, Qatar: 29, Oman: 23, Bahrain: 22, Kuwait: 30)",
               });
             }
           }

@@ -61,9 +61,6 @@ export interface CustomerRegister7Props extends CustomerRegisterBaseProps {
   removeProduct: any;
 }
 export interface UserPayload {
-  user: {
-    id: string;
-  };
   vehicleType: {
     id: string;
   };
@@ -73,7 +70,7 @@ export interface UserPayload {
   companyEmail: string;
   companyType: string;
   yearOfEstablishment: string;
-  employeeSize: string;
+  employeeSize?: string | null;
   natureOfBusiness: string;
   shipmentType: string;
   destinationCountry: string;
@@ -82,9 +79,8 @@ export interface UserPayload {
   tradeReferenceDetails?: TradeReference[];
   bankDetails: BankDetail[];
   documents: Document[];
-  userId: string;
-  shipmentFtl: shipmentFtl;
-  shipmentLtl: shipmentLtl;
+  shipmentFtl?: shipmentFtl;
+  shipmentLtl?: shipmentLtl;
 }
 
 interface shipmentLtl {

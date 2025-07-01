@@ -1,8 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import SuccessComponent from "@/features/success/SuccessComponent";
 
 const Success = () => {
-  return <SuccessComponent />;
+  return (
+    <Suspense fallback={<></>}>
+      {" "}
+      <SuccessComponent />
+    </Suspense>
+  );
 };
 
 export default Success;

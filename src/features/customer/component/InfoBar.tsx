@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -12,43 +13,61 @@ import Documents from "./Document";
 import FinanceManager from "./FinanceManger";
 import Referral from "./referral";
 import { motion } from "framer-motion";
+import { UserPayload } from "@/features/register/types";
 
-const accordionData = [
-  {
-    title: "Directors Details",
-    content: <Director />,
-  },
-  {
-    title: "Finance Manager Information",
-    content: <FinanceManager />,
-  },
-  {
-    title: "Referral Details",
-    content: <Referral />,
-  },
-  {
-    title: "Bank Details",
-    content: <BankDetails />,
-  },
-  {
-    title: "Documents",
-    content: <Documents />,
-  },
-  {
-    title: "Product List",
-    content:
-      "This section contains a detailed list of the products or services offered by the company, including product names, categories, and brief descriptions for each item.",
-  },
-];
-
-const InfoBar = () => {
+const InfoBar = ({ profileDetail }: { profileDetail?: UserPayload }) => {
+  const directorDetails = useMemo(
+    () => profileDetail?.directorDetails,
+    [profileDetail?.directorDetails]
+  );
+  const financeManagerDetails = useMemo(
+    () => profileDetail?.financialDirectorDetails,
+    [profileDetail?.financialDirectorDetails]
+  );
+  const tradeReferenceDetails = useMemo(
+    () => profileDetail?.tradeReferenceDetails,
+    [profileDetail?.tradeReferenceDetails]
+  );
+  const bankDetails = useMemo(
+    () => profileDetail?.bankDetails?.[0],
+    [profileDetail?.bankDetails]
+  );
+  const documentsDetail = useMemo(
+    () => profileDetail?.documents?.[0],
+    [profileDetail?.documents]
+  );
+  const accordionData = [
+    {
+      title: "Directors Details",
+      content: <Director directorDetails={directorDetails} />,
+    },
+    {
+      title: "Finance Manager Information",
+      content: <FinanceManager financeManagerDetails={financeManagerDetails} />,
+    },
+    {
+      title: "Referral Details",
+      content: <Referral tradeReferenceDetails={tradeReferenceDetails} />,
+    },
+    {
+      title: "Bank Details",
+      content: <BankDetails bankDetails={bankDetails} />,
+    },
+    {
+      title: "Documents",
+      content: <Documents documentsDetail={documentsDetail} />,
+    },
+    // {
+    //   title: "Product List",
+    //   content: <ProductsList documentsDetail={documentsDetail} />,
+    // },
+  ];
   return (
     <div
       className="
         flex flex-col justify-center items-center
         w-full
         max-w-full
-        sm:max-w-[750px]
         lg:max-w-none
         mx-0
       "
