@@ -67,7 +67,7 @@ export function UserNav({ profileData }: any) {
         >
           <DropdownMenuLabel className="font-normal px-2 pb-2 border-b border-transparent">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-semibold leading-tight bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
+              <p className="text-sm font-semibold leading-tight truncate bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
                 {(profileDetail?.firstName || "N/A") +
                   " " +
                   (profileDetail?.lastName || "N/A")}
