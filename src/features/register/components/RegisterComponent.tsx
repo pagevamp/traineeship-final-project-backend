@@ -24,6 +24,7 @@ import { useCreateCustomer, useVehicleType } from "../hooks";
 import { toast } from "sonner";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import { isFile } from "@/constant";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const ScrollArrow = ({
   direction,
@@ -89,6 +90,19 @@ const ChangeStep = ({
           <ChevronLeft className="mr-2" size={18} />
           Back
         </Button>
+      )}
+      {currStep === 1 && (
+        <Link href="/login">
+          <Button
+            onClick={prevStep}
+            disabled={isLoading}
+            variant={"outline"}
+            className="font-primary text-sm bg-transparent text-[#CF5406] shadow-none hover:bg-transparent flex items-center justify-center disabled:opacity-50"
+          >
+            <Icon icon="lsicon:goto-filled" width="16" height="16" />
+            Go to Login
+          </Button>
+        </Link>
       )}
     </div>
   );
