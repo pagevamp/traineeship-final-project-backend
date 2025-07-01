@@ -72,7 +72,7 @@ export function UserNav({ profileData }: any) {
                   " " +
                   (profileDetail?.lastName || "N/A")}
               </p>
-              <p className="text-xs leading-tight bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
+              <p className="text-xs leading-tight truncate bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
                 {profileDetail?.email || "N/A"}
               </p>
             </div>
