@@ -33,7 +33,7 @@ const createApiInstance = (baseURL: string | undefined) => {
   instance.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
       const token = storageUtil.get(ACCESS_TOKEN);
-      config.headers["X-Client-Platform"] = "web";
+      config.headers["X-Client-Portal"] = "user";
       if (token && !isTokenExpired(token)) {
         config.headers.Authorization = `Bearer ${token}`;
       }
