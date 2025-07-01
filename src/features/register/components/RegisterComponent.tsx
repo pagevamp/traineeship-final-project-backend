@@ -60,9 +60,12 @@ const ChangeStep = ({
   return (
     <div className="font-primary flex flex-col items-center gap-4 mb-[47px] mt-[70px]">
       {currStep === totalSteps ? (
-        <Button className="font-primary text-lg bg-transparent text-[#CF5406] shadow-none hover:bg-transparent flex items-center justify-center">
+        <Button
+          className="font-primary text-lg bg-transparent text-[#CF5406] shadow-none hover:bg-transparent flex items-center justify-center"
+          onClick={nextStep}
+        >
           <ChevronRight className="mr-2" size={18} />
-          <Link href="/success">Skip</Link>
+          Skip
         </Button>
       ) : null}
       <Button
@@ -364,7 +367,9 @@ const RegisterComponent = () => {
     },
     onSuccess: (data) => {
       toast.success("Customer Successfully Created!!");
-      router.push("/success");
+      router.push(
+        `/success?creditAccountNumber=${data?.data?.data?.creditAccountNumber}`
+      );
     },
   });
 
@@ -506,16 +511,16 @@ const RegisterComponent = () => {
 
           await createCustomer(reqBody);
         } catch (error) {
-          if (
-            error instanceof Error &&
-            error.message === "Failed to upload one or more files"
-          ) {
-            toast.error(
-              "Failed to upload one or more files. Please try again."
-            );
-          } else {
-            toast.error("Something went wrong!");
-          }
+          // if (
+          //   error instanceof Error &&
+          //   error.message === "Failed to upload one or more files"
+          // ) {
+          //   toast.error(
+          //     "Failed to upload one or more files. Please try again."
+          //   );
+          // } else {
+          //   toast.error("Something went wrong!");
+          // }
         } finally {
           setIsUploading(false);
         }

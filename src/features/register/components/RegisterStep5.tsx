@@ -67,6 +67,57 @@ const Register5 = (props: CustomerRegister5Props) => {
           error={errors?.bankDetails?.[0]?.accountNumber?.message}
         />
 
+        <div>
+          <Controller
+            name="bankDetails.0.bankCountry"
+            control={control}
+            render={({ field, fieldState: { error } }: any) => {
+              return (
+                <div>
+                  <Selectbox
+                    options={BANK_COUNTRY?.map((curr: any) => ({
+                      label: curr?.label,
+                      value: curr?.value,
+                    }))}
+                    value={field?.value}
+                    onChange={(value) => {
+                      setValue("bankDetails.0.bankCountry", value?.value);
+                      trigger("bankDetails.0.bankCountry");
+                      trigger("bankDetails.0.iban");
+                    }}
+                    placeholder="Select Bank Country"
+                    emptyText="No data found."
+                    className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
+                    label="Bank Country"
+                    error={error?.message}
+                  />
+                  {error && (
+                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
+                      <Icon
+                        icon="solar:close-square-bold"
+                        width="14"
+                        height="14"
+                        className="text-destructive"
+                      />
+                      <span className="mt-0">{error?.message}</span>
+                    </p>
+                  )}
+                </div>
+              );
+            }}
+          />
+        </div>
+
+        <Input
+          type="text"
+          name="bankDetails.0.swiftBicCode"
+          register={register}
+          placeholder="Enter Swift/BIC Code"
+          labelName="Swift/BIC Code"
+          required
+          error={errors?.bankDetails?.[0]?.swiftBicCode?.message}
+        />
+
         <Input
           name="bankDetails.0.iban"
           register={register}
@@ -82,16 +133,6 @@ const Register5 = (props: CustomerRegister5Props) => {
           type="text"
           required
           error={errors?.bankDetails?.[0]?.iban?.message}
-        />
-
-        <Input
-          type="text"
-          name="bankDetails.0.swiftBicCode"
-          register={register}
-          placeholder="Enter Swift/BIC Code"
-          labelName="Swift/BIC Code"
-          required
-          error={errors?.bankDetails?.[0]?.swiftBicCode?.message}
         />
 
         <div>
@@ -115,46 +156,6 @@ const Register5 = (props: CustomerRegister5Props) => {
                     emptyText="No data found."
                     className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
                     label="Currency"
-                    error={error?.message}
-                  />
-                  {error && (
-                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
-                      <Icon
-                        icon="solar:close-square-bold"
-                        width="14"
-                        height="14"
-                        className="text-destructive"
-                      />
-                      <span className="mt-0">{error?.message}</span>
-                    </p>
-                  )}
-                </div>
-              );
-            }}
-          />
-        </div>
-
-        <div>
-          <Controller
-            name="bankDetails.0.bankCountry"
-            control={control}
-            render={({ field, fieldState: { error } }: any) => {
-              return (
-                <div>
-                  <Selectbox
-                    options={BANK_COUNTRY?.map((curr: any) => ({
-                      label: curr?.label,
-                      value: curr?.value,
-                    }))}
-                    value={field?.value}
-                    onChange={(value) => {
-                      setValue("bankDetails.0.bankCountry", value?.value);
-                      trigger("bankDetails.0.bankCountry");
-                    }}
-                    placeholder="Select Bank Country"
-                    emptyText="No data found."
-                    className="w-full bg-transparent h-12 font-secondary text-sm font-[300]"
-                    label="Bank Country"
                     error={error?.message}
                   />
                   {error && (

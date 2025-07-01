@@ -1,10 +1,18 @@
 "use client";
 
+import { useMemo } from "react";
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
 import { headerDetails } from "./constant";
+import { Avatar } from "@/components/ui/avatar";
 
-const Header = () => {
+const Header = ({ profileDetail }: { profileDetail?: any }) => {
+  const firstInitial = useMemo(
+    () =>
+      profileDetail?.user?.firstName
+        ? profileDetail?.user?.firstName?.charAt(0).toUpperCase() || "A"
+        : profileDetail?.firstName?.charAt(0).toUpperCase() || "A",
+    [profileDetail?.firstName, profileDetail?.user?.firstName]
+  );
   return (
     <div className="flex flex-col gap-6 w-full mx-auto">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
@@ -12,7 +20,7 @@ const Header = () => {
           Company Information
         </span>
 
-        <div className="flex gap-4 sm:gap-[24px] flex-wrap sm:flex-nowrap justify-center">
+        {/* <div className="flex gap-4 sm:gap-[24px] flex-wrap sm:flex-nowrap justify-center">
           <button className="flex items-center px-4 h-[40px] bg-[#00B69B] text-white rounded">
             Transfer To{" "}
             <ChevronDown size={14} className="ml-2 bg-transparent" />
@@ -20,18 +28,13 @@ const Header = () => {
           <button className="w-[110px] h-[40px] bg-[#FF6502] text-white rounded">
             Reject
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div className="flex flex-col sm:flex-row gap-10 sm:gap-[24px]">
-        <Image
-          src="/Ellipse 67.svg"
-          alt="Company Avatar"
-          width={165}
-          height={165}
-          className="rounded-full object-cover"
-          priority
-        />
+        <Avatar className="h-40 w-40 text-secondary text-xl bg-orange-500 flex items-center justify-center text-white outline-none">
+          {firstInitial}
+        </Avatar>
 
         <div className="w-full sm:max-w-[823px] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
           {headerDetails.map((detail, index) => (
@@ -47,7 +50,7 @@ const Header = () => {
                   {detail.label}:{" "}
                 </span>
                 <span className="font-primary text-[14px] font-normal font-weight-200">
-                  {detail.value}
+                  {profileDetail?.[detail?.key] ?? "N/A"}
                 </span>
               </p>
             </div>

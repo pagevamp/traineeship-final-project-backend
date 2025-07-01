@@ -15,13 +15,21 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/features/login/constant";
 import { useRouter } from "next/navigation";
+import { menuItems } from "../constant";
 
 export function UserNav({ profileData }: any) {
   const router = useRouter();
   const queryClient = getQueryClient();
   const firstInitial = useMemo(
-    () => profileData?.firstName?.charAt(0).toUpperCase() || "A",
-    [profileData?.firstName]
+    () =>
+      profileData?.user?.firstName
+        ? profileData?.user?.firstName?.charAt(0).toUpperCase() || "A"
+        : profileData?.firstName?.charAt(0).toUpperCase() || "A",
+    [profileData?.firstName, profileData?.user?.firstName]
+  );
+  const profileDetail = useMemo(
+    () => (profileData?.user ? profileData?.user : profileData),
+    [profileData]
   );
   return (
     <div className="flex items-center gap-4">
@@ -60,12 +68,12 @@ export function UserNav({ profileData }: any) {
           <DropdownMenuLabel className="font-normal px-2 pb-2 border-b border-transparent">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-semibold leading-tight bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
-                {(profileData?.firstName || "N/A") +
+                {(profileDetail?.firstName || "N/A") +
                   " " +
-                  (profileData?.lastName || "N/A")}
+                  (profileDetail?.lastName || "N/A")}
               </p>
               <p className="text-xs leading-tight bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
-                {profileData?.email || "N/A"}
+                {profileDetail?.email || "N/A"}
               </p>
             </div>
           </DropdownMenuLabel>
@@ -73,12 +81,13 @@ export function UserNav({ profileData }: any) {
           <DropdownMenuSeparator className="h-px my-2 bg-muted-light" />
 
           <DropdownMenuGroup>
-            {[{ label: "Profile" }, { label: "Settings" }].map(({ label }) => (
+            {menuItems.map(({ label, href }) => (
               <DropdownMenuItem
                 key={label}
-                className="group px-3 py-2 rounded-md transition-colors hover:bg-[#FF743C]/10"
+                className="group px-3 py-2 rounded-md transition-colors hover:bg-[#FF743C]/10 cursor-pointer"
+                onClick={() => router.push(href)}
               >
-                <span className="bg-gradient-to-r from-[#540F86] to-[#542F80]  text-transparent bg-clip-text font-medium">
+                <span className="bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text font-medium">
                   {label}
                 </span>
               </DropdownMenuItem>

@@ -71,7 +71,7 @@ const Register7 = (props: CustomerRegister7Props) => {
   return (
     <motion.div
       className="text-[16px] w-full sm:max-w-screen-lg mx-auto px-4 mt-2 scroll-bar"
-      style={{ height: "80vh", overflowY: "auto" }}
+      style={{ maxHeight: "80vh", overflowY: "auto" }}
       initial={{ x: 10, opacity: 0.1 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
