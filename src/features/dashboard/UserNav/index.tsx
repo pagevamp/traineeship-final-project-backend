@@ -31,6 +31,7 @@ export function UserNav({ profileData }: any) {
     () => (profileData?.user ? profileData?.user : profileData),
     [profileData]
   );
+  console.log(profileData, "pd");
   return (
     <div className="flex items-center gap-4">
       <div className="relative">
@@ -68,9 +69,7 @@ export function UserNav({ profileData }: any) {
           <DropdownMenuLabel className="font-normal px-2 pb-2 border-b border-transparent">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-semibold leading-tight truncate bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
-                {(profileDetail?.firstName || "N/A") +
-                  " " +
-                  (profileDetail?.lastName || "N/A")}
+                {profileData?.companyName || "N/A"}
               </p>
               <p className="text-xs leading-tight truncate bg-gradient-to-r from-[#540F86] to-[#542F80] text-transparent bg-clip-text">
                 {profileDetail?.email || "N/A"}
