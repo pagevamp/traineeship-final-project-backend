@@ -5,7 +5,7 @@ const useProfileInformation = () => {
   return useQuery({
     queryKey: ["profileInformation"],
     queryFn: () => getProfileInformation(),
-    staleTime: Infinity,
+    staleTime: 0,
   });
 };
 
