@@ -14,7 +14,7 @@ const useGetModules = () => {
   return useQuery({
     queryKey: ["allModules"],
     queryFn: getAllModules,
-    staleTime: Infinity,
+    staleTime: 0,
   });
 };
 
@@ -22,7 +22,7 @@ const useGetDepartments = () => {
   return useQuery({
     queryKey: ["allDepartments"],
     queryFn: getAllDepartments,
-    staleTime: Infinity,
+    staleTime: 0,
   });
 };
 
