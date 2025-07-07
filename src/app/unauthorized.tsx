@@ -1,20 +1,42 @@
 "use client";
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Home } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+  clearTokensAndRedirectToLogin,
+  areTokensValid,
+} from "@/utils/handlers/auth";
 
 const UnauthorizedPage = () => {
   const router = useRouter();
+  const [isTokenExpired, setIsTokenExpired] = useState(false);
+
+  // Check if tokens are expired ONLY when this page loads
+  useEffect(() => {
+    // Only check tokens if we're on the unauthorized page
+    if (window.location.pathname === "/unauthorized") {
+      if (!areTokensValid()) {
+        setIsTokenExpired(true);
+        clearTokensAndRedirectToLogin();
+      }
+    }
+  }, []);
+
+  // Show loading if tokens are expired
+  if (isTokenExpired) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-100 flex items-center justify-center p-4">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+        </div>
+      </div>
+    );
+  }
 
   const handleGoBack = () => {
     router.back();
-  };
-
-  const handleGoHome = () => {
-    router.push("/dashboard");
   };
 
   return (
@@ -46,24 +68,24 @@ const UnauthorizedPage = () => {
 
           {/* Content Section */}
           <div className="space-y-4">
-            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight font-primary">
               Access Denied
             </h1>
             <div className="space-y-2">
-              <p className="text-lg text-gray-700 font-medium">
+              <p className="text-md text-gray-700 font-secondary">
                 Unauthorized Access
               </p>
-              <p className="text-sm text-gray-500 leading-relaxed">
+              <p className="text-sm text-gray-500 leading-relaxed font-secondary font-[300]">
                 You don&apos;t have permission to access this resource in the
-                Transportation Management System. Please contact your
-                administrator if you believe this is an error.
+                Arctern Express. Please contact your administrator if you
+                believe this is an error.
               </p>
             </div>
           </div>
 
           {/* Error Code */}
           <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-            <p className="text-xs text-gray-500 font-mono">
+            <p className="text-xs text-gray-500 font-secondary">
               Error Code: 403 - Forbidden
             </p>
           </div>
@@ -73,14 +95,14 @@ const UnauthorizedPage = () => {
             <Button
               onClick={handleGoBack}
               variant="outline"
-              className="flex-1 h-12 text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
+              className="flex-1 h-12 text-gray-700 font-[300] font-secondary border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
             </Button>
             {/* <Button
               onClick={handleGoHome}
-              className="flex-1 h-12 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              className="flex-1 h-12 font-secondary bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
             >
               <Home className="w-4 h-4 mr-2" />
               Home
@@ -89,8 +111,8 @@ const UnauthorizedPage = () => {
 
           {/* Footer */}
           <div className="pt-4 border-t border-gray-100">
-            <p className="text-xs text-gray-400">
-              Transportation Management System
+            <p className="text-xs text-gray-400 font-secondary tracking-wide">
+              Arctern Express
             </p>
           </div>
         </CardContent>

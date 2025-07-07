@@ -1,19 +1,42 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Home } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import {
+  clearTokensAndRedirectToLogin,
+  areTokensValid,
+} from "@/utils/handlers/auth";
 
 const UnauthorizedPage = () => {
   const router = useRouter();
+  const [isTokenExpired, setIsTokenExpired] = useState(false);
+
+  // Check if tokens are expired ONLY when this page loads
+  useEffect(() => {
+    // Only check tokens if we're on the unauthorized page
+    if (window.location.pathname === "/unauthorized") {
+      if (!areTokensValid()) {
+        setIsTokenExpired(true);
+        clearTokensAndRedirectToLogin();
+      }
+    }
+  }, []);
+
+  // Show loading if tokens are expired
+  if (isTokenExpired) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-100 flex items-center justify-center p-4">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+        </div>
+      </div>
+    );
+  }
 
   const handleGoBack = () => {
     router.back();
-  };
-
-  const handleGoHome = () => {
-    router.push("/users");
   };
 
   return (
