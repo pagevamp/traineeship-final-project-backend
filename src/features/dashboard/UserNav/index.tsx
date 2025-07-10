@@ -31,7 +31,6 @@ export function UserNav({ profileData }: any) {
     () => (profileData?.user ? profileData?.user : profileData),
     [profileData]
   );
-  console.log(profileData, "pd");
   return (
     <div className="flex items-center gap-4">
       <div className="relative">

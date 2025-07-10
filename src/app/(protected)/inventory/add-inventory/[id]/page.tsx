@@ -3,13 +3,16 @@ import AddInventoryComponent from "@/features/inventory/add-inventory";
 
 export async function generateMetadata() {
   return {
-    title: "Add Inventory | Arctern Express",
+    title: "Edit Inventory | Arctern Express",
   };
 }
-const Index = () => {
+const Index = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+
+
   return (
     <div>
-      <AddInventoryComponent />
+      <AddInventoryComponent id={id} />
     </div>
   );
 };

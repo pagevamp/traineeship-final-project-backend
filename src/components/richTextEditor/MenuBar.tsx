@@ -158,7 +158,7 @@ export default function MenuBar({ editor, onImageUpload }: MenuBarProps) {
   ];
 
   return (
-    <div className="rounded-md shadow-md border p-1 mb-1 bg-white space-x-2 z-50 flex flex-wrap">
+    <div className="rounded-md shadow-md border mb-1 bg-white space-x-2 z-50 flex flex-wrap">
       {menuItems.map((item, index) => (
         <MenuItem
           key={index}

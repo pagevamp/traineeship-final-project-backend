@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,7 @@ interface SelectboxProps {
   error?: string;
   disabled?: boolean;
   optional?: boolean;
+  loading?: boolean;
 }
 
 export function Selectbox({
@@ -49,6 +50,7 @@ export function Selectbox({
   error,
   optional = false,
   disabled,
+  loading = false,
 }: SelectboxProps) {
   const [open, setOpen] = React.useState(false);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -123,29 +125,40 @@ export function Selectbox({
         <Command className="max-h-[300px] border">
           <CommandInput placeholder={placeholder} />
           <CommandList>
-            <CommandEmpty>{emptyText}</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => (
-                <CommandItem
-                  key={option.value}
-                  value={option.label}
-                  onSelect={() => {
-                    onChange(option);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === option.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  <span className="font-secondary text-sm font-[300]">
-                    {option.label}
-                  </span>
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            {loading ? (
+              <div className="py-6 text-center">
+                <Loader2 className="h-6 w-6 animate-spin mx-auto text-muted-foreground" />
+                <p className="text-sm text-muted-foreground mt-2">
+                  Loading options...
+                </p>
+              </div>
+            ) : (
+              <>
+                <CommandEmpty>{emptyText}</CommandEmpty>
+                <CommandGroup>
+                  {options.map((option) => (
+                    <CommandItem
+                      key={option.value}
+                      value={option.label}
+                      onSelect={() => {
+                        onChange(option);
+                        setOpen(false);
+                      }}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === option.value ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      <span className="font-secondary text-sm font-[300]">
+                        {option.label}
+                      </span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </>
+            )}
           </CommandList>
         </Command>
       </PopoverContent>

@@ -19,11 +19,14 @@ import {
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover";
+import Link from "next/link";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 type Column = {
   key: string;
   label: string | ReactNode;
   type?: string;
+  subkey?: string;
 };
 
 type Action = {
@@ -53,10 +56,58 @@ const TableComponent: React.FC<Props> = ({
   className,
   showSN = true,
 }) => {
-  const getData = (row: any, key: string, type?: string) => {
+  const getData = (row: any, col: any) => {
+    const { key, type, subkey, buttons } = col;
+
     if (type == "status") {
       return <div className="">Pending</div>;
+    } else if (type && type == "multiple") {
+      const data = row?.[`${key}`].map((it: any) => get(it, subkey || "", "-"));
+      if (data?.length === 0) return "-";
+      return (
+        <td className="pr-6 whitespace-nowrap">
+          {data?.map((deta: any, index: number) => (
+            <div className="my-3 " key={index}>
+              {deta ? deta : "-"}
+            </div>
+          ))}
+        </td>
+      );
+    } else if (type && type == "multiple_inventory_button") {
+      const data = row?.[`${key}`];
+      if (data?.length === 0) return "-";
+      return (
+        <td className="pr-6 whitespace-nowrap">
+          {data?.map((deta: any, index: number) => (
+            <div
+              className="my-3 text-[#090000] font-normal text-[14px] space-x-1"
+              key={index}
+            >
+              {buttons?.map((button: any, i: number) => {
+                if (button.type === "view") {
+                  return (
+                    <Link href={`/inventory/${deta.id}`} key={i}>
+                      <span
+                        className={`text-gray-400 text-xs  cursor-pointer`}
+                        title="View"
+                      >
+                        <Icon
+                          icon="heroicons:eye-16-solid"
+                          width="22"
+                          height="22"
+                          color="#FF811A"
+                        />
+                      </span>
+                    </Link>
+                  );
+                }
+              })}
+            </div>
+          ))}
+        </td>
+      );
     }
+
     return get(row, key) || "N/A";
   };
   return (
@@ -85,7 +136,7 @@ const TableComponent: React.FC<Props> = ({
                 </TableHead>
               ))}
               {actions && (
-                <TableHead className="px-4 py-2 text-center text-[#0B0704] font-medium text-sm">
+                <TableHead className="px-4 py-2 text-end text-[#0B0704] font-medium text-sm">
                   Actions
                 </TableHead>
               )}
@@ -105,7 +156,7 @@ const TableComponent: React.FC<Props> = ({
               data &&
               data.length > 0 &&
               data.map((row, rowIndex) => (
-                <TableRow key={rowIndex} className="">
+                <TableRow key={rowIndex} className="relative">
                   {/* Auto-Generated Serial Number */}
                   {showSN && (
                     <TableCell className="px-4 py-3 text-[#0B0704] font-secondary font-[300] text-[13px]">
@@ -117,11 +168,11 @@ const TableComponent: React.FC<Props> = ({
                       key={col.key}
                       className="px-4 py-3 truncate max-w-48 font-secondary font-[300] text-[13px]"
                     >
-                      {getData(row, col.key, col.type)}
+                      {getData(row, col)}
                     </TableCell>
                   ))}
                   {actions && (
-                    <TableCell className="px-4 py-3 flex justify-center">
+                    <TableCell className="flex justify-center items-center absolute right-0 px-6 top-1/2 -translate-y-1/2 ">
                       <Popover>
                         <PopoverTrigger asChild>
                           <MoreVertical className="text-muted-foreground cursor-pointer" />
