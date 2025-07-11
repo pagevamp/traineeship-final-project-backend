@@ -6,7 +6,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { capitalize } from "lodash";
 import { Button } from "@/components/ui/button";
-import { CUSTOMER_STATUS } from "@/utils/handlers/roles";
+import { CUSTOMER_STATUS, DEPARTMENT_NAME } from "@/utils/handlers/roles";
 import Link from "next/link";
 
 const Header = ({ profileDetail }: { profileDetail?: any }) => {
@@ -27,6 +27,18 @@ const Header = ({ profileDetail }: { profileDetail?: any }) => {
         <span className="font-primary text-[20px] text-[#1C2B38]">
           Company Information
         </span>
+
+        {profileDetail?.currentActiveTransfer?.status ===
+          CUSTOMER_STATUS.APPROVED &&
+          profileDetail?.currentActiveTransfer?.department?.name ===
+            DEPARTMENT_NAME.ADMIN_DEPARTMENT && (
+            <Button
+              variant={"default"}
+              className="flex items-center px-8 text-white rounded hover:bg-primary"
+            >
+              Approved
+            </Button>
+          )}
         {profileDetail?.currentActiveTransfer?.status ===
           CUSTOMER_STATUS.REJECTED && (
           <Link href="/re-apply">
