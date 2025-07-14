@@ -9,6 +9,7 @@ import ProductCard from "./product-card";
 import { useProfileInformation } from "../dashboard/hooks/useProfileInformation";
 import { useGetAllInventoryList } from "../inventory/hooks";
 import { INVENTORY_STATUS } from "../inventory/constant";
+import Pagination from "@/components/pagination";
 
 const Index = () => {
   const router = useRouter();
@@ -122,6 +123,27 @@ const Index = () => {
           </div>
         )}
       </div>
+      {productData?.length > 0 && (
+        <div className="mt-12">
+          <Pagination
+            currentPage={state.pagination.page}
+            totalPages={
+              count / state.pagination.recordsPerPage > 0
+                ? Math.ceil(count / state.pagination.recordsPerPage)
+                : Math.floor(count / state.pagination.recordsPerPage) + 1
+            }
+            onPageChange={(page: number) => {
+              setState((prevState) => ({
+                ...prevState,
+                pagination: {
+                  ...prevState.pagination,
+                  page,
+                },
+              }));
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

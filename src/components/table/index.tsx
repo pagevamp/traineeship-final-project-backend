@@ -86,7 +86,7 @@ const TableComponent: React.FC<Props> = ({
               {buttons?.map((button: any, i: number) => {
                 if (button.type === "view") {
                   return (
-                    <Link href={`/inventory/${deta.id}`} key={i}>
+                    <Link href={`/inventory/variation/${deta.id}`} key={i}>
                       <span
                         className={`text-gray-400 text-xs  cursor-pointer`}
                         title="View"
@@ -178,12 +178,12 @@ const TableComponent: React.FC<Props> = ({
                           <MoreVertical className="text-muted-foreground cursor-pointer" />
                         </PopoverTrigger>
                         <PopoverContent side="left">
-                          <div className="w-40 p-2 bg-white outline-none border shadow-md rounded-md flex flex-col items-center">
+                          <div className="w-fit p-2 bg-white outline-none border shadow-md rounded-md flex flex-col items-center">
                             {actions.map((action, index) => (
                               <div
                                 key={index}
                                 onClick={() => action.onClick?.(row)}
-                                className="flex w-full items-center gap-2 p-2 hover:bg-gray-100 rounded cursor-pointer"
+                                className="flex w-full items-center gap-3 px-4 py-2 hover:bg-gray-100 rounded cursor-pointer"
                               >
                                 <button
                                   disabled={action.disabled}

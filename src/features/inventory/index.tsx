@@ -65,25 +65,25 @@ const Index = () => {
   const actions = [
     {
       label: (
-        <div className="flex items-center gap-2 text-primary font-semibold">
+        <div className="flex items-center gap-1 text-primary font-semibold">
           <Icon
             icon="heroicons:eye-16-solid"
-            width="22"
-            height="22"
+            width="20"
+            height="20"
             color="#FF811A"
           />
-          <span>View Details</span>
+          <span>View</span>
         </div>
       ),
-      onClick: (row: any) => router.push(`/inventory/1`),
+      onClick: (row: any) => router.push(`/inventory/${row?.id}`),
     },
     {
       label: (
-        <div className="flex items-center gap-2 text-primary font-semibold">
+        <div className="flex items-center gap-1 text-primary font-semibold">
           <Icon
             icon="material-symbols:edit"
-            width="22"
-            height="22"
+            width="20"
+            height="20"
             color="#FF811A"
           />
           <span>Edit</span>

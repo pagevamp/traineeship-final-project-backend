@@ -3,79 +3,122 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Controller } from "react-hook-form";
 import { Selectbox } from "@/components/ui/select-box";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import VariationComponent from "./VariationComponent";
+import { ShoppingCart } from "lucide-react";
+import { useCartStore } from "@/lib/cart-store";
+import { toast } from "sonner";
 
-const ProductDescriptions = () => {
+const ProductDescription = ({ productData }: { productData: any }) => {
+  const [selectedVariations, setSelectedVariations] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [count, setCount] = useState(0);
+
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  const variations = [
+    {
+      id: "0197f31a-a04a-7435-9b05-dcdb6bc5277f",
+      productSizeName: "Small",
+      price: 22.0,
+      inStock: 16,
+      reOrderPoint: 20,
+    },
+    {
+      id: "0197f31a-a04a-7435-9b05-dcdb6bc52780",
+      productSizeName: "Medium",
+      price: 25.0,
+      inStock: 80,
+      reOrderPoint: 20,
+    },
+    {
+      id: "0197f31a-a04a-7435-9b05-dcdb6bc52781",
+      productSizeName: "Large",
+      price: 28.0,
+      inStock: 50,
+      reOrderPoint: 20,
+    },
+  ];
+
+  const handleAddToCart = async () => {
+    if (selectedVariations.length === 0) {
+      toast.info("Please select at least one variation");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Add each selected variation to cart
+      for (const selectedVar of selectedVariations) {
+        addToCart(productData, selectedVar.variation, selectedVar.quantity);
+      }
+      // Reset selections after adding to cart
+      setSelectedVariations([]);
+
+      // Show success message
+      const totalItems = selectedVariations.reduce(
+        (sum, sv) => sum + sv.quantity,
+        0
+      );
+      toast.success(`Successfully added ${totalItems} items to cart!`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getTotalSelectedItems = () => {
+    return selectedVariations.reduce((acc, curr) => acc + curr.quantity, 0);
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-3">
-      <h1 className="font-primary text-[18px] font-bold ">Pink Hoodie</h1>
+    <div className="grid grid-cols-1 gap-6">
+      <h1 className="font-primary text-lg font-bold ">
+        {productData?.commodityName || "N/A"}
+      </h1>
 
-      <span className="font-primary text-[16px] font-bold">
-        Short Description
-      </span>
-      <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
-      <span className="font-extralight font-secondary text-muted-foreground">
-        Stay cozy and stylish in our ultra-soft pink hoodie — the perfect blend
-        of comfort, charm, and casual flair.
-      </span>
+      <div>
+        <span className="font-primary text-base font-bold">
+          Short Description
+        </span>
+        <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
 
-      <div className="flex flex-col items-center lg:items-start ">
-        <div className="flex space-x-0">
-          <button
-            onClick={() => setCount(count - 1)}
-            className="bg-muted-light text-white px-4 py-2 rounded-l-lg hover:bg-orange-600 transition"
-          >
-            -
-          </button>
-          <button
-            onClick={() => setCount(0)}
-            className="bg-black text-white px-4 py-2  hover:bg-gray-500 transition"
-          >
-            {count <= 0 ? 0 : count}
-          </button>
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-muted-light text-white px-4 py-2 rounded-r-lg hover:bg-orange-600 transition"
-          >
-            +
-          </button>
-        </div>
-
-        <span className="font-normal items-center text-[16px] m-2">6 * 6</span>
-        <div className="flex flex-col justify-center border border-muted-light max-w-[200px] rounded-md p-4 text-[14px]">
-          <span>
-            Stock: <span className="text-[#FF811A] font-extralight">100</span>
-          </span>
-          <span>
-            Size: <span>6*6</span>
-          </span>
-          <span>
-            Price:{" "}
-            <span className="text-[#FF811A] font-extralight ">$500.00</span>
-          </span>
-        </div>
-
-        <div className="flex justify-start">
-          <Button className=" bg-linear-to-b from-[#CF5406] to-[#FF811A] rounded-[20px] font-light text-white mt-2 w-[150px] hover:bg-[#CF5406] p-6">
-            Order
-          </Button>
-        </div>
+        <div
+          dangerouslySetInnerHTML={{ __html: productData?.shortDescription }}
+          className="prose max-w-none [&_strong]:text-[#121212] break-words text-editor [&_ul]:pl-5 [&_ol]:pl-5 font-extralight font-secondary text-muted-foreground"
+        />
       </div>
 
-      <span className="font-primary text-[16px] font-bold">
-        Long Description
-      </span>
-      <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
-      <span className="font-extralight font-secondary text-muted-foreground">
-        Wrap yourself in warmth and confidence with our beautifully crafted pink
-        hoodie — your new favorite go-to for laid-back days and cozy evenings.
-        Designed with a flattering unisex fit and made from a premium
-        cotton-blend fleece, this hoodie features a soft brushed interior,
-        adjustable drawstring hood, and a spacious kangaroo pocket to keep your
-        hands warm or essentials close.
-      </span>
+      <VariationComponent
+        variations={productData?.productVariations}
+        selectedVariations={selectedVariations}
+        onVariationChange={setSelectedVariations}
+      />
+
+      {/* Add to Cart Button */}
+      <Button
+        onClick={handleAddToCart}
+        disabled={isLoading || selectedVariations.length === 0}
+        className="w-fit px-4 py-2 rounded-3xl bg-primary text-sm font-medium transition-all duration-300 transform hover:scale-105"
+      >
+        <ShoppingCart className="w-5 h-5 mr-1" />
+        {isLoading ? "Adding to Cart..." : `Add to Cart`}
+      </Button>
+
+      <div>
+        <span className="font-primary text-base font-bold">
+          Long Description
+        </span>
+        <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
+
+        <div
+          dangerouslySetInnerHTML={{ __html: productData?.longDescription }}
+          className="prose max-w-none [&_strong]:text-[#121212] break-words text-editor [&_ul]:pl-5 [&_ol]:pl-5 font-extralight font-secondary text-muted-foreground"
+        />
+      </div>
     </div>
   );
 };
 
-export default ProductDescriptions;
+export default ProductDescription;

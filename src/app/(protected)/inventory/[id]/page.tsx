@@ -1,15 +1,15 @@
 import React from "react";
-import SingleInventoryComponent from "@/features/inventory/single-detail/index";
+import InventoryDetails from "@/features/inventory/components/InventoryDetails";
 
 export async function generateMetadata() {
   return {
     title: "Inventory Detail | Arctern Express",
   };
 }
-const Index = () => {
+const Index = ({ params }: { params: { id: string } }) => {
   return (
     <div>
-      <SingleInventoryComponent />
+      <InventoryDetails id={params.id} />
     </div>
   );
 };

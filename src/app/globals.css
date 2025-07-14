@@ -385,3 +385,9 @@ body {
 .react-tel-input .country-list .search-box {
   margin-left: 0 !important;
 }
+
+.text-editor ol {
+  padding-left: 2ch;
+  list-style-position: outside;
+  overflow: visible;
+}

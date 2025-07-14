@@ -26,7 +26,7 @@ export const INVENTORY_COLUMN = [
     buttons: [
       {
         type: "view",
-        link: (id: string) => `/inventory/${id}`,
+        link: (id: string) => `/inventory/variation/${id}`,
       },
     ],
   },
@@ -102,3 +102,12 @@ export enum INVENTORY_STATUS {
   UNPUBLISHED = "UNPUBLISHED",
   PUBLISHED = "PUBLISHED",
 }
+
+export const images = [
+  "/image.svg",
+  "/image-2.svg",
+  "/image-3.svg",
+  "/image.svg",
+  "/image-2.svg",
+  "/image-3.svg",
+];

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
 import LazyImage from "@/components/lazy-image";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Product {
   id: string;
@@ -29,7 +30,7 @@ export default function ProductCard({ product, index }: any) {
 
   return (
     <div
-      onClick={(row: any) => router.push(`/products/${row.id}`)}
+      onClick={() => router.push(`/products/${product?.id}`)}
       ref={elementRef}
       className={`transition-all duration-700 ease-out ${
         hasIntersected
@@ -43,12 +44,13 @@ export default function ProductCard({ product, index }: any) {
       {hasIntersected && (
         <Card className="group cursor-pointer overflow-hidden border bg-white shadow-sm transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]">
           <CardContent className="p-0">
-            {/* Image Container with 4:5 aspect ratio */}
-            <div className="relative aspect-[4/5] overflow-hidden bg-gray-50">
-              <LazyImage
+            {/* Image Container with square aspect ratio */}
+            <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-50">
+              <Image
                 src={product.productImageUrl}
                 alt={product.commodityName}
-                className="transition-transform duration-500 ease-out group-hover:scale-110"
+                className="transition-transform duration-500 ease-out group-hover:scale-110 object-cover"
+                fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
 
