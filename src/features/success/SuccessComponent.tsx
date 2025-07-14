@@ -83,7 +83,8 @@ const SuccessComponent = () => {
         <p className="font-secondary text-[#9C9AA5] text-[14px] font-[300] sm:text-base mt-4 max-w-xl mx-auto leading-relaxed">
           Your account is under internal review. Our Operations and Finance
           departments are verifying your submitted details and documents. You
-          will receive updates at each step of the process.
+          will receive updates at each step of the process. In the meantime,
+          please check your email for a temporary password to log in.
         </p>
       </motion.div>
 
