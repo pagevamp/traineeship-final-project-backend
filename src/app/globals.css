@@ -254,6 +254,11 @@ body {
 }
 
 /* TIPTAP CSS */
+.text-editor ol {
+  padding-left: 2ch;
+  list-style-position: outside;
+  overflow: visible;
+}
 .tiptap ol {
   counter-reset: list-counter;
   padding-left: 0;

@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/Heading";
 import { Stepper } from "@/components/ui/stepper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { steps, headings } from "../constant";
-import { useRouter } from "next/navigation";
+import { steps, headings, customerFormField } from "../constant";
+import { usePathname, useRouter } from "next/navigation";
 import Register1 from "./RegisterStep1";
 import Register2 from "./RegisterStep2";
 import Register3 from "./RegisterStep3";
@@ -20,11 +20,14 @@ import { Resolver, useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { customerRegisterValidationSchemas } from "../validation";
 import { UserPayload } from "../types";
-import { useCreateCustomer, useVehicleType } from "../hooks";
+import { useCreateCustomer, useUpdateCustomer, useVehicleType } from "../hooks";
 import { toast } from "sonner";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import { isFile } from "@/constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useProfileInformation } from "@/features/dashboard/hooks/useProfileInformation";
+import { getNestedValue } from "@/features/users/constant";
+import { useConfirmationDialog } from "@/providers/ConfirmationDialogProvider";
 
 const ScrollArrow = ({
   direction,
@@ -58,6 +61,8 @@ const ChangeStep = ({
   totalSteps: number;
   isLoading?: boolean;
 }) => {
+  const pathname = usePathname();
+  const router = useRouter();
   return (
     <div className="font-primary flex flex-col items-center gap-4 mb-[47px] mt-[70px]">
       {currStep === totalSteps ? (
@@ -91,29 +96,37 @@ const ChangeStep = ({
           Back
         </Button>
       )}
-      {currStep === 1 && (
-        <Link href="/login">
+      {currStep === 1 &&
+        (pathname === "/re-apply" ? (
           <Button
-            onClick={prevStep}
-            disabled={isLoading}
+            onClick={() => router.back()}
             variant={"outline"}
             className="font-primary text-sm bg-transparent text-[#CF5406] shadow-none hover:bg-transparent flex items-center justify-center disabled:opacity-50"
           >
             <Icon icon="lsicon:goto-filled" width="16" height="16" />
-            Go to Login
+            Go back
           </Button>
-        </Link>
-      )}
+        ) : (
+          <Link href="/login">
+            <Button
+              variant={"outline"}
+              className="font-primary text-sm bg-transparent text-[#CF5406] shadow-none hover:bg-transparent flex items-center justify-center disabled:opacity-50"
+            >
+              <Icon icon="lsicon:goto-filled" width="16" height="16" />
+              Go to Login
+            </Button>
+          </Link>
+        ))}
     </div>
   );
 };
 
 const RegisterComponent = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const { showConfirmation } = useConfirmationDialog();
   const [activeStep, setActiveStep] = useState(1);
   const [isUploading, setIsUploading] = useState(false);
-
-  const totalSteps = steps.length;
 
   const stepperContainerRef = useRef<HTMLDivElement>(null);
 
@@ -146,6 +159,64 @@ const RegisterComponent = () => {
     setValue,
     trigger,
   } = useForm<UserPayload>(formOptions);
+
+  //get profile data
+  const { data: profileInformationData, isLoading: isProfileDataLoading } =
+    useProfileInformation();
+
+  const profileDetail = useMemo(
+    () => profileInformationData?.data?.data,
+    [profileInformationData?.data?.data]
+  );
+
+  useEffect(() => {
+    if (profileDetail) {
+      customerFormField.forEach((field) => {
+        const value = getNestedValue(profileDetail, field);
+        setValue(field as any, value);
+      });
+
+      // Special handling for documents to map URLs properly
+      if (profileDetail.documents && profileDetail.documents[0]) {
+        const documents = profileDetail.documents[0];
+        const mappedDocuments = {
+          tradeLicense: documents.tradeLicense || "",
+          vatCertificate: documents.vatCertificate || "",
+          passport: documents.passport || "",
+          emiratesId: documents.emiratesId || "",
+          securityCheque: documents.securityCheque || "",
+          contract: documents.contract || "",
+          other: documents.other || "",
+          // Add URL fields for preview
+          tradeLicenseUrl: documents.tradeLicenseUrl || "",
+          vatCertificateUrl: documents.vatCertificateUrl || "",
+          passportUrl: documents.passportUrl || "",
+          emiratesIdUrl: documents.emiratesIdUrl || "",
+          securityChequeUrl: documents.securityChequeUrl || "",
+          contractUrl: documents.contractUrl || "",
+          otherUrl: documents.otherUrl || "",
+        };
+        setValue("documents", [mappedDocuments]);
+      }
+    }
+  }, [profileDetail, setValue]);
+
+  const isUpdateMode = !!profileDetail?.id;
+
+  const filteredSteps = useMemo(() => {
+    return isUpdateMode ? steps.filter((step) => step.id !== 7) : steps;
+  }, [isUpdateMode]);
+
+  const filteredHeadings = useMemo(() => {
+    return isUpdateMode
+      ? headings.filter((heading) => heading.id !== 7)
+      : headings;
+  }, [isUpdateMode]);
+
+  const currHeading = filteredHeadings.find((h) => h.id === activeStep);
+
+  const totalSteps = filteredSteps.length;
+
   const {
     fields: directorFields,
     append: appendDirector,
@@ -219,57 +290,37 @@ const RegisterComponent = () => {
     [uploadFile]
   );
 
-  // Function to upload all files in parallel
   const uploadAllFiles = useCallback(
-    async (documents: any[]): Promise<Record<string, string>> => {
-      if (!documents || documents.length === 0) return {};
+    async (documents: any[] = []): Promise<Record<string, string>> => {
+      const doc = documents[0];
+      if (!doc) return {};
 
-      const document = documents[0]; // Assuming single document object
-      const filesToUpload: Array<{ file: File; fieldName: string }> = [];
-
-      // Collect all files that need to be uploaded
-      const documentFields = [
+      const allFields = [
         "tradeLicense",
         "vatCertificate",
         "passport",
         "emiratesId",
         "contract",
+        "securityCheque",
+        "other",
       ];
 
-      documentFields.forEach((fieldName) => {
-        const fieldValue = document[fieldName];
-        if (fieldValue && isFile(fieldValue)) {
-          filesToUpload.push({ file: fieldValue, fieldName });
-        }
-      });
-
-      // Optional fields
-      const optionalFields = ["secuirtyCheck", "other"];
-      optionalFields.forEach((fieldName) => {
-        const fieldValue = document[fieldName];
-        if (fieldValue && isFile(fieldValue)) {
-          filesToUpload.push({ file: fieldValue, fieldName });
-        }
-      });
+      const filesToUpload = allFields
+        .filter((field) => doc[field] && isFile(doc[field]))
+        .map((field) => ({ file: doc[field], fieldName: field }));
 
       if (filesToUpload.length === 0) return {};
 
-      // Upload all files in parallel
       const uploadPromises = filesToUpload.map(({ file, fieldName }) =>
         uploadSingleFile(file, fieldName)
       );
 
       try {
         const results = await Promise.all(uploadPromises);
-
-        // Convert results to object
-        const uploadedFilesMap: Record<string, string> = {};
-        results.forEach(({ fieldName, filePath }) => {
-          uploadedFilesMap[fieldName] = filePath;
-        });
-
-        return uploadedFilesMap;
-      } catch (error) {
+        return Object.fromEntries(
+          results.map(({ fieldName, filePath }) => [fieldName, filePath])
+        );
+      } catch {
         throw new Error("Failed to upload one or more files");
       }
     },
@@ -387,166 +438,200 @@ const RegisterComponent = () => {
     },
   });
 
+  const {
+    mutateAsync: handleUpdateCustomer,
+    isPending: isUpdateCustomerLoading,
+  } = useUpdateCustomer({
+    onError: (error) => {
+      toast.error(error?.response?.data?.message || "Something went wrong!");
+    },
+    onSuccess: (data) => {
+      router.push("/profile");
+      toast.success("Details Updated Successfully!!");
+    },
+  });
+
+  // Update customer handler
+  const onUpdate = async (formData: UserPayload) => {
+    try {
+      // Get the current watched documents to ensure we have the actual File objects
+      const currentDocuments = watch("documents");
+      const uploadedFilesMap = await uploadAllFiles(currentDocuments);
+      const existingDocs = formData.documents?.[0] || {};
+      const reqBody = buildRequestBody(
+        formData,
+        uploadedFilesMap,
+        existingDocs
+      );
+
+      await handleUpdateCustomer({ id: profileDetail?.id, body: reqBody });
+    } catch (error) {
+      console.error("Update failed", error);
+    }
+  };
+
+  // Update confirmation modal
+  const handleUpdateModal = (formData: UserPayload) => {
+    showConfirmation({
+      title: "Update Details?",
+      description: "Are you sure you want to update the details?",
+      confirmText: "Yes",
+      confirmClassName:
+        "font-secondary bg-gradient-to-r from-[#E06518] to-[#E3802A] hover:from-[#E06518] hover:to-[#E06518] transition-all duration-300",
+      cancelText: "Cancel",
+      isDisabled: isUpdateCustomerLoading,
+      onConfirm: () => onUpdate(formData),
+    });
+  };
+
+  const buildRequestBody = (
+    formData: UserPayload,
+    uploadedFilesMap: Record<string, string>,
+    existingDocuments?: Partial<any>
+  ): any => {
+    const reqBody: any = {
+      vehicleType: formData.vehicleType,
+      companyName: formData.companyName,
+      companyEmail: formData.companyEmail,
+      companyType: formData.companyType,
+      yearOfEstablishment: formData.yearOfEstablishment,
+      natureOfBusiness: formData.natureOfBusiness,
+      shipmentType: formData.shipmentType,
+      destinationCountry: formData.destinationCountry,
+      directorDetails:
+        formData.directorDetails?.map(({ name, email, phone }) => ({
+          name,
+          email,
+          phone,
+        })) || [],
+      financialDirectorDetails:
+        formData.financialDirectorDetails?.map(({ name, email, phone }) => ({
+          name,
+          email,
+          phone,
+        })) || [],
+      tradeReferenceDetails:
+        formData.tradeReferenceDetails?.map(
+          ({ referenceName, businessAssociation, phone, email }) => ({
+            referenceName,
+            businessAssociation,
+            phone,
+            email,
+          })
+        ) || [],
+      bankDetails: formData.bankDetails?.map((bank) => ({ ...bank })) || [],
+    };
+
+    // Optional
+    if (formData.employeeSize) reqBody.employeeSize = formData.employeeSize;
+
+    // Products
+    const validProducts = formData.products?.filter(
+      (p) => p.hsCode?.trim() || p.commodityName?.trim()
+    );
+    if (validProducts?.length) {
+      reqBody.products = validProducts.map(({ hsCode, commodityName }) => ({
+        hsCode,
+        commodityName,
+      }));
+    }
+
+    // Shipment
+    if (["FTL", "BOTH"].includes(formData.shipmentType)) {
+      reqBody.shipmentFtl = {
+        noOfTrips: Number(formData.shipmentFtl?.noOfTrips) || 0,
+        typeOfEquipments: formData.shipmentFtl?.typeOfEquipments || "",
+        serviceNeeded: formData.shipmentFtl?.serviceNeeded || "",
+        equipmentCapacity: formData.shipmentFtl?.equipmentCapacity || "",
+      };
+    }
+
+    if (["LTL", "BOTH"].includes(formData.shipmentType)) {
+      reqBody.shipmentLtl = {
+        noOfShipmentsPerLane:
+          Number(formData.shipmentLtl?.noOfShipmentsPerLane) || 0,
+        weightPerShipmentPerLane:
+          Number(formData.shipmentLtl?.weightPerShipmentPerLane) || 0,
+      };
+    }
+
+    // Documents
+    const docKeys = [
+      "tradeLicense",
+      "vatCertificate",
+      "passport",
+      "emiratesId",
+      "contract",
+      "securityCheque",
+      "other",
+    ];
+
+    const documentsObj: Record<string, string> = {};
+
+    for (const key of docKeys) {
+      if (uploadedFilesMap[key]) {
+        documentsObj[key] = uploadedFilesMap[key];
+      } else if (
+        existingDocuments?.[key] &&
+        typeof existingDocuments[key] === "string"
+      ) {
+        documentsObj[key] = existingDocuments[key] as string;
+      }
+    }
+
+    reqBody.documents = [documentsObj];
+
+    return reqBody;
+  };
+
   const nextStep = useCallback(
     async (formData: UserPayload) => {
-      // Manual validation check
-
-      if (activeStep < totalSteps) {
+      const isLastStep = activeStep === totalSteps;
+      if (!isLastStep) {
         setActiveStep((prev) => prev + 1);
-      } else {
-        try {
-          setIsUploading(true);
+        return;
+      }
 
-          // Upload all files first
-          const uploadedFilesMap = await uploadAllFiles(formData.documents);
+      try {
+        setIsUploading(true);
 
-          // Create the request body with uploaded file paths
-          const reqBody: any = {
-            vehicleType: formData.vehicleType,
-            companyName: formData.companyName,
-            companyEmail: formData.companyEmail,
-            companyType: formData.companyType,
-            yearOfEstablishment: formData.yearOfEstablishment,
-            natureOfBusiness: formData.natureOfBusiness,
-            shipmentType: formData.shipmentType,
-            destinationCountry: formData.destinationCountry,
-            directorDetails:
-              formData.directorDetails?.map((director) => ({
-                name: director.name,
-                email: director.email,
-                phone: director.phone,
-              })) || [],
-            financialDirectorDetails:
-              formData.financialDirectorDetails?.map((director) => ({
-                name: director.name,
-                email: director.email,
-                phone: director.phone,
-              })) || [],
-            tradeReferenceDetails:
-              formData.tradeReferenceDetails?.map((reference) => ({
-                referenceName: reference.referenceName,
-                businessAssociation: reference.businessAssociation,
-                phone: reference.phone,
-                email: reference.email,
-              })) || [],
-            bankDetails:
-              formData.bankDetails?.map((bank) => ({
-                accountHolderName: bank.accountHolderName,
-                bankName: bank.bankName,
-                bankBranchNameAndLocation: bank.bankBranchNameAndLocation,
-                accountNumber: bank.accountNumber,
-                iban: bank.iban,
-                swiftBicCode: bank.swiftBicCode,
-                currency: bank.currency,
-                bankCountry: bank.bankCountry,
-                beneficiaryAddress: bank.beneficiaryAddress,
-                bankAddress: bank.bankAddress,
-                vatTrnNumber: bank.vatTrnNumber,
-                referenceFromBank: bank.referenceFromBank,
-              })) || [],
-          };
-
-          // Only add products if at least one product has non-empty values
-          const hasValidProducts = formData.products?.some(
-            (product) => product.hsCode?.trim() || product.commodityName?.trim()
-          );
-
-          if (hasValidProducts) {
-            reqBody.products = formData.products
-              .filter(
-                (product) =>
-                  product.hsCode?.trim() || product.commodityName?.trim()
-              )
-              .map((product) => ({
-                hsCode: product.hsCode,
-                commodityName: product.commodityName,
-              }));
-          }
-
-          // Add optional fields only if they have values
-          if (formData.employeeSize) {
-            reqBody.employeeSize = formData.employeeSize;
-          }
-
-          // Add shipment data based on shipment type
-          if (
-            formData.shipmentType === "FTL" ||
-            formData.shipmentType === "BOTH"
-          ) {
-            reqBody.shipmentFtl = {
-              noOfTrips: Number(formData.shipmentFtl?.noOfTrips) || 0,
-              typeOfEquipments: formData.shipmentFtl?.typeOfEquipments || "",
-              serviceNeeded: formData.shipmentFtl?.serviceNeeded || "",
-              equipmentCapacity: formData.shipmentFtl?.equipmentCapacity || "",
-            };
-          }
-
-          if (
-            formData.shipmentType === "LTL" ||
-            formData.shipmentType === "BOTH"
-          ) {
-            reqBody.shipmentLtl = {
-              noOfShipmentsPerLane:
-                Number(formData.shipmentLtl?.noOfShipmentsPerLane) || 0,
-              weightPerShipmentPerLane:
-                Number(formData.shipmentLtl?.weightPerShipmentPerLane) || 0,
-            };
-          }
-
-          // Build documents object with only uploaded files
-          const documentsObj: any = {};
-
-          // Required document fields
-          if (uploadedFilesMap.tradeLicense) {
-            documentsObj.tradeLicense = uploadedFilesMap.tradeLicense;
-          }
-          if (uploadedFilesMap.vatCertificate) {
-            documentsObj.vatCertificate = uploadedFilesMap.vatCertificate;
-          }
-          if (uploadedFilesMap.passport) {
-            documentsObj.passport = uploadedFilesMap.passport;
-          }
-          if (uploadedFilesMap.emiratesId) {
-            documentsObj.emiratesId = uploadedFilesMap.emiratesId;
-          }
-          if (uploadedFilesMap.contract) {
-            documentsObj.contract = uploadedFilesMap.contract;
-          }
-
-          // Optional document fields - only add if they have values
-          if (uploadedFilesMap.secuirtyCheck) {
-            documentsObj.secuirtyCheck = uploadedFilesMap.secuirtyCheck;
-          }
-          if (uploadedFilesMap.other) {
-            documentsObj.other = uploadedFilesMap.other;
-          }
-
-          reqBody.documents = [documentsObj];
-
-          await createCustomer(reqBody);
-        } catch (error) {
-          // if (
-          //   error instanceof Error &&
-          //   error.message === "Failed to upload one or more files"
-          // ) {
-          //   toast.error(
-          //     "Failed to upload one or more files. Please try again."
-          //   );
-          // } else {
-          //   toast.error("Something went wrong!");
-          // }
-        } finally {
-          setIsUploading(false);
+        if (profileDetail?.id) {
+          handleUpdateModal(formData);
+          return;
         }
+
+        // Get the current watched documents to ensure we have the actual File objects
+        const currentDocuments = watch("documents");
+        const uploadedFilesMap = await uploadAllFiles(currentDocuments);
+        const existingDocs = formData.documents?.[0] || {};
+        const reqBody = buildRequestBody(
+          formData,
+          uploadedFilesMap,
+          existingDocs
+        );
+
+        await createCustomer(reqBody);
+      } catch (error) {
+      } finally {
+        setIsUploading(false);
       }
     },
-    [activeStep, totalSteps, createCustomer, uploadAllFiles]
+    [
+      activeStep,
+      totalSteps,
+      profileDetail,
+      createCustomer,
+      uploadAllFiles,
+      watch,
+    ]
   );
 
   const prevStep = useCallback(() => {
     setActiveStep((prev) => (prev > 1 ? prev - 1 : prev));
   }, []);
+
   const renderStep = () => {
+    if (isUpdateMode && activeStep === 7) return null;
     switch (activeStep) {
       case 1:
         return <Register1 {...register1FormProps} />;
@@ -567,17 +652,17 @@ const RegisterComponent = () => {
     }
   };
 
-  const currHeading = headings.find((h) => h.id === activeStep);
-
   return (
     <section className="font-secondary max-w-[1130px] mx-auto h-full flex flex-col items-center pt-[34px] relative">
-      <Image
-        src="/arctern-logo.svg"
-        width={142}
-        height={81}
-        alt="Company Logo"
-        className="mb-[22px]"
-      />
+      {pathname !== "/re-apply" && (
+        <Image
+          src="/arctern-logo.svg"
+          width={142}
+          height={81}
+          alt="Company Logo"
+          className="mb-[22px]"
+        />
+      )}
 
       <div className="w-full flex justify-between items-center px-4 mb-4">
         {showLeftArrow ? (
@@ -615,7 +700,7 @@ const RegisterComponent = () => {
         style={{ scrollBehavior: "smooth" }}
       >
         <div className="flex gap-4 min-w-max" ref={stepsInnerRef}>
-          <Stepper steps={steps} currentStep={activeStep} />
+          <Stepper steps={filteredSteps} currentStep={activeStep} />
         </div>
       </div>
 

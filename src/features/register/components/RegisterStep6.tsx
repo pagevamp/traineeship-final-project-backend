@@ -6,19 +6,24 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { getFileExtensionFromS3Url } from "@/constant";
 
 interface FileViewerModalProps {
   isOpen: boolean;
   onClose: () => void;
   file: File | null;
+  fileUrl?: string;
+  fileName?: string;
 }
 
 const FileViewerModal: React.FC<FileViewerModalProps> = ({
   isOpen,
   onClose,
   file,
+  fileUrl,
+  fileName,
 }) => {
-  if (!isOpen || !file) return null;
+  if (!isOpen || (!file && !fileUrl)) return null;
 
   return (
     <AnimatePresence>
@@ -39,7 +44,7 @@ const FileViewerModal: React.FC<FileViewerModalProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
             <h3 className="text-lg font-semibold text-gray-900 truncate">
-              {file.name}
+              {fileName || (file ? file.name : "Document")}
             </h3>
             <button
               onClick={onClose}
@@ -51,35 +56,101 @@ const FileViewerModal: React.FC<FileViewerModalProps> = ({
 
           {/* Content */}
           <div className="p-4 overflow-auto max-h-[calc(90vh-120px)]">
-            {file.type.startsWith("image/") ? (
-              // Image viewer
-              <div className="flex justify-center">
-                <div className="max-w-full max-h-full">
-                  <Image
+            {file ? (
+              // File object viewer
+              file.type.startsWith("image/") ? (
+                // Image viewer
+                <div className="flex justify-center">
+                  <div className="max-w-full max-h-full">
+                    <Image
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      width={800}
+                      height={600}
+                      className="max-w-full max-h-full object-contain"
+                      style={{ maxHeight: "70vh" }}
+                    />
+                  </div>
+                </div>
+              ) : file.type === "application/pdf" ? (
+                // PDF viewer
+                <div className="w-full h-[70vh]">
+                  <iframe
                     src={URL.createObjectURL(file)}
-                    alt={file.name}
-                    width={800}
-                    height={600}
-                    className="max-w-full max-h-full object-contain"
-                    style={{ maxHeight: "70vh" }}
+                    className="w-full h-full border-0 rounded"
+                    title={file.name}
                   />
                 </div>
-              </div>
-            ) : file.type === "application/pdf" ? (
-              // PDF viewer
-              <div className="w-full h-[70vh]">
-                <iframe
-                  src={URL.createObjectURL(file)}
-                  className="w-full h-full border-0 rounded"
-                  title={file.name}
-                />
-              </div>
+              ) : (
+                // Fallback for unsupported files
+                <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                  <Icon icon="mdi:file-document" width="64" height="64" />
+                  <p className="mt-4 text-lg">Preview not available</p>
+                  <p className="text-sm">This file type cannot be previewed</p>
+                </div>
+              )
+            ) : fileUrl ? (
+              // URL viewer
+              (() => {
+                const extension = getFileExtensionFromS3Url(fileUrl);
+                const isImage =
+                  extension &&
+                  ["jpg", "jpeg", "png"].includes(extension.toLowerCase());
+                const isPdf = extension && extension.toLowerCase() === "pdf";
+
+                if (isImage) {
+                  // Image viewer
+                  return (
+                    <div className="flex justify-center">
+                      <div className="max-w-full max-h-full">
+                        <Image
+                          src={fileUrl}
+                          width={800}
+                          height={600}
+                          alt={fileName || "Image"}
+                          className="max-w-full max-h-full object-contain"
+                          style={{ maxHeight: "70vh" }}
+                        />
+                      </div>
+                    </div>
+                  );
+                } else if (isPdf) {
+                  // PDF viewer
+                  return (
+                    <div className="w-full h-[70vh]">
+                      <iframe
+                        src={fileUrl}
+                        className="w-full h-full border-0 rounded"
+                        title={fileName || "PDF Document"}
+                      />
+                    </div>
+                  );
+                } else {
+                  // Fallback for unsupported files
+                  return (
+                    <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                      <Icon icon="mdi:file-document" width="64" height="64" />
+                      <p className="mt-4 text-lg">Preview not available</p>
+                      <p className="text-sm">
+                        This file type cannot be previewed
+                      </p>
+                      <a
+                        href={fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                      >
+                        Download File
+                      </a>
+                    </div>
+                  );
+                }
+              })()
             ) : (
-              // Fallback for unsupported files
+              // No file or URL
               <div className="flex flex-col items-center justify-center h-64 text-gray-500">
                 <Icon icon="mdi:file-document" width="64" height="64" />
-                <p className="mt-4 text-lg">Preview not available</p>
-                <p className="text-sm">This file type cannot be previewed</p>
+                <p className="mt-4 text-lg">No file to preview</p>
               </div>
             )}
           </div>
@@ -105,7 +176,6 @@ const FileViewerModal: React.FC<FileViewerModalProps> = ({
 
 const Register6 = (props: CustomerRegister6Props) => {
   const { setValue, trigger, errors, defaultValues, watch } = props;
-
   // Store file input refs for programmatic access
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
@@ -182,16 +252,14 @@ const Register6 = (props: CustomerRegister6Props) => {
   const [viewerModal, setViewerModal] = useState<{
     isOpen: boolean;
     file: File | null;
+    fileUrl?: string;
+    fileName?: string;
   }>({
     isOpen: false,
     file: null,
   });
 
   // Helper function to get the correct form field name for a document ID
-  // const getFormFieldName = useCallback((documentId: string): string => {
-  //   const fieldMapping: { [key: string]: string } = {};
-  //   return fieldMapping[documentId] || documentId;
-  // }, []);
   const getFormFieldName = useCallback((documentId: string) => documentId, []);
 
   // Helper function to get file from form data
@@ -214,6 +282,81 @@ const Register6 = (props: CustomerRegister6Props) => {
       return null;
     },
     [watchedDocuments, getFormFieldName]
+  );
+
+  // Helper function to get URL from profile data (for re-apply scenario)
+  const getFileUrlFromProfile = useCallback(
+    (documentId: string): string | null => {
+      // Check if we have profile data with URLs
+      if (defaultValues?.documents?.[0]) {
+        const documents = defaultValues.documents[0];
+
+        // For update scenario, check if there's a URL field (e.g., tradeLicenseUrl)
+        const urlFieldName = `${documentId}Url`;
+        const urlValue = documents[urlFieldName as keyof typeof documents];
+
+        if (
+          urlValue &&
+          typeof urlValue === "string" &&
+          urlValue.startsWith("https")
+        ) {
+          return urlValue;
+        }
+      }
+      return null;
+    },
+    [defaultValues?.documents]
+  );
+
+  // Helper function to get file name from form data or profile
+  const getFileNameFromData = useCallback(
+    (documentId: string): string | null => {
+      // First check if there's a File object (priority)
+      const file = getFileFromForm(documentId);
+      const hasFile =
+        file && typeof file === "object" && "name" in file && "type" in file;
+      if (hasFile) {
+        return file.name;
+      }
+
+      // Then check if there's a URL from profile
+      const url = getFileUrlFromProfile(documentId);
+      const hasUrl = url && typeof url === "string" && url.startsWith("https");
+      if (hasUrl) {
+        // Extract filename from URL using the existing function
+        const extension = getFileExtensionFromS3Url(url);
+        if (extension) {
+          const lowerExt = extension.toLowerCase();
+          if (["jpg", "jpeg", "png"].includes(lowerExt)) {
+            return `Image.${extension}`;
+          } else if (lowerExt === "pdf") {
+            return `Document.${extension}`;
+          } else {
+            return `Document.${extension}`;
+          }
+        }
+        return "Document";
+      }
+
+      return null;
+    },
+    [getFileFromForm, getFileUrlFromProfile]
+  );
+
+  // Helper function to check if a document field has data (either File or URL)
+  const hasDocumentData = useCallback(
+    (documentId: string): boolean => {
+      const file = getFileFromForm(documentId);
+      const fileUrl = getFileUrlFromProfile(documentId);
+
+      const hasFile =
+        file && typeof file === "object" && "name" in file && "type" in file;
+      const hasUrl =
+        fileUrl && typeof fileUrl === "string" && fileUrl.startsWith("https");
+
+      return !!(hasFile || hasUrl);
+    },
+    [getFileFromForm, getFileUrlFromProfile]
   );
 
   // File handling functions
@@ -273,7 +416,14 @@ const Register6 = (props: CustomerRegister6Props) => {
   const removeFile = useCallback(
     (documentId: string) => {
       const formFieldName = getFormFieldName(documentId);
+
+      // Clear the main field (File object)
       setValue(`documents.0.${formFieldName}` as any, "");
+
+      // Clear the URL field if it exists
+      const urlFieldName = `${formFieldName}Url`;
+      setValue(`documents.0.${urlFieldName}` as any, "");
+
       trigger(`documents.0.${formFieldName}` as any);
 
       // Clean up image URL if it exists
@@ -294,18 +444,36 @@ const Register6 = (props: CustomerRegister6Props) => {
   );
 
   // Modal functions
-  const openFileViewer = useCallback((file: File) => {
-    setViewerModal({ isOpen: true, file });
-  }, []);
+  const openFileViewer = useCallback(
+    (file: File | null, fileUrl?: string, fileName?: string) => {
+      setViewerModal({ isOpen: true, file, fileUrl, fileName });
+    },
+    []
+  );
 
   const closeFileViewer = useCallback(() => {
     setViewerModal({ isOpen: false, file: null });
   }, []);
 
   // Helper functions
-  const getFileIcon = useCallback((fileType: string) => {
+  const getFileIcon = useCallback((fileType: string, fileUrl?: string) => {
     if (fileType?.startsWith("image/")) return "mdi:image";
     if (fileType === "application/pdf") return "mdi:file-pdf-box";
+
+    // For URLs, use extension to determine icon
+    if (fileUrl) {
+      const extension = getFileExtensionFromS3Url(fileUrl);
+      if (
+        extension &&
+        ["jpg", "jpeg", "png"].includes(extension.toLowerCase())
+      ) {
+        return "mdi:image";
+      }
+      if (extension && extension.toLowerCase() === "pdf") {
+        return "mdi:file-pdf-box";
+      }
+    }
+
     return "mdi:file-document";
   }, []);
 
@@ -314,32 +482,83 @@ const Register6 = (props: CustomerRegister6Props) => {
     return URL.createObjectURL(file);
   }, []);
 
-  // Render file preview component
+  // Render file preview component with priority logic
   const renderFilePreview = useCallback(
-    (documentId: string, file: File) => {
+    (documentId: string) => {
+      const file = getFileFromForm(documentId);
+      const fileUrl = getFileUrlFromProfile(documentId);
+      const fileName = getFileNameFromData(documentId);
+
+      // Check if we have a File object (priority) or a URL
+      const hasFile =
+        file && typeof file === "object" && "name" in file && "type" in file;
+      const hasUrl =
+        fileUrl && typeof fileUrl === "string" && fileUrl.startsWith("https");
+
+      // Determine file type using extension for URLs
+      const isImage = hasFile
+        ? file.type.startsWith("image/")
+        : hasUrl &&
+          (() => {
+            const extension = getFileExtensionFromS3Url(fileUrl);
+            return (
+              extension &&
+              ["jpg", "jpeg", "png"].includes(extension.toLowerCase())
+            );
+          })();
+
+      const isPdf = hasFile
+        ? file.type === "application/pdf"
+        : hasUrl &&
+          (() => {
+            const extension = getFileExtensionFromS3Url(fileUrl);
+            return extension && extension.toLowerCase() === "pdf";
+          })();
+
+      // Determine display name and file type
+      const displayName =
+        fileName || (isImage ? "Image" : isPdf ? "Document.pdf" : "Document");
+
       return (
         <div className="w-[209px] p-2 bg-orange-50 border border-orange-200 rounded-md">
           <div className="flex items-center gap-3">
             {/* File Preview/Icon */}
             <div className="flex-shrink-0">
-              {file.type.startsWith("image/") ? (
+              {isImage ? (
                 <div className="w-12 h-12 rounded-lg overflow-hidden bg-white border">
-                  <Image
-                    src={imageUrls[documentId] || getImageUrl(file)}
-                    alt={file.name}
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
-                    onClick={() => openFileViewer(file)}
-                  />
+                  {hasFile ? (
+                    <Image
+                      src={imageUrls[documentId] || getImageUrl(file)}
+                      alt={displayName}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() =>
+                        openFileViewer(file, fileUrl || undefined, displayName)
+                      }
+                    />
+                  ) : hasUrl ? (
+                    <Image
+                      src={fileUrl}
+                      alt={displayName}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                      onClick={() =>
+                        openFileViewer(file, fileUrl || undefined, displayName)
+                      }
+                    />
+                  ) : null}
                 </div>
               ) : (
                 <div
                   className="w-12 h-12 rounded-lg bg-white border flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors"
-                  onClick={() => openFileViewer(file)}
+                  onClick={() =>
+                    openFileViewer(file, fileUrl || undefined, displayName)
+                  }
                 >
                   <Icon
-                    icon={getFileIcon(file.type)}
+                    icon={getFileIcon(file?.type || "", fileUrl || undefined)}
                     width="20"
                     height="20"
                     className="text-gray-500"
@@ -351,13 +570,15 @@ const Register6 = (props: CustomerRegister6Props) => {
             {/* File Info */}
             <div className="flex-1 min-w-0">
               <p className="text-xs font-medium text-orange-800 truncate mb-1">
-                {file.name}
+                {displayName}
               </p>
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => openFileViewer(file)}
+                  onClick={() =>
+                    openFileViewer(file, fileUrl || undefined, displayName)
+                  }
                   className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 transition-colors"
                 >
                   <Icon icon="mdi:eye" width="12" height="12" />
@@ -377,7 +598,80 @@ const Register6 = (props: CustomerRegister6Props) => {
         </div>
       );
     },
-    [imageUrls, getImageUrl, openFileViewer, getFileIcon, removeFile]
+    [
+      getFileFromForm,
+      getFileUrlFromProfile,
+      getFileNameFromData,
+      imageUrls,
+      getImageUrl,
+      openFileViewer,
+      getFileIcon,
+      removeFile,
+    ]
+  );
+
+  // Render document field with appropriate preview
+  const renderDocumentField = useCallback(
+    (documentId: string, label: string, isRequired: boolean = false) => {
+      const hasData = hasDocumentData(documentId);
+
+      return (
+        <div className="flex flex-col gap-2 flex-1 w-full">
+          <div
+            className={cn(
+              "w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors",
+              errors.documents?.[0]?.[
+                documentId as keyof (typeof errors.documents)[0]
+              ] && "border-destructive"
+            )}
+            onClick={() => handleFileSelect(documentId)}
+          >
+            <Image
+              src="/Upload.svg"
+              alt="Upload"
+              className="w-6 h-6 object-contain"
+              width={20}
+              height={20}
+            />
+            <span className="text-sm font-medium text-[#1E1E1E]">
+              {label}
+              {isRequired && <span className="text-red-600 ml-1">*</span>}
+            </span>
+          </div>
+          <input
+            type="file"
+            accept=".pdf,.png,.jpg,.jpeg"
+            className="hidden"
+            onChange={(e) => handleFileChange(documentId, e)}
+            ref={(el) => {
+              fileInputRefs.current[documentId] = el;
+            }}
+          />
+          {hasData && renderFilePreview(documentId)}
+          {/* Error display */}
+          {errors.documents?.[0]?.[
+            documentId as keyof (typeof errors.documents)[0]
+          ] && (
+            <p className="text-red-500 text-xs mt-1">
+              {
+                (
+                  errors.documents[0][
+                    documentId as keyof (typeof errors.documents)[0]
+                  ] as any
+                )?.message
+              }
+            </p>
+          )}
+        </div>
+      );
+    },
+    [
+      hasDocumentData,
+      errors,
+      handleFileSelect,
+      handleFileChange,
+      renderFilePreview,
+    ]
   );
 
   return (
@@ -407,289 +701,25 @@ const Register6 = (props: CustomerRegister6Props) => {
 
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col md:flex-row items-center gap-6 justify-center md:gap-[24px]">
-            <div className="flex flex-col gap-2 flex-1 w-full">
-              <div
-                className={cn(
-                  "w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-6 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors",
-                  errors.documents?.[0]?.tradeLicense && "border-destructive"
-                )}
-                onClick={() => handleFileSelect("tradeLicense")}
-              >
-                <Image
-                  src="/Upload.svg"
-                  alt="Upload"
-                  className="w-6 h-6 object-contain"
-                  width={20}
-                  height={20}
-                />
-                <span className="text-sm font-medium text-[#1E1E1E]">
-                  Trade License
-                  <span className="text-red-600 ml-1">*</span>
-                </span>
-              </div>
-              {/* Hidden file input */}
-              <input
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={(e) => handleFileChange("tradeLicense", e)}
-                ref={(el) => {
-                  fileInputRefs.current["tradeLicense"] = el;
-                }}
-              />
-              {/* Uploaded file display */}
-              {getFileFromForm("tradeLicense") &&
-                renderFilePreview(
-                  "tradeLicense",
-                  getFileFromForm("tradeLicense")!
-                )}
-              {/* Error display */}
-              {errors.documents?.[0]?.tradeLicense && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.documents[0].tradeLicense?.message}
-                </p>
-              )}
-            </div>
-
+            {renderDocumentField("tradeLicense", "Trade License", true)}
             <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
-
-            <div className="flex flex-col gap-2 flex-1 w-full">
-              <div
-                className={cn(
-                  "w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors",
-                  errors.documents?.[0]?.vatCertificate && "border-destructive"
-                )}
-                onClick={() => handleFileSelect("vatCertificate")}
-              >
-                <Image
-                  src="/Upload.svg"
-                  alt="Upload"
-                  className="w-6 h-6 object-contain"
-                  width={20}
-                  height={20}
-                />
-                <span className="text-sm font-medium text-[#1E1E1E]">
-                  Vat certificate
-                  <span className="text-red-600 ml-1">*</span>
-                </span>
-              </div>
-              <input
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={(e) => handleFileChange("vatCertificate", e)}
-                ref={(el) => {
-                  fileInputRefs.current["vatCertificate"] = el;
-                }}
-              />
-              {getFileFromForm("vatCertificate") &&
-                renderFilePreview(
-                  "vatCertificate",
-                  getFileFromForm("vatCertificate")!
-                )}
-              {/* Error display */}
-              {errors.documents?.[0]?.vatCertificate && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.documents[0].vatCertificate?.message}
-                </p>
-              )}
-            </div>
+            {renderDocumentField("vatCertificate", "Vat certificate", true)}
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px] mt-6">
-            <div className="flex flex-col gap-2 flex-1 w-full">
-              <div
-                className={cn(
-                  "w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors",
-                  errors.documents?.[0]?.passport && "border-destructive"
-                )}
-                onClick={() => handleFileSelect("passport")}
-              >
-                <Image
-                  src="/Upload.svg"
-                  alt="Upload"
-                  className="w-6 h-6 object-contain"
-                  width={20}
-                  height={20}
-                />
-                <span className="text-sm font-medium text-[#1E1E1E]">
-                  Passport copy
-                  <span className="text-red-600 ml-1">*</span>
-                </span>
-              </div>
-              <input
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={(e) => handleFileChange("passport", e)}
-                ref={(el) => {
-                  fileInputRefs.current["passport"] = el;
-                }}
-              />
-              {getFileFromForm("passport") &&
-                renderFilePreview("passport", getFileFromForm("passport")!)}
-              {/* Error display */}
-              {errors.documents?.[0]?.passport && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.documents[0].passport?.message}
-                </p>
-              )}
-            </div>
-
+            {renderDocumentField("passport", "Passport copy", true)}
             <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
-
-            <div className="flex flex-col gap-2 flex-1 w-full">
-              <div
-                className={cn(
-                  "w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors",
-                  errors.documents?.[0]?.emiratesId && "border-destructive"
-                )}
-                onClick={() => handleFileSelect("emiratesId")}
-              >
-                <Image
-                  src="/Upload.svg"
-                  alt="Upload"
-                  className="w-6 h-6 object-contain"
-                  width={20}
-                  height={20}
-                />
-                <span className="text-sm font-medium text-[#1E1E1E]">
-                  Emirates ID
-                  <span className="text-red-600 ml-1">*</span>
-                </span>
-              </div>
-              <input
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={(e) => handleFileChange("emiratesId", e)}
-                ref={(el) => {
-                  fileInputRefs.current["emiratesId"] = el;
-                }}
-              />
-              {getFileFromForm("emiratesId") &&
-                renderFilePreview("emiratesId", getFileFromForm("emiratesId")!)}
-              {/* Error display */}
-              {errors.documents?.[0]?.emiratesId && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.documents[0].emiratesId?.message}
-                </p>
-              )}
-            </div>
+            {renderDocumentField("emiratesId", "Emirates ID", true)}
           </div>
 
           <div className="flex flex-col md:flex-row items-center gap-6 md:gap-[24px] mt-6">
-            <div className="flex flex-col gap-2 flex-1 w-full">
-              <div
-                className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
-                onClick={() => handleFileSelect("securityCheque")}
-              >
-                <Image
-                  src="/Upload.svg"
-                  alt="Upload"
-                  className="w-6 h-6 object-contain"
-                  width={20}
-                  height={20}
-                />
-                <span className="text-sm font-medium text-[#1E1E1E]">
-                  Security Cheque
-                </span>
-              </div>
-              <input
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={(e) => handleFileChange("securityCheque", e)}
-                ref={(el) => {
-                  fileInputRefs.current["securityCheque"] = el;
-                }}
-              />
-              {getFileFromForm("securityCheque") &&
-                renderFilePreview(
-                  "securityCheque",
-                  getFileFromForm("securityCheque")!
-                )}
-              {/* Error display */}
-              {errors.documents?.[0]?.securityCheque && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.documents[0].securityCheque?.message}
-                </p>
-              )}
-            </div>
-
+            {renderDocumentField("securityCheque", "Security Cheque", false)}
             <div className="hidden md:block w-[1px] h-[62px] bg-[#DFDFDF]" />
-
-            <div className="flex flex-col gap-2 flex-1 w-full">
-              <div
-                className={cn(
-                  "w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 px-3 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors",
-                  errors.documents?.[0]?.contract && "border-destructive"
-                )}
-                onClick={() => handleFileSelect("contract")}
-              >
-                <Image
-                  src="/Upload.svg"
-                  alt="Upload"
-                  className="w-6 h-6 object-contain"
-                  width={20}
-                  height={20}
-                />
-                <span className="text-sm font-medium text-[#1E1E1E]">
-                  Contract
-                  <span className="text-red-600 ml-1">*</span>
-                </span>
-              </div>
-              <input
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="hidden"
-                onChange={(e) => handleFileChange("contract", e)}
-                ref={(el) => {
-                  fileInputRefs.current["contract"] = el;
-                }}
-              />
-              {getFileFromForm("contract") &&
-                renderFilePreview("contract", getFileFromForm("contract")!)}
-              {/* Error display */}
-              {errors.documents?.[0]?.contract && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.documents[0].contract?.message}
-                </p>
-              )}
-            </div>
+            {renderDocumentField("contract", "Contract", true)}
           </div>
 
           <div className="flex flex-col items-center gap-2 flex-1 w-full mt-6">
-            <div
-              className="w-[209px] h-[48px] border border-muted-light bg-white flex items-center justify-center gap-2 rounded-md shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
-              onClick={() => handleFileSelect("other")}
-            >
-              <Image
-                src="/Upload.svg"
-                alt="Upload"
-                className="w-6 h-6 object-contain"
-                width={20}
-                height={20}
-              />
-              <span className="text-sm font-medium text-[#1E1E1E]">Others</span>
-            </div>
-            <input
-              type="file"
-              accept=".pdf,.png,.jpg,.jpeg"
-              className="hidden"
-              onChange={(e) => handleFileChange("other", e)}
-              ref={(el) => {
-                fileInputRefs.current["other"] = el;
-              }}
-            />
-            {getFileFromForm("other") &&
-              renderFilePreview("other", getFileFromForm("other")!)}
-            {/* Error display */}
-            {errors.documents?.[0]?.other && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.documents[0].other?.message}
-              </p>
-            )}
+            {renderDocumentField("other", "Others", false)}
           </div>
         </div>
       </motion.div>
@@ -699,6 +729,8 @@ const Register6 = (props: CustomerRegister6Props) => {
         isOpen={viewerModal.isOpen}
         onClose={closeFileViewer}
         file={viewerModal.file}
+        fileUrl={viewerModal.fileUrl}
+        fileName={viewerModal.fileName}
       />
     </>
   );

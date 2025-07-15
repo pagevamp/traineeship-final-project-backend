@@ -82,6 +82,7 @@ export interface UserPayload {
   shipmentFtl?: shipmentFtl;
   shipmentLtl?: shipmentLtl;
   user?: { id?: string };
+  transfers?: any;
 }
 
 interface shipmentLtl {

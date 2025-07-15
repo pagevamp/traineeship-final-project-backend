@@ -44,12 +44,13 @@ export function isFileList(object: any): object is FileList {
   return typeof FileList !== "undefined" && object instanceof FileList;
 }
 
-export function isFile(object: any): object is File {
-  return object instanceof File;
-}
+// export function isFile(object: any): object is File {
+//   return object instanceof File;
+// }
 export function getFileExtensionFromS3Url(url: string): string | null {
   const pathname = new URL(url).pathname; // Get the path part
   const filename = pathname.split("/").pop(); // Get the last segment
   const match = filename?.match(/\.(\w+)(?=\?|$)/); // Match `.jpg`, `.png`, etc.
   return match ? match[1] : null;
 }
+export const isFile = (value: any): value is File => value instanceof File;

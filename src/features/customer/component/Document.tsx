@@ -5,7 +5,6 @@ import { useModalContext } from "@/providers/modal-context";
 import PreviewModal from "@/components/ui/preview-modal";
 
 const Documents = ({ documentsDetail }: any) => {
-  console.log(documentsDetail, "documentsDetail");
   const { openModal } = useModalContext();
 
   // Define document types with their labels and URLs
@@ -34,6 +33,16 @@ const Documents = ({ documentsDetail }: any) => {
       label: "VAT Certificate",
       url: documentsDetail?.vatCertificateUrl,
       filename: documentsDetail?.vatCertificate,
+    },
+    {
+      label: "Security Cheque",
+      url: documentsDetail?.securityChequeUrl,
+      filename: documentsDetail?.securityCheque,
+    },
+    {
+      label: "Others",
+      url: documentsDetail?.otherUrl,
+      filename: documentsDetail?.other,
     },
   ];
 

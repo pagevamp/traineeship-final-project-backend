@@ -6,3 +6,6 @@ export const getVehicleType = () => {
 export const createCustomer = (body: any) => {
   return api.post("/customer", body);
 };
+export const updateCustomer = (id: string, body: any) => {
+  return api.put(`/customer/${id}`, body);
+};

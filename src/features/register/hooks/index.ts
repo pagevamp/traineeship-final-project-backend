@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createCustomer, getVehicleType } from "../api";
+import { createCustomer, getVehicleType, updateCustomer } from "../api";
 import { Obj } from "@/types";
+import { UserPayload } from "../types";
 
 const useVehicleType = (step: number) => {
   return useQuery({
@@ -20,4 +21,16 @@ const useCreateCustomer = (options: {
     onSuccess: options.onSuccess,
   });
 };
-export { useVehicleType, useCreateCustomer };
+
+const useUpdateCustomer = (options: {
+  onError?: (error: any, variables: any, context: any) => void;
+  onSuccess?: (data: Obj) => void;
+}) => {
+  return useMutation({
+    mutationFn: ({ id, body }: { id: string; body: UserPayload }) =>
+      updateCustomer(id, body),
+    onError: options.onError,
+    onSuccess: options.onSuccess,
+  });
+};
+export { useVehicleType, useCreateCustomer, useUpdateCustomer };

@@ -8,6 +8,25 @@ export const steps = [
   { id: 7, title: "Products" },
 ];
 
+export const customerFormField = [
+  "companyName",
+  "companyEmail",
+  "companyType",
+  "yearOfEstablishment",
+  "employeeSize",
+  "natureOfBusiness",
+  "shipmentType",
+  "destinationCountry",
+  "directorDetails",
+  "financialDirectorDetails",
+  "tradeReferenceDetails",
+  "bankDetails",
+  // "documents",
+  "shipmentFtl",
+  "shipmentLtl",
+  "vehicleType.id",
+];
+
 type HeadingsType = {
   id: number;
   title: string | React.ReactElement;

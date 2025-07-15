@@ -4,7 +4,7 @@ export const moduleRoutes: Record<string, string[]> = {
   DASHBOARD: ["/dashboard/sales", "/dashboard/sales/*"],
   CUSTOMER: ["/customer", "/customer/*"],
   DEPARTMENT: ["/departments", "/departments/*", "/users/*"],
-  CUSTOMER_DASHBOARD: ["/dashboard/customer", "/dashboard/customer/*"],
+  CUSTOMER_DASHBOARD: ["/dashboard/customer", "/dashboard/customer/*", "/re-apply"],
   REPORT_ADMIN: ["/report/admin", "/report/admin/*"],
   REPORT_OPERATIONAL: ["/report/operational", "/report/operational/*"],
   REPORT_FINANCE: ["/report/finance", "/report/finance/*"],

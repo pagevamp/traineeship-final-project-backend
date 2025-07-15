@@ -5,6 +5,9 @@ import { headerDetails } from "./constant";
 import { Avatar } from "@/components/ui/avatar";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { capitalize } from "lodash";
+import { Button } from "@/components/ui/button";
+import { CUSTOMER_STATUS, DEPARTMENT_NAME } from "@/utils/handlers/roles";
+import Link from "next/link";
 
 const Header = ({ profileDetail }: { profileDetail?: any }) => {
   const firstInitial = useMemo(
@@ -25,15 +28,40 @@ const Header = ({ profileDetail }: { profileDetail?: any }) => {
           Company Information
         </span>
 
-        {/* <div className="flex gap-4 sm:gap-[24px] flex-wrap sm:flex-nowrap justify-center">
-          <button className="flex items-center px-4 h-[40px] bg-[#00B69B] text-white rounded">
-            Transfer To{" "}
-            <ChevronDown size={14} className="ml-2 bg-transparent" />
-          </button>
-          <button className="w-[110px] h-[40px] bg-[#FF6502] text-white rounded">
-            Reject
-          </button>
-        </div> */}
+        {profileDetail?.currentActiveTransfer?.status ===
+          CUSTOMER_STATUS.APPROVED &&
+          profileDetail?.currentActiveTransfer?.department?.name ===
+            DEPARTMENT_NAME.ADMIN_DEPARTMENT && (
+            <Button
+              variant={"default"}
+              className="flex items-center px-8 text-white rounded hover:bg-primary"
+            >
+              Approved
+            </Button>
+          )}
+        {profileDetail?.currentActiveTransfer?.status ===
+          CUSTOMER_STATUS.REJECTED && (
+          <Link href="/re-apply">
+            <Button
+              variant={"customGradient"}
+              className="flex items-center px-8 text-white rounded"
+            >
+              {profileDetail?.currentActiveTransfer?.status ===
+              CUSTOMER_STATUS.REJECTED
+                ? "Re-apply"
+                : ""}
+            </Button>
+          </Link>
+        )}
+        {profileDetail?.currentActiveTransfer?.status ===
+          CUSTOMER_STATUS.RE_SUBMITTED && (
+          <Button
+            variant={"default"}
+            className="flex items-center px-8 text-white rounded hover:bg-primary"
+          >
+            Pending
+          </Button>
+        )}
       </div>
 
       <div className="flex flex-col sm:flex-row gap-10 sm:gap-[24px]">
@@ -54,11 +82,19 @@ const Header = ({ profileDetail }: { profileDetail?: any }) => {
                     {detail.label}:{" "}
                   </span>
                   <span className="font-primary text-[14px]">
-                    {detail.key === "vehicleType"
-                      ? profileDetail?.[detail?.key]?.type
-                      : detail?.key === "destinationCountry"
-                      ? profileDetail?.[detail?.key]?.join(", ")
-                      : profileDetail?.[detail?.key] ?? "N/A"}
+                    {detail.key === "vehicleType" ? (
+                      profileDetail?.[detail?.key]?.type
+                    ) : detail?.key === "destinationCountry" ? (
+                      profileDetail?.[detail?.key]?.join(", ")
+                    ) : detail.key === "companyType" ? (
+                      <span className="capitalize">
+                        {capitalize(
+                          profileDetail?.[detail?.key]?.split("_")?.join(" ")
+                        )}
+                      </span>
+                    ) : (
+                      profileDetail?.[detail?.key] ?? "N/A"
+                    )}
                   </span>
                 </p>
               </div>
