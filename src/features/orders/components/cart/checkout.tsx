@@ -119,6 +119,7 @@ export default function CheckoutPage() {
       billingAddress: importerData?.billingAddress,
       shippingAddress: importerData?.shippingAddress,
       orderProducts: transformToOrderProducts(selectedItems)?.orderProducts,
+      totalAmount: 4350,
     };
 
     try {
