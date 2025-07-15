@@ -106,7 +106,7 @@ export default function VariationComponent({
           return (
             <Card
               key={variation.id}
-              className={`relative transition-all duration-300 hover:shadow-lg ${
+              className={`relative transition-all duration-300 hover:shadow-lg rounded-xl ${
                 selected
                   ? "ring-1 ring-primary border-primary"
                   : isOutOfStock
@@ -126,7 +126,7 @@ export default function VariationComponent({
 
               {/* Out of Stock Overlay */}
               {isOutOfStock && (
-                <div className="absolute inset-0 bg-gray-100/80 flex items-center justify-center rounded-lg">
+                <div className="absolute inset-0 bg-gray-100/80 flex items-center justify-center rounded-3xl">
                   <span className="text-gray-600 font-semibold">
                     Out of Stock
                   </span>

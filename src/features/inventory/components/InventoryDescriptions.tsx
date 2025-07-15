@@ -1,40 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Controller } from "react-hook-form";
-import { Selectbox } from "@/components/ui/select-box";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 
 const InventoryDescriptions = ({ productData }: { productData: any }) => {
-  const [count, setCount] = useState(0);
-
-  const variations = [
-    {
-      id: "0197f31a-a04a-7435-9b05-dcdb6bc5277f",
-      productSizeName: "Small",
-      price: 22.0,
-      inStock: 16,
-      reOrderPoint: 20,
-    },
-    {
-      id: "0197f31a-a04a-7435-9b05-dcdb6bc52780",
-      productSizeName: "Medium",
-      price: 25.0,
-      inStock: 80,
-      reOrderPoint: 20,
-    },
-    {
-      id: "0197f31a-a04a-7435-9b05-dcdb6bc52781",
-      productSizeName: "Large",
-      price: 28.0,
-      inStock: 50,
-      reOrderPoint: 20,
-    },
-  ];
-
-  console.log(productData);
   return (
     <div className="grid grid-cols-1 gap-3">
       <h1 className="font-primary text-lg font-bold ">
@@ -59,7 +28,7 @@ const InventoryDescriptions = ({ productData }: { productData: any }) => {
           {productData?.productVariations?.map((variation: any) => (
             <Card
               key={variation.id}
-              className="shadow-sm hover:shadow-md transition-shadow duration-200"
+              className="shadow-sm hover:shadow-md transition-shadow duration-200 rounded-xl"
             >
               <CardHeader className="pb-2 px-3 pt-2 ">
                 <CardTitle className="text-base font-semibold">

@@ -7,18 +7,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Trash2, Minus, Plus, Package } from "lucide-react";
+import Link from "next/link";
 
 interface GroupedCartItemProps {
   productId: string;
   items: any[];
+  showSelection?: boolean;
 }
 
 export default function GroupedCartItem({
   productId,
   items,
+  showSelection = false,
 }: GroupedCartItemProps) {
-  const { updateQuantity, removeFromCart } = useCartStore();
+  const {
+    updateQuantity,
+    removeFromCart,
+    toggleItemSelection,
+    isItemSelected,
+  } = useCartStore();
 
   if (items.length === 0) return null;
 
@@ -28,6 +37,28 @@ export default function GroupedCartItem({
     (sum, item) => sum + item.selectedVariation.price * item.quantity,
     0
   );
+
+  // Check if all items for this product are selected
+  const allProductItemsSelected = items.every((item) =>
+    isItemSelected(item.variationKey)
+  );
+
+  // Handle product-level selection toggle
+  const handleProductSelectionToggle = () => {
+    items.forEach((item) => {
+      if (allProductItemsSelected) {
+        // If all are selected, deselect all
+        if (isItemSelected(item.variationKey)) {
+          toggleItemSelection(item.variationKey);
+        }
+      } else {
+        // If not all are selected, select all
+        if (!isItemSelected(item.variationKey)) {
+          toggleItemSelection(item.variationKey);
+        }
+      }
+    });
+  };
 
   const handleQuantityChange = (variationKey: string, newQuantity: number) => {
     const item = items.find((i) => i.variationKey === variationKey);
@@ -46,14 +77,23 @@ export default function GroupedCartItem({
   };
 
   return (
-    <Card className="mb-6">
+    <Card className="mb-6 font-secondary rounded-xl">
       <CardHeader className="pb-4">
         <div className="flex items-start space-x-4">
+          {/* Product-level Selection Checkbox */}
+          {showSelection && (
+            <Checkbox
+              checked={allProductItemsSelected}
+              onCheckedChange={handleProductSelectionToggle}
+              className="mt-1"
+            />
+          )}
+
           {/* Product Image */}
           <div className="relative w-20 h-20 flex-shrink-0">
             <Image
-              src={product.image || "/placeholder.svg"}
-              alt={product.name}
+              src={product.productImageUrl || "/placeholder.svg"}
+              alt={product.commodityName}
               fill
               className="object-cover rounded-md"
             />
@@ -61,8 +101,13 @@ export default function GroupedCartItem({
 
           {/* Product Info */}
           <div className="flex-1">
-            <CardTitle className="text-lg font-semibold text-gray-900 mb-1">
-              {product.name}
+            <CardTitle className="text-lg font-semibold text-gray-900 mb-1 ">
+              <Link
+                href={`/products/${product.id}`}
+                className="hover:text-primary hover:underline hover:underline-offset-2 transition-all duration-200"
+              >
+                {product.commodityName}
+              </Link>
             </CardTitle>
             <div className="flex items-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center space-x-1">
@@ -71,7 +116,9 @@ export default function GroupedCartItem({
                   {items.length} variation{items.length !== 1 ? "s" : ""}
                 </span>
               </div>
-              <span>Total: {totalQuantity} items</span>
+              <span>
+                Total: {totalQuantity} {totalQuantity === 1 ? "item" : "items"}
+              </span>
             </div>
             {product.brand && (
               <Badge variant="outline" className="mt-2">
@@ -86,7 +133,7 @@ export default function GroupedCartItem({
               {formatPrice(totalPrice)}
             </div>
             <div className="text-sm text-gray-500">
-              {totalQuantity} items total
+              {totalQuantity} {totalQuantity === 1 ? "item" : "items"} total
             </div>
           </div>
         </div>
@@ -102,17 +149,35 @@ export default function GroupedCartItem({
                 key={item.variationKey}
                 className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg border"
               >
+                {/* Individual Item Selection Checkbox */}
+                {showSelection && (
+                  <Checkbox
+                    checked={isItemSelected(item.variationKey)}
+                    onCheckedChange={() =>
+                      toggleItemSelection(item.variationKey)
+                    }
+                  />
+                )}
+
                 {/* Variation Details */}
                 <div className="flex-1">
                   <div className="flex items-center space-x-3">
                     <span className="font-medium text-gray-900">
                       Variation: {item.selectedVariation.productSizeName}
                     </span>
-                    <Badge
+                    {/* <Badge
                       className={`${stockStatus.color} text-white text-xs`}
                     >
                       {stockStatus.text}
-                    </Badge>
+                    </Badge> */}
+                    {isItemSelected(item.variationKey) && (
+                      <Badge
+                        variant="default"
+                        className="bg-blue-500 text-white text-xs"
+                      >
+                        Selected
+                      </Badge>
+                    )}
                   </div>
                   <div className="text-lg font-bold text-primary mt-1">
                     {formatPrice(item.selectedVariation.price)}

@@ -1,46 +1,19 @@
 "use client";
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Controller } from "react-hook-form";
-import { Selectbox } from "@/components/ui/select-box";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import VariationComponent from "./VariationComponent";
-import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/lib/cart-store";
+import { ShoppingCart } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
+import VariationComponent from "./VariationComponent";
 
 const ProductDescription = ({ productData }: { productData: any }) => {
   const [selectedVariations, setSelectedVariations] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [count, setCount] = useState(0);
+
+  const router = useRouter();
 
   const addToCart = useCartStore((state) => state.addToCart);
-
-  const variations = [
-    {
-      id: "0197f31a-a04a-7435-9b05-dcdb6bc5277f",
-      productSizeName: "Small",
-      price: 22.0,
-      inStock: 16,
-      reOrderPoint: 20,
-    },
-    {
-      id: "0197f31a-a04a-7435-9b05-dcdb6bc52780",
-      productSizeName: "Medium",
-      price: 25.0,
-      inStock: 80,
-      reOrderPoint: 20,
-    },
-    {
-      id: "0197f31a-a04a-7435-9b05-dcdb6bc52781",
-      productSizeName: "Large",
-      price: 28.0,
-      inStock: 50,
-      reOrderPoint: 20,
-    },
-  ];
 
   const handleAddToCart = async () => {
     if (selectedVariations.length === 0) {
@@ -63,13 +36,10 @@ const ProductDescription = ({ productData }: { productData: any }) => {
         0
       );
       toast.success(`Successfully added ${totalItems} items to cart!`);
+      router.push("/orders/cart");
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const getTotalSelectedItems = () => {
-    return selectedVariations.reduce((acc, curr) => acc + curr.quantity, 0);
   };
 
   return (

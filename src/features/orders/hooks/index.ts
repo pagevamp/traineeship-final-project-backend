@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getAllOrdersList } from "../api";
+import { createOrder, getAllOrdersList, getImporterDetails } from "../api";
 
 const useGetAllOrdersList = (params: any) => {
   return useQuery({
@@ -17,4 +17,23 @@ const useGetAllOrdersList = (params: any) => {
   });
 };
 
-export { useGetAllOrdersList };
+const useGetImporterDetails = (params: any) => {
+  return useQuery({
+    queryKey: ["getImporterDetails", params],
+    queryFn: () => getImporterDetails(params.id),
+    enabled: !!params?.id,
+  });
+};
+
+const useCreateOrder = (options: {
+  onError?: (error: any, variables: any, context: any) => void;
+  onSuccess?: (data: any) => void;
+}) => {
+  return useMutation({
+    mutationFn: createOrder,
+    onError: options.onError,
+    onSuccess: options.onSuccess,
+  });
+};
+
+export { useGetAllOrdersList, useCreateOrder, useGetImporterDetails };

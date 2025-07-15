@@ -19,10 +19,11 @@ import { menuItems } from "../constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
 import { useCartStore } from "@/lib/cart-store";
+import { useCart } from "@/hooks/useCart";
 
 export function UserNav({ profileData }: any) {
   const router = useRouter();
-  const totalItems = useCartStore((state) => state.getTotalItems());
+  const { getTotalItems, _hasHydrated } = useCart();
   const queryClient = getQueryClient();
   const firstInitial = useMemo(
     () =>
@@ -37,21 +38,23 @@ export function UserNav({ profileData }: any) {
   );
   return (
     <div className="flex items-center gap-4">
-      <Link href="/orders/cart" className="cursor-pointer">
-        <div className="p-2 rounded-full bg-[#ffebda] flex justify-center items-center relative">
-          {totalItems > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-white text-xs">
-              {totalItems}
-            </span>
-          )}
-          <Icon
-            icon="proicons:cart"
-            width="22"
-            height="22"
-            className="text-primary"
-          />
-        </div>
-      </Link>
+      {_hasHydrated && (
+        <Link href="/orders/cart" className="cursor-pointer">
+          <div className="p-2 rounded-full bg-[#ffebda] flex justify-center items-center relative">
+            {_hasHydrated && getTotalItems() > 0 ? (
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary rounded-full flex items-center justify-center text-white text-[.5rem]">
+                {getTotalItems() > 99 ? "99+" : getTotalItems()}
+              </span>
+            ) : null}
+            <Icon
+              icon="proicons:cart"
+              width="22"
+              height="22"
+              className="text-primary"
+            />
+          </div>
+        </Link>
+      )}
       <div className="relative">
         <Image src="/message.svg" alt="Image 2" width={36} height={36} />
         <Image

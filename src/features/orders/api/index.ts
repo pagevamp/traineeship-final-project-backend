@@ -31,3 +31,11 @@ export const getAllOrdersList = (params: any) => {
 
   return api.get(url);
 };
+
+export const createOrder = (body: any) => {
+  return api.post("/sales-order/create", body);
+};
+
+export const getImporterDetails = (id: string) => {
+  return api.get(`/importers/${id}`);
+};
