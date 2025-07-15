@@ -60,6 +60,8 @@ export default function CheckoutPage() {
     [importerDetails]
   );
 
+  console.log(importerData, "importerData");
+
   function transformToOrderProducts(cartData: any) {
     // Group cart items by product ID
     const productGroups: any = {};
@@ -110,37 +112,14 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async () => {
     const orderData = {
       importer: {
-        id: "01980d77-3ced-7587-8a2a-d850bc8301b8",
+        id: customer,
       },
       netTermPeriod: 0,
       expetedDeliveryDate: "2025-07-25T09:43:52.852Z",
-      billingAddress: [
-        {
-          locationName: "Billing Address",
-          street1: "Billing Address 1",
-          street2: "Billing Address 2",
-          country: "Nepal",
-          state: "Bagmati Province",
-          city: "Kathmandu",
-          zipCode: "44600",
-          latitude: "27.7172",
-          longitude: "85.3240",
-        },
-      ],
-      shippingAddress: [
-        {
-          locationName: "Shipping Address",
-          street1: "Shipping Address 1",
-          street2: "Shipping Address 2",
-          country: "Nepal",
-          state: "Bagmati Province",
-          city: "Kathmandu",
-          zipCode: "44600",
-          latitude: "27.7172",
-          longitude: "85.3240",
-        },
-      ],
+      billingAddress: importerData?.billingAddress,
+      shippingAddress: importerData?.shippingAddress,
       orderProducts: transformToOrderProducts(selectedItems)?.orderProducts,
+      totalAmount: 4350,
     };
 
     try {
@@ -151,26 +130,17 @@ export default function CheckoutPage() {
   };
 
   const handleContinue = () => {
+    if (!customer) {
+      toast.info("Please select a customer to continue");
+      return;
+    }
+
     openModal({
       component: AddressConfirmationModal,
       props: {
         data: {
-          billingAddress: {
-            street1: "Thamel 1",
-            street2: "Thamel 2",
-            city: "Kathmandu",
-            state: "Bagmati Province",
-            country: "Nepal",
-            zip: "44600",
-          },
-          shippingAddress: {
-            street1: "Thamel 3",
-            street2: "Thamel 4",
-            city: "Kathmandu",
-            state: "Bagmati Province",
-            country: "Nepal",
-            zip: "44600",
-          },
+          billingAddress: importerData?.billingAddress?.[0],
+          shippingAddress: importerData?.shippingAddress?.[0],
         },
         handlePlaceOrder,
       },
@@ -181,7 +151,7 @@ export default function CheckoutPage() {
   if (!_hasHydrated) {
     return (
       <div className="flex items-center justify-center p-4">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         <span className="ml-2">Loading cart...</span>
       </div>
     );

@@ -1,3 +1,4 @@
+import { allowedImageExtensions, allowedPdfExtensions } from "@/constant";
 import * as Yup from "yup";
 
 export const AddInventorySchema = Yup.object().shape({
@@ -19,8 +20,16 @@ export const AddInventorySchema = Yup.object().shape({
     Yup.object().shape({
       // stockKeepingUnit: Yup.array().nullable(),
       productSizeName: Yup.string().required("Size is required"),
-      price: Yup.string().required("Price is required"),
-      inStock: Yup.string().required("Quantity in Stock is required"),
+      price: Yup.number()
+        .typeError("Price must be a number")
+        .positive("Price must be a positive number")
+        .required("Price is required"),
+
+      inStock: Yup.number()
+        .typeError("Quantity in Stock must be a number")
+        .integer("Quantity must be an integer")
+        .min(0, "Quantity must be zero or more")
+        .required("Quantity in Stock is required"),
       reOrderPoint: Yup.string().required(
         "Re-order Point is required for Low Stock Alert"
       ),
@@ -48,27 +57,53 @@ export const AddInventorySchema = Yup.object().shape({
 
         return true; // Validation passes
       }
-    }),
-  coverImageList: Yup.mixed()
-    .test("file", "File is too large", function (files: any) {
-      if (!files || files?.length === 0) {
-        return true;
-      }
-
-      const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB in bytes
-
-      for (const file of files) {
-        const fileSize = file?.size || 0; // Get the size of the current file
-
-        if (fileSize > maxSizeInBytes) {
-          return this.createError({
-            message: "Please upload a file smaller than 10 MB.",
-          });
-        }
-      }
-
-      return true; // Validation passes
     })
+    .test(
+      "fileType",
+      "Unsupported file extension. Allowed extensions: jpg, jpeg, png, JPG, JPEG, PNG",
+      (value: any) => {
+        if (!value) return true;
+        if (typeof value === "string") return true;
+
+        if (value instanceof FileList) {
+          if (value.length === 0) return true;
+          const file = value[0];
+          const extension = file?.name?.split(".")?.pop()?.toLowerCase();
+          return extension ? allowedImageExtensions.includes(extension) : false;
+        }
+
+        if (value instanceof File) {
+          const extension = value?.name?.split(".")?.pop()?.toLowerCase();
+          return extension ? allowedImageExtensions.includes(extension) : false;
+        }
+
+        return false;
+      }
+    ),
+  coverImageList: Yup.mixed()
+    .test(
+      "file",
+      "File is too large, Max size is 10 MB",
+      function (files: any) {
+        if (!files || files?.length === 0) {
+          return true;
+        }
+
+        const maxSizeInBytes = 10 * 1024 * 1024; // 10 MB in bytes
+
+        for (const file of files) {
+          const fileSize = file?.size || 0; // Get the size of the current file
+
+          if (fileSize > maxSizeInBytes) {
+            return this.createError({
+              message: "Please upload a file smaller than 10 MB.",
+            });
+          }
+        }
+
+        return true; // Validation passes
+      }
+    )
     .test(
       "maxFiles",
       "Too many files (Only 5 images can be added)",
@@ -80,11 +115,31 @@ export const AddInventorySchema = Yup.object().shape({
         const maxFiles = 5;
         return value.length <= maxFiles;
       }
-    ),
+    )
+    .test("fileTypes", "Only JPG or PNG images are allowed", (value: any) => {
+      // Allow null, undefined, or empty values
+      if (!value || value.length === 0) return true;
+
+      if (typeof value?.[0] === "string") return true;
+
+      const files =
+        value instanceof FileList
+          ? Array.from(value)
+          : Array.isArray(value)
+          ? value
+          : [value];
+      return files.every((file) => {
+        const ext = file?.name?.split(".")?.pop()?.toLowerCase();
+        return (
+          typeof file.document === "string" ||
+          allowedImageExtensions.includes(ext)
+        );
+      });
+    }),
 
   salesFlyer: Yup.mixed()
     .nullable()
-    .test("file", "File is too large", function (file: any) {
+    .test("file", "File is too large, Max size is 10 MB", function (file: any) {
       if (!file || file?.length === 0) {
         return true;
       }
@@ -101,5 +156,25 @@ export const AddInventorySchema = Yup.object().shape({
 
         return true;
       }
+    })
+    .test("fileTypes", "Only PDF file is allowed", (value: any) => {
+      // Allow null, undefined, or empty values
+      if (!value || value.length === 0) return true;
+
+      if (typeof value?.[0] === "string") return true;
+
+      const files =
+        value instanceof FileList
+          ? Array.from(value)
+          : Array.isArray(value)
+          ? value
+          : [value];
+      return files.every((file) => {
+        const ext = file?.name?.split(".")?.pop()?.toLowerCase();
+        return (
+          typeof file.document === "string" ||
+          allowedPdfExtensions.includes(ext)
+        );
+      });
     }),
 });

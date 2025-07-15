@@ -14,6 +14,8 @@ import React from "react";
 const AddressConfirmationModal = (props: any) => {
   const { closeModal, data, handlePlaceOrder } = props;
 
+  console.log(data, "data");
+
   return (
     <div className="bg-white w-full overflow-hidden rounded-3xl shadow-2xl font-secondary">
       {/* Header with gradient */}
@@ -90,7 +92,7 @@ const AddressConfirmationModal = (props: any) => {
                           Street Address
                         </p>
                         <p className="text-gray-900 font-semibold">
-                          Bhumisthali, Gokareneshwor-2
+                          {data?.billingAddress?.street1}
                         </p>
                       </div>
 
@@ -99,13 +101,17 @@ const AddressConfirmationModal = (props: any) => {
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             City
                           </p>
-                          <p className="text-gray-900">Kathmandu</p>
+                          <p className="text-gray-900">
+                            {data?.billingAddress?.city}
+                          </p>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             State
                           </p>
-                          <p className="text-gray-900">Bagmati</p>
+                          <p className="text-gray-900">
+                            {data?.billingAddress?.state}
+                          </p>
                         </div>
                       </div>
 
@@ -114,13 +120,17 @@ const AddressConfirmationModal = (props: any) => {
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             Country
                           </p>
-                          <p className="text-gray-900">Nepal</p>
+                          <p className="text-gray-900">
+                            {data?.billingAddress?.country}
+                          </p>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             Postal Code
                           </p>
-                          <p className="text-gray-900">123</p>
+                          <p className="text-gray-900">
+                            {data?.billingAddress?.zipCode}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -158,7 +168,7 @@ const AddressConfirmationModal = (props: any) => {
                           Street Address
                         </p>
                         <p className="text-gray-900 font-semibold ">
-                          Bhumisthali, Gokareneshwor-2
+                          {data?.shippingAddress?.street1}
                         </p>
                       </div>
 
@@ -167,13 +177,17 @@ const AddressConfirmationModal = (props: any) => {
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             City
                           </p>
-                          <p className="text-gray-900">Kathmandu</p>
+                          <p className="text-gray-900">
+                            {data?.shippingAddress?.city}
+                          </p>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             State
                           </p>
-                          <p className="text-gray-900">Bagmati</p>
+                          <p className="text-gray-900">
+                            {data?.shippingAddress?.state}
+                          </p>
                         </div>
                       </div>
 
@@ -182,13 +196,17 @@ const AddressConfirmationModal = (props: any) => {
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             Country
                           </p>
-                          <p className="text-gray-900">Nepal</p>
+                          <p className="text-gray-900">
+                            {data?.shippingAddress?.country}
+                          </p>
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-600 mb-1">
                             Postal Code
                           </p>
-                          <p className="text-gray-900">123</p>
+                          <p className="text-gray-900">
+                            {data?.shippingAddress?.zipCode}
+                          </p>
                         </div>
                       </div>
                     </div>

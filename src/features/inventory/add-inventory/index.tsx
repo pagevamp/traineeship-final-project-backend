@@ -101,7 +101,7 @@ const Index = ({ id }: { id?: string }) => {
       setValue("hsCode", inventoryDetailsData?.hsCode);
       setValue("unitOfMeasure", inventoryDetailsData?.unitOfMeasure?.id);
       setValue("productImage", inventoryDetailsData?.productImageUrl);
-      setValue("salesFlyer", inventoryDetailsData?.salesFlyer);
+      setValue("salesFlyer", inventoryDetailsData?.salesFlyerUrl);
       setValue("longDescription", inventoryDetailsData?.longDescription);
       setValue("shortDescription", inventoryDetailsData?.shortDescription);
       setValue(
@@ -185,7 +185,6 @@ const Index = ({ id }: { id?: string }) => {
     },
     onSuccess: (data) => {},
   });
-
 
   const onSubmit = async (status: string) => {
     const formValues = watch();
@@ -288,7 +287,6 @@ const Index = ({ id }: { id?: string }) => {
 
       const updatedData = requestObject?.productVariations?.map(
         (variation: any, index: any) => {
-         
           const existingSerialNumbers =
             editData?.productVariations
               ?.find((iV: any) => iV.id == variation.id)
@@ -400,6 +398,8 @@ const Index = ({ id }: { id?: string }) => {
     },
   });
 
+  console.log(watch(), "watch");
+
   const handleCheckSerialNumber = async (type: string) => {
     setModalShownForSavedSKU(false);
     const formValues = watch();
@@ -414,7 +414,9 @@ const Index = ({ id }: { id?: string }) => {
 
     const allSerialNumbers = ClonedFormObject?.productVariations
       ?.flatMap((item: any) =>
-        item?.stockKeepingUnit?.map((serial: any) => serial?.sku)
+        Array.isArray(item?.stockKeepingUnit)
+          ? item.stockKeepingUnit.map((serial: any) => serial?.sku)
+          : []
       )
       ?.filter(
         (item: any) => !existingSerialNumbersOfCurrentProduct.includes(item)
@@ -487,10 +489,8 @@ const Index = ({ id }: { id?: string }) => {
 
   if (isEdit && (isInventoryDetailsLoading || !editData || !editData?.id))
     return (
-      <div className="flex flex-col items-center justify-center pt-4">
-        <p className="text-[#ABA2A2] text-[12px] font-normal pb-1">
-          Loading...
-        </p>
+      <div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
 
@@ -509,7 +509,7 @@ const Index = ({ id }: { id?: string }) => {
         isDeleteVariationPending ||
         isDeleteSerialPending ||
         isDeleteAttachmentPending) && (
-        <div className="absolute inset-0 w-screen h-screen bg-black/50 z-[1000]">
+        <div className="absolute inset-0 w-screen h-screen bg-black/50 z-[1000] overflow-hidden">
           <div className="flex items-center justify-center h-full">
             <AnimatedLoader variant={"truck"} size="sm" />
           </div>
