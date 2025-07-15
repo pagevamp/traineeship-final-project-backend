@@ -256,10 +256,10 @@ const SerialNumberAddPopup = (props: any) => {
 
   return (
     <div
-      className="w-full relative font-gotham overflow-scroll py-[2rem] px-[2rem]"
+      className="w-full relative font-gotham overflow-scroll max-h-[75vh] h-full "
       ref={containerRef1}
     >
-      <div className="flex justify-between items-center pb-[34px] sticky top-0 bg-white z-[1000]">
+      <div className="flex justify-between items-center sticky top-0 bg-white z-[1000] py-[1rem] px-[2rem] rounded-t-2xl shadow">
         <div className="grow basis-0  text-h2 font-semibold font-gotham">
           Add serial number and expiry date
         </div>
@@ -274,105 +274,104 @@ const SerialNumberAddPopup = (props: any) => {
         </Button>
       </div>
 
-      <table className="w-full mb-6">
-        <thead className="w-full">
-          <tr className="w-full">
-            <th className="text-left border-2 border-black p-2">S.N.</th>
-            <th className="text-left border-2 border-black p-2">Serial No.</th>
-            <th className="text-left border-2 border-black p-2 ">
-              Expiry Date
-            </th>
-          </tr>
-        </thead>
-        <tbody className="w-full">
-          {lists?.map((number: string, index: number) => (
-            <tr className="w-full text-left  p-2 relative" key={index}>
+      <div className="py-[2rem] px-[2rem]">
+        <table className="w-full mb-6 py-[2rem] px-[2rem]">
+          <thead className="w-full">
+            <tr className="w-full">
+              <th className="text-left border-2 border-black p-2">S.N.</th>
+              <th className="text-left border-2 border-black p-2">
+                Serial No.
+              </th>
+              <th className="text-left border-2 border-black p-2 ">
+                Expiry Date
+              </th>
+            </tr>
+          </thead>
+          <tbody className="w-full">
+            {lists?.map((number: string, index: number) => (
+              <tr className="w-full text-left  p-2 relative" key={index}>
+                <td className="text-left border-2 border-black p-2">
+                  {index + 1}
+                </td>
+                <td className="text-left border-2 border-black p-4">
+                  <div
+                    className="w-full py-2 px-1 bg-[#F2F2F2] rounded-[8px] flex justify-center items-center cursor-default relative"
+                    key={index}
+                  >
+                    {lists?.[index]}
+                  </div>
+                </td>
+                <td className="text-left border-2 border-black p-2">
+                  {/* {formatDate(localExpiry[index]) ?? '-'} */}
+                  <div className="p-[4px] bg-[#F2F2F2]  rounded-[4px] flex items-center">
+                    <Icon
+                      icon="cuida:calendar-outline"
+                      width="20"
+                      height="20"
+                      color="#ff6200"
+                      className="mr-2"
+                    />
+
+                    <DatePicker
+                      dateFormat="MM/dd/yyyy"
+                      selected={expiredDates[index] ?? null}
+                      ref={(el) => {
+                        dateRef.current[index] = el;
+                      }}
+                      placeholderText="Expiration Date"
+                      className="w-full bg-[#F2F2F2] h-[24px] border-none outline-none text-[#A0A0A0] placeholder:text-[#A0A0A0] placeholder:font-[400] placeholder:text-h5"
+                      onKeyDown={(e) => {
+                        handleBarcodeInput(index, e.key);
+                      }}
+                      onChange={(newValue: Date | null) => {
+                        console.log(newValue, "in new value");
+                        handleExpiredDateNew(index, newValue);
+                      }}
+                      minDate={new Date()}
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode="select"
+                    />
+                  </div>
+                </td>
+                <td className="border-none">
+                  <Icon
+                    icon="ic:baseline-delete"
+                    width="24"
+                    height="24"
+                    color="#B75151"
+                    className="cursor-pointer"
+                    onClick={() => deleteHandler(index)}
+                  />
+                </td>
+              </tr>
+            ))}
+            <tr className="w-full text-left  p-2">
               <td className="text-left border-2 border-black p-2">
-                {index + 1}
+                {lists?.length + 1}
               </td>
               <td className="text-left border-2 border-black p-4">
-                <div
-                  className="w-full py-2 px-1 bg-[#F2F2F2] rounded-[8px] flex justify-center items-center cursor-default relative"
-                  key={index}
-                >
-                  {lists?.[index]}
-                </div>
-              </td>
-              <td className="text-left border-2 border-black p-2">
-                {/* {formatDate(localExpiry[index]) ?? '-'} */}
-                <div className="p-[4px] bg-[#F2F2F2]  rounded-[4px] flex items-center">
-                  <Icon
-                    icon="cuida:calendar-outline"
-                    width="20"
-                    height="20"
-                    color="#ff6200"
-                    className="mr-2"
-                  />
+                {/* {number}  */}
 
-                  <DatePicker
-                    dateFormat="MM/dd/yyyy"
-                    selected={expiredDates[index] ?? null}
-                    ref={(el) => {
-                      dateRef.current[index] = el;
-                    }}
-                    placeholderText="Expiration Date"
-                    className="w-full bg-[#F2F2F2] h-[24px] border-none outline-none text-[#A0A0A0] placeholder:text-[#A0A0A0] placeholder:font-[400] placeholder:text-h5"
-                    onKeyDown={(e) => {
-                      handleBarcodeInput(index, e.key);
-                    }}
-                    onChange={(newValue: Date | null) => {
-                      console.log(newValue, "in new value");
-                      handleExpiredDateNew(index, newValue);
-                    }}
-                    minDate={new Date()}
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="select"
-                  />
-                </div>
-              </td>
-              <td className="border-none">
-                <Icon
-                  icon="ic:baseline-delete"
-                  width="24"
-                  height="24"
-                  color="#B75151"
-                  className="cursor-pointer"
-                  onClick={() => deleteHandler(index)}
+                <input
+                  type="text"
+                  value={val}
+                  defaultValue={inputRefs1.current[lists?.length]?.value || ""}
+                  ref={inputRefs1.current[lists?.length]}
+                  onChange={handleBarChange}
+                  onKeyDown={(e) => handleKeyPress(e, lists?.length)}
+                  className={cn(
+                    "w-full border rounded-md ring-0 outline-none px-2 py-1"
+                  )}
+                  placeholder=""
                 />
               </td>
+              <td className="text-left border-2 border-black p-2 ">-</td>
             </tr>
-          ))}
-          <tr className="w-full text-left  p-2">
-            <td className="text-left border-2 border-black p-2">
-              {lists?.length + 1}
-            </td>
-            <td className="text-left border-2 border-black p-4">
-              {/* {number}  */}
-
-              <input
-                type="text"
-                value={val}
-                defaultValue={inputRefs1.current[lists?.length]?.value || ""}
-                ref={inputRefs1.current[lists?.length]}
-                onChange={handleBarChange}
-                onKeyDown={(e) => handleKeyPress(e, lists?.length)}
-                className={cn(
-                  "w-full border rounded-md ring-0 outline-none px-2 py-1"
-                )}
-                placeholder=""
-              />
-            </td>
-            <td className="text-left border-2 border-black p-2 ">-</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <p className="mb-12 text-primary-btn-color">
-        Note: Please ensure that you fill all the Expiration Date before saving.
-      </p>
-
-      <div className="flex items-center justify-end  sticky bottom-0 bg-white pt-1">
+          </tbody>
+        </table>
+      </div>
+      <div className="flex items-center justify-end  sticky bottom-0 bg-white py-[1rem] px-[2rem] border-t">
         <Button
           variant={"default"}
           className={`px-12 py-3 rounded-2xl `}

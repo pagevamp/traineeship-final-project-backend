@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useGetAllUnitOfMeasure } from "../../hooks";
 import { useProfileInformation } from "@/features/dashboard/hooks/useProfileInformation";
 import { divide } from "lodash";
+import Link from "next/link";
 
 const InventoryInformation = (props: any) => {
   const {
@@ -332,13 +333,13 @@ const InventoryInformation = (props: any) => {
               )}
               {salesFlyer && !isFileList(salesFlyer) ? (
                 <div className="absolute w-[40px] right-0 -top-5 cursor-pointer">
-                  <a href={`/pdf?url=asd`} target="__blank">
+                  <Link href={`${salesFlyer}`} target="__blank">
                     <Icon
                       icon="material-icon-theme:pdf"
                       width="40"
                       height="40"
                     />
-                  </a>
+                  </Link>
                 </div>
               ) : (
                 salesFlyer &&
