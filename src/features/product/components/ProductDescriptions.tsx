@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import VariationComponent from "./VariationComponent";
+import Link from "next/link";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const ProductDescription = ({ productData }: { productData: any }) => {
   const [selectedVariations, setSelectedVariations] = useState<any[]>([]);
@@ -44,9 +46,20 @@ const ProductDescription = ({ productData }: { productData: any }) => {
 
   return (
     <div className="grid grid-cols-1 gap-6">
-      <h1 className="font-primary text-lg font-bold ">
-        {productData?.commodityName || "N/A"}
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-primary text-lg font-bold ">
+          {productData?.commodityName || "N/A"}
+        </h1>
+        {productData?.salesFlyerUrl && (
+          <Link
+            href={`${productData?.salesFlyerUrl}`}
+            target="__blank"
+            title="Sales Flyer"
+          >
+            <Icon icon="material-icon-theme:pdf" width="40" height="40" />
+          </Link>
+        )}
+      </div>
 
       <div>
         <span className="font-primary text-base font-bold">

@@ -54,3 +54,14 @@ export function getFileExtensionFromS3Url(url: string): string | null {
   return match ? match[1] : null;
 }
 export const isFile = (value: any): value is File => value instanceof File;
+
+export const allowedImageExtensions = [
+  "jpg",
+  "jpeg",
+  "png",
+  "JPG",
+  "JPEG",
+  "PNG",
+];
+
+export const allowedPdfExtensions = ["pdf", "PDF"];

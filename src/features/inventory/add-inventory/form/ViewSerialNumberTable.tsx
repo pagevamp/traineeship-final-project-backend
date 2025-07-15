@@ -236,16 +236,23 @@ export default function ViewSerialNumberTable(props: any) {
                       {highlightText(number, searchKeyword)}
                     </td>
                     <td className="text-left border-2 border-black p-2">
-                      {filteredSerial?.length > 0 &&
-                      searched &&
-                      localExpiry[filteredSerialindexes[index]]
-                        ? format(
-                            new Date(localExpiry[filteredSerialindexes[index]]),
-                            "MM-dd-yyyy"
-                          )
-                        : localExpiry[index]
-                        ? format(new Date(localExpiry[index]), "MM-dd-yyyy")
-                        : "N/A"}
+                      {(() => {
+                        try {
+                          const targetIndex =
+                            filteredSerial?.length > 0 && searched
+                              ? filteredSerialindexes[index]
+                              : index;
+
+                          const dateValue = localExpiry[targetIndex];
+
+                          if (!dateValue) return "N/A";
+
+                          return format(new Date(dateValue), "MM-dd-yyyy");
+                        } catch (error) {
+                          console.error("Date formatting error:", error);
+                          return "Invalid Date";
+                        }
+                      })()}
                     </td>
                     <td className="flex justify-center items-center h-full p-2">
                       <Trash2

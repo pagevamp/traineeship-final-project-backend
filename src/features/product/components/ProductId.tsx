@@ -30,7 +30,11 @@ const ProductId = ({ id }: { id: string }) => {
   }, [productData]);
 
   if (isLoadingInventoryDetails) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
   }
 
   return (
@@ -42,27 +46,6 @@ const ProductId = ({ id }: { id: string }) => {
             onClick={() => router.back()}
           />
           <span className="font-primary font-bold">Product Details</span>
-        </div>
-
-        <div className="mr-0">
-          <Controller
-            name="contactType"
-            control={control}
-            render={({ field }) => (
-              <Selectbox
-                options={[
-                  { label: "Stuti Upreti", value: "Stuti Upreti" },
-                  { label: "Suchi Gurung", value: "Suchi Gurung" },
-                  { label: "Binayak Chhettri", value: "Binayak Chhettri" },
-                ]}
-                value={field.value || ""}
-                onChange={(selected) => field.onChange(selected.value)}
-                placeholder="Select A Customer"
-                emptyText="No data found."
-                className="min-w-[200px] lg:min-w-[300px] bg-white h-12 p-4 border border-orange-400"
-              />
-            )}
-          />
         </div>
       </div>
 
