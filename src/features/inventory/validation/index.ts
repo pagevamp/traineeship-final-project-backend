@@ -26,6 +26,7 @@ export const AddInventorySchema = Yup.object().shape({
         .required("Price is required"),
 
       inStock: Yup.number()
+        .transform((value) => (value ? Number(value) : 0))
         .typeError("Quantity in Stock must be a number")
         .integer("Quantity must be an integer")
         .min(0, "Quantity must be zero or more")

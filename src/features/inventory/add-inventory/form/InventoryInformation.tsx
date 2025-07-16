@@ -79,7 +79,6 @@ const InventoryInformation = (props: any) => {
 
   const salesFlyer = watch("salesFlyer");
   const productImage = watch("productImage");
-  const coverImageList = watch("coverImageList");
 
   const [fileBlob, setFileBlob] = useState<Blob | null>(null);
 
@@ -480,6 +479,7 @@ const InventoryInformation = (props: any) => {
                         alt="Selected Image"
                         fill
                         className="object-cover object-center"
+                        unoptimized
                       />
                     </div>
                   </div>
@@ -494,6 +494,7 @@ const InventoryInformation = (props: any) => {
                           alt="Selected Image"
                           fill
                           className="object-cover object-center"
+                          unoptimized
                         />
                       </div>
                     </div>

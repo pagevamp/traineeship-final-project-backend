@@ -1,22 +1,122 @@
 "use client";
 
+import { AnimatedLoader } from "@/components/loaders/animated-loader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Selectbox } from "@/components/ui/select-box";
 import { useCart } from "@/hooks/useCart";
+import { useModal } from "@/hooks/useModal";
 import { formatPrice } from "@/lib/utils";
+import _, { truncate } from "lodash";
 import { ArrowLeft, ChevronLeft, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import GroupedCartItem from "./components/grouped-card-item";
 import { useRouter } from "next/navigation";
-import { Selectbox } from "@/components/ui/select-box";
 import { useMemo, useState } from "react";
-import CheckoutItems from "./components/checkout-items";
-import { Badge } from "@/components/ui/badge";
-import { useModal } from "@/hooks/useModal";
-import AddressConfirmationModal from "./components/address-confirmation-modal";
-import { useCreateOrder, useGetImporterDetails } from "../../hooks";
 import { toast } from "sonner";
+import {
+  useCreateOrder,
+  useGetAllImporters,
+  useGetImporterDetails,
+  useMultipleProductPrices,
+} from "../../hooks";
+import AddressConfirmationModal from "./components/address-confirmation-modal";
+import CheckoutItems from "./components/checkout-items";
+
+function transformToOrderProducts(cartData: any) {
+  // Group cart items by product ID
+  const productGroups: any = {};
+
+  cartData.forEach((item: any) => {
+    const productId = item.product.id;
+
+    // If product doesn't exist in groups, create it
+    if (!productGroups[productId]) {
+      productGroups[productId] = {
+        product: {
+          id: productId,
+        },
+        orderInventory: [],
+      };
+    }
+
+    // Add the variation to the product's orderInventory
+    productGroups[productId].orderInventory.push({
+      productVariation: {
+        id: item.selectedVariation.id,
+      },
+      quantity: item.quantity,
+      amount: item.quantity * item.selectedVariation.price,
+    });
+  });
+
+  // Convert grouped object to array
+  const orderProducts = Object.values(productGroups);
+
+  return {
+    orderProducts,
+  };
+}
+
+function updateOrderProductPrices(orderProduct: any, priceMap: any) {
+  return orderProduct.map((productEntry: any) => {
+    const productId = productEntry?.product?.id;
+    const priceList = priceMap?.[productId];
+
+    if (Array.isArray(priceList) && priceList.length > 0) {
+      const priceMapLookup = priceList.reduce((lookup, item) => {
+        lookup[item.productVariation.id] = item.price;
+        return lookup;
+      }, {});
+
+      productEntry.orderInventory = productEntry.orderInventory.map(
+        (inventoryItem: any) => {
+          const variationId = inventoryItem.productVariation.id;
+          const price = priceMapLookup[variationId];
+
+          if (price !== undefined) {
+            inventoryItem.amount = price;
+          }
+
+          return inventoryItem;
+        }
+      );
+    }
+
+    return productEntry;
+  });
+}
+
+function updatedGroupedItemsFunction(cartData: any, priceMap: any) {
+  const updatedCart: any = {};
+
+  for (const productId in cartData) {
+    const cartItems = cartData?.[productId];
+    const priceList = priceMap?.[productId];
+
+    updatedCart[productId] = cartItems.map((cartItem: any) => {
+      if (Array.isArray(priceList)) {
+        const variationId = cartItem.selectedVariation.id;
+        const matchingPriceItem = priceList.find(
+          (item) => item.productVariation.id === variationId
+        );
+
+        if (matchingPriceItem) {
+          return {
+            ...cartItem,
+            selectedVariation: {
+              ...cartItem.selectedVariation,
+              price: matchingPriceItem.price,
+            },
+          };
+        }
+      }
+
+      return cartItem;
+    });
+  }
+
+  return updatedCart;
+}
 
 export default function CheckoutPage() {
   const {
@@ -52,6 +152,20 @@ export default function CheckoutPage() {
   const allSelected = isAllSelected();
   const groupedSelectedItems = getGroupedSelectedItems();
 
+  const { data: importers, isLoading: isImportersLoading } = useGetAllImporters(
+    {
+      filters: {
+        sortParams: { sortParam: "createdAt", sortOrder: "DESC" },
+      },
+      pagination: {
+        page: 1,
+        recordsPerPage: 100,
+      },
+    }
+  );
+
+  const allImporters = useMemo(() => importers?.data?.data?.items, [importers]);
+
   const { data: importerDetails, isLoading: isImporterDetailsLoading } =
     useGetImporterDetails({ id: customer });
 
@@ -60,42 +174,58 @@ export default function CheckoutPage() {
     [importerDetails]
   );
 
-  console.log(importerData, "importerData");
+  const orderProducts: any = useMemo(() => {
+    return transformToOrderProducts(selectedItems)?.orderProducts;
+  }, [selectedItems]);
 
-  function transformToOrderProducts(cartData: any) {
-    // Group cart items by product ID
-    const productGroups: any = {};
+  // get the product prices for the order products for importer
 
-    cartData.forEach((item: any) => {
-      const productId = item.product.id;
+  const productPrices = useMultipleProductPrices(
+    orderProducts,
+    importerData?.id
+  );
 
-      // If product doesn't exist in groups, create it
-      if (!productGroups[productId]) {
-        productGroups[productId] = {
-          product: {
-            id: productId,
-          },
-          orderInventory: [],
-        };
+  const priceMap = useMemo(() => {
+    if (!!(orderProducts.length === 0) || !importerData?.id) {
+      return null;
+    }
+    const map: Record<string, any> = {};
+    productPrices.forEach((query: any, index) => {
+      const productId = orderProducts[index]?.product?.id;
+      if (productId) {
+        map[productId] =
+          query?.data?.data?.data?.items?.[0]?.importerProductPrice ?? null;
       }
-
-      // Add the variation to the product's orderInventory
-      productGroups[productId].orderInventory.push({
-        productVariation: {
-          id: item.selectedVariation.id,
-        },
-        quantity: item.quantity,
-        amount: item.quantity * item.selectedVariation.price,
-      });
     });
 
-    // Convert grouped object to array
-    const orderProducts = Object.values(productGroups);
+    return map;
+  }, [orderProducts, importerData?.id, productPrices]);
 
-    return {
-      orderProducts,
-    };
-  }
+  const updatedOrderProducts = useMemo(() => {
+    return updateOrderProductPrices(orderProducts, priceMap);
+  }, [orderProducts, priceMap]);
+
+  const updatedGroupedItems = useMemo(() => {
+    return updatedGroupedItemsFunction(groupedItems, priceMap);
+  }, [groupedItems, priceMap]);
+
+  const updatedGroupedSelectedItems = useMemo(() => {
+    return updatedGroupedItemsFunction(groupedSelectedItems, priceMap);
+  }, [groupedSelectedItems, priceMap]);
+
+  const totalAmount = useMemo(() => {
+    return Object.entries(updatedGroupedSelectedItems).reduce(
+      (acc: any, [productId, productItems]: any) => {
+        return (
+          acc +
+          productItems.reduce((sum: any, item: any) => {
+            return sum + item.selectedVariation.price * item.quantity;
+          }, 0)
+        );
+      },
+      0
+    );
+  }, [updatedGroupedSelectedItems]);
 
   const { mutateAsync: handleCreateOrder, isPending: isCreateOrderPending } =
     useCreateOrder({
@@ -114,12 +244,8 @@ export default function CheckoutPage() {
       importer: {
         id: customer,
       },
-      netTermPeriod: 0,
-      expetedDeliveryDate: "2025-07-25T09:43:52.852Z",
-      billingAddress: importerData?.billingAddress,
-      shippingAddress: importerData?.shippingAddress,
-      orderProducts: transformToOrderProducts(selectedItems)?.orderProducts,
-      totalAmount: 4350,
+      netTermPeriod: importerData?.netTerm?.days,
+      orderProducts: updatedOrderProducts,
     };
 
     try {
@@ -148,11 +274,30 @@ export default function CheckoutPage() {
     });
   };
 
+  // Define the desired field order
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const fields = ["street1", "city", "state", "country", "zipCode"];
+
+  const shippingAddress = useMemo(() => {
+    if (!importerData?.shippingAddress) return "N/A";
+    return fields
+      .map((field) => importerData?.shippingAddress?.[0]?.[field])
+      .filter((value) => value && value.trim() !== "")
+      .join(", ");
+  }, [fields, importerData?.shippingAddress]);
+
+  const billingAddress = useMemo(() => {
+    if (!importerData?.billingAddress) return "N/A";
+    return fields
+      .map((field) => importerData?.billingAddress?.[0]?.[field])
+      .filter((value) => value && value.trim() !== "")
+      .join(", ");
+  }, [fields, importerData?.billingAddress]);
+
   if (!_hasHydrated) {
     return (
       <div className="flex items-center justify-center p-4">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        <span className="ml-2">Loading cart...</span>
       </div>
     );
   }
@@ -181,6 +326,13 @@ export default function CheckoutPage() {
 
   return (
     <div className="px-4 font-secondary">
+      {isCreateOrderPending && (
+        <div className="fixed inset-0 w-screen h-screen bg-black/50 z-[1000] overflow-hidden">
+          <div className="flex items-center justify-center h-full">
+            <AnimatedLoader variant={"truck"} size="sm" />
+          </div>
+        </div>
+      )}
       <div className="">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -206,17 +358,16 @@ export default function CheckoutPage() {
                 Select Customer
               </h2>
               <Selectbox
-                options={[
-                  {
-                    label: "Stuti Upreti",
-                    value: "01980d77-3ced-7587-8a2a-d850bc8301b8",
-                  },
-                ]}
+                options={allImporters?.map((importer: any) => ({
+                  label: truncate(importer.name, { length: 40 }),
+                  value: importer.id,
+                }))}
                 value={customer || ""}
                 onChange={(selected) => setCustomer(selected.value)}
                 placeholder="Select A Customer"
                 emptyText="No data found."
                 className="min-w-80 lg:min-w-96 bg-white h-12 p-4 shadow border-0"
+                loading={isImportersLoading}
               />
             </div>
 
@@ -238,11 +389,15 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="space-y-1 text-sm">
-                      <div className="font-medium">Sunil Shrees</div>
-                      <div>+91 9843088216</div>
+                      <div className="font-medium">{importerData?.name}</div>
+                      <div>
+                        {importerData?.phoneNumber
+                          ? `${importerData?.countryCode}-${importerData?.phoneNumber}`
+                          : "N/A"}
+                      </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-gray-600">
-                          Thamel, Kathmandu, Kathmandu, Bagmati Province
+                          {shippingAddress}
                         </span>
                       </div>
                     </div>
@@ -255,11 +410,15 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="space-y-1 text-sm">
-                      <div className="font-medium">Sunil Shrees</div>
-                      <div>+91 9843088216</div>
+                      <div className="font-medium">{importerData?.name}</div>
+                      <div>
+                        {importerData?.phoneNumber
+                          ? `${importerData?.countryCode}-${importerData?.phoneNumber}`
+                          : "N/A"}
+                      </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-gray-600">
-                          Thamel, Kathmandu, Kathmandu, Bagmati Province
+                          {billingAddress}
                         </span>
                       </div>
                     </div>
@@ -269,7 +428,7 @@ export default function CheckoutPage() {
             )}
 
             <div className="space-y-2">
-              {Object.entries(groupedSelectedItems as any).map(
+              {Object.entries(updatedGroupedSelectedItems as any).map(
                 ([productId, productItems]) => (
                   <CheckoutItems
                     key={productId}
@@ -299,7 +458,7 @@ export default function CheckoutPage() {
                   <>
                     {/* Selected Items Breakdown */}
                     <div className="space-y-2">
-                      {Object.entries(groupedItems).map(
+                      {Object.entries(updatedGroupedItems).map(
                         ([productId, productItems]: any) => {
                           const selectedProductItems = productItems.filter(
                             (item: any) =>
@@ -344,7 +503,7 @@ export default function CheckoutPage() {
 
                     <div className="flex justify-between text-sm">
                       <span>Subtotal ({selectedTotalItems} items)</span>
-                      <span>{formatPrice(selectedTotalPrice)}</span>
+                      <span>{formatPrice(totalAmount)}</span>
                     </div>
 
                     <div className="flex justify-between text-sm">
@@ -361,7 +520,7 @@ export default function CheckoutPage() {
 
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span>{formatPrice(selectedTotalPrice)}</span>
+                      <span>{formatPrice(totalAmount)}</span>
                     </div>
 
                     <Button

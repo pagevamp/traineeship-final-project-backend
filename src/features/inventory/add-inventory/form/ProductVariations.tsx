@@ -219,9 +219,9 @@ export default function ProductVariations(props: any) {
       setValue(`productVariations.${key}.stockKeepingUnit`, listmap, {
         shouldValidate: true,
       });
-      setValue(`productVariations.${key}.inStock`, listmap?.length, {
-        shouldValidate: true,
-      });
+      // setValue(`productVariations.${key}.inStock`, listmap?.length, {
+      //   shouldValidate: true,
+      // });
     });
   }, [lists, expirationDates, setValue]);
 
@@ -230,10 +230,10 @@ export default function ProductVariations(props: any) {
     setLists((prevData) => {
       const newData = { ...prevData };
       newData[index] = newData[index]?.filter((item: any) => item !== sn);
-      setValue(
-        `productVariations.${index}.inStock`,
-        newData[index]?.length ?? 0
-      );
+      // setValue(
+      //   `productVariations.${index}.inStock`,
+      //   newData[index]?.length ?? 0
+      // );
 
       return newData;
     });
@@ -352,10 +352,10 @@ export default function ProductVariations(props: any) {
     setLists((prevData) => {
       const newData = { ...prevData };
       newData[index] = newData[index]?.filter((item: any) => item !== sn);
-      setValue(
-        `productVariations.${index}.inStock`,
-        newData[index]?.length ?? 0
-      );
+      // setValue(
+      //   `productVariations.${index}.inStock`,
+      //   newData[index]?.length ?? 0
+      // );
 
       return newData;
     });
@@ -377,8 +377,6 @@ export default function ProductVariations(props: any) {
       handleRemoveDuplicateSerialNumbers(item.index, item.serial);
     }
   };
-
-  console.log(alreadySavedSerialNumbers, "alreadySavedSerialNumbers");
 
   useEffect(() => {
     if (
@@ -954,29 +952,44 @@ export default function ProductVariations(props: any) {
                         </td>
                         <td className="px-2">
                           <div className="flex items-center gap-3">
-                            <button
-                              className="cursor-pointer disabled:opacity-50"
+                            <Tooltip
                               title={
-                                !!(lists?.[index]?.length == 0)
-                                  ? "No Serial Numbers"
-                                  : "View Serial Numbers"
+                                <div className="w-full text-[14px]">
+                                  {!!(
+                                    !lists?.[index] ||
+                                    lists?.[index]?.length == 0
+                                  )
+                                    ? "No Serial Numbers"
+                                    : "View Serial Numbers"}
+                                </div>
                               }
-                              onClick={() =>
-                                viewSerialNumbersHandler(
-                                  index,
-                                  Item?.variationId,
-                                  Item?.size
-                                )
-                              }
-                              disabled={!!(lists?.[index]?.length == 0)}
+                              arrow
+                              placement="bottom"
                             >
-                              <Icon
-                                icon="garden:eye-fill-12"
-                                width="18"
-                                height="18"
-                                color="#ff6200"
-                              />
-                            </button>
+                              <button
+                                className="cursor-pointer disabled:opacity-50"
+                                onClick={() =>
+                                  viewSerialNumbersHandler(
+                                    index,
+                                    Item?.variationId,
+                                    Item?.size
+                                  )
+                                }
+                                disabled={
+                                  !!(
+                                    !lists?.[index] ||
+                                    lists?.[index]?.length == 0
+                                  )
+                                }
+                              >
+                                <Icon
+                                  icon="garden:eye-fill-12"
+                                  width="18"
+                                  height="18"
+                                  color="#ff6200"
+                                />
+                              </button>
+                            </Tooltip>
                             <Button
                               variant="ghost"
                               size="sm"
@@ -1002,6 +1015,10 @@ export default function ProductVariations(props: any) {
                   })}
               </tbody>
             </table>
+            <div className="text-[0.6rem] text-red-600 text-center py-4 font-secondary">
+              Note: Duplicate serial numbers will be automatically removed
+              during bulk upload (e.g., when using an Excel file).
+            </div>
           </div>
         </div>
 
