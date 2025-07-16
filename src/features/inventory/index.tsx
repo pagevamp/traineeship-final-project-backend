@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TableComponent from "@/components/table";
-import { INVENTORY_COLUMN, INVENTORY_COUNTS, InventoryData } from "./constant";
+import { INVENTORY_COLUMN, INVENTORY_COUNTS } from "./constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -13,29 +13,83 @@ import Pagination from "@/components/pagination";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Button from "@/components/Button/Button";
+import { useGetAllInventoryList } from "./hooks";
+import { useProfileInformation } from "../dashboard/hooks/useProfileInformation";
 
 const Index = () => {
   const router = useRouter();
+
+  // get profile information
+  const {
+    data: profileInformationData,
+    isLoading: isLoadingProfileInformation,
+  } = useProfileInformation();
+
   // managing states
   const [state, setState] = useState({
     pagination: {
       page: 1,
       recordsPerPage: 10,
     },
+    filter: {
+      sortParams: {
+        sortParam: "createdAt",
+        sortOrder: "DESC",
+      },
+    },
     search: "",
   });
+
+  const { data: inventoryList, isLoading: isInventoryListLoading } =
+    useGetAllInventoryList({
+      pagination: state.pagination,
+      filters: state.filter,
+      searchParam: state.search,
+      createdById: profileInformationData?.data?.data?.user?.id,
+    });
+
+  // memoizing  count
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    const total = inventoryList?.data?.data?.total;
+    if (!isNaN(total) && total !== undefined) {
+      setCount(Number(total));
+    }
+  }, [inventoryList?.data?.data?.total]);
+
+  const InventoryData = useMemo(() => {
+    return inventoryList?.data?.data?.items;
+  }, [inventoryList]);
 
   const actions = [
     {
       label: (
-        <Icon
-          icon="heroicons:eye-16-solid"
-          width="22"
-          height="22"
-          color="#FF811A"
-        />
+        <div className="flex items-center gap-1 text-primary font-semibold">
+          <Icon
+            icon="heroicons:eye-16-solid"
+            width="20"
+            height="20"
+            color="#FF811A"
+          />
+          <span>View</span>
+        </div>
       ),
-      onClick: (row: any) => router.push(`/inventory/1`),
+      onClick: (row: any) => router.push(`/inventory/${row?.id}`),
+    },
+    {
+      label: (
+        <div className="flex items-center gap-1 text-primary font-semibold">
+          <Icon
+            icon="material-symbols:edit"
+            width="20"
+            height="20"
+            color="#FF811A"
+          />
+          <span>Edit</span>
+        </div>
+      ),
+      onClick: (row: any) => router.push(`/inventory/add-inventory/${row?.id}`),
     },
   ];
 
@@ -144,7 +198,11 @@ const Index = () => {
         <div className="mt-4">
           <Pagination
             currentPage={state.pagination.page}
-            totalPages={4}
+            totalPages={
+              count / state.pagination.recordsPerPage > 0
+                ? Math.ceil(count / state.pagination.recordsPerPage)
+                : Math.floor(count / state.pagination.recordsPerPage) + 1
+            }
             onPageChange={(page: number) => {
               setState((prevState) => ({
                 ...prevState,

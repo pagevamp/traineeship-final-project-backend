@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import TableComponent from "@/components/table";
 import { InventoryData, ORDER_COLUMN } from "../constant";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -8,17 +8,56 @@ import SearchComponent from "@/components/SearchComponent/SearchComponent";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Pagination from "@/components/pagination";
+import { useProfileInformation } from "@/features/dashboard/hooks/useProfileInformation";
+import { useGetAllOrdersList } from "../hooks";
 
 const OrderComponent = () => {
   const router = useRouter();
+
+  // get profile information
+  const {
+    data: profileInformationData,
+    isLoading: isLoadingProfileInformation,
+  } = useProfileInformation();
+
   // managing states
   const [state, setState] = useState({
     pagination: {
       page: 1,
       recordsPerPage: 10,
     },
+    filter: {
+      sortParams: {
+        sortParam: "createdAt",
+        sortOrder: "DESC",
+      },
+    },
     search: "",
   });
+
+  const { data: ordersList, isLoading: isOrdersListLoading } =
+    useGetAllOrdersList({
+      pagination: state.pagination,
+      filters: state.filter,
+      searchParam: state.search,
+      customerId: profileInformationData?.data?.data?.id,
+    });
+
+  // memoizing  count
+  const [count, setCount] = useState<number>(0);
+
+  useEffect(() => {
+    const total = ordersList?.data?.data?.total;
+    if (!isNaN(total) && total !== undefined) {
+      setCount(Number(total));
+    }
+  }, [ordersList?.data?.data?.total]);
+
+  const OrdersData = useMemo(() => {
+    return ordersList?.data?.data?.items;
+  }, [ordersList]);
+
+  console.log(OrdersData, "OrdersData");
 
   const actions = [
     {

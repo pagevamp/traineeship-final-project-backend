@@ -287,7 +287,7 @@ export default function ImporterDetailPage({
                         {importerDetail?.name || "N/A"}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 mb-4 text-sm">
+                    <div className="flex items-center gap-2 text-sm">
                       <Mail className="h-4 w-4 text-gray-600" />
                       <span className="font-semibold text-gray-700">
                         Email:
@@ -308,7 +308,7 @@ export default function ImporterDetailPage({
                         {importerDetail?.phoneNumber || "N/A"}
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 mb-4 text-sm">
+                    <div className="flex items-center gap-2 text-sm">
                       <BadgeDollarSign className="h-4 w-4 text-gray-600" />
                       <span className="font-semibold text-gray-700 whitespace-nowrap">
                         Tax ID:

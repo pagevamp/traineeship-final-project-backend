@@ -41,7 +41,7 @@ export const enum DASHBOARD_MODULES {
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export function isFileList(object: any): object is FileList {
-  return object instanceof FileList;
+  return typeof FileList !== "undefined" && object instanceof FileList;
 }
 
 // export function isFile(object: any): object is File {
@@ -54,3 +54,14 @@ export function getFileExtensionFromS3Url(url: string): string | null {
   return match ? match[1] : null;
 }
 export const isFile = (value: any): value is File => value instanceof File;
+
+export const allowedImageExtensions = [
+  "jpg",
+  "jpeg",
+  "png",
+  "JPG",
+  "JPEG",
+  "PNG",
+];
+
+export const allowedPdfExtensions = ["pdf", "PDF"];

@@ -13,7 +13,10 @@ const addressSchema = yup.object({
     .required("Street 1 is required")
     .max(50, "Street 1 must be at most 50 characters"),
 
-  street2: yup.string().max(50, "Street 2 must be at most 50 characters"),
+  street2: yup
+    .string()
+    .max(50, "Street 2 must be at most 50 characters")
+    .nullable(),
   // Optional
   country: yup.string().required("Country is required"),
   state: yup.string().required("State is required"),

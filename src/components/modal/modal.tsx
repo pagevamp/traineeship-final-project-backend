@@ -23,7 +23,7 @@ export const Modal: React.FC = () => {
           <Modals
             key={index} // Unique key for each modal
             isOpen={true} // Control the modal open state
-            onRequestClose={closeModal} // Close modal on overlay click or Esc press
+            // onRequestClose={closeModal} // Close modal on overlay click or Esc press
             className={cn(
               "fixed border-none outline-none left-[50%] top-[50%] z-50 grid w-full max-w-lg max-h-[80vh] translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background shadow-lg duration-200",
               modal.className

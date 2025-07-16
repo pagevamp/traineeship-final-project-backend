@@ -3,7 +3,7 @@ import AddInventoryComponent from "@/features/inventory/add-inventory";
 
 export async function generateMetadata() {
   return {
-    title: "Add Customer | Arctern Express",
+    title: "Add Inventory | Arctern Express",
   };
 }
 const Index = () => {

@@ -1,81 +1,107 @@
 "use client";
-import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Controller } from "react-hook-form";
-import { Selectbox } from "@/components/ui/select-box";
+import { useCartStore } from "@/lib/cart-store";
+import { ShoppingCart } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import VariationComponent from "./VariationComponent";
+import Link from "next/link";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
-const ProductDescriptions = () => {
-  const [count, setCount] = useState(0);
+const ProductDescription = ({ productData }: { productData: any }) => {
+  const [selectedVariations, setSelectedVariations] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const router = useRouter();
+
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  const handleAddToCart = async () => {
+    if (selectedVariations.length === 0) {
+      toast.info("Please select at least one variation");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Add each selected variation to cart
+      for (const selectedVar of selectedVariations) {
+        addToCart(productData, selectedVar.variation, selectedVar.quantity);
+      }
+      // Reset selections after adding to cart
+      setSelectedVariations([]);
+
+      // Show success message
+      const totalItems = selectedVariations.reduce(
+        (sum, sv) => sum + sv.quantity,
+        0
+      );
+      toast.success(`Successfully added ${totalItems} items to cart!`);
+      router.push("/orders/cart");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="grid grid-cols-1 gap-3">
-      <h1 className="font-primary text-[18px] font-bold ">Pink Hoodie</h1>
-
-      <span className="font-primary text-[16px] font-bold">
-        Short Description
-      </span>
-      <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
-      <span className="font-extralight font-secondary text-muted-foreground">
-        Stay cozy and stylish in our ultra-soft pink hoodie — the perfect blend
-        of comfort, charm, and casual flair.
-      </span>
-
-      <div className="flex flex-col items-center lg:items-start ">
-        <div className="flex space-x-0">
-          <button
-            onClick={() => setCount(count - 1)}
-            className="bg-muted-light text-white px-4 py-2 rounded-l-lg hover:bg-orange-600 transition"
+    <div className="grid grid-cols-1 gap-6">
+      <div className="flex items-center justify-between">
+        <h1 className="font-primary text-lg font-bold ">
+          {productData?.commodityName || "N/A"}
+        </h1>
+        {productData?.salesFlyerUrl && (
+          <Link
+            href={`${productData?.salesFlyerUrl}`}
+            target="__blank"
+            title="Sales Flyer"
           >
-            -
-          </button>
-          <button
-            onClick={() => setCount(0)}
-            className="bg-black text-white px-4 py-2  hover:bg-gray-500 transition"
-          >
-            {count <= 0 ? 0 : count}
-          </button>
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-muted-light text-white px-4 py-2 rounded-r-lg hover:bg-orange-600 transition"
-          >
-            +
-          </button>
-        </div>
-
-        <span className="font-normal items-center text-[16px] m-2">6 * 6</span>
-        <div className="flex flex-col justify-center border border-muted-light max-w-[200px] rounded-md p-4 text-[14px]">
-          <span>
-            Stock: <span className="text-[#FF811A] font-extralight">100</span>
-          </span>
-          <span>
-            Size: <span>6*6</span>
-          </span>
-          <span>
-            Price:{" "}
-            <span className="text-[#FF811A] font-extralight ">$500.00</span>
-          </span>
-        </div>
-
-        <div className="flex justify-start">
-          <Button className=" bg-linear-to-b from-[#CF5406] to-[#FF811A] rounded-[20px] font-light text-white mt-2 w-[150px] hover:bg-[#CF5406] p-6">
-            Order
-          </Button>
-        </div>
+            <Icon icon="material-icon-theme:pdf" width="40" height="40" />
+          </Link>
+        )}
       </div>
 
-      <span className="font-primary text-[16px] font-bold">
-        Long Description
-      </span>
-      <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
-      <span className="font-extralight font-secondary text-muted-foreground">
-        Wrap yourself in warmth and confidence with our beautifully crafted pink
-        hoodie — your new favorite go-to for laid-back days and cozy evenings.
-        Designed with a flattering unisex fit and made from a premium
-        cotton-blend fleece, this hoodie features a soft brushed interior,
-        adjustable drawstring hood, and a spacious kangaroo pocket to keep your
-        hands warm or essentials close.
-      </span>
+      <div>
+        <span className="font-primary text-base font-bold">
+          Short Description
+        </span>
+        <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
+
+        <div
+          dangerouslySetInnerHTML={{ __html: productData?.shortDescription }}
+          className="prose max-w-none [&_strong]:text-[#121212] break-words text-editor [&_ul]:pl-5 [&_ol]:pl-5 font-extralight font-secondary text-muted-foreground"
+        />
+      </div>
+
+      <VariationComponent
+        variations={productData?.productVariations}
+        selectedVariations={selectedVariations}
+        onVariationChange={setSelectedVariations}
+      />
+
+      {/* Add to Cart Button */}
+      <Button
+        onClick={handleAddToCart}
+        disabled={isLoading || selectedVariations.length === 0}
+        className="w-fit px-4 py-2 rounded-3xl bg-primary text-sm font-medium transition-all duration-300 transform hover:scale-105"
+      >
+        <ShoppingCart className="w-5 h-5 mr-1" />
+        {isLoading ? "Adding to Cart..." : `Add to Cart`}
+      </Button>
+
+      <div>
+        <span className="font-primary text-base font-bold">
+          Long Description
+        </span>
+        <hr className="flex-grow w-full h-[0px] border-b border-gray-300 " />
+
+        <div
+          dangerouslySetInnerHTML={{ __html: productData?.longDescription }}
+          className="prose max-w-none [&_strong]:text-[#121212] break-words text-editor [&_ul]:pl-5 [&_ol]:pl-5 font-extralight font-secondary text-muted-foreground"
+        />
+      </div>
     </div>
   );
 };
 
-export default ProductDescriptions;
+export default ProductDescription;
