@@ -201,10 +201,10 @@ const Index = () => {
             onClick={
               id ? handleSubmit(handleUpdateModal) : handleSubmit(onSubmit)
             }
-            disabled={isPending}
+            disabled={isPending || isUpdateLoading}
           >
             {id ? "Update" : "Create"}
-            {isPending && (
+            {(isPending || isUpdateLoading) && (
               <div className="flex items-center justify-center">
                 <Icon
                   icon="codex:loader"

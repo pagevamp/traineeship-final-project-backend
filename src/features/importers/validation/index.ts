@@ -36,7 +36,36 @@ const userSchema = yup.object({
     .string()
     .required("Last Name is required")
     .max(50, "Last Name must be at most 50 characters"),
+  email: yup
+    .string()
+    .trim()
+    .test("email-format", "Invalid email format", (value) => {
+      if (!value) return true;
+      return emailRegex.test(value);
+    })
+    .max(100, "Email must be at most 100 characters")
+    .required("Email is required"),
+  countryCode: yup.string().required("Country code is required"),
+  phoneNumber: yup
+    .string()
+    .required("Contact Number is required")
 
+    .test("is-valid-number", "Invalid contact number format", function (value) {
+      const countryCode: string = this.parent.countryCode; // Assuming countryCode is present in the form values
+      const expectedLength: number | undefined =
+        countryCodesWithLength[countryCode];
+      if (
+        !value ||
+        expectedLength === undefined ||
+        value.length !== expectedLength
+      ) {
+        return this.createError({
+          path: "phoneNumber",
+          message: `Contact Number must be ${expectedLength} digits long.`,
+        });
+      }
+      return true;
+    }),
   password: yup
     .string()
     .required("Password is required")
