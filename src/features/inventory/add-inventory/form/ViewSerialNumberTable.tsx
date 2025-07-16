@@ -32,9 +32,9 @@ export default function ViewSerialNumberTable(props: any) {
   const inputRef = useRef<any>(null);
 
   const [deleting, setDeleting] = useState(false);
-  const [localSerial, setLocalSerial] = useState(serialNumbers);
+  const [localSerial, setLocalSerial] = useState(serialNumbers || []);
   const [localExpiry, setLocalExpiry] = useState(expiry);
-  const [filteredSerial, setFilteredSerial] = useState<any>([...localSerial]);
+  const [filteredSerial, setFilteredSerial] = useState<any>(localSerial);
   const [filteredSerialindexes, setFilteredSerialIndexes] = useState<any>([]);
   const [searched, setSearched] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState<any>(null);
@@ -104,7 +104,7 @@ export default function ViewSerialNumberTable(props: any) {
   };
 
   useEffect(() => {
-    const filteredserials = localSerial.filter((item: string) =>
+    const filteredserials = localSerial?.filter((item: string) =>
       item?.toLowerCase().includes(inputRef.current.value.trim().toLowerCase())
     );
 
@@ -119,20 +119,20 @@ export default function ViewSerialNumberTable(props: any) {
     const searchVal = inputRef.current.value;
 
     const filteredserials = [
-      ...localSerial.filter((item: any) =>
+      ...localSerial?.filter((item: any) =>
         item?.toLowerCase().includes(searchVal.trim().toLowerCase())
       ),
     ];
 
     const filteredIindices = filteredserials.map((filteredSerial) => {
-      return localSerial.indexOf(filteredSerial);
+      return localSerial?.indexOf(filteredSerial);
     });
 
     setFilteredSerialIndexes(filteredIindices);
 
     setFilteredSerial((prev: any) => {
       return [
-        ...localSerial.filter((item: any) =>
+        ...localSerial?.filter((item: any) =>
           item?.toLowerCase().includes(searchVal.trim().toLowerCase())
         ),
       ];

@@ -42,3 +42,20 @@ export function getReorderPointColor(inStock: number, reOrderPoint: number) {
     return "bg-green-500";
   }
 }
+
+export function getStatusStyle(status: string): React.CSSProperties {
+  switch (status.toUpperCase()) {
+    case "PENDING":
+      return { backgroundColor: "#FFC107", color: "#000000" };
+    case "FULFILLED":
+      return { backgroundColor: "#2196F3", color: "#FFFFFF" };
+    case "COMPLETED":
+      return { backgroundColor: "#4CAF50", color: "#FFFFFF" };
+    case "SHIPPED":
+      return { backgroundColor: "#00BCD4", color: "#FFFFFF" };
+    case "CANCELED":
+      return { backgroundColor: "#F44336", color: "#FFFFFF" };
+    default:
+      return { backgroundColor: "#E0E0E0", color: "#000000" };
+  }
+}

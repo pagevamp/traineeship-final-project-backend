@@ -261,7 +261,7 @@ const SerialNumberAddPopup = (props: any) => {
     >
       <div className="flex justify-between items-center sticky top-0 bg-white z-[1000] py-[1rem] px-[2rem] rounded-t-2xl shadow">
         <div className="grow basis-0  text-h2 font-semibold font-gotham">
-          Add serial number and expiry date
+          Add Serial number and Expiry date
         </div>
         <Button
           variant="ghost"
@@ -274,8 +274,8 @@ const SerialNumberAddPopup = (props: any) => {
         </Button>
       </div>
 
-      <div className="py-[2rem] px-[2rem]">
-        <table className="w-full mb-6 py-[2rem] px-[2rem]">
+      <div className="py-[1rem] px-[2rem]">
+        <table className="w-full">
           <thead className="w-full">
             <tr className="w-full">
               <th className="text-left border-2 border-black p-2">S.N.</th>
@@ -370,6 +370,12 @@ const SerialNumberAddPopup = (props: any) => {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div className="pt-0 pb-[2rem] px-[2rem] font-secondary text-sm text-red-600">
+        Note: You can automatically populate the Serial Number and Expiry Date
+        fields using a barcode scanner. If you are entering the Serial Number
+        manually (i.e., without a barcode scanner), please press Enter after
+        typing the serial number to proceed.
       </div>
       <div className="flex items-center justify-end  sticky bottom-0 bg-white py-[1rem] px-[2rem] border-t">
         <Button

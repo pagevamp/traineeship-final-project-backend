@@ -1,12 +1,18 @@
-import OrderId from "@/features/orders/components/OrderId";
+import OrderDetails from "@/features/orders/components/OrderDetails";
 import React from "react";
 
-const page = () => {
+export async function generateMetadata() {
+  return {
+    title: "Order Detail | Arctern Express",
+  };
+}
+
+const OrderDetailPage = ({ params }: { params: { id: string } }) => {
   return (
     <div>
-      <OrderId />
+      <OrderDetails id={params.id} />
     </div>
   );
 };
 
-export default page;
+export default OrderDetailPage;

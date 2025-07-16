@@ -81,6 +81,7 @@ const Index = ({ id }: { id?: string }) => {
     getValues,
     formState: { errors },
   } = useForm({
+    mode: "onChange",
     resolver: yupResolver(AddInventorySchema) as Resolver<any>,
   });
 
@@ -509,7 +510,7 @@ const Index = ({ id }: { id?: string }) => {
         isDeleteVariationPending ||
         isDeleteSerialPending ||
         isDeleteAttachmentPending) && (
-        <div className="absolute inset-0 w-screen h-screen bg-black/50 z-[1000] overflow-hidden">
+        <div className="fixed inset-0 w-screen h-screen bg-black/50 z-[1000] overflow-hidden">
           <div className="flex items-center justify-center h-full">
             <AnimatedLoader variant={"truck"} size="sm" />
           </div>

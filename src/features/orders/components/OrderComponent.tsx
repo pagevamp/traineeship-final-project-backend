@@ -62,23 +62,15 @@ const OrderComponent = () => {
   const actions = [
     {
       label: (
-        <Icon
-          icon="heroicons:eye-16-solid"
-          width="22"
-          height="22"
-          color="#FF811A"
-        />
-      ),
-      onClick: (row: any) => router.push(`/orders/${row.id}`),
-    },
-    {
-      label: (
-        <Icon
-          icon="material-symbols:edit-outline-rounded"
-          width="22"
-          height="22"
-          color="#FF811A"
-        />
+        <div className="flex items-center gap-1 text-primary font-semibold">
+          <Icon
+            icon="heroicons:eye-16-solid"
+            width="20"
+            height="20"
+            color="#FF811A"
+          />
+          <span>View</span>
+        </div>
       ),
       onClick: (row: any) => router.push(`/orders/${row.id}`),
     },
@@ -130,7 +122,7 @@ const OrderComponent = () => {
           <TableComponent
             currentPage={state.pagination.page}
             columns={ORDER_COLUMN}
-            data={InventoryData}
+            data={OrdersData}
             isLoading={false}
             actions={actions}
             className="border-none"
@@ -139,7 +131,11 @@ const OrderComponent = () => {
         <div className="mt-4">
           <Pagination
             currentPage={state.pagination.page}
-            totalPages={4}
+            totalPages={
+              count / state.pagination.recordsPerPage > 0
+                ? Math.ceil(count / state.pagination.recordsPerPage)
+                : Math.floor(count / state.pagination.recordsPerPage) + 1
+            }
             onPageChange={(page: number) => {
               setState((prevState) => ({
                 ...prevState,

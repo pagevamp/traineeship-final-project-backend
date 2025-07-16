@@ -24,7 +24,7 @@ const Index = () => {
   const [state, setState] = useState({
     pagination: {
       page: 1,
-      recordsPerPage: 10,
+      recordsPerPage: 12,
     },
     filter: {
       sortParams: {

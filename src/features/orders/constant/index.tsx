@@ -21,16 +21,12 @@ export const INVENTORY_COLUMN = [
   { key: "email", label: "Email" },
 ];
 export const ORDER_COLUMN = [
-  { key: "name", label: "Order ID" },
-  { key: "mobileNo", label: "Product Name" },
-  { key: "email", label: "Ordered Sizes" },
-  { key: "email", label: "Quantity" },
-  { key: "email", label: "Order Date" },
-  { key: "email", label: "Shipment Date" },
-  { key: "email", label: "Total Amount" },
+  { key: "orderId", label: "Order ID" },
+  { key: "createdAt", label: "Order Date", type: "date" },
+  { key: "totalAmount", label: "Total Amount" },
   { key: "email", label: "Due Day" },
-  { key: "email", label: "Customer Name" },
-  { key: "email", label: "Order Status" },
+  { key: "importer.name", label: "Customer Name" },
+  { key: "latestStatus.status", label: "Order Status", type: "orderStatus" },
 ];
 
 export const CUSTOMER_COLUMN: CustomerColumn[] = [

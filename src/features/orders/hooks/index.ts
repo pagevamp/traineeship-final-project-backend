@@ -1,5 +1,12 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { createOrder, getAllOrdersList, getImporterDetails } from "../api";
+import { useMutation, useQueries, useQuery } from "@tanstack/react-query";
+import {
+  createOrder,
+  getAllImporters,
+  getAllOrdersList,
+  getImporterDetails,
+  getOrderById,
+  getProductPrice,
+} from "../api";
 
 const useGetAllOrdersList = (params: any) => {
   return useQuery({
@@ -14,6 +21,28 @@ const useGetAllOrdersList = (params: any) => {
         customerId: params.customerId,
       }),
     enabled: !!params?.customerId,
+  });
+};
+
+const useGetOrderById = (params: any) => {
+  return useQuery({
+    queryKey: ["getOrderById", params],
+    queryFn: () => getOrderById(params.id),
+    enabled: !!params?.id,
+  });
+};
+
+const useGetAllImporters = (params: any) => {
+  return useQuery({
+    queryKey: ["getImporterDetails", params],
+    queryFn: () =>
+      getAllImporters({
+        searchParam: params.searchParam,
+        sortBy: params.filters.sortParams.sortParam,
+        order: params.filters.sortParams.sortOrder,
+        limit: params.pagination.recordsPerPage,
+        offset: (params.pagination.page - 1) * params.pagination.recordsPerPage,
+      }),
   });
 };
 
@@ -36,4 +65,29 @@ const useCreateOrder = (options: {
   });
 };
 
-export { useGetAllOrdersList, useCreateOrder, useGetImporterDetails };
+const useMultipleProductPrices = (orderProducts: any[], importerId: string) => {
+  return useQueries({
+    queries: orderProducts.map((item) => {
+      const productId = item?.product?.id;
+
+      return {
+        queryKey: ["getProductPrice", productId, importerId],
+        queryFn: () =>
+          getProductPrice({
+            productId,
+            customerId: importerId,
+          }),
+        enabled: !!productId && !!importerId,
+      };
+    }),
+  });
+};
+
+export {
+  useGetAllOrdersList,
+  useCreateOrder,
+  useGetImporterDetails,
+  useGetAllImporters,
+  useGetOrderById,
+  useMultipleProductPrices,
+};

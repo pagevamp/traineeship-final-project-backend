@@ -1,6 +1,11 @@
 "use client";
 
-import React, { ReactNode } from "react";
+import { NoDataFound } from "@/components/Nodatafound/NoDataFound";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Table,
   TableBody,
@@ -9,18 +14,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { get } from "lodash";
-import { PageLoader } from "../loaders/page-loader";
-import { NoDataFound } from "@/components/Nodatafound/NoDataFound";
-import { cn } from "@/lib/utils";
-import { MoreVertical } from "lucide-react";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
-import Link from "next/link";
+import { cn, getStatusStyle } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { get } from "lodash";
+import { MoreVertical } from "lucide-react";
+import Link from "next/link";
+import React, { ReactNode } from "react";
+import { PageLoader } from "../loaders/page-loader";
+import { formatDate } from "date-fns";
 
 type Column = {
   key: string;
@@ -59,8 +60,21 @@ const TableComponent: React.FC<Props> = ({
   const getData = (row: any, col: any) => {
     const { key, type, subkey, buttons } = col;
 
-    if (type == "status") {
-      return <div className="">Pending</div>;
+    if (type == "date") {
+      const date = get(row, key, "-");
+      return <div className="">{formatDate(date, "MM-dd-yyyy")}</div>;
+    }
+
+    if (type == "orderStatus") {
+      const status = get(row, key, "-");
+      return (
+        <div
+          className="rounded-full px-2 py-1 text-xs font-semibold w-fit"
+          style={getStatusStyle(status)}
+        >
+          {status}
+        </div>
+      );
     } else if (type && type == "multiple") {
       const data = row?.[`${key}`].map((it: any) => get(it, subkey || "", "-"));
       if (data?.length === 0) return "-";
