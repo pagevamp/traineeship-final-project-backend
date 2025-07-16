@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { get } from "lodash";
+import { capitalize, get } from "lodash";
 import { PageLoader } from "../loaders/page-loader";
 import { NoDataFound } from "@/components/Nodatafound/NoDataFound";
 import { cn } from "@/lib/utils";
@@ -29,7 +29,7 @@ type Column = {
   subkey?: string;
 };
 
-type Action = {
+export type Action = {
   label: React.JSX.Element;
   onClick?: (row: any) => void;
   disabled?: boolean;
@@ -40,11 +40,12 @@ type Action = {
 type Props = {
   columns: Column[];
   data: any[];
-  isLoading: boolean;
-  currentPage: number;
+  isLoading?: boolean;
+  currentPage?: number;
   actions?: Action[];
   className?: string;
   showSN?: boolean;
+  showHeader?: boolean;
 };
 
 const TableComponent: React.FC<Props> = ({
@@ -54,6 +55,7 @@ const TableComponent: React.FC<Props> = ({
   isLoading,
   currentPage,
   className,
+  showHeader = true,
   showSN = true,
 }) => {
   const getData = (row: any, col: any) => {
@@ -105,6 +107,30 @@ const TableComponent: React.FC<Props> = ({
             </div>
           ))}
         </td>
+      );
+    }
+    if (type === "fullName") {
+      const firstName = get(row, "firstName");
+      const lastName = get(row, "lastName");
+      const fullName = `${firstName ?? ""} ${lastName ?? ""}`.trim();
+      return <div className="truncate max-w-40">{fullName || "N/A"}</div>;
+    }
+    if (type === "importerFullName") {
+      const firstName = get(row, "user.firstName");
+      const lastName = get(row, "user.lastName");
+      const fullName = `${firstName ?? ""} ${lastName ?? ""}`.trim();
+      return <div className="truncate max-w-40">{fullName || "N/A"}</div>;
+    }
+    if (type === "NetTerms") {
+      const netTerms = get(row, "netTerm.days");
+      const netTermDays = `${netTerms ?? ""} Days`.trim();
+      return <div className="truncate max-w-40">{netTermDays || "N/A"}</div>;
+    }
+    if (type === "companyType") {
+      const cType = get(row, "companyType");
+      const type = `${capitalize(cType?.split("_")?.join(" ")) ?? ""}`;
+      return (
+        <div className="truncate max-w-40 capitalize">{type || "N/A"}</div>
       );
     }
 

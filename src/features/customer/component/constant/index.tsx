@@ -172,29 +172,6 @@ export const headerDetails = [
   // },
 ];
 
-export const infoData = [
-  {
-    imgSrc: "/Group 299.svg",
-    title: "Total Customer ",
-    number: 5750,
-  },
-  {
-    imgSrc: "/Group 292.svg",
-    title: "Pending",
-    number: 130,
-  },
-  {
-    imgSrc: "/Group 293.svg",
-    title: "Rejected",
-    number: 750,
-  },
-  {
-    imgSrc: "/Group 296.svg",
-    title: "Approved",
-    number: 5000,
-  },
-];
-
 export const financialDetails = [
   {
     id: 1,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import DownloadIcon from "../../../../../public/images/download-icon.svg";
+import DownloadIcon from "../../../../public/images/download-icon.svg";
 import TableComponent from "@/components/table";
 import Pagination from "@/components/pagination";
 import { useRouter } from "next/navigation";

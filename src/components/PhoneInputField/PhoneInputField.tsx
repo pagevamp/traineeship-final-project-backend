@@ -16,6 +16,8 @@ const PhoneInputField = (props: any) => {
     trigger,
     error,
     className,
+    countryCode,
+    disabled,
   } = props;
   return (
     <div>
@@ -28,6 +30,7 @@ const PhoneInputField = (props: any) => {
           "flex items-center gap-2 border h-12 mt-[1.2px] rounded-md border-muted-light font-[300] px-1 py-2 text-sm placeholder:text-xs",
 
           error && "border-destructive shadow-error font-secondary font-[300]",
+          disabled && "cursor-not-allowed opacity-50",
           className
         )}
       >
@@ -58,11 +61,15 @@ const PhoneInputField = (props: any) => {
               e.preventDefault();
             }
           }}
-          value={defaultValues?.countryCode}
+          value={
+            countryCode === "user.countryCode"
+              ? defaultValues?.user?.countryCode
+              : defaultValues?.countryCode
+          }
           onChange={(value) => {
-            setValue("countryCode", value);
+            setValue(countryCode ?? "countryCode", value);
           }}
-          // disabled={disabled}
+          disabled={disabled}
         />
         <input
           type="tel"
@@ -72,7 +79,7 @@ const PhoneInputField = (props: any) => {
             setValue(name, e.target.value);
             trigger(name);
           }}
-          // disabled={disabled}
+          disabled={disabled}
           className={
             "flex h-12 w-full rounded-md bg-transparent font-[300] px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground placeholder:font-[300] focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-xs"
           }

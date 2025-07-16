@@ -22,16 +22,26 @@ import {
   MapPin,
   DollarSign,
   ShoppingCart,
+  Building2,
+  BadgeDollarSign,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { customerData } from "./constant";
 import { useRouter } from "next/navigation";
 import CustomerTeamTable from "./CustomerTeamTable";
 import OrdersTable from "./OrdersTable";
+import { ImporterPayload } from "../types";
 
-export default function CustomerDetailPage() {
+export default function ImporterDetailPage({
+  importerDetail,
+}: {
+  importerDetail: any;
+}) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [orderDetailsEnabled, setOrderDetailsEnabled] = useState(true);
+  const [addressType, setAddressType] = useState<"billing" | "shipping">(
+    "billing"
+  );
   const router = useRouter();
 
   useEffect(() => {
@@ -57,17 +67,17 @@ export default function CustomerDetailPage() {
                 />
                 <div>
                   <h1 className="text-lg font-bold text-gray-900 font-primary">
-                    Customer Detail Page
+                    Importer Detail Page
                   </h1>
-                  <p className="text-sm text-gray-500 font-secondary font-[300]">
+                  {/* <p className="text-sm text-gray-500 font-secondary font-[300]">
                     Last Active: {customerData.lastActive}
-                  </p>
+                  </p> */}
                 </div>
               </div>
-              <Button className="hover:bg-primary hover:opacity-90 font-primary transition-all duration-200 shadow-lg hover:shadow-xl">
+              {/* <Button className="hover:bg-primary hover:opacity-90 font-primary transition-all duration-200 shadow-lg hover:shadow-xl">
                 <Settings className="h-4 w-4 mr-2" />
                 Settings
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
@@ -89,42 +99,41 @@ export default function CustomerDetailPage() {
                 <div className="flex items-start gap-4">
                   <Avatar className="h-12 w-12 ring-4 ring-orange-100 transition-all duration-300 group-hover:ring-orange-100">
                     <AvatarImage src="/placeholder.svg" />
-                    <AvatarFallback className="bg-gradient-to-br from-orange-400 to-orange-600 text-white text-lg font-semibold">
-                      {customerData.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
+                    <AvatarFallback className="bg-gradient-to-br capitalize from-orange-400 to-orange-600 text-white text-lg font-semibold">
+                      {importerDetail?.user?.firstName
+                        ?.split(" ")
+                        ?.map((n: any) => n[0])
+                        ?.join("")}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h2 className="text-base font-semibold text-gray-900 truncate font-secondary">
-                        {customerData.name}
+                      <h2 className="text-base font-semibold text-gray-900 font-secondary w-[80%] break-all">
+                        {importerDetail?.user?.firstName}{" "}
+                        {importerDetail?.user?.lastName}
                       </h2>
                       <Badge
                         variant="secondary"
                         className="bg-purple-100 text-purple-700 font-secondary hover:bg-emerald-200 transition-colors"
                       >
-                        {customerData.type}
+                        {importerDetail?.user?.status}
                       </Badge>
                     </div>
-                    <p className="text-gray-600 mb-1 text-sm font-secondary font-[300]">
-                      {customerData.nickname}
-                    </p>
+
                     <div className="flex items-center gap-1 text-xs text-gray-500 mb-4 font-secondary font-[300]">
                       <Clock className="h-3 w-3" />
-                      <span>Net Term {customerData.netTerm}</span>
+                      <span>Net Term {importerDetail?.netTerm?.days} Days</span>
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex items-center gap-3 text-sm">
                         <Mail className="h-4 w-4 text-gray-600" />
                         <span className="text-gray-600 font-primary">
-                          Email / Username
+                          Email
                         </span>
                       </div>
                       <p className="text-gray-900 font-[300] font-secondary text-sm bg-gray-50 p-2 rounded-md">
-                        {customerData.email}
+                        {importerDetail?.user?.email}
                       </p>
 
                       <div className="flex items-center gap-3 text-sm">
@@ -134,7 +143,8 @@ export default function CustomerDetailPage() {
                         </span>
                       </div>
                       <p className="text-gray-900 font-secondary font-[300] text-sm bg-gray-50 p-2 rounded-md">
-                        {customerData.phone}
+                        {importerDetail?.user?.countryCode}{" "}
+                        {importerDetail?.user?.phoneNumber}
                       </p>
                     </div>
                   </div>
@@ -142,71 +152,171 @@ export default function CustomerDetailPage() {
               </CardContent>
             </Card>
 
-            {/* Address Card */}
+            {/* Address Card with Toggle */}
+            <div>
+              <Card
+                className={cn(
+                  "hover:shadow-lg transition-all duration-300 border shadow",
+                  isLoaded
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-8 opacity-0"
+                )}
+                style={{ transitionDelay: "200ms" }}
+              >
+                <CardHeader className="pb-4">
+                  <div className="flex items-center flex-wrap gap-2 justify-between w-full">
+                    <CardTitle className="flex items-center gap-2 text-lg font-secondary">
+                      <MapPin className="h-5 w-5 text-orange-600" />
+                      {addressType === "billing"
+                        ? "Billing Address"
+                        : "Shipping Address"}
+                    </CardTitle>
+                    <div className="flex gap-2 mb-2">
+                      <Button
+                        variant={
+                          addressType === "billing" ? "default" : "outline"
+                        }
+                        onClick={() => setAddressType("billing")}
+                        size="sm"
+                        className="hover:bg-primary hover:text-white"
+                      >
+                        Billing Address
+                      </Button>
+                      <Button
+                        variant={
+                          addressType === "shipping" ? "default" : "outline"
+                        }
+                        onClick={() => setAddressType("shipping")}
+                        size="sm"
+                        className="hover:bg-primary hover:text-white"
+                      >
+                        Shipping Address
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label className="text-xs text-gray-500 font-secondary uppercase tracking-wide">
+                        Street 1 Address
+                      </label>
+                      <p className="text-gray-900 text-sm font-secondary break-all">
+                        {addressType === "billing"
+                          ? importerDetail?.billingAddress?.[0]?.street1
+                          : importerDetail?.shippingAddress?.[0]?.street1}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs text-gray-500 font-secondary uppercase tracking-wide">
+                        Street 2 Address
+                      </label>
+                      <p className="text-gray-900 text-sm font-secondary break-all">
+                        {addressType === "billing"
+                          ? importerDetail?.billingAddress?.[0]?.street2 ||
+                            "N/A"
+                          : importerDetail?.shippingAddress?.[0]?.street2 ||
+                            "N/A"}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
+                        City
+                      </label>
+                      <p className="text-gray-900 font-secondary text-sm break-all">
+                        {addressType === "billing"
+                          ? importerDetail?.billingAddress?.[0]?.city
+                          : importerDetail?.shippingAddress?.[0]?.city}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
+                        State
+                      </label>
+                      <p className="text-gray-900 font-secondary text-sm break-all">
+                        {addressType === "billing"
+                          ? importerDetail?.billingAddress?.[0]?.state
+                          : importerDetail?.shippingAddress?.[0]?.state}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
+                        Country
+                      </label>
+                      <p className="text-gray-900 font-secondary text-sm break-all">
+                        {addressType === "billing"
+                          ? importerDetail?.billingAddress?.[0]?.country
+                          : importerDetail?.shippingAddress?.[0]?.country}
+                      </p>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
+                        Zip Code
+                      </label>
+                      <p className="text-gray-900 font-secondary text-sm break-all">
+                        {addressType === "billing"
+                          ? importerDetail?.billingAddress?.[0]?.zipCode
+                          : importerDetail?.shippingAddress?.[0]?.zipCode}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          <div>
             <Card
               className={cn(
-                "hover:shadow-lg transition-all duration-300 border shadow",
+                "mb-4 hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
                   ? "translate-y-0 opacity-100"
                   : "translate-y-8 opacity-0"
               )}
-              style={{ transitionDelay: "200ms" }}
+              style={{ transitionDelay: "80ms" }}
             >
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg font-secondary">
-                  <MapPin className="h-5 w-5 text-orange-600" />
-                  Address
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="text-xs text-gray-500 font-secondary uppercase tracking-wide">
-                      Street 1 Address
-                    </label>
-                    <p className="text-gray-900 text-sm font-secondary">
-                      {customerData.address.street1}
-                    </p>
+                  <div>
+                    <div className="flex items-center gap-2 mb-4 text-sm">
+                      <Building2 className="h-4 w-4 text-gray-600" />
+                      <span className="font-semibold text-gray-700 whitespace-nowrap">
+                        Organization Name:
+                      </span>
+                      <span className="text-gray-900 break-all">
+                        {importerDetail?.name || "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Mail className="h-4 w-4 text-gray-600" />
+                      <span className="font-semibold text-gray-700">
+                        Email:
+                      </span>
+                      <span className="text-gray-900 break-all">
+                        {importerDetail?.user?.email || "N/A"}
+                      </span>
+                    </div>
                   </div>
-                  <div className="space-y-1">
-                    <label className="text-xs text-gray-500 font-secondary uppercase tracking-wide">
-                      Street 2 Address
-                    </label>
-                    <p className="text-gray-900 text-sm font-secondary">
-                      {customerData.address.street2}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
-                      City
-                    </label>
-                    <p className="text-gray-900 font-secondary text-sm">
-                      {customerData.address.city}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
-                      State
-                    </label>
-                    <p className="text-gray-900 font-secondary text-sm">
-                      {customerData.address.state}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
-                      Country
-                    </label>
-                    <p className="text-gray-900 font-secondary text-sm">
-                      {customerData.address.country}
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <label className="text-xs font-secondary text-gray-500 uppercase tracking-wide">
-                      Zip Code
-                    </label>
-                    <p className="text-gray-900 font-secondary text-sm">
-                      {customerData.address.zipCode}
-                    </p>
+                  <div>
+                    <div className="flex items-center gap-2 mb-4 text-sm">
+                      <Phone className="h-4 w-4 text-gray-600" />
+                      <span className="font-semibold text-gray-700">
+                        Contact:
+                      </span>
+                      <span className="text-gray-900 break-all">
+                        {importerDetail?.countryCode || ""}{" "}
+                        {importerDetail?.phoneNumber || "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <BadgeDollarSign className="h-4 w-4 text-gray-600" />
+                      <span className="font-semibold text-gray-700 whitespace-nowrap">
+                        Tax ID:
+                      </span>
+                      <span className="text-gray-900 break-all">
+                        {importerDetail?.taxId || "N/A"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -216,7 +326,7 @@ export default function CustomerDetailPage() {
           {/* Amount and Order Details Row */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Amount Card */}
-            <Card
+            {/* <Card
               className={cn(
                 "hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
@@ -272,10 +382,10 @@ export default function CustomerDetailPage() {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Order Details Card */}
-            <Card
+            {/* <Card
               className={cn(
                 "hover:shadow-lg transition-all duration-300 border shadow",
                 isLoaded
@@ -350,12 +460,12 @@ export default function CustomerDetailPage() {
                   </div>
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </div>
-      <CustomerTeamTable />
-      <OrdersTable />
+      {/* <CustomerTeamTable /> */}
+      {/* <OrdersTable /> */}
     </>
   );
 }
