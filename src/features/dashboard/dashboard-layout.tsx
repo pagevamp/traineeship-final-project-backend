@@ -78,6 +78,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   ) {
     breadcrumbs[breadcrumbs.length - 1].label = "Update";
   }
+  if (
+    breadcrumbs.length &&
+    breadcrumbs[breadcrumbs.length - 1].label.toLowerCase() ===
+      "add importer" &&
+    queryId
+  ) {
+    breadcrumbs[breadcrumbs.length - 1].label = "Update Importer";
+  }
 
   return (
     <SidebarProvider defaultOpen={true}>

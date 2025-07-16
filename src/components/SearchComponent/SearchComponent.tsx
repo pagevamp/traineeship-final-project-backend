@@ -16,7 +16,7 @@ type PropsI = {
   className?: string;
 };
 
-const DepartmentSearchComponent = (props: PropsI) => {
+const SearchComponent = (props: PropsI) => {
   const {
     setState,
     state,
@@ -25,7 +25,12 @@ const DepartmentSearchComponent = (props: PropsI) => {
     searchKey = "search",
   } = props;
 
-  const [inputValue, setInputValue] = React.useState("");
+  const [inputValue, setInputValue] = React.useState(state[searchKey] || "");
+
+  // Sync inputValue with parent state when it changes
+  React.useEffect(() => {
+    setInputValue(state[searchKey] || "");
+  }, [state, searchKey]);
 
   const debouncedSetState = useDebouncedCallback((val: string) => {
     setState((prev: any) => ({
@@ -60,4 +65,4 @@ const DepartmentSearchComponent = (props: PropsI) => {
   );
 };
 
-export default DepartmentSearchComponent;
+export default SearchComponent;

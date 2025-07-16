@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import DownloadIcon from "../../../../../public/images/download-icon.svg";
+import DownloadIcon from "../../../../public/images/download-icon.svg";
 import Button from "@/components/Button/Button";
 import TableComponent from "@/components/table";
 import Pagination from "@/components/pagination";
 import { useRouter } from "next/navigation";
-import { CONSUMER_COLUMN, ConsumerData } from "@/features/consumer/constant";
+import { IMPORTER_COLUMN, ConsumerData } from "@/features/importers/constant";
 
 const CustomerTeamTable = () => {
   const router = useRouter();
@@ -64,7 +64,7 @@ const CustomerTeamTable = () => {
         </div>
         <TableComponent
           currentPage={state.pagination.page}
-          columns={CONSUMER_COLUMN}
+          columns={IMPORTER_COLUMN}
           data={ConsumerData}
           isLoading={false}
           actions={actions}
