@@ -60,7 +60,7 @@ const userSchema = yup.object({
         value.length !== expectedLength
       ) {
         return this.createError({
-          path: "phoneNumber",
+          path: "user.phoneNumber",
           message: `Contact Number must be ${expectedLength} digits long.`,
         });
       }
@@ -117,7 +117,7 @@ export const importerPayloadSchema = yup.object({
     .string()
     .required("Organization Phone is required")
 
-    .test("is-valid-number", "Invalid phone number format", function (value) {
+    .test("is-valid-number", "Invalid organization number format", function (value) {
       const countryCode: string = this.parent.countryCode; // Assuming countryCode is present in the form values
       const expectedLength: number | undefined =
         countryCodesWithLength[countryCode];
@@ -128,7 +128,7 @@ export const importerPayloadSchema = yup.object({
       ) {
         return this.createError({
           path: "phoneNumber",
-          message: `Phone Number must be ${expectedLength} digits long.`,
+          message: `Organization Number must be ${expectedLength} digits long.`,
         });
       }
       return true;

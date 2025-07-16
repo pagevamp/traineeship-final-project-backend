@@ -99,8 +99,11 @@ const InformationComponent = (props: ImporterChildPropsInterface) => {
             <Input
               labelName="Password"
               placeholder="Enter Your Password"
-              register={register}
-              trigger={trigger}
+              onChange={(e) => {
+                setValue("user.password", e.target.value);
+                trigger("user.password");
+                trigger("user.confirmPassword");
+              }}
               type="password"
               name={"user.password"}
               required
@@ -197,8 +200,11 @@ const InformationComponent = (props: ImporterChildPropsInterface) => {
               labelName="Confirm Password"
               placeholder="Re-enter your password"
               type="password"
-              register={register}
-              trigger={trigger}
+              onChange={(e) => {
+                setValue("user.confirmPassword", e.target.value);
+                trigger("user.password");
+                trigger("user.confirmPassword");
+              }}
               name={"user.confirmPassword"}
               required
               error={errors?.user?.confirmPassword?.message}
