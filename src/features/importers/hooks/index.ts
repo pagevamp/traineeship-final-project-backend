@@ -2,6 +2,7 @@ import { Obj } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   createImporter,
+  getAllCountryList,
   getAllImporters,
   getAllNetTerms,
   getImporterById,
@@ -67,10 +68,19 @@ const useUpdateImporter = (options: {
   });
 };
 
+const useFetchCountries = () => {
+  return useQuery({
+    queryKey: ["allCountries"],
+    queryFn: () => getAllCountryList(),
+    staleTime: Infinity,
+  });
+};
+
 export {
   useCreateImporter,
   useGetNetTerms,
   useGetAllImporters,
   useGetImporterDetails,
   useUpdateImporter,
+  useFetchCountries,
 };

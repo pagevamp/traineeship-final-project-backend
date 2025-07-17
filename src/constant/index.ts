@@ -13,6 +13,11 @@ export const MODULE_ICON: Record<string, string> = {
   CUSTOMER_INVENTORY: "ic:outline-inventory-2",
   CUSTOMER_ORDERS: "fluent-mdl2:activate-orders",
   CUSTOMER_PRODUCTS: "mdi:cart",
+
+  IMPORTER_DASHBOARD: "lineicons:dashboard-square-1",
+  IMPORTER_SHIPMENTS: "mdi:truck-check",
+  IMPORTER_ORDERS: "fluent-mdl2:activate-orders",
+  IMPORTER_PRODUCTS: "mdi:cart",
 };
 
 export const enum DASHBOARD_MODULES {
@@ -36,6 +41,11 @@ export const enum DASHBOARD_MODULES {
   CUSTOMER_INVENTORY = "CUSTOMER_INVENTORY",
   CUSTOMER_ORDERS = "CUSTOMER_ORDERS",
   CUSTOMER_PRODUCTS = "CUSTOMER_PRODUCTS",
+
+  IMPORTER_DASHBOARD = "IMPORTER_DASHBOARD",
+  IMPORTER_SHIPMENTS = "IMPORTER_SHIPMENTS",
+  IMPORTER_ORDERS = "IMPORTER_ORDERS",
+  IMPORTER_PRODUCTS = "IMPORTER_PRODUCTS",
 }
 
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

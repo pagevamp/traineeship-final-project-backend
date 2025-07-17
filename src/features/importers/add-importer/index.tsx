@@ -19,6 +19,7 @@ import {
 import { toast } from "sonner";
 import {
   useCreateImporter,
+  useFetchCountries,
   useGetImporterDetails,
   useUpdateImporter,
 } from "../hooks";
@@ -35,6 +36,13 @@ const Index = () => {
 
   const id = searchParams.get("id") as string;
   const { data: profileInformationData } = useProfileInformation();
+
+  const { data: getAllCountries } = useFetchCountries();
+
+  const countriesList = useMemo(
+    () => getAllCountries?.data?.data?.items,
+    [getAllCountries]
+  );
 
   // fetching importer details
   const {
@@ -165,6 +173,7 @@ const Index = () => {
     errors,
     defaultValues,
     isEdit: Boolean(id),
+    countriesList,
   };
   if (isLoading) {
     return <PageLoader />;

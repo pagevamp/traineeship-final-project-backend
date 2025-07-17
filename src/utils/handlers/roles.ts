@@ -9,3 +9,7 @@ export const enum DEPARTMENT_NAME {
   OPERATIONAL_DEPARTMENT = "Operational Department",
   ADMIN_DEPARTMENT = "Admin Department",
 }
+
+export const enum USER_ROLE {
+  IMPORTER = "IMPORTER",
+}

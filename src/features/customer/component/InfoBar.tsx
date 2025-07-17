@@ -51,7 +51,7 @@ const InfoBar = ({ profileDetail }: { profileDetail?: UserPayload }) => {
   );
 
   const rejectionReasons = profileDetail?.transfers
-    .filter(
+    ?.filter(
       (item: any) =>
         item.status === CUSTOMER_STATUS.REJECTED && item.rejectedNotes
     )
@@ -61,7 +61,7 @@ const InfoBar = ({ profileDetail }: { profileDetail?: UserPayload }) => {
     }));
 
   const approvalNotes = profileDetail?.transfers
-    .filter(
+    ?.filter(
       (item: any) =>
         item.status === CUSTOMER_STATUS.APPROVED && item.approvalNotes
     )
@@ -70,8 +70,7 @@ const InfoBar = ({ profileDetail }: { profileDetail?: UserPayload }) => {
       description: item.approvalNotes,
     }));
 
-  const internalNotes = profileDetail?.transfers
-    .filter(
+  const internalNotes = profileDetail?.transfers?.filter(
       (item: any) =>
         item.status === CUSTOMER_STATUS.APPROVED && item.internalNotes
     )

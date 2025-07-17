@@ -106,8 +106,8 @@ const Register7 = (props: CustomerRegister7Props) => {
           <Input
             name={`products.${index}.hsCode`}
             register={register}
-            labelName="H S Code"
-            placeholder="Enter H S Code"
+            labelName="HS Code"
+            placeholder="Enter HS Code"
             type="text"
             required
             error={errors?.products?.[index]?.hsCode?.message}

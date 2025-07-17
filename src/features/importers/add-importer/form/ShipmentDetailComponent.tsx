@@ -1,15 +1,61 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { ImporterChildPropsInterface } from "../../types";
 import { toast } from "sonner";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Selectbox } from "@/components/ui/select-box";
+import { Controller } from "react-hook-form";
 
 const ShipmentDetailComponent = (props: ImporterChildPropsInterface) => {
-  const { register, control, setValue, watch, trigger, errors, defaultValues } =
-    props;
+  const {
+    register,
+    control,
+    setValue,
+    watch,
+    trigger,
+    errors,
+    defaultValues,
+    countriesList,
+  } = props;
   const [copyChecked, setCopyChecked] = useState(false);
 
   // Watch billing address fields
   const billingAddress = watch("billingAddress.0");
+
+  // Watch selected values
+  const selectedCountry = watch("shippingAddress.0.country");
+  const selectedState = watch("shippingAddress.0.state");
+
+  // Find country object
+  const countryObj = useMemo(
+    () => countriesList?.find((c: any) => c.country === selectedCountry),
+    [selectedCountry, countriesList]
+  );
+  // Find state object
+  const stateObj = useMemo(
+    () => countryObj?.states.find((s: any) => s.state === selectedState),
+    [countryObj, selectedState]
+  );
+
+  // Prepare options
+  const countryOptions = countriesList?.map((country: any) => ({
+    label: `${country.flag} ${country.country}`,
+    value: country.country,
+  }));
+
+  const stateOptions = countryObj
+    ? countryObj.states.map((state: any) => ({
+        label: state.state,
+        value: state.state,
+      }))
+    : [];
+
+  const cityOptions = stateObj
+    ? stateObj.cities.map((city: any) => ({
+        label: city.city,
+        value: city.city,
+      }))
+    : [];
 
   const handleCopyBilling = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
@@ -86,33 +132,136 @@ const ShipmentDetailComponent = (props: ImporterChildPropsInterface) => {
           <Input
             labelName="Street Address 1"
             placeholder="Enter Your Street Address 1"
-            register={register}
-            trigger={trigger}
+            onChange={(e) => {
+              setValue("shippingAddress.0.street1", e.target.value);
+              trigger("shippingAddress.0.street1");
+            }}
+            value={defaultValues?.shippingAddress?.[0]?.street1 || ""}
             type="text"
             name={"shippingAddress.0.street1"}
             required
             error={errors?.shippingAddress?.[0]?.street1?.message}
           />
-          <Input
-            labelName="City"
-            placeholder="Enter City"
-            type="text"
-            register={register}
-            trigger={trigger}
-            name={"shippingAddress.0.city"}
-            required
-            error={errors?.shippingAddress?.[0]?.city?.message}
-          />
-          <Input
-            labelName="Country"
-            placeholder="Enter Country"
-            type="text"
-            register={register}
-            trigger={trigger}
-            name={"shippingAddress.0.country"}
-            required
-            error={errors?.shippingAddress?.[0]?.country?.message}
-          />
+          {/* Country Dropdown */}
+          <div>
+            <Controller
+              name="shippingAddress.0.country"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <Selectbox
+                    options={countryOptions}
+                    value={field.value || ""}
+                    onChange={(option) => {
+                      field.onChange(option.value);
+                      setValue("shippingAddress.0.state", "", {
+                        shouldValidate: true,
+                      });
+                      setValue("shippingAddress.0.city", "", {
+                        shouldValidate: true,
+                      });
+                      trigger(["shippingAddress.0.country"]);
+                    }}
+                    placeholder="Select Country"
+                    emptyText="No country found."
+                    className="w-full bg-transparent h-12"
+                    label="Country"
+                    error={error?.message}
+                  />
+                  {error && (
+                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
+                      <Icon
+                        icon="solar:close-square-bold"
+                        width="14"
+                        height="14"
+                        className="text-destructive"
+                      />
+                      <span className="mt-0">{error?.message}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="block sm:hidden">
+            {/* State Dropdown */}
+            <Controller
+              name="shippingAddress.0.state"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <Selectbox
+                    options={stateOptions}
+                    value={field.value || ""}
+                    onChange={(option) => {
+                      field.onChange(option.value);
+                      setValue("shippingAddress.0.city", "", {
+                        shouldValidate: true,
+                      });
+                      trigger(["shippingAddress.0.state"]);
+                    }}
+                    placeholder="Select State"
+                    emptyText="No state found."
+                    className="w-full bg-transparent h-12"
+                    label="State"
+                    error={error?.message}
+                    disabled={!selectedCountry || !countryObj}
+                  />
+                  {error && (
+                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
+                      <Icon
+                        icon="solar:close-square-bold"
+                        width="14"
+                        height="14"
+                        className="text-destructive"
+                      />
+                      <span className="mt-0">{error?.message}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="hidden sm:block">
+            {/* City Dropdown */}
+            <Controller
+              name="shippingAddress.0.city"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <Selectbox
+                    options={cityOptions}
+                    value={field.value || ""}
+                    onChange={(option) => {
+                      field.onChange(option.value);
+                      trigger(["shippingAddress.0.city"]);
+                    }}
+                    placeholder="Select City"
+                    emptyText="No city found."
+                    className="w-full bg-transparent h-12"
+                    label="City"
+                    error={error?.message}
+                    disabled={
+                      !selectedState || !stateObj || !stateObj.cities.length
+                    }
+                  />
+                  {error && (
+                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
+                      <Icon
+                        icon="solar:close-square-bold"
+                        width="14"
+                        height="14"
+                        className="text-destructive"
+                      />
+                      <span className="mt-0">{error?.message}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
         </div>
         <div className="space-y-4">
           <Input
@@ -124,22 +273,93 @@ const ShipmentDetailComponent = (props: ImporterChildPropsInterface) => {
             name={"shippingAddress.0.street2"}
             error={errors?.shippingAddress?.[0]?.street2?.message}
           />
-          <Input
-            labelName="State"
-            placeholder="Enter State"
-            type="text"
-            register={register}
-            trigger={trigger}
-            name={"shippingAddress.0.state"}
-            required
-            error={errors?.shippingAddress?.[0]?.state?.message}
-          />
+          <div className="block sm:hidden">
+            {/* City Dropdown */}
+            <Controller
+              name="shippingAddress.0.city"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <Selectbox
+                    options={cityOptions}
+                    value={field.value || ""}
+                    onChange={(option) => {
+                      field.onChange(option.value);
+                      trigger(["shippingAddress.0.city"]);
+                    }}
+                    placeholder="Select City"
+                    emptyText="No city found."
+                    className="w-full bg-transparent h-12"
+                    label="City"
+                    error={error?.message}
+                    disabled={
+                      !selectedState || !stateObj || !stateObj.cities.length
+                    }
+                  />
+                  {error && (
+                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
+                      <Icon
+                        icon="solar:close-square-bold"
+                        width="14"
+                        height="14"
+                        className="text-destructive"
+                      />
+                      <span className="mt-0">{error?.message}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="hidden sm:block">
+            {/* State Dropdown */}
+            <Controller
+              name="shippingAddress.0.state"
+              control={control}
+              render={({ field, fieldState: { error } }) => (
+                <div>
+                  <Selectbox
+                    options={stateOptions}
+                    value={field.value || ""}
+                    onChange={(option) => {
+                      field.onChange(option.value);
+                      setValue("shippingAddress.0.city", "", {
+                        shouldValidate: true,
+                      });
+                      trigger(["shippingAddress.0.state"]);
+                    }}
+                    placeholder="Select State"
+                    emptyText="No state found."
+                    className="w-full bg-transparent h-12"
+                    label="State"
+                    error={error?.message}
+                    disabled={!selectedCountry || !countryObj}
+                  />
+                  {error && (
+                    <p className="mt-1 text-xs text-destructive font-secondary font-[300] flex items-center gap-1">
+                      <Icon
+                        icon="solar:close-square-bold"
+                        width="14"
+                        height="14"
+                        className="text-destructive"
+                      />
+                      <span className="mt-0">{error?.message}</span>
+                    </p>
+                  )}
+                </div>
+              )}
+            />
+          </div>
           <Input
             labelName="Zip Code"
             placeholder="Enter Zip Code"
             type="text"
-            register={register}
-            trigger={trigger}
+            onChange={(e) => {
+              setValue("shippingAddress.0.zipCode", e.target.value);
+              trigger("shippingAddress.0.zipCode");
+            }}
+            value={defaultValues?.shippingAddress?.[0]?.zipCode || ""}
             name={"shippingAddress.0.zipCode"}
             required
             error={errors?.shippingAddress?.[0]?.zipCode?.message}
