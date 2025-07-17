@@ -59,3 +59,6 @@ export const getImporterById = (id: string) => {
 export const updateImporter = (id: string, body: any) => {
   return api.put(`/importers/${id}`, body);
 };
+export const getAllCountryList = () => {
+  return api.get("/country/states");
+};

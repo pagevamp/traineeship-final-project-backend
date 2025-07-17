@@ -57,4 +57,5 @@ export interface ImporterChildPropsInterface {
   control: Control<ImporterPayload>;
   defaultValues?: ImporterPayload;
   isEdit?: boolean;
+  countriesList?: any;
 }

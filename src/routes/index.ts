@@ -23,6 +23,11 @@ export const moduleRoutes: Record<string, string[]> = {
   ],
   CUSTOMER_ORDERS: ["/orders", "/order/*"],
   CUSTOMER_PRODUCTS: ["/products", "/products/*"],
+
+  IMPORTER_DASHBOARD: ["/dashboard/importer", "/dashboard/importer/*"],
+  IMPORTER_SHIPMENTS: ["/importer-shipments", "/importer-shipments/*"],
+  IMPORTER_ORDERS: ["/importer-orders", "/importer-orders/*"],
+  IMPORTER_PRODUCTS: ["/importer-products", "/importer-products/*"],
 };
 
 export const MODULE_LINK: Record<string, { title: string; href: string }> = {
@@ -50,6 +55,22 @@ export const MODULE_LINK: Record<string, { title: string; href: string }> = {
   REPORT_OPERATIONAL: {
     title: "Report Operational",
     href: "/report/operational",
+  },
+  IMPORTER_DASHBOARD: {
+    title: "Dashboard",
+    href: "/dashboard/importer",
+  },
+  IMPORTER_SHIPMENTS: {
+    title: "Importer Shipments",
+    href: "/importer-shipments",
+  },
+  IMPORTER_ORDERS: {
+    title: "Importer Orders",
+    href: "/importer-orders",
+  },
+  IMPORTER_PRODUCTS: {
+    title: "Importer Products",
+    href: "/importer-products",
   },
 };
 

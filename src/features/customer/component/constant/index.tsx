@@ -289,6 +289,6 @@ export const TRADE_REFERENCE_COLUMN = [
   { key: "businessAssociation", label: "Business Associate" },
 ];
 export const CUSTOMER_PRODUCT_COLUMN = [
-  { key: "hsCode", label: "H S Code" },
+  { key: "hsCode", label: "HS Code" },
   { key: "commodityName", label: "Commodity Name" },
 ];
