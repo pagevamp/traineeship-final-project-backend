@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { EMPLOYEE_SIZE, getCompanyTypeOptions } from "../constant";
@@ -6,9 +6,46 @@ import { CustomerRegister1Props } from "../types";
 import { Controller } from "react-hook-form";
 import { Selectbox } from "@/components/ui/select-box";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useCheckUniqueEmail } from "../hooks";
+import { useDebouncedCallback } from "@/hooks/useDebouncedCallback";
 
 const Register1 = (props: CustomerRegister1Props) => {
-  const { register, control, setValue, trigger, errors } = props;
+  const {
+    register,
+    control,
+    setValue,
+    trigger,
+    errors,
+    watch,
+    setError,
+    clearErrors,
+  } = props;
+  const companyEmail = watch("companyEmail");
+
+  // Debounce email value for API call
+  const [debouncedEmail, setDebouncedEmail] = React.useState(companyEmail);
+  const debouncedSetEmail = useDebouncedCallback(
+    (val: string) => setDebouncedEmail(val),
+    500
+  );
+  React.useEffect(() => {
+    debouncedSetEmail(companyEmail);
+  }, [companyEmail, debouncedSetEmail]);
+
+  const { data, isLoading, error } = useCheckUniqueEmail(debouncedEmail);
+  const isEmailUnique = data?.data?.data;
+
+  // Block continue if email is not unique
+  useEffect(() => {
+    if (debouncedEmail && isEmailUnique === false) {
+      setError("companyEmail", {
+        type: "required",
+        message: "Email already exists",
+      });
+    } else if (debouncedEmail && isEmailUnique === true) {
+      clearErrors("companyEmail");
+    }
+  }, [debouncedEmail, isEmailUnique, setError, clearErrors]);
 
   return (
     <motion.div
@@ -39,6 +76,28 @@ const Register1 = (props: CustomerRegister1Props) => {
           required
           error={errors?.companyEmail?.message}
         />
+        {/* Email uniqueness */}
+        {debouncedEmail && (
+          <div className="text-xs flex items-center gap-1">
+            {!isLoading && error && (
+              <span className="text-destructive">Error checking email</span>
+            )}
+            {!isLoading &&
+              !error &&
+              debouncedEmail &&
+              isEmailUnique === true && (
+                <span className="font-[300] font-secondary flex items-center gap-1 mt-1 text-green-500">
+                  <Icon
+                    icon="solar:check-circle-bold"
+                    width="14"
+                    height="14"
+                    className="text-success"
+                  />
+                  Email is available
+                </span>
+              )}
+          </div>
+        )}
       </div>
 
       <div>

@@ -54,12 +54,14 @@ const ChangeStep = ({
   currStep,
   totalSteps,
   isLoading,
+  hasEmailError,
 }: {
   nextStep: () => void;
   prevStep: () => void;
   currStep: number;
   totalSteps: number;
   isLoading?: boolean;
+  hasEmailError?: boolean;
 }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -76,7 +78,7 @@ const ChangeStep = ({
       ) : null}
       <Button
         onClick={nextStep}
-        disabled={isLoading}
+        disabled={isLoading || hasEmailError}
         className="rounded-[8px] w-[210px] h-[48px] py-[10px] px-5 bg-gradient-to-b from-[#CF5406] to-[#F87B18] disabled:opacity-50"
       >
         {isLoading
@@ -158,6 +160,8 @@ const RegisterComponent = () => {
     control,
     setValue,
     trigger,
+    setError,
+    clearErrors,
   } = useForm<UserPayload>(formOptions);
 
   //get profile data
@@ -339,6 +343,8 @@ const RegisterComponent = () => {
   };
   const register1FormProps = {
     ...baseFormProps,
+    setError,
+    clearErrors,
   };
   const register2FormProps = {
     ...baseFormProps,
@@ -716,6 +722,7 @@ const RegisterComponent = () => {
         currStep={activeStep}
         totalSteps={totalSteps}
         isLoading={isPending || isUploading}
+        hasEmailError={activeStep === 1 && !!errors.companyEmail}
       />
     </section>
   );

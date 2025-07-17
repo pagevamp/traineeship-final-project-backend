@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { createCustomer, getVehicleType, updateCustomer } from "../api";
+import { createCustomer, getVehicleType, updateCustomer, checkUniqueEmail } from "../api";
 import { Obj } from "@/types";
 import { UserPayload } from "../types";
 
@@ -33,4 +33,13 @@ const useUpdateCustomer = (options: {
     onSuccess: options.onSuccess,
   });
 };
-export { useVehicleType, useCreateCustomer, useUpdateCustomer };
+
+const useCheckUniqueEmail = (email: string) => {
+  return useQuery({
+    queryKey: ["checkUniqueEmail", email],
+    queryFn: () => checkUniqueEmail(email),
+    enabled: !!email,
+    staleTime: 0,
+  });
+};
+export { useVehicleType, useCreateCustomer, useUpdateCustomer, useCheckUniqueEmail };

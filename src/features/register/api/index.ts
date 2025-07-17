@@ -9,3 +9,6 @@ export const createCustomer = (body: any) => {
 export const updateCustomer = (id: string, body: any) => {
   return api.put(`/customer/${id}`, body);
 };
+export const checkUniqueEmail = (email: string) => {
+  return api.get(`/customer/check-unique-email?email=${email}`);
+};

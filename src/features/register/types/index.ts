@@ -6,6 +6,8 @@ import {
   UseFormSetValue,
   UseFormTrigger,
   UseFormWatch,
+  UseFormSetError,
+  UseFormClearErrors,
 } from "react-hook-form";
 
 export type FieldName =
@@ -30,7 +32,10 @@ export interface CustomerRegisterBaseProps {
   defaultValues: UserPayload;
 }
 
-export interface CustomerRegister1Props extends CustomerRegisterBaseProps {}
+export interface CustomerRegister1Props extends CustomerRegisterBaseProps {
+  setError: UseFormSetError<UserPayload>;
+  clearErrors: UseFormClearErrors<UserPayload>;
+}
 
 export interface CustomerRegister2Props extends CustomerRegisterBaseProps {
   getVehicleType: any;
