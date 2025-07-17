@@ -219,8 +219,8 @@ export const DESTINATION_COUNTRY = [
     value: "Oman",
   },
   {
-    label: "State of Kuwait",
-    value: "State of Kuwait",
+    label: "Kuwait",
+    value: "Kuwait",
   },
   {
     label: "Bahrain",
