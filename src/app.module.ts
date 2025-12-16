@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { CoreModule } from './core/core.module';
 import { CoreModule } from '@/core/core.module';
 import dataSource from './data-source';
 import { plainToInstance } from 'class-transformer';
 import { EnvConfig } from '@/config/env.validation';
 import { validateSync } from 'class-validator';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
-import { BullModule } from '@nestjs/bullmq';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
@@ -47,17 +45,6 @@ import { APP_GUARD } from '@nestjs/core';
         }
         return envConfig;
       },
-    }),
-    BullModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        connection: {
-          host: configService.get('REDIS_HOST'),
-          port: configService.get('REDIS_PORT') || 6379,
-        },
-        defaultJobOptions: { attempts: 3 },
-      }),
-      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
