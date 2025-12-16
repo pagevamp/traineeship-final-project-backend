@@ -35,14 +35,6 @@ import { ClerkClientProvider } from './providers/clerk.provider';
         });
 
         if (errors.length > 0) {
-          console.error(
-            'Invalid environment variables:',
-            errors.map((err) =>
-              err.constraints
-                ? Object.values(err.constraints).join(', ')
-                : 'Unknown validation error',
-            ),
-          );
           throw new Error('Invalid environment variables');
         }
         return envConfig;
