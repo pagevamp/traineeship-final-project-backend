@@ -16,9 +16,9 @@ export class CreateTripsTable1765971424543 implements MigrationInterface {
             FOREIGN KEY ("driver_id")
             REFERENCES "users" ("user_id") ON DELETE CASCADE, 
             
-            CONSTRAINT "fk_request_rides_trips"
+            CONSTRAINT "fk_ride_request_trips"
             FOREIGN KEY ("request_id")
-            REFERENCES "request_rides" ("id") ON DELETE CASCADE   
+            REFERENCES "ride_request" ("id") ON DELETE CASCADE   
             );
             
             CREATE INDEX "IDX_trips_status" ON "trips" ("status");
