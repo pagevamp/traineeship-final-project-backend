@@ -16,7 +16,7 @@ export class CreateRideTable1765970860418 implements MigrationInterface {
             "updated_at" timestamp with time zone DEFAULT NULL,
             CONSTRAINT "fk_users_ride_requests"
             FOREIGN KEY ("passenger_id")
-            REFERENCES "users" ("user_id") ON DELETE CASCADE            
+            REFERENCES "users" ("user_id") ON DELETE CASCADE  
         );
     `);
   }

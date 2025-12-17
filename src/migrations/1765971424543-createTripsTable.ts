@@ -19,11 +19,10 @@ export class CreateTripsTable1765971424543 implements MigrationInterface {
             CONSTRAINT "fk_request_rides_trips"
             FOREIGN KEY ("request_id")
             REFERENCES "request_rides" ("id") ON DELETE CASCADE   
+            );
             
             CREATE INDEX "IDX_trips_status" ON "trips" ("status");
             CREATE INDEX "IDX_trips_vehicle_type" ON "trips" ("vehicle_type");
-
-        );
     `);
   }
 
@@ -31,6 +30,6 @@ export class CreateTripsTable1765971424543 implements MigrationInterface {
     await queryRunner.query(` \
             DROP INDEX IF EXISTS "IDX_trips_status";
             DROP INDEX IF EXISTS "IDX_trips_vehicle_type";
-      DROP TABLE "trips";`);
+            DROP TABLE "trips";`);
   }
 }
