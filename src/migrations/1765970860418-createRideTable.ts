@@ -5,7 +5,7 @@ export class CreateRideTable1765970860418 implements MigrationInterface {
     await queryRunner.query(`
             CREATE TABLE "ride_requests" (
             "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-            "passenger_id" uuid NOT NULL,
+            "passenger_id" varchar NOT NULL,
             "destination" varchar (255) NOT NULL,
             "landmark" varchar (255),
             "pickup_location" varchar (255) NOT NULL,

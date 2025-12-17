@@ -6,7 +6,7 @@ export class CreateTripsTable1765971424543 implements MigrationInterface {
             CREATE TABLE "trips" (
             "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
             "request_id" uuid NOT NULL,
-            "driver_id" uuid NOT NULL,
+            "driver_id" varchar NOT NULL,
             "status" varchar (255) DEFAULT 'Not Started',
             "vehicle_type" varchar (255) DEFAULT 'Two Wheeler',
             "created_at" timestamp with time zone DEFAULT now(),
@@ -14,7 +14,7 @@ export class CreateTripsTable1765971424543 implements MigrationInterface {
             "updated_at" timestamp with time zone DEFAULT NULL,
             CONSTRAINT "fk_users_trips"
             FOREIGN KEY ("driver_id")
-            REFERENCES "users" ("user_id") ON DELETE CASCADE 
+            REFERENCES "users" ("user_id") ON DELETE CASCADE, 
             
             CONSTRAINT "fk_request_rides_trips"
             FOREIGN KEY ("request_id")

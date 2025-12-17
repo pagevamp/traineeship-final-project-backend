@@ -9,7 +9,7 @@ export class CreateUserTable1765967976599 implements MigrationInterface {
         "first_name" varchar,  
         "last_name" varchar, 
         "primary_location" varchar(255),
-        "contact_number" varchar(255),
+        "contact_number" varchar(255)
       );
       CREATE INDEX "IDX_users_username" ON "users" ("username");
       CREATE INDEX "IDX_users_primary_location" ON "users" ("primary_location");
