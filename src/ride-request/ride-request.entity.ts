@@ -10,32 +10,42 @@ import {
 @Entity({ name: 'ride_requests' })
 export class RideRequest {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  readonly id: string;
 
-  @Column({ name: 'passenger_id' })
-  passengerId: string;
+  @Column({ type: 'varchar', name: 'passenger_id' })
+  readonly passengerId: string;
 
   @Column({ type: 'varchar', length: 255 })
-  destination: string;
+  readonly destination: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  landmark: string | null;
+  readonly landmark: string | null;
 
   @Column({ type: 'varchar', length: 255, name: 'pickup_location' })
-  pickupLocation: string;
+  readonly pickupLocation: string;
 
   @Column({ type: 'varchar', length: 3000, nullable: true })
-  notes: string | null;
+  readonly notes: string | null;
 
   @Column({ type: 'tstzrange', name: 'departure_time' })
-  departureTime: string;
+  readonly departureTime: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
-  createdAt: Date;
+  readonly createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', nullable: true })
-  updatedAt: Date | null;
+  @UpdateDateColumn({
+    name: 'updated_at',
+    type: 'timestamptz',
+    nullable: true,
+    default: null,
+  })
+  readonly updatedAt: Date | null;
 
-  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamptz', nullable: true })
-  deletedAt: Date | null;
+  @DeleteDateColumn({
+    name: 'deleted_at',
+    type: 'timestamptz',
+    nullable: true,
+    default: null,
+  })
+  readonly deletedAt: Date | null;
 }
