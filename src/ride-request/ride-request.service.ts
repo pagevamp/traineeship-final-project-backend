@@ -56,25 +56,24 @@ export class RideRequestService {
       );
     }
 
-    const { departureStart, departureEnd, ...updatedPayload } =
+    const { departureStart, departureEnd, ...otherPayload } =
       updateRideRequestData;
 
-    const currentRange = existingRideRequest.departureTime;
-    const start = departureStart || new Date(currentRange[0]);
-    const end = departureEnd || new Date(currentRange[1]);
-
-    if (start >= end) {
-      throw new BadRequestException('Start time must be before end time');
+    const updatedPayload = { ...otherPayload };
+    let currentRange = existingRideRequest.departureTime;
+    if (departureStart && departureEnd) {
+      if (departureStart > departureEnd) {
+        throw new BadRequestException('Start time must be before end time');
+      }
+      currentRange = `[${departureStart.toISOString()}, ${departureEnd.toISOString()}]`;
     }
-
-    const departureRange = `[${start.toISOString()}, ${end.toISOString()}]`;
 
     const result = await this.rideRequestRepository
       .createQueryBuilder()
       .update(RideRequest)
       .set({
         ...updatedPayload,
-        departureTime: departureRange,
+        departureTime: currentRange,
       })
       .where('id = :id', { id: request_id })
       .andWhere('isAccepted = false')
