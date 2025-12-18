@@ -23,7 +23,6 @@ export class RideRequestController {
     @Body() body: CreateRideRequestData,
     @Req() request: RequestWithUser,
   ) {
-    console.log(request.user?.id);
     const userId = request.user?.id;
     return await this.rideRequestService.create(userId!, body);
   }
