@@ -1,4 +1,3 @@
-import { JwtPayload } from '@/types/JwtPayload';
 import { verifyToken } from '@clerk/backend';
 import type { ClerkClient } from '@clerk/backend';
 import {
@@ -34,11 +33,11 @@ export class AuthGuardService implements CanActivate {
 
     try {
       const tokenToVerify = bearerToken;
-      const tokenResult: JwtPayload = await verifyToken(tokenToVerify, {
+      const tokenResult = await verifyToken(tokenToVerify, {
         secretKey: this.configService.get('CLERK_SECRET_KEY'),
       });
 
-      const user = await this.clerkClient.users.getUser(tokenResult.sub!);
+      const user = await this.clerkClient.users.getUser(tokenResult.sub);
       request.user = user;
       return true;
     } catch (err) {
