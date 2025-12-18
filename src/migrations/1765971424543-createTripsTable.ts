@@ -12,9 +12,6 @@ export class CreateTripsTable1765971424543 implements MigrationInterface {
             "created_at" timestamp with time zone DEFAULT now(),
             "deleted_at" timestamp with time zone DEFAULT NULL,
             "updated_at" timestamp with time zone DEFAULT NULL,
-            CONSTRAINT "fk_users_trips"
-            FOREIGN KEY ("driver_id")
-            REFERENCES "users" ("user_id") ON DELETE CASCADE, 
             
             CONSTRAINT "fk_ride_requests_trips"
             FOREIGN KEY ("request_id")
