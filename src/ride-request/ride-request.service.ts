@@ -8,9 +8,9 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { RideRequest } from './ride-request.entity';
 import { Repository } from 'typeorm';
+import type { ClerkClient } from '@clerk/backend';
 import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
-import type { ClerkClient } from '@clerk/backend';
 
 @Injectable()
 export class RideRequestService {
