@@ -37,4 +37,13 @@ export class TripService {
     Object.assign(trip, updateTripData);
     return await this.tripRepository.save(trip);
   }
+
+  async cancelTrip(id: string) {
+    const trip = await this.tripRepository.findOneBy({ id });
+    if (!trip) {
+      throw new NotFoundException(`Trip: ${id} not found`);
+    }
+
+    await this.tripRepository.softDelete(id);
+  }
 }

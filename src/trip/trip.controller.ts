@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpCode,
   HttpStatus,
   NotFoundException,
@@ -48,5 +49,13 @@ export class TripController {
       throw new NotFoundException('User not found');
     }
     return await this.tripService.update(userId, updateTripDto);
+  }
+
+  @UseGuards(AuthGuardService)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete(':id')
+  async cancelTrip(@Param('id') id: string) {
+    await this.tripService.cancelTrip(id);
+    return { message: 'Trip deleted successfully' };
   }
 }
