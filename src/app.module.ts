@@ -12,6 +12,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuardModule } from './auth-guard/auth-guard.module';
 import { ClerkClientProvider } from './providers/clerk.provider';
 import { RideRequestModule } from './ride-request/ride-request.module';
+import { TripModule } from './trip/trip.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { RideRequestModule } from './ride-request/ride-request.module';
     }),
     AuthGuardModule,
     RideRequestModule,
+    TripModule,
   ],
   controllers: [AppController],
   providers: [
