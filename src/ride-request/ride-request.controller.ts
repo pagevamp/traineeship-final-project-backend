@@ -10,17 +10,13 @@ import {
   Patch,
   Post,
   Req,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { RideRequestService } from './ride-request.service';
-// import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { AuthGuardService } from '@/auth-guard/auth-guard.service';
 import { CreateRideRequestData } from './dto/create-ride-request-data';
 import type { RequestWithUser } from '@/types/RequestWithUser';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
-// import type { RequestWithUser } from '@/types/RequestWithUser';
-// import { UpdateRideRequestData } from './dto/update-ride-request-data';
 
 @Controller('ride-request')
 export class RideRequestController {
@@ -33,11 +29,7 @@ export class RideRequestController {
     @Body() body: CreateRideRequestData,
     @Req() request: RequestWithUser,
   ) {
-    const userId = request.user?.id;
-
-    if (!userId) {
-      throw new UnauthorizedException('User not authenticated');
-    }
+    const userId = request.decodedData.id;
 
     return await this.rideRequestService.create(userId, body);
   }
@@ -50,11 +42,7 @@ export class RideRequestController {
     @Param('id', ParseUUIDPipe) id: string,
     @Req() request: RequestWithUser,
   ) {
-    const userId = request.user?.id;
-
-    if (!userId) {
-      throw new UnauthorizedException('User not authenticated');
-    }
+    const userId = request.decodedData.id;
 
     return await this.rideRequestService.update(userId, id, body);
   }
@@ -66,11 +54,7 @@ export class RideRequestController {
     @Param('id', ParseUUIDPipe) id: string,
     @Req() request: RequestWithUser,
   ) {
-    const userId = request.user?.id;
-
-    if (!userId) {
-      throw new UnauthorizedException('User not authenticated');
-    }
+    const userId = request.decodedData.id;
 
     return await this.rideRequestService.delete(userId, id);
   }
@@ -79,11 +63,7 @@ export class RideRequestController {
   @HttpCode(HttpStatus.CREATED)
   @Get('my-rides')
   async getAllRidesByUserId(@Req() request: RequestWithUser) {
-    const userId = request.user?.id;
-
-    if (!userId) {
-      throw new UnauthorizedException('User not authenticated');
-    }
+    const userId = request.decodedData.id;
 
     return await this.rideRequestService.getAllByUserId(userId);
   }
@@ -95,11 +75,7 @@ export class RideRequestController {
     @Req() request: RequestWithUser,
     @Param('id', ParseUUIDPipe) id: string,
   ) {
-    const userId = request.user?.id;
-
-    if (!userId) {
-      throw new UnauthorizedException('User not authenticated');
-    }
+    const userId = request.decodedData.id;
 
     return await this.rideRequestService.getById(userId, id);
   }
