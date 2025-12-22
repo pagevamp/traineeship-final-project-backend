@@ -76,13 +76,29 @@ export class RideRequestController {
   @HttpCode(HttpStatus.CREATED)
   @Get('my-rides')
   async getAllRidesByUserId(@Req() request: RequestWithUser) {
-    const userId = request.decodedData.sub;
+    const userId = request.user?.id;
 
-    if (userId) {
+    if (!userId) {
       throw new UnauthorizedException('User not authenticated');
     }
 
     return await this.rideRequestService.getAllByUserId(userId);
+  }
+
+  @UseGuards(AuthGuardService)
+  @HttpCode(HttpStatus.CREATED)
+  @Get(':id')
+  async getRideById(
+    @Req() request: RequestWithUser,
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    const userId = request.user?.id;
+
+    if (!userId) {
+      throw new UnauthorizedException('User not authenticated');
+    }
+
+    return await this.rideRequestService.getById(userId, id);
   }
 
   @UseGuards(AuthGuardService)

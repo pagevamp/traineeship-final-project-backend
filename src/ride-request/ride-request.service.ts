@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -9,10 +10,13 @@ import { RideRequest } from './ride-request.entity';
 import { Repository } from 'typeorm';
 import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
+import type { ClerkClient } from '@clerk/backend';
 
 @Injectable()
 export class RideRequestService {
   constructor(
+    @Inject('ClerkClient')
+    private readonly clerkClient: ClerkClient,
     @InjectRepository(RideRequest)
     private readonly rideRequestRepository: Repository<RideRequest>,
   ) {}
@@ -130,10 +134,7 @@ export class RideRequestService {
     return { message: 'Ride request has been cancelled successfully' };
   }
 
-  async getById(
-    userId: string,
-    request_id: string,
-  ): Promise<{ message: string; ride: RideRequest }> {
+  async getById(userId: string, request_id: string) {
     if (!request_id) {
       throw new BadRequestException('Request id is required');
     }
@@ -152,35 +153,86 @@ export class RideRequestService {
       );
     }
 
+    const user = await this.clerkClient.users.getUser(ride.passengerId);
+
     return {
       message: 'Ride request has been fetched successfully',
-      ride,
+      ride: {
+        ...ride,
+        passenger: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          fullName: user.fullName,
+          profileImage: user.imageUrl,
+          phoneNumber: user.unsafeMetadata.contact_number,
+        },
+      },
     };
   }
 
   //to get all the ride or individual user
   async getAllByUserId(
     userId: string,
-  ): Promise<{ message: string; ride: RideRequest[] }> {
-    const ride = await this.rideRequestRepository.find({
+  ): Promise<{ message: string; rides: any[] }> {
+    const rides = await this.rideRequestRepository.find({
       where: { passengerId: userId },
       withDeleted: true,
     });
 
+    const user = await this.clerkClient.users.getUser(userId);
+
+    const formattedRides = rides.map((ride) => ({
+      ...ride,
+      passenger: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        fullName: user.fullName,
+        profileImage: user.imageUrl,
+        phoneNumber: user.unsafeMetadata?.contact_number,
+      },
+    }));
+
     return {
-      message: 'Ride requests has been fetched successfully',
-      ride,
+      message: 'Ride requests have been fetched successfully',
+      rides: formattedRides,
     };
   }
 
   //to fetch all the pending ride request for riders/drivers
-  async getAll(): Promise<{ message: string; ride: RideRequest[] }> {
-    const ride = await this.rideRequestRepository.find({
+  async getAll(): Promise<{ message: string; rides: any[] }> {
+    const rides = await this.rideRequestRepository.find({
       where: { isAccepted: false },
+      withDeleted: true,
     });
+
+    const passengerIds = [...new Set(rides.map((ride) => ride.passengerId))];
+
+    const users = await Promise.all(
+      passengerIds.map((id) => this.clerkClient.users.getUser(id)),
+    );
+
+    const userMap = new Map(users.map((user) => [user.id, user]));
+
+    const formattedRides = rides.map((ride) => {
+      const user = userMap.get(ride.passengerId);
+
+      return {
+        ...ride,
+        passenger: user
+          ? {
+              firstName: user.firstName,
+              lastName: user.lastName,
+              fullName: user.fullName,
+              profileImage: user.imageUrl,
+              phoneNumber: user.unsafeMetadata?.contact_number,
+            }
+          : null,
+      };
+    });
+
     return {
-      message: 'Ride requests has been fetched successfully',
-      ride,
+      message: 'Ride requests have been fetched successfully',
+      rides: formattedRides,
     };
   }
 }
