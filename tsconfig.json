@@ -24,7 +24,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/config/*": ["./src/config/*"],
-      "@/core/*": ["./src/core/*"]
+      "@/core/*": ["./src/core/*"],
+      "@/providers/*": ["./src/providers/*"],
+      "@/ride-request/*": ["./src/ride-request/*"],
+      "@/trips/*": ["./src/trips/*"]
     }
   }
 }

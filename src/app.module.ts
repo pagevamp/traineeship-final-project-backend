@@ -10,9 +10,9 @@ import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuardModule } from './auth-guard/auth-guard.module';
-import { ClerkClientProvider } from './providers/clerk.provider';
 import { RideRequestModule } from './ride-request/ride-request.module';
 import { TripModule } from './trip/trip.module';
+import { ClerkClientProvider } from './providers/clerk.provider';
 
 @Module({
   imports: [
