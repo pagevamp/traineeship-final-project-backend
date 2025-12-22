@@ -23,35 +23,6 @@ export class EnvConfig {
   PORT: number;
 
   @IsString()
-  REDIS_HOST: string;
-
-  @Type(() => Number)
-  @IsNumber()
-  REDIS_PORT: number;
-
-  @IsString()
-  JWT_SECRET: string;
-
-  @IsString()
-  JWT_EXPIRATION_TIME: string;
-
-  @Type(() => Number)
-  @IsNumber()
-  EMAIL_PORT: number;
-
-  @IsString()
-  EMAIL_HOST: string;
-
-  @IsString()
-  EMAIL_USER: string;
-
-  @IsString()
-  EMAIL_PASS: string;
-
-  @IsString()
-  EMAIL_DOMAIN_ADDRESS: string;
-
-  @IsString()
   NODE_ENV: string;
 
   @IsString()

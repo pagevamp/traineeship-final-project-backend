@@ -11,6 +11,8 @@ import { Repository } from 'typeorm';
 import type { ClerkClient } from '@clerk/backend';
 import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
+import { GetRideResponseData } from './dto/get-ride-response-data';
+import { getStringMetadata } from '@/utils/clerk.utils';
 
 @Injectable()
 export class RideRequestService {
@@ -134,7 +136,10 @@ export class RideRequestService {
     return { message: 'Ride request has been cancelled successfully' };
   }
 
-  async getById(userId: string, request_id: string) {
+  async getById(
+    userId: string,
+    request_id: string,
+  ): Promise<{ message: string; ride: GetRideResponseData }> {
     if (!request_id) {
       throw new BadRequestException('Request id is required');
     }
@@ -162,9 +167,8 @@ export class RideRequestService {
         passenger: {
           firstName: user.firstName,
           lastName: user.lastName,
-          fullName: user.fullName,
           profileImage: user.imageUrl,
-          phoneNumber: user.unsafeMetadata.contact_number,
+          phoneNumber: getStringMetadata(user, 'contactNumber'),
         },
       },
     };
@@ -173,7 +177,7 @@ export class RideRequestService {
   //to get all the ride or individual user
   async getAllByUserId(
     userId: string,
-  ): Promise<{ message: string; rides: any[] }> {
+  ): Promise<{ message: string; rides: GetRideResponseData[] }> {
     const rides = await this.rideRequestRepository.find({
       where: { passengerId: userId },
       withDeleted: true,
@@ -186,9 +190,8 @@ export class RideRequestService {
       passenger: {
         firstName: user.firstName,
         lastName: user.lastName,
-        fullName: user.fullName,
         profileImage: user.imageUrl,
-        phoneNumber: user.unsafeMetadata?.contact_number,
+        phoneNumber: getStringMetadata(user, 'contactNumber'),
       },
     }));
 
@@ -198,8 +201,11 @@ export class RideRequestService {
     };
   }
 
-  //to fetch all the pending ride request for riders/drivers
-  async getAll(): Promise<{ message: string; rides: any[] }> {
+  // to fetch all the pending ride request for riders/drivers
+  async getAll(): Promise<{
+    message: string;
+    rides: GetRideResponseData[];
+  }> {
     const rides = await this.rideRequestRepository.find({
       where: { isAccepted: false },
       withDeleted: true,
@@ -213,23 +219,19 @@ export class RideRequestService {
 
     const userMap = new Map(users.map((user) => [user.id, user]));
 
-    const formattedRides = rides.map((ride) => {
+    const formattedRides = rides.flatMap((ride) => {
       const user = userMap.get(ride.passengerId);
-
+      if (!user) return [];
       return {
         ...ride,
-        passenger: user
-          ? {
-              firstName: user.firstName,
-              lastName: user.lastName,
-              fullName: user.fullName,
-              profileImage: user.imageUrl,
-              phoneNumber: user.unsafeMetadata?.contact_number,
-            }
-          : null,
+        passenger: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          profileImage: user.imageUrl,
+          phoneNumber: getStringMetadata(user, 'contactNumber'),
+        },
       };
     });
-
     return {
       message: 'Ride requests have been fetched successfully',
       rides: formattedRides,

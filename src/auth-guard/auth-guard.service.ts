@@ -38,7 +38,9 @@ export class AuthGuardService implements CanActivate {
       });
 
       const user = await this.clerkClient.users.getUser(tokenResult.sub);
-      console.log(user);
+
+      if (!user) throw new UnauthorizedException('User does not exist');
+
       request.user = user;
       return true;
     } catch (err) {
