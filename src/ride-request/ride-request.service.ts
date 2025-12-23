@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RideRequest } from './ride-request.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import type { ClerkClient } from '@clerk/backend';
 import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
@@ -62,7 +62,7 @@ export class RideRequestService {
       );
     }
 
-    if (existingRideRequest.isAccepted) {
+    if (existingRideRequest.acceptedAt) {
       throw new ConflictException('Accepted rides cannot be edited');
     }
 
@@ -91,7 +91,7 @@ export class RideRequestService {
       {
         id: request_id,
         passengerId: userId,
-        isAccepted: false,
+        acceptedAt: IsNull(),
       },
       {
         ...updatedPayload,
@@ -207,7 +207,7 @@ export class RideRequestService {
     rides: GetRideResponseData[];
   }> {
     const rides = await this.rideRequestRepository.find({
-      where: { isAccepted: false },
+      where: { acceptedAt: IsNull() },
       withDeleted: true,
     });
 
