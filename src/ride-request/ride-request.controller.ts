@@ -61,7 +61,7 @@ export class RideRequestController {
 
   @UseGuards(AuthGuardService)
   @HttpCode(HttpStatus.OK)
-  @Get('my-rides')
+  @Get('me')
   async getAllRidesByUserId(@Req() request: RequestWithUser) {
     const userId = request.decodedData.id;
 
