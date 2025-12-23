@@ -28,10 +28,10 @@ export class RideRequest {
   readonly notes?: string | null;
 
   @Column({ type: 'tstzrange', name: 'departure_time' })
-  readonly departureTime?: string;
+  readonly departureTime: string;
 
   @Column({ name: 'accepted_at', type: 'timestamptz' })
-  readonly acceptedAt: Date | null;
+  readonly acceptedAt?: Date | null;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   readonly createdAt: Date;
@@ -40,11 +40,11 @@ export class RideRequest {
     name: 'updated_at',
     type: 'timestamptz',
   })
-  readonly updatedAt: Date | null;
+  readonly updatedAt?: Date | null;
 
   @DeleteDateColumn({
     name: 'deleted_at',
     type: 'timestamptz',
   })
-  readonly deletedAt: Date | null;
+  readonly deletedAt?: Date | null;
 }
