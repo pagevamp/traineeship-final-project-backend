@@ -1,3 +1,4 @@
+import { RequestWithUser } from '@/types/RequestWithUser';
 import { verifyToken } from '@clerk/backend';
 import type { ClerkClient } from '@clerk/backend';
 import {
@@ -8,7 +9,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Request } from 'express';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest<Request>();
+    const request = context.switchToHttp().getRequest<RequestWithUser>();
 
     const authHeader = request.headers.authorization;
 
@@ -41,7 +41,12 @@ export class AuthGuardService implements CanActivate {
 
       if (!user) throw new UnauthorizedException('User does not exist');
 
-      request.user = user;
+      if (!user) {
+        throw new UnauthorizedException('user not found');
+      }
+
+      request.decodedData = user;
+
       return true;
     } catch (err) {
       if (err instanceof Error) {

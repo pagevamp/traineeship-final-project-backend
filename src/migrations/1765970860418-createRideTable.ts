@@ -11,7 +11,7 @@ export class CreateRideTable1765970860418 implements MigrationInterface {
             "pickup_location" varchar (255) NOT NULL,
             "notes" varchar (3000),
             "departure_time" TSTZRANGE NOT NULL,
-            "is_accepted" boolean NOT NULL DEFAULT false,
+            "accepted_at" timestamp with time zone DEFAULT NULL,
             "created_at" timestamp with time zone DEFAULT now(),
             "deleted_at" timestamp with time zone DEFAULT NULL,
             "updated_at" timestamp with time zone DEFAULT NULL

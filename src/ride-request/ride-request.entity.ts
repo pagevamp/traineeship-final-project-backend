@@ -19,19 +19,19 @@ export class RideRequest {
   readonly destination: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  readonly landmark: string | null;
+  readonly landmark?: string | null;
 
   @Column({ type: 'varchar', length: 255, name: 'pickup_location' })
   readonly pickupLocation: string;
 
   @Column({ type: 'varchar', length: 3000, nullable: true })
-  readonly notes: string | null;
+  readonly notes?: string | null;
 
   @Column({ type: 'tstzrange', name: 'departure_time' })
   readonly departureTime: string;
 
-  @Column({ name: 'is_accepted', type: 'boolean', default: false })
-  readonly isAccepted: boolean;
+  @Column({ name: 'accepted_at', type: 'timestamptz' })
+  readonly acceptedAt?: Date | null;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   readonly createdAt: Date;
@@ -39,16 +39,12 @@ export class RideRequest {
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamptz',
-    nullable: true,
-    default: null,
   })
-  readonly updatedAt: Date | null;
+  readonly updatedAt?: Date | null;
 
   @DeleteDateColumn({
     name: 'deleted_at',
     type: 'timestamptz',
-    nullable: true,
-    default: null,
   })
-  readonly deletedAt: Date | null;
+  readonly deletedAt?: Date | null;
 }
