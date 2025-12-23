@@ -13,6 +13,8 @@ import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
 import { GetRideResponseData } from './dto/get-ride-response-data';
 import { getStringMetadata } from '@/utils/clerk.utils';
+import { OnEvent } from '@nestjs/event-emitter';
+import { RideAcceptedEvent } from '@/event/ride-accepted-event';
 
 @Injectable()
 export class RideRequestService {
@@ -22,6 +24,23 @@ export class RideRequestService {
     @InjectRepository(RideRequest)
     private readonly rideRequestRepository: Repository<RideRequest>,
   ) {}
+
+  @OnEvent('ride.updated')
+  async updateAcceptedAt(event: RideAcceptedEvent) {
+    const requestId = event.requestId;
+    const acceptedTime = event.acceptedAt;
+
+    const ride = await this.rideRequestRepository.findOneBy({
+      id: requestId,
+    });
+
+    if (!ride) {
+      throw new NotFoundException('No such ride requests');
+    }
+
+    Object.assign(ride, acceptedTime);
+    return await this.rideRequestRepository.save(ride);
+  }
 
   async create(
     userId: string,

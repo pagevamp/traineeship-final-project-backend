@@ -29,7 +29,7 @@ export class TripController {
     @Body() createTripDto: CreateTripDto,
     @Req() request: RequestWithUser,
   ) {
-    const userId = request.user?.id;
+    const userId = request.decodedData.id;
     if (!userId) {
       throw new NotFoundException('User not found');
     }
@@ -44,7 +44,7 @@ export class TripController {
     @Param('id') id: string,
     @Req() request: RequestWithUser,
   ) {
-    const userId = request.user?.id;
+    const userId = request.decodedData.id;
     if (!userId) {
       throw new NotFoundException('User not found');
     }
@@ -63,7 +63,8 @@ export class TripController {
   @HttpCode(HttpStatus.OK)
   @Get('/')
   async getPendingTrips(@Req() request: RequestWithUser) {
-    const driverId = request.user?.id;
+    const driverId = request.decodedData.id;
+
     if (!driverId) {
       throw new NotFoundException('Trips for User not found');
     }
@@ -78,7 +79,7 @@ export class TripController {
   @HttpCode(HttpStatus.OK)
   @Get('/')
   async getAllTripsById(@Req() request: RequestWithUser) {
-    const driverId = request.user?.id;
+    const driverId = request.decodedData.id;
     if (!driverId) {
       throw new NotFoundException('Trips for User not found');
     }
