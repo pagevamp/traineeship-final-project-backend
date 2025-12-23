@@ -10,19 +10,19 @@ import { RideRequest } from '../ride-request.entity';
 class PassengerData {
   @IsString()
   @IsOptional()
-  firstName: string | null;
+  firstName?: string | null;
 
   @IsString()
   @IsOptional()
-  lastName: string | null;
+  lastName?: string | null;
 
   @IsString()
   @IsOptional()
-  phoneNumber: string | null;
+  phoneNumber?: string | null;
 
   @IsString()
   @IsOptional()
-  profileImage: string | null;
+  profileImage?: string | null;
 }
 
 export class GetRideResponseData extends RideRequest {
