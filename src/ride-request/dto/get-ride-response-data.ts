@@ -29,6 +29,6 @@ export class GetRideResponseData extends RideRequest {
   @IsObject()
   @IsNotEmpty()
   @ValidateNested()
-  @Type(() => PassengerData) // Required for class-transformer to instantiate the class
+  @Type(() => PassengerData)
   readonly passenger: PassengerData;
 }
