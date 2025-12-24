@@ -175,17 +175,16 @@ export class TripService {
   // to get all the trips details of the driver that accepts the ride
   // the ride requester can get this when their ride is accepted
   async getAcceptedTripById(
-    driverId: string,
-    id: string,
+    requestId: string,
   ): Promise<{ message: string; trips: any }> {
     const trips = await this.tripRepository.findOne({
-      where: { driverId, ride: { id } },
+      where: { ride: { id: requestId } },
     });
     if (!trips) {
       throw new NotFoundException(`No Trips Found`);
     }
 
-    const driver = await this.clerkClient.users.getUser(driverId);
+    const driver = await this.clerkClient.users.getUser(trips.driverId);
     const tripDetails = {
       trips,
       driver: {

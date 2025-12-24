@@ -94,10 +94,9 @@ export class TripController {
   @HttpCode(HttpStatus.OK)
   @Get('/acceptor-trip')
   async getAcceptedTripById(@Req() request: RequestWithUser) {
-    const driverId = '';
     const passengerId = request.decodedData.id;
     const id = passengerId;
-    const trips = await this.tripService.getAcceptedTripById(driverId, id);
+    const trips = await this.tripService.getAcceptedTripById(id);
     if (!trips) {
       throw new NotFoundException('Trips for User not found');
     }
