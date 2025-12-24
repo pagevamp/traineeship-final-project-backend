@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUUID, MaxLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsUUID, MaxLength } from 'class-validator';
 
 export enum TripStatus {
   NOT_STARTED = 'Not Started',
@@ -15,16 +15,10 @@ export enum VehicleType {
 export class CreateTripDto {
   @IsNotEmpty()
   @IsUUID()
-  @MaxLength(255)
   readonly requestId: string;
 
   @IsNotEmpty()
-  @IsString()
-  @MaxLength(255)
-  readonly status: TripStatus;
-
-  @IsNotEmpty()
-  @IsString()
+  @IsEnum(VehicleType)
   @MaxLength(255)
   readonly vehicleType: VehicleType;
 }

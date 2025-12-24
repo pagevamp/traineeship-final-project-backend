@@ -41,7 +41,7 @@ export class TripService {
 
     // check if any incomplete trips left
     if (allTrips.length > completedTrips.length) {
-      throw new NotFoundException('Complete Pending Rides First');
+      throw new ConflictException('Complete Pending Rides First');
     }
 
     const ride = await this.rideRequestRepository.findOne({
