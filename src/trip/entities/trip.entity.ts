@@ -28,7 +28,7 @@ export class Trip {
     nullable: true,
     name: 'vehicle_type',
   })
-  readonly vehicleType: VehicleType;
+  readonly vehicleType: VehicleType | null;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   readonly createdAt: Date;
