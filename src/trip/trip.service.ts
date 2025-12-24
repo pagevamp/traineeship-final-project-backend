@@ -39,6 +39,7 @@ export class TripService {
       where: { driverId: userId },
     });
 
+    // check if any incomplete trips left
     if (allTrips.length > completedTrips.length) {
       throw new NotFoundException('Complete Pending Rides First');
     }
@@ -62,6 +63,7 @@ export class TripService {
       vehicleType: createTripDto.vehicleType,
     });
 
+    //event triggered when a user accepts a ride
     const event = new RideAcceptedEvent(ride.id, ride.acceptedAt);
     this.eventEmitter.emit('ride.updated', event);
 
@@ -84,9 +86,10 @@ export class TripService {
     }
 
     if (userId !== trip.driverId) {
-      throw new ConflictException(`Can only update your trips`);
+      throw new ConflictException(`Can only update your own trips`);
     }
 
+    //to check is ride has expired
     if (getDateRangeFloor(trip.ride.departureTime) < new Date()) {
       throw new ConflictException(`Trip cannot be updated now`);
     }
@@ -108,8 +111,9 @@ export class TripService {
     if (userId !== trip.driverId) {
       throw new ConflictException(`Can only delete your trips`);
     }
+    //to check is ride has expired
     if (getDateRangeFloor(trip.ride.departureTime) < new Date()) {
-      throw new ConflictException(`Trip cannot be updated now`);
+      throw new ConflictException(`Trip cannot be deleted now`);
     }
 
     await this.tripRepository.softDelete(id);
@@ -126,6 +130,7 @@ export class TripService {
       throw new NotFoundException(`No Pending Trips`);
     }
     const driver = await this.clerkClient.users.getUser(driverId);
+    //to attach each of the trips with the driver information
     const mappedTrips = trips.map((trip) => ({
       ...trip,
       driver: {
@@ -156,6 +161,7 @@ export class TripService {
     }
 
     const driver = await this.clerkClient.users.getUser(driverId);
+    //to attach each of the trips with the driver information
     const mappedTrips = trips.map((trip) => ({
       ...trip,
       driver: {
@@ -185,6 +191,7 @@ export class TripService {
     }
 
     const driver = await this.clerkClient.users.getUser(trips.driverId);
+    //to get the details of the ride-accepting user(driver)
     const tripDetails = {
       trips,
       driver: {
