@@ -13,10 +13,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { TripService } from './trip.service';
-import { CreateTripDto } from './dto/create-trips.dto';
 import { AuthGuardService } from '@/auth-guard/auth-guard.service';
 import type { RequestWithUser } from '@/types/RequestWithUser';
-import { UpdateTripData } from './dto/update-trips.dto';
+import { CreateTripDto } from './dto/create-trips-data';
+import { UpdateTripDto } from './dto/update-trips-data';
 
 @Controller('trips')
 export class TripController {
@@ -40,7 +40,7 @@ export class TripController {
   @HttpCode(HttpStatus.OK)
   @Patch(':id')
   async updateTrip(
-    @Body() updateTripDto: UpdateTripData,
+    @Body() updateTripDto: UpdateTripDto,
     @Param('id') id: string,
     @Req() request: RequestWithUser,
   ) {

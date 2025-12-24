@@ -8,7 +8,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { TripStatus, VehicleType } from '../dto/create-trips.dto';
+import { TripStatus, VehicleType } from '../dto/create-trips-data';
 import { RideRequest } from '@/ride-request/ride-request.entity';
 
 @Entity({ name: 'trips' })

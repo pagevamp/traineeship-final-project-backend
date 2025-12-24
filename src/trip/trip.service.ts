@@ -7,15 +7,15 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Trip } from './entities/trip.entity';
-import { CreateTripDto, TripStatus } from './dto/create-trips.dto';
-import { UpdateTripData } from './dto/update-trips.dto';
 import type { ClerkClient } from '@clerk/backend';
 import { getStringMetadata } from '@/utils/clerk.utils';
-import { GetTripsByDriverResponseDto } from './dto/get-trips-by-driver.dto';
 import { RideAcceptedEvent } from '@/event/ride-accepted-event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { getDateRangeFloor } from '@/utils/date-range';
 import { RideRequest } from '@/ride-request/ride-request.entity';
+import { CreateTripDto, TripStatus } from './dto/create-trips-data';
+import { UpdateTripDto } from './dto/update-trips-data';
+import { GetTripsByDriverResponseDto } from './dto/get-trips-by-driver-data';
 
 @Injectable()
 export class TripService {
@@ -73,7 +73,7 @@ export class TripService {
   async update(
     id: string,
     userId: string,
-    updateTripData: UpdateTripData,
+    updateTripData: UpdateTripDto,
   ): Promise<Trip> {
     const trip = await this.tripRepository.findOne({
       where: { id },

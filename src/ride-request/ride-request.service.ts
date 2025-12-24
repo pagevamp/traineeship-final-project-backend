@@ -29,7 +29,7 @@ export class RideRequestService {
   @OnEvent('ride.updated')
   async updateAcceptedAt(event: RideAcceptedEvent) {
     const requestId = event.requestId;
-    const acceptedTime = event.acceptedAt?.getTime();
+    const acceptedTime = event.acceptedAt;
 
     const ride = await this.rideRequestRepository.findOneBy({ id: requestId });
 
