@@ -28,7 +28,7 @@ export class Trip {
     nullable: true,
     name: 'vehicle_type',
   })
-  readonly vehicleType: VehicleType | null;
+  readonly vehicleType?: VehicleType | null;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   readonly createdAt: Date;
@@ -39,7 +39,7 @@ export class Trip {
     nullable: true,
     default: null,
   })
-  readonly updatedAt: Date | null;
+  readonly updatedAt?: Date | null;
 
   @DeleteDateColumn({
     name: 'deleted_at',
@@ -47,7 +47,7 @@ export class Trip {
     nullable: true,
     default: null,
   })
-  readonly deletedAt: Date | null;
+  readonly deletedAt?: Date | null;
 
   @ManyToOne(() => RideRequest, (ride) => ride.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'request_id' })
