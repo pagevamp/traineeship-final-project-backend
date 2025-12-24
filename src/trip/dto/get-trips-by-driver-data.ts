@@ -6,29 +6,29 @@ import { IsObject, IsPhoneNumber, IsString, IsUrl, MaxLength, ValidateNested } f
 export class Driver {
   @IsString()
   @MaxLength(255)
-  firstName?: string | null;
+  readonly firstName?: string | null;
 
   @IsString()
   @MaxLength(255)
-  lastName?: string | null;
+  readonly lastName?: string | null;
 
   @IsPhoneNumber()
   @MaxLength(255)
-  phoneNumber?: string | null;
+  readonly phoneNumber?: string | null;
 
   @IsUrl()
   @MaxLength(255)
-  profileImage?: string | null;
+  readonly profileImage?: string | null;
 
   @IsString()
   @MaxLength(255)
-  primaryLocation?: string | null;
+  readonly primaryLocation?: string | null;
 }
 
 export class GetTripsByDriverResponseDto extends Trip{
     @IsObject()
     @ValidateNested()
     @Type(()=>Driver)
-    driver : Driver
+    readonly driver : Driver
     
 }
