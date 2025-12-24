@@ -19,15 +19,12 @@ export class Trip {
   @Column({ type: 'varchar', name: 'driver_id' })
   readonly driverId: string;
 
-  @Column({ type: 'varchar', name: 'request_id' })
-  readonly requestId: string;
-
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'enum', enum: TripStatus })
   readonly status: TripStatus;
 
   @Column({
-    type: 'varchar',
-    length: 255,
+    type: 'enum',
+    enum: VehicleType,
     nullable: true,
     name: 'vehicle_type',
   })

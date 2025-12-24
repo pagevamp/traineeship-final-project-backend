@@ -1,3 +1,4 @@
+import { Trip } from '@/trip/entities/trip.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'ride_requests' })
@@ -47,4 +49,7 @@ export class RideRequest {
     type: 'timestamptz',
   })
   readonly deletedAt?: Date | null;
+
+  @OneToMany(() => Trip, (trip) => trip.ride)
+  trips: Trip[];
 }

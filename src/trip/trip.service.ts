@@ -14,7 +14,8 @@ import { getStringMetadata } from '@/utils/clerk.utils';
 import { GetTripsByDriverResponseDto } from './dto/get-trips-by-driver.dto';
 import { RideAcceptedEvent } from '@/event/ride-accepted-event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-// import { getDateRangeFloor } from '@/utils/date-range';
+import { getDateRangeCeiling, getDateRangeFloor } from '@/utils/date-range';
+import { RideRequest } from '@/ride-request/ride-request.entity';
 
 @Injectable()
 export class TripService {
@@ -24,18 +25,52 @@ export class TripService {
     private readonly clerkClient: ClerkClient,
     @InjectRepository(Trip)
     private readonly tripRepository: Repository<Trip>,
+    @InjectRepository(RideRequest)
+    private readonly rideRequestRepository: Repository<RideRequest>,
   ) {}
 
   // to create a new trip when a user accepts a ride request
   async create(userId: string, createTripDto: CreateTripDto): Promise<Trip> {
+    const existingTrips = await this.tripRepository.find({
+      where: { driverId: userId },
+      relations: ['ride'],
+    });
+
+    const ride = await this.rideRequestRepository.findOne({
+      where: { id: createTripDto.requestId },
+    });
+
+    if (!ride) {
+      throw new NotFoundException('Ride request not found');
+    }
+
+    if (ride.acceptedAt === undefined) {
+      throw new ConflictException('acceptedAt field undefined');
+    }
+
+    const newStartTime = getDateRangeFloor(ride.departureTime);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    const newEndTime = getDateRangeCeiling(ride.departureTime);
+
+    for (const existingTrip of existingTrips) {
+      if (!existingTrip.ride) continue;
+      const existingStart = getDateRangeFloor(existingTrip.ride.departureTime);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+      const existingEnd = getDateRangeCeiling(existingTrip.ride.departureTime);
+
+      if (newStartTime < existingEnd && newEndTime > existingStart) {
+        throw new ConflictException('Clashing trip time range');
+      }
+    }
+
     const trip = this.tripRepository.create({
       driverId: userId,
-      requestId: createTripDto.requestId,
+      ride,
       status: TripStatus.NOT_STARTED,
       vehicleType: createTripDto.vehicleType,
     });
 
-    const event = new RideAcceptedEvent(trip.requestId, trip.ride.acceptedAt);
+    const event = new RideAcceptedEvent(ride.id, ride.acceptedAt);
     this.eventEmitter.emit('ride.updated', event);
 
     return await this.tripRepository.save(trip);
@@ -48,7 +83,10 @@ export class TripService {
     userId: string,
     updateTripData: UpdateTripData,
   ): Promise<Trip> {
-    const trip = await this.tripRepository.findOneBy({ id });
+    const trip = await this.tripRepository.findOne({
+      where: { id },
+      relations: ['ride'],
+    });
     if (!trip) {
       throw new NotFoundException(`Trip: ${id} not found`);
     }
@@ -57,9 +95,9 @@ export class TripService {
       throw new ConflictException(`Can only update your trips`);
     }
 
-    // if (getDateRangeFloor(trip.ride.departureTime) > new Date()) {
-    //   throw new NotFoundException(`Trip cannot be updated now`);
-    // }
+    if (getDateRangeFloor(trip.ride.departureTime) > new Date()) {
+      throw new ConflictException(`Trip cannot be updated now`);
+    }
 
     Object.assign(trip, updateTripData);
     return await this.tripRepository.save(trip);
@@ -68,9 +106,9 @@ export class TripService {
   // to cancel the accepted trip from the drivers end
   // only for the rides they have accepted
   async cancelTrip(id: string, userId: string) {
-    const trip = await this.tripRepository.findOneBy({
-      id: id,
-      driverId: userId,
+    const trip = await this.tripRepository.findOne({
+      where: { id, driverId: userId },
+      relations: ['ride'],
     });
     if (!trip) {
       throw new NotFoundException(`Trip: ${id} not found`);
@@ -78,9 +116,9 @@ export class TripService {
     if (userId !== trip.driverId) {
       throw new ConflictException(`Can only delete your trips`);
     }
-    // if (getDateRangeFloor(trip.ride.departureTime) > new Date()) {
-    //   throw new NotFoundException(`Trip cannot be updated now`);
-    // }
+    if (getDateRangeFloor(trip.ride.departureTime) > new Date()) {
+      throw new ConflictException(`Trip cannot be updated now`);
+    }
 
     await this.tripRepository.softDelete(id);
   }
@@ -145,11 +183,10 @@ export class TripService {
   // to get all the trips details of the driver that accepts the ride
   async getAcceptedTripById(
     driverId: string,
-    requestId: string,
+    id: string,
   ): Promise<{ message: string; trips: any }> {
-    const trips = await this.tripRepository.findOneBy({
-      driverId,
-      requestId,
+    const trips = await this.tripRepository.findOne({
+      where: { driverId, ride: { id } },
     });
     if (!trips) {
       throw new NotFoundException(`No Trips Found`);
