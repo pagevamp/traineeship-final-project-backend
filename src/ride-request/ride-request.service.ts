@@ -41,7 +41,7 @@ export class RideRequestService {
       throw new ConflictException('Invalid departure time');
     }
 
-    if (getDateRangeFloor(ride.departureTime) > new Date()) {
+    if (getDateRangeFloor(ride.departureTime) < new Date()) {
       throw new ConflictException('Ride cannot be updated now');
     }
 

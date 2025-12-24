@@ -14,7 +14,7 @@ import { getStringMetadata } from '@/utils/clerk.utils';
 import { GetTripsByDriverResponseDto } from './dto/get-trips-by-driver.dto';
 import { RideAcceptedEvent } from '@/event/ride-accepted-event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { getDateRangeCeiling, getDateRangeFloor } from '@/utils/date-range';
+import { getDateRangeFloor } from '@/utils/date-range';
 import { RideRequest } from '@/ride-request/ride-request.entity';
 
 @Injectable()
@@ -31,10 +31,17 @@ export class TripService {
 
   // to create a new trip when a user accepts a ride request
   async create(userId: string, createTripDto: CreateTripDto): Promise<Trip> {
-    const existingTrips = await this.tripRepository.find({
-      where: { driverId: userId },
-      relations: ['ride'],
+    const completedTrips = await this.tripRepository.find({
+      where: { driverId: userId, status: TripStatus.REACHED_DESTINATION },
     });
+
+    const allTrips = await this.tripRepository.find({
+      where: { driverId: userId },
+    });
+
+    if (allTrips.length > completedTrips.length) {
+      throw new NotFoundException('Complete Pending Rides First');
+    }
 
     const ride = await this.rideRequestRepository.findOne({
       where: { id: createTripDto.requestId },
@@ -46,21 +53,6 @@ export class TripService {
 
     if (ride.acceptedAt === undefined) {
       throw new ConflictException('acceptedAt field undefined');
-    }
-
-    const newStartTime = getDateRangeFloor(ride.departureTime);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const newEndTime = getDateRangeCeiling(ride.departureTime);
-
-    for (const existingTrip of existingTrips) {
-      if (!existingTrip.ride) continue;
-      const existingStart = getDateRangeFloor(existingTrip.ride.departureTime);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-      const existingEnd = getDateRangeCeiling(existingTrip.ride.departureTime);
-
-      if (newStartTime < existingEnd && newEndTime > existingStart) {
-        throw new ConflictException('Clashing trip time range');
-      }
     }
 
     const trip = this.tripRepository.create({
@@ -95,7 +87,7 @@ export class TripService {
       throw new ConflictException(`Can only update your trips`);
     }
 
-    if (getDateRangeFloor(trip.ride.departureTime) > new Date()) {
+    if (getDateRangeFloor(trip.ride.departureTime) < new Date()) {
       throw new ConflictException(`Trip cannot be updated now`);
     }
 
@@ -116,7 +108,7 @@ export class TripService {
     if (userId !== trip.driverId) {
       throw new ConflictException(`Can only delete your trips`);
     }
-    if (getDateRangeFloor(trip.ride.departureTime) > new Date()) {
+    if (getDateRangeFloor(trip.ride.departureTime) < new Date()) {
       throw new ConflictException(`Trip cannot be updated now`);
     }
 
@@ -181,6 +173,7 @@ export class TripService {
   }
 
   // to get all the trips details of the driver that accepts the ride
+  // the ride requester can get this when their ride is accepted
   async getAcceptedTripById(
     driverId: string,
     id: string,
