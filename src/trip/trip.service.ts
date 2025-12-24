@@ -64,7 +64,7 @@ export class TripService {
     });
 
     //event triggered when a user accepts a ride
-    const event = new RideAcceptedEvent(ride.id, ride.acceptedAt);
+    const event = new RideAcceptedEvent(ride.id);
     this.eventEmitter.emit('ride.updated', event);
 
     return await this.tripRepository.save(trip);
