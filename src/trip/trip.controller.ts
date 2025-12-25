@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  NotFoundException,
   Param,
   Patch,
   Post,
@@ -85,9 +84,6 @@ export class TripController {
     const passengerId = request.decodedData.id;
     const id = passengerId;
     const trips = await this.tripService.getAcceptedTripById(id);
-    if (!trips) {
-      throw new NotFoundException('Trips for User not found');
-    }
     return {
       message: 'User related trips',
       data: { trips },

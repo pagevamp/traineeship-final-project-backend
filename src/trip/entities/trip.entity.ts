@@ -36,8 +36,6 @@ export class Trip {
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamptz',
-    nullable: true,
-    default: null,
   })
   readonly updatedAt?: Date | null;
 
