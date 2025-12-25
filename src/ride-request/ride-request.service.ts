@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Inject,
   Injectable,
   NotFoundException,
@@ -15,7 +16,8 @@ import { GetRideResponseData } from './dto/get-ride-response-data';
 import { getStringMetadata } from '@/utils/clerk.utils';
 import { OnEvent } from '@nestjs/event-emitter';
 import { RideAcceptedEvent } from '@/event/ride-accepted-event';
-import { getDateRangeFloor } from '@/utils/date-range';
+import { getDateRangeCeiling } from '@/utils/date-range';
+import { RideCancelledEvent } from '@/event/ride-cancelled-event';
 
 @Injectable()
 export class RideRequestService {
@@ -42,8 +44,8 @@ export class RideRequestService {
       throw new NotFoundException('No such ride request');
     }
 
-    if (getDateRangeFloor(ride.departureTime) < new Date()) {
-      throw new ConflictException('Ride cannot be updated now');
+    if (getDateRangeCeiling(ride.departureTime) < new Date()) {
+      throw new ForbiddenException('Ride cannot be cancelled now');
     }
 
     await this.rideRequestRepository.update(
@@ -54,7 +56,7 @@ export class RideRequestService {
 
   //event listener for when a user cancels a ride
   @OnEvent('ride.cancelled')
-  async updateCancelledAt(event: RideAcceptedEvent) {
+  async updateCancelledAt(event: RideCancelledEvent) {
     const requestId = event.requestId;
     const ride = await this.rideRequestRepository.findOneBy({ id: requestId });
 
@@ -66,8 +68,8 @@ export class RideRequestService {
       throw new ConflictException('Invalid departure time');
     }
 
-    if (getDateRangeFloor(ride.departureTime) < new Date()) {
-      throw new ConflictException('Ride cannot be updated now');
+    if (getDateRangeCeiling(ride.departureTime) < new Date()) {
+      throw new ForbiddenException('Ride cannot be cancelled now');
     }
 
     await this.rideRequestRepository.update(
