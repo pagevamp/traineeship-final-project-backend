@@ -7,7 +7,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { RideRequest } from '../ride-request.entity';
-class PassengerData {
+export class PassengerData {
   @IsString()
   @IsOptional()
   firstName?: string | null;

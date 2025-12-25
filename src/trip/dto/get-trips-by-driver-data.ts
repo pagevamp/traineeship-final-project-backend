@@ -1,7 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Type } from 'class-transformer';
 import { Trip } from '../entities/trip.entity';
-import { IsObject, IsPhoneNumber, IsString, IsUrl, MaxLength, ValidateNested } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsObject,
+  IsOptional,
+  IsPhoneNumber,
+  IsString,
+  IsUrl,
+  MaxLength,
+  ValidateNested,
+} from 'class-validator';
+import { PassengerData } from '@/ride-request/dto/get-ride-response-data';
 
 export class Driver {
   @IsString()
@@ -25,10 +35,16 @@ export class Driver {
   readonly primaryLocation?: string | null;
 }
 
-export class GetTripsByDriverResponseDto extends Trip{
-    @IsObject()
-    @ValidateNested()
-    @Type(()=>Driver)
-    readonly driver : Driver
-    
+export class GetTripsByDriverResponseDto extends Trip {
+  @IsObject()
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => Driver)
+  readonly driver: Driver;
+
+  @IsObject()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => PassengerData)
+  readonly passenger: PassengerData;
 }

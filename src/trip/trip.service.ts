@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Trip } from './entities/trip.entity';
 import type { ClerkClient } from '@clerk/backend';
-import { getStringMetadata } from '@/utils/clerk.utils';
+import { getPassengersForTrips, getStringMetadata } from '@/utils/clerk.utils';
 import { RideAcceptedEvent } from '@/event/ride-accepted-event';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { getDateRangeFloor } from '@/utils/date-range';
@@ -48,6 +48,10 @@ export class TripService {
       where: { id: createTripDto.requestId },
     });
 
+    if (ride?.passengerId === userId) {
+      throw new ConflictException('Cannot accept own ride-request');
+    }
+
     if (!ride) {
       throw new NotFoundException('Ride request not found');
     }
@@ -64,7 +68,7 @@ export class TripService {
     });
 
     //event triggered when a user accepts a ride
-    const event = new RideAcceptedEvent(ride.id);
+    const event = new RideAcceptedEvent(ride.id, trip.createdAt);
     this.eventEmitter.emit('ride.updated', event);
 
     return await this.tripRepository.save(trip);
@@ -122,28 +126,40 @@ export class TripService {
   // to get all the pending trips for a particular user
   async getPendingTrips(
     driverId: string,
-  ): Promise<{ message: string; trips: GetTripsByDriverResponseDto[] }> {
+  ): Promise<{ trips: GetTripsByDriverResponseDto[] }> {
     const trips = await this.tripRepository.find({
       where: { status: TripStatus.NOT_STARTED, driverId },
+      relations: ['ride'],
     });
     if (trips.length === 0) {
       throw new NotFoundException(`No Pending Trips`);
     }
     const driver = await this.clerkClient.users.getUser(driverId);
+
+    //to batch fetch all the passengers for the trips
+    const passengerMap = await getPassengersForTrips(trips, this.clerkClient);
+
     //to attach each of the trips with the driver information
-    const mappedTrips = trips.map((trip) => ({
-      ...trip,
-      driver: {
-        firstName: driver.firstName,
-        lastName: driver.lastName,
-        profileImage: driver.imageUrl,
-        phoneNumber: getStringMetadata(driver, 'contactNumber'),
-        primaryLocation: getStringMetadata(driver, 'primaryLocation'),
-      },
-    }));
+    const mappedTrips = trips.map((trip) => {
+      const passenger = passengerMap.get(trip.ride.passengerId);
+
+      return {
+        ...trip,
+        driver: {
+          firstName: driver.firstName,
+          lastName: driver.lastName,
+          phoneNumber: getStringMetadata(driver, 'contactNumber'),
+        },
+        passenger: {
+          firstName: passenger?.firstName,
+          lastName: passenger?.lastName,
+          phoneNumber: passenger?.phoneNumber,
+          profileImage: passenger?.profileImage,
+        },
+      };
+    });
 
     return {
-      message: 'Driver Details fetched successfully',
       trips: mappedTrips,
     };
   }
@@ -152,17 +168,60 @@ export class TripService {
   // to be able to view the trips history of the user
   async getAllTripsById(
     driverId: string,
-  ): Promise<{ message: string; trips: GetTripsByDriverResponseDto[] }> {
+  ): Promise<{ trips: GetTripsByDriverResponseDto[] }> {
     const trips = await this.tripRepository.find({
       where: { driverId },
+      relations: ['ride'],
     });
     if (trips.length === 0) {
       throw new NotFoundException(`No Trips Found`);
     }
 
     const driver = await this.clerkClient.users.getUser(driverId);
-    //to attach each of the trips with the driver information
-    const mappedTrips = trips.map((trip) => ({
+
+    //to batch fetch all the passengers for the trips
+    const passengerMap = await getPassengersForTrips(trips, this.clerkClient);
+
+    //to attach each of the trips with the driver and passenger information
+    const mappedTrips = trips.map((trip) => {
+      const passenger = passengerMap.get(trip.ride.passengerId);
+
+      return {
+        ...trip,
+        driver: {
+          firstName: driver.firstName,
+          lastName: driver.lastName,
+          profileImage: driver.imageUrl,
+          phoneNumber: getStringMetadata(driver, 'contactNumber'),
+          primaryLocation: getStringMetadata(driver, 'primaryLocation'),
+        },
+        passenger: {
+          firstName: passenger?.firstName,
+          lastName: passenger?.lastName,
+          phoneNumber: passenger?.phoneNumber,
+          profileImage: passenger?.profileImage,
+        },
+      };
+    });
+    return {
+      trips: mappedTrips,
+    };
+  }
+
+  // to get all the trips details of the driver that accepts the ride
+  // the ride requester can get this when their ride is accepted
+  async getAcceptedTripById(id: string) {
+    const trip = await this.tripRepository.findOne({
+      where: { ride: { passengerId: id } },
+    });
+    if (!trip) {
+      throw new NotFoundException(`No Trips Found`);
+    }
+
+    const driver = await this.clerkClient.users.getUser(trip.driverId);
+    //to get the details of the ride-accepting user(driver)
+
+    return {
       ...trip,
       driver: {
         firstName: driver.firstName,
@@ -171,40 +230,6 @@ export class TripService {
         phoneNumber: getStringMetadata(driver, 'contactNumber'),
         primaryLocation: getStringMetadata(driver, 'primaryLocation'),
       },
-    }));
-    return {
-      message: 'Driver Details fetched successfully',
-      trips: mappedTrips,
-    };
-  }
-
-  // to get all the trips details of the driver that accepts the ride
-  // the ride requester can get this when their ride is accepted
-  async getAcceptedTripById(
-    requestId: string,
-  ): Promise<{ message: string; trip: any }> {
-    const trip = await this.tripRepository.findOne({
-      where: { ride: { id: requestId } },
-    });
-    if (!trip) {
-      throw new NotFoundException(`No Trips Found`);
-    }
-
-    const driver = await this.clerkClient.users.getUser(trip.driverId);
-    //to get the details of the ride-accepting user(driver)
-    const tripDetails = {
-      trip,
-      driver: {
-        firstName: driver.firstName,
-        lastName: driver.lastName,
-        profileImage: driver.imageUrl,
-        phoneNumber: getStringMetadata(driver, 'contactNumber'),
-        primaryLocation: getStringMetadata(driver, 'primaryLocation'),
-      },
-    };
-    return {
-      message: 'Driver Details fetched successfully',
-      trip: tripDetails,
     };
   }
 }
