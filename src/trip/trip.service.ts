@@ -112,7 +112,7 @@ export class TripService {
     }
     //to check is ride has expired
     if (getDateRangeCeiling(trip.ride.departureTime) < new Date()) {
-      throw new ForbiddenException('Ride cannot be cancelled now');
+      throw new ForbiddenException(`Trip cannot be deleted now`);
     }
 
     //event triggered when a user accepts a ride
