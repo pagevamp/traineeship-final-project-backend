@@ -16,6 +16,8 @@ import { getStringMetadata } from '@/utils/clerk.utils';
 import { OnEvent } from '@nestjs/event-emitter';
 import { RideAcceptedEvent } from '@/event/ride-accepted-event';
 import { getDateRangeFloor } from '@/utils/date-range';
+import { Trip } from '@/trip/entities/trip.entity';
+import { TripStatus } from '@/types/trips';
 
 @Injectable()
 export class RideRequestService {
@@ -24,7 +26,26 @@ export class RideRequestService {
     private readonly clerkClient: ClerkClient,
     @InjectRepository(RideRequest)
     private readonly rideRequestRepository: Repository<RideRequest>,
+    @InjectRepository(Trip)
+    private readonly tripRepository: Repository<Trip>,
   ) {}
+
+  private validateDepartureGap(start: Date, end: Date): void {
+    const diffMs = end.getTime() - start.getTime();
+    const diffMinutes = diffMs / (1000 * 60);
+
+    if (diffMinutes <= 0) {
+      throw new ConflictException(
+        'Departure end time must be after departure start time',
+      );
+    }
+
+    if (diffMinutes > 60) {
+      throw new ConflictException(
+        'Departure time gap cannot be more than 1 hour',
+      );
+    }
+  }
 
   //event listener for when a user accepts a ride
   @OnEvent('ride.accepted')
@@ -56,6 +77,36 @@ export class RideRequestService {
     userId: string,
     createRideRequestData: CreateRideRequestData,
   ): Promise<RideRequest> {
+    const pendingRequest = await this.rideRequestRepository.findOne({
+      where: {
+        passengerId: userId,
+        acceptedAt: IsNull(),
+      },
+    });
+
+    if (pendingRequest) {
+      throw new ConflictException(
+        'Please cancel your previous ride request before requesting a new ride',
+      );
+    }
+
+    const activeRide = await this.tripRepository.findOne({
+      where: {
+        ride: { passengerId: userId },
+      },
+      relations: ['ride'],
+    });
+
+    if (activeRide && activeRide?.status !== TripStatus.REACHED_DESTINATION)
+      throw new ConflictException(
+        'Please complete your pending rides or cancel it to request a new ride',
+      );
+
+    this.validateDepartureGap(
+      new Date(createRideRequestData.departureStart.toISOString()),
+      new Date(createRideRequestData.departureEnd.toISOString()),
+    );
+
     const departureRange = `[${createRideRequestData.departureStart.toISOString()}, ${createRideRequestData.departureEnd.toISOString()}]`;
     const rideRequest = this.rideRequestRepository.create({
       passengerId: userId,
@@ -110,9 +161,10 @@ export class RideRequestService {
     const updatedPayload = { ...otherPayload };
     let departureTimeRange = existingRideRequest.departureTime;
     if (departureStart && departureEnd) {
-      if (departureStart > departureEnd) {
-        throw new BadRequestException('Start time must be before end time');
-      }
+      this.validateDepartureGap(
+        new Date(departureStart.toISOString()),
+        new Date(departureEnd.toISOString()),
+      );
       departureTimeRange = `[${departureStart.toISOString()}, ${departureEnd.toISOString()}]`;
     }
 
@@ -265,5 +317,39 @@ export class RideRequestService {
       message: 'Ride requests have been fetched successfully',
       rides: formattedRides,
     };
+  }
+
+  async getExpiredRideRequests() {
+    const now = new Date();
+
+    return (await this.rideRequestRepository.find()).filter(
+      (ride) => getDateRangeFloor(ride.departureTime) < now,
+    );
+  }
+
+  async deleteExpiredRequests(
+    request_id: string,
+  ): Promise<{ message: string }> {
+    if (!request_id) {
+      throw new BadRequestException('Request id is required');
+    }
+
+    const existingRideRequest = await this.rideRequestRepository.findOne({
+      where: {
+        id: request_id,
+      },
+    });
+
+    if (!existingRideRequest) {
+      throw new NotFoundException(
+        `Ride request with ID ${request_id} not found`,
+      );
+    }
+
+    await this.rideRequestRepository.softDelete({
+      id: request_id,
+    });
+
+    return { message: 'Ride request has been deleted successfully' };
   }
 }
