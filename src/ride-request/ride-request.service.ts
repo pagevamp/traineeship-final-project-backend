@@ -13,6 +13,9 @@ import { CreateRideRequestData } from './dto/create-ride-request-data';
 import { UpdateRideRequestData } from './dto/update-ride-request-data';
 import { GetRideResponseData } from './dto/get-ride-response-data';
 import { getStringMetadata } from '@/utils/clerk.utils';
+import { OnEvent } from '@nestjs/event-emitter';
+import { RideAcceptedEvent } from '@/event/ride-accepted-event';
+import { getDateRangeFloor } from '@/utils/date-range';
 
 @Injectable()
 export class RideRequestService {
@@ -22,6 +25,32 @@ export class RideRequestService {
     @InjectRepository(RideRequest)
     private readonly rideRequestRepository: Repository<RideRequest>,
   ) {}
+
+  //event listener for when a user accepts a ride
+  @OnEvent('ride.accepted')
+  async updateAcceptedAt(event: RideAcceptedEvent) {
+    const requestId = event.requestId;
+    const acceptedTime = event.acceptedAt;
+
+    const ride = await this.rideRequestRepository.findOneBy({ id: requestId });
+
+    if (!acceptedTime) {
+      throw new ConflictException('No acceptedAt date/time');
+    }
+
+    if (!ride) {
+      throw new NotFoundException('No such ride request');
+    }
+
+    if (getDateRangeFloor(ride.departureTime) < new Date()) {
+      throw new ConflictException('Ride cannot be updated now');
+    }
+
+    await this.rideRequestRepository.update(
+      { id: requestId },
+      { acceptedAt: acceptedTime },
+    );
+  }
 
   async create(
     userId: string,
